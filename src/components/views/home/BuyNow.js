@@ -1,4 +1,4 @@
-function Buy_Now() {
+function BuyNow() {
     return (
         <>
             <div class="rbt-buy-now-area bg-gradient-8 rbt-section-gap">
@@ -902,4 +902,4 @@ function Buy_Now() {
         </>
     );
 }
-export default Buy_Now;
+export default BuyNow;

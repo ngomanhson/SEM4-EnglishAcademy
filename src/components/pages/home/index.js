@@ -1,17 +1,13 @@
-import { Helmet } from "react-helmet";
 import Layout from "../../layouts";
-import Why_Choose from "../../views/home/Why-Choose";
-import World_Class from "../../views/home/World-Class";
-import Buy_Now from "../../views/home/Buy-Now";
-import Our_FAQ from "../../views/home/Our-FAQ";
+import BuyNow from "../../views/home/BuyNow";
+import OurFAQ from "../../views/home/OurFAQ";
+import WhyChoose from "../../views/home/WhyChoose";
+import WorldClass from "../../views/home/WorldClass";
 
 function Home() {
     return (
         <>
-            <Helmet>
-                <title>Home | English Academy</title>
-            </Helmet>
-            <Layout>
+            <Layout title="Home Page">
                 <div class="rbt-splash-slider d-flex align-items-center">
                     <div class="wrapper">
                         <div class="container-fluid">
@@ -172,13 +168,13 @@ function Home() {
                     </div>
                 </div>
 
-                <Why_Choose />
+                <WhyChoose />
 
-                <World_Class />
+                <WorldClass />
 
-                <Buy_Now />
+                <BuyNow />
 
-                <Our_FAQ />
+                <OurFAQ />
             </Layout>
         </>
     );
