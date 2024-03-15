@@ -1,4 +1,4 @@
-function Why_Choose() {
+function WhyChoose() {
     return (
         <>
             <div class="rbt-splash-coding-quality-area bg-color-white rbt-section-gapBottom">
@@ -504,4 +504,4 @@ function Why_Choose() {
         </>
     );
 }
-export default Why_Choose;
+export default WhyChoose;

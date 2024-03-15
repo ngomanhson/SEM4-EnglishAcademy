@@ -1,4 +1,4 @@
-function Our_FAQ() {
+function OurFAQ() {
     return (
         <>
             <div class="rbt-accordion-area accordion-style-1 rbt-accordion-color-white bg-color-darker rbt-section-gapBottom pt--60 pt_sm--0 overflow-hidden position-relative top-circle-shape-top overlpping-call-to-action">
@@ -350,4 +350,4 @@ function Our_FAQ() {
         </>
     );
 }
-export default Our_FAQ;
+export default OurFAQ;

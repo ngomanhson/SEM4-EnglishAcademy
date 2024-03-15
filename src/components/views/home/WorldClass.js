@@ -1,4 +1,4 @@
-function World_Class() {
+function WorldClass() {
     return (
         <>
             <div class="home-demo-area rbt-section-gap bg-gradient-6 splash-masonary-wrapper-activation">
@@ -1281,4 +1281,4 @@ function World_Class() {
         </>
     );
 }
-export default World_Class;
+export default WorldClass;
