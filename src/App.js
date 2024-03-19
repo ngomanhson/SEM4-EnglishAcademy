@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./components/pages/home";
+import Home from "./components/pages/Home";
+import Profile from "./components/pages/Profile";
 
 function App() {
     return (
@@ -8,6 +9,8 @@ function App() {
                 {/* Start Home */}
                 <Route path="/" element={<Home />} />
                 {/* End Home */}
+
+                <Route path="/profile" element={<Profile />} />
             </Routes>
         </div>
     );
