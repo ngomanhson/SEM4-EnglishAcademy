@@ -17788,11 +17788,17 @@ span.transparent-button:hover i {
   opacity: 0;
   margin-left: 15px;
 }
-.rbt-team-tab-thumb li a.active .thumb::after {
+.rbt-team-tab-thumb li button{
+  border: none;
+  background: transparent;
+}
+.rbt-team-tab-thumb li a.active .thumb::after,
+.rbt-team-tab-thumb li button.active .thumb::after  {
   background: var(--gradient-7);
   opacity: 0.5;
 }
-.rbt-team-tab-thumb li a.active .thumb::before {
+.rbt-team-tab-thumb li a.active .thumb::before,
+.rbt-team-tab-thumb li button.active .thumb::before  {
   opacity: 1;
   margin: 0;
 }
@@ -18359,7 +18365,7 @@ span.transparent-button:hover i {
   right: 0;
   height: 100%;
   width: 100%;
-  background: url(../images/shape/dots-2.html) repeat center/auto;
+  background: url(../images/shape/dots.png) repeat center/auto;
   top: 0;
   z-index: -1;
 }
