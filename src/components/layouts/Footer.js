@@ -1,52 +1,52 @@
 function Footer() {
     return (
         <>
-            <footer class="rbt-footer footer-style-1 bg-color-white overflow-hidden">
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row g-5">
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="footer-widget">
-                                    <div class="logo">
+            <footer className="rbt-footer footer-style-1 bg-color-white overflow-hidden">
+                <div className="footer-top">
+                    <div className="container">
+                        <div className="row g-5">
+                            <div className="col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div className="footer-widget">
+                                    <div className="logo">
                                         <a href="index.html">
                                             <img src="assets/images/logo/logo.png" alt="Edu-cause" />
                                         </a>
                                     </div>
 
-                                    <p class="description mt--20">We’re always in search for talented and motivated people. Don’t be shy introduce yourself!</p>
+                                    <p className="description mt--20">We’re always in search for talented and motivated people. Don’t be shy introduce yourself!</p>
 
-                                    <ul class="social-icon social-default justify-content-start">
+                                    <ul className="social-icon social-default justify-content-start">
                                         <li>
                                             <a href="https://www.facebook.com/">
-                                                <i class="feather-facebook"></i>
+                                                <i className="feather-facebook"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="https://www.twitter.com">
-                                                <i class="feather-twitter"></i>
+                                                <i className="feather-twitter"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="https://www.instagram.com/">
-                                                <i class="feather-instagram"></i>
+                                                <i className="feather-instagram"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="https://www.linkdin.com/">
-                                                <i class="feather-linkedin"></i>
+                                                <i className="feather-linkedin"></i>
                                             </a>
                                         </li>
                                     </ul>
 
-                                    <div class="contact-btn mt--30">
-                                        <a class="rbt-btn hover-icon-reverse btn-border-gradient radius-round" href="#">
-                                            <div class="icon-reverse-wrapper">
-                                                <span class="btn-text">Contact With Us</span>
-                                                <span class="btn-icon">
-                                                    <i class="feather-arrow-right"></i>
+                                    <div className="contact-btn mt--30">
+                                        <a className="rbt-btn hover-icon-reverse btn-border-gradient radius-round" href="#!">
+                                            <div className="icon-reverse-wrapper">
+                                                <span className="btn-text">Contact With Us</span>
+                                                <span className="btn-icon">
+                                                    <i className="feather-arrow-right"></i>
                                                 </span>
-                                                <span class="btn-icon">
-                                                    <i class="feather-arrow-right"></i>
+                                                <span className="btn-icon">
+                                                    <i className="feather-arrow-right"></i>
                                                 </span>
                                             </div>
                                         </a>
@@ -54,10 +54,10 @@ function Footer() {
                                 </div>
                             </div>
 
-                            <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                                <div class="footer-widget">
-                                    <h5 class="ft-title">Useful Links</h5>
-                                    <ul class="ft-link">
+                            <div className="col-lg-2 col-md-6 col-sm-6 col-12">
+                                <div className="footer-widget">
+                                    <h5 className="ft-title">Useful Links</h5>
+                                    <ul className="ft-link">
                                         <li>
                                             <a href="12-marketplace.html">Marketplace</a>
                                         </li>
@@ -83,10 +83,10 @@ function Footer() {
                                 </div>
                             </div>
 
-                            <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                                <div class="footer-widget">
-                                    <h5 class="ft-title">Our Company</h5>
-                                    <ul class="ft-link">
+                            <div className="col-lg-2 col-md-6 col-sm-6 col-12">
+                                <div className="footer-widget">
+                                    <h5 className="ft-title">Our Company</h5>
+                                    <ul className="ft-link">
                                         <li>
                                             <a href="contact.html">Contact Us</a>
                                         </li>
@@ -112,32 +112,32 @@ function Footer() {
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="footer-widget">
-                                    <h5 class="ft-title">Get Contact</h5>
-                                    <ul class="ft-link">
+                            <div className="col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div className="footer-widget">
+                                    <h5 className="ft-title">Get Contact</h5>
+                                    <ul className="ft-link">
                                         <li>
-                                            <span>Phone:</span> <a href="#">(406) 555-0120</a>
+                                            <span>Phone:</span> <a href="#!">(406) 555-0120</a>
                                         </li>
                                         <li>
                                             <span>E-mail:</span> <a href="mailto:hr@example.com">admin@example.com</a>
                                         </li>
                                     </ul>
 
-                                    <form class="newsletter-form mt--20" action="#">
-                                        <h6 class="w-600">Newsletter</h6>
-                                        <p class="description">
+                                    <form className="newsletter-form mt--20" action="#">
+                                        <h6 className="w-600">Newsletter</h6>
+                                        <p className="description">
                                             2000+ Our students are subscribe Around the World.
                                             <br /> Don’t be shy introduce yourself!
                                         </p>
 
-                                        <div class="form-group right-icon icon-email mb--20">
-                                            <label for="email">Enter Your Email Here</label>
+                                        <div className="form-group right-icon icon-email mb--20">
+                                            <label htmlFor="email">Enter Your Email Here</label>
                                             <input id="email" type="email" />
                                         </div>
 
-                                        <div class="form-group mb--0">
-                                            <button class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm" type="submit">
+                                        <div className="form-group mb--0">
+                                            <button className="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm" type="submit">
                                                 <span data-text="Submit Now">Submit Now</span>
                                             </button>
                                         </div>
@@ -147,23 +147,23 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div class="rbt-separator-mid">
-                    <div class="container">
-                        <hr class="rbt-separator m-0" />
+                <div className="rbt-separator-mid">
+                    <div className="container">
+                        <hr className="rbt-separator m-0" />
                     </div>
                 </div>
-                <div class="copyright-area copyright-style-1 ptb--20">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                                <p class="rbt-link-hover text-center text-lg-start">
+                <div className="copyright-area copyright-style-1 ptb--20">
+                    <div className="container">
+                        <div className="row align-items-center">
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
+                                <p className="rbt-link-hover text-center text-lg-start">
                                     Copyright © 2024 <a href="">English-Academy.</a> All Rights Reserved
                                 </p>
                             </div>
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                                <ul class="copyright-link rbt-link-hover justify-content-center justify-content-lg-end mt_sm--10 mt_md--10">
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
+                                <ul className="copyright-link rbt-link-hover justify-content-center justify-content-lg-end mt_sm--10 mt_md--10">
                                     <li>
-                                        <a href="#">Terms of service</a>
+                                        <a href="#!">Terms of service</a>
                                     </li>
                                     <li>
                                         <a href="privacy-policy.html">Privacy policy</a>

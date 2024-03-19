@@ -1327,59 +1327,59 @@ function Layout({ children, title }) {
             <Header />
 
             {/* header for mobile devices */}
-            <div class="popup-mobile-menu">
-                <div class="inner-wrapper">
-                    <div class="inner-top">
-                        <div class="content">
-                            <div class="logo">
+            <div className="popup-mobile-menu">
+                <div className="inner-wrapper">
+                    <div className="inner-top">
+                        <div className="content">
+                            <div className="logo">
                                 <a href="index.html">
                                     <img src="assets/images/logo/logo.png" alt="Education Logo Images" />
                                 </a>
                             </div>
-                            <div class="rbt-btn-close">
-                                <button class="close-button rbt-round-btn">
-                                    <i class="feather-x"></i>
+                            <div className="rbt-btn-close">
+                                <button className="close-button rbt-round-btn">
+                                    <i className="feather-x"></i>
                                 </button>
                             </div>
                         </div>
-                        <p class="description">Histudy is a education website template. You can customize all.</p>
-                        <ul class="navbar-top-left rbt-information-list justify-content-start">
+                        <p className="description">Histudy is a education website template. You can customize all.</p>
+                        <ul className="navbar-top-left rbt-information-list justify-content-start">
                             <li>
                                 <a href="mailto:hello@example.com">
-                                    <i class="feather-mail"></i>example@gmail.com
+                                    <i className="feather-mail"></i>example@gmail.com
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <i class="feather-phone"></i>(302) 555-0107
+                                <a href="#!">
+                                    <i className="feather-phone"></i>(302) 555-0107
                                 </a>
                             </li>
                         </ul>
                     </div>
 
-                    <nav class="mainmenu-nav">
-                        <ul class="mainmenu">
-                            <li class="with-megamenu has-menu-child-item position-static">
-                                <a href="#">
-                                    Home <i class="feather-chevron-down"></i>
+                    <nav className="mainmenu-nav">
+                        <ul className="mainmenu">
+                            <li className="with-megamenu has-menu-child-item position-static">
+                                <a href="#!">
+                                    Home <i className="feather-chevron-down"></i>
                                 </a>
-                                <div class="rbt-megamenu menu-skin-dark">
-                                    <div class="wrapper">
-                                        <div class="row row--15 home-plesentation-wrapper single-dropdown-menu-presentation">
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                <div className="rbt-megamenu menu-skin-dark">
+                                    <div className="wrapper">
+                                        <div className="row row--15 home-plesentation-wrapper single-dropdown-menu-presentation">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="01-main-demo.html">
                                                                 <img src="assets/images/splash/demo/h1.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="01-main-demo.html">
                                                                     Home Demo{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1388,20 +1388,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="12-marketplace.html">
                                                                 <img src="assets/images/splash/demo/h12.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="12-marketplace.html">
                                                                     Marketplace{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1410,20 +1410,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="04-kindergarten.html">
                                                                 <img src="assets/images/splash/demo/h4.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="04-kindergarten.html">
                                                                     kindergarten{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1432,20 +1432,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="13-university-classic.html">
                                                                 <img src="assets/images/splash/demo/h13.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="13-university-classic.html">
                                                                     University Classic{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1454,20 +1454,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="14-home-elegant.html">
                                                                 <img src="assets/images/splash/demo/h14.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="14-home-elegant.html">
                                                                     Home Elegant{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1476,20 +1476,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="09-gym-coaching.html">
                                                                 <img src="assets/images/splash/demo/h9.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="09-gym-coaching.html">
                                                                     Gym Coaching{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1498,20 +1498,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="03-online-school.html">
                                                                 <img src="assets/images/splash/demo/h3.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="03-online-school.html">
                                                                     Online School{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1520,20 +1520,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="06-university-status.html">
                                                                 <img src="assets/images/splash/demo/h6.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="06-university-status.html">
                                                                     University Status{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1542,20 +1542,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="15-home-technology.html">
                                                                 <img src="assets/images/splash/demo/h15.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="15-home-technology.html">
                                                                     Home Technology{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1564,20 +1564,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="07-instructor-portfolio.html">
                                                                 <img src="assets/images/splash/demo/h7.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="07-instructor-portfolio.html">
                                                                     Instructor Portfolio{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1586,20 +1586,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="08-language-academy.html">
                                                                 <img src="assets/images/splash/demo/h8.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="08-language-academy.html">
                                                                     Language Academy{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1608,20 +1608,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="11-single-course.html">
                                                                 <img src="assets/images/splash/demo/h11.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="11-single-course.html">
                                                                     Single Course{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1630,20 +1630,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="10-online-course.html">
                                                                 <img src="assets/images/splash/demo/h10.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="10-online-course.html">
                                                                     Online Course{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1652,20 +1652,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="05-classic-lms.html">
                                                                 <img src="assets/images/splash/demo/h5.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="05-classic-lms.html">
                                                                     Classic Lms{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1674,20 +1674,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
                                                             <a href="02-course-school.html">
                                                                 <img src="assets/images/splash/demo/h2.jpg" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
+                                                        <div className="content">
+                                                            <h4 className="title">
                                                                 <a href="02-course-school.html">
                                                                     Course School{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1696,20 +1696,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
-                                                            <a href="#">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
+                                                            <a href="#!">
                                                                 <img src="assets/images/splash/demo/coming-soon-1.png" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
-                                                                <a href="#">
+                                                        <div className="content">
+                                                            <h4 className="title">
+                                                                <a href="#!">
                                                                     Coming Soon{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1718,20 +1718,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
-                                                            <a href="#">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
+                                                            <a href="#!">
                                                                 <img src="assets/images/splash/demo/coming-soon-2.png" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
-                                                                <a href="#">
+                                                        <div className="content">
+                                                            <h4 className="title">
+                                                                <a href="#!">
                                                                     Coming Soon 2{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1740,20 +1740,20 @@ function Layout({ children, title }) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
-                                                <div class="demo-single">
-                                                    <div class="inner">
-                                                        <div class="thumbnail">
-                                                            <a href="#">
+                                            <div className="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
+                                                <div className="demo-single">
+                                                    <div className="inner">
+                                                        <div className="thumbnail">
+                                                            <a href="#!">
                                                                 <img src="assets/images/splash/demo/coming-soon-3.png" alt="Demo Images" />
                                                             </a>
                                                         </div>
-                                                        <div class="content">
-                                                            <h4 class="title">
-                                                                <a href="#">
+                                                        <div className="content">
+                                                            <h4 className="title">
+                                                                <a href="#!">
                                                                     Coming Soon 3{" "}
-                                                                    <span class="btn-icon">
-                                                                        <i class="feather-arrow-right"></i>
+                                                                    <span className="btn-icon">
+                                                                        <i className="feather-arrow-right"></i>
                                                                     </span>
                                                                 </a>
                                                             </h4>
@@ -1763,12 +1763,12 @@ function Layout({ children, title }) {
                                             </div>
                                         </div>
 
-                                        <div class="load-demo-btn text-center">
-                                            <a class="rbt-btn-link color-white" href="#">
+                                        <div className="load-demo-btn text-center">
+                                            <a className="rbt-btn-link color-white" href="#!">
                                                 Scroll to view more
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path
-                                                        fill-rule="evenodd"
+                                                        fillRule="evenodd"
                                                         d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
                                                     />
                                                 </svg>
@@ -1778,26 +1778,26 @@ function Layout({ children, title }) {
                                 </div>
                             </li>
 
-                            <li class="with-megamenu has-menu-child-item">
-                                <a href="#">
-                                    Courses <i class="feather-chevron-down"></i>
+                            <li className="with-megamenu has-menu-child-item">
+                                <a href="#!">
+                                    Courses <i className="feather-chevron-down"></i>
                                 </a>
-                                <div class="rbt-megamenu grid-item-2">
-                                    <div class="wrapper">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="mega-top-banner">
-                                                    <div class="content">
-                                                        <h4 class="title">Developer hub</h4>
-                                                        <p class="description">Start building fast, with code samples, key resources and more.</p>
+                                <div className="rbt-megamenu grid-item-2">
+                                    <div className="wrapper">
+                                        <div className="row">
+                                            <div className="col-lg-12">
+                                                <div className="mega-top-banner">
+                                                    <div className="content">
+                                                        <h4 className="title">Developer hub</h4>
+                                                        <p className="description">Start building fast, with code samples, key resources and more.</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row row--15">
-                                            <div class="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
-                                                <h3 class="rbt-short-title">Course Layout</h3>
-                                                <ul class="mega-menu-item">
+                                        <div className="row row--15">
+                                            <div className="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
+                                                <h3 className="rbt-short-title">Course Layout</h3>
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="course-filter-one-toggle.html">Filter One Toggle</a>
                                                     </li>
@@ -1821,9 +1821,9 @@ function Layout({ children, title }) {
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
-                                                <h3 class="rbt-short-title">Course Layout</h3>
-                                                <ul class="mega-menu-item">
+                                            <div className="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
+                                                <h3 className="rbt-short-title">Course Layout</h3>
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="course-card-3.html">Course Card Three</a>
                                                     </li>
@@ -1841,38 +1841,38 @@ function Layout({ children, title }) {
                                                     </li>
                                                     <li>
                                                         <a href="lesson.html">
-                                                            Course Lesson <span class="rbt-badge-card">New</span>
+                                                            Course Lesson <span className="rbt-badge-card">New</span>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="create-course.html">
-                                                            Create Course <span class="rbt-badge-card">New</span>
+                                                            Create Course <span className="rbt-badge-card">New</span>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <ul class="nav-quick-access">
+                                        <div className="row">
+                                            <div className="col-lg-12">
+                                                <ul className="nav-quick-access">
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="feather-folder-minus"></i> Quick Start Guide
+                                                        <a href="#!">
+                                                            <i className="feather-folder-minus"></i> Quick Start Guide
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="feather-folder-minus"></i> For Open Source
+                                                        <a href="#!">
+                                                            <i className="feather-folder-minus"></i> For Open Source
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="feather-folder-minus"></i> API Status
+                                                        <a href="#!">
+                                                            <i className="feather-folder-minus"></i> API Status
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="feather-folder-minus"></i> Support
+                                                        <a href="#!">
+                                                            <i className="feather-folder-minus"></i> Support
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -1882,15 +1882,15 @@ function Layout({ children, title }) {
                                 </div>
                             </li>
 
-                            <li class="has-dropdown has-menu-child-item">
-                                <a href="#">
+                            <li className="has-dropdown has-menu-child-item">
+                                <a href="#!">
                                     Dashboard
-                                    <i class="feather-chevron-down"></i>
+                                    <i className="feather-chevron-down"></i>
                                 </a>
-                                <ul class="submenu">
-                                    <li class="has-dropdown">
-                                        <a href="#">Instructor Dashboard</a>
-                                        <ul class="submenu">
+                                <ul className="submenu">
+                                    <li className="has-dropdown">
+                                        <a href="#!">Instructor Dashboard</a>
+                                        <ul className="submenu">
                                             <li>
                                                 <a href="instructor-dashboard.html">Dashboard</a>
                                             </li>
@@ -1929,9 +1929,9 @@ function Layout({ children, title }) {
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="has-dropdown">
-                                        <a href="#">Student Dashboard</a>
-                                        <ul class="submenu">
+                                    <li className="has-dropdown">
+                                        <a href="#!">Student Dashboard</a>
+                                        <ul className="submenu">
                                             <li>
                                                 <a href="student-dashboard.html">Dashboard</a>
                                             </li>
@@ -1961,16 +1961,16 @@ function Layout({ children, title }) {
                                 </ul>
                             </li>
 
-                            <li class="with-megamenu has-menu-child-item position-static">
-                                <a href="#">
-                                    Pages <i class="feather-chevron-down"></i>
+                            <li className="with-megamenu has-menu-child-item position-static">
+                                <a href="#!">
+                                    Pages <i className="feather-chevron-down"></i>
                                 </a>
-                                <div class="rbt-megamenu grid-item-4">
-                                    <div class="wrapper">
-                                        <div class="row row--15">
-                                            <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                                <h3 class="rbt-short-title">Get Started</h3>
-                                                <ul class="mega-menu-item">
+                                <div className="rbt-megamenu grid-item-4">
+                                    <div className="wrapper">
+                                        <div className="row row--15">
+                                            <div className="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
+                                                <h3 className="rbt-short-title">Get Started</h3>
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="about-us-01.html">About Us</a>
                                                     </li>
@@ -1998,9 +1998,9 @@ function Layout({ children, title }) {
                                                 </ul>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                                <h3 class="rbt-short-title">Get Started</h3>
-                                                <ul class="mega-menu-item">
+                                            <div className="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
+                                                <h3 className="rbt-short-title">Get Started</h3>
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="profile.html">Profile</a>
                                                     </li>
@@ -2028,12 +2028,12 @@ function Layout({ children, title }) {
                                                 </ul>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                                <h3 class="rbt-short-title">Shop Pages</h3>
-                                                <ul class="mega-menu-item">
+                                            <div className="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
+                                                <h3 className="rbt-short-title">Shop Pages</h3>
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="shop.html">
-                                                            Shop <span class="rbt-badge-card">Sale Anything</span>
+                                                            Shop <span className="rbt-badge-card">Sale Anything</span>
                                                         </a>
                                                     </li>
                                                     <li>
@@ -2059,61 +2059,61 @@ function Layout({ children, title }) {
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                                <div class="mega-category-item">
-                                                    <div class="nav-category-item">
-                                                        <div class="thumbnail">
-                                                            <div class="image">
+                                            <div className="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
+                                                <div className="mega-category-item">
+                                                    <div className="nav-category-item">
+                                                        <div className="thumbnail">
+                                                            <div className="image">
                                                                 <img src="assets/images/course/category-2.png" alt="Course images" />
                                                             </div>
                                                             <a href="course-filter-one-toggle.html">
                                                                 <span>Online Education</span>
-                                                                <i class="feather-chevron-right"></i>
+                                                                <i className="feather-chevron-right"></i>
                                                             </a>
                                                         </div>
                                                     </div>
 
-                                                    <div class="nav-category-item">
-                                                        <div class="thumbnail">
-                                                            <div class="image">
+                                                    <div className="nav-category-item">
+                                                        <div className="thumbnail">
+                                                            <div className="image">
                                                                 <img src="assets/images/course/category-1.png" alt="Course images" />
                                                             </div>
                                                             <a href="course-filter-one-toggle.html">
                                                                 <span>Language Club</span>
-                                                                <i class="feather-chevron-right"></i>
+                                                                <i className="feather-chevron-right"></i>
                                                             </a>
                                                         </div>
                                                     </div>
 
-                                                    <div class="nav-category-item">
-                                                        <div class="thumbnail">
-                                                            <div class="image">
+                                                    <div className="nav-category-item">
+                                                        <div className="thumbnail">
+                                                            <div className="image">
                                                                 <img src="assets/images/course/category-4.png" alt="Course images" />
                                                             </div>
                                                             <a href="course-filter-one-toggle.html">
                                                                 <span>University Status</span>
-                                                                <i class="feather-chevron-right"></i>
+                                                                <i className="feather-chevron-right"></i>
                                                             </a>
                                                         </div>
                                                     </div>
 
-                                                    <div class="nav-category-item">
-                                                        <div class="thumbnail">
+                                                    <div className="nav-category-item">
+                                                        <div className="thumbnail">
                                                             <a href="course-filter-one-toggle.html">
                                                                 <span>Course School</span>
-                                                                <i class="feather-chevron-right"></i>
+                                                                <i className="feather-chevron-right"></i>
                                                             </a>
                                                         </div>
                                                     </div>
 
-                                                    <div class="nav-category-item">
-                                                        <div class="thumbnail">
-                                                            <div class="image">
+                                                    <div className="nav-category-item">
+                                                        <div className="thumbnail">
+                                                            <div className="image">
                                                                 <img src="assets/images/course/category-9.png" alt="Course images" />
                                                             </div>
                                                             <a href="course-filter-one-toggle.html">
                                                                 <span>Academy</span>
-                                                                <i class="feather-chevron-right"></i>
+                                                                <i className="feather-chevron-right"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -2124,18 +2124,18 @@ function Layout({ children, title }) {
                                 </div>
                             </li>
 
-                            <li class="with-megamenu has-menu-child-item position-static">
-                                <a href="#">
-                                    Elements <i class="feather-chevron-down"></i>
+                            <li className="with-megamenu has-menu-child-item position-static">
+                                <a href="#!">
+                                    Elements <i className="feather-chevron-down"></i>
                                 </a>
-                                <div class="rbt-megamenu grid-item-3">
-                                    <div class="wrapper">
-                                        <div class="row row--15 single-dropdown-menu-presentation">
-                                            <div class="col-lg-4 col-xxl-4 single-mega-item">
-                                                <ul class="mega-menu-item">
+                                <div className="rbt-megamenu grid-item-3">
+                                    <div className="wrapper">
+                                        <div className="row row--15 single-dropdown-menu-presentation">
+                                            <div className="col-lg-4 col-xxl-4 single-mega-item">
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="style-guide.html">
-                                                            Style Guide <span class="rbt-badge-card">Hot</span>
+                                                            Style Guide <span className="rbt-badge-card">Hot</span>
                                                         </a>
                                                     </li>
                                                     <li>
@@ -2162,8 +2162,8 @@ function Layout({ children, title }) {
                                                 </ul>
                                             </div>
 
-                                            <div class="col-lg-4 col-xxl-4 single-mega-item">
-                                                <ul class="mega-menu-item">
+                                            <div className="col-lg-4 col-xxl-4 single-mega-item">
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="counterup.html">Counter</a>
                                                     </li>
@@ -2191,8 +2191,8 @@ function Layout({ children, title }) {
                                                 </ul>
                                             </div>
 
-                                            <div class="col-lg-4 col-xxl-4 single-mega-item">
-                                                <ul class="mega-menu-item">
+                                            <div className="col-lg-4 col-xxl-4 single-mega-item">
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="pricing.html">Pricing</a>
                                                     </li>
@@ -2215,22 +2215,22 @@ function Layout({ children, title }) {
                                                         <a href="instagram.html">Instagram Style</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">& More Coming</a>
+                                                        <a href="#!">& More Coming</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="btn-wrapper">
-                                                    <a class="rbt-btn btn-gradient hover-icon-reverse square btn-xl w-100 text-center mt--30 hover-transform-none" href="#">
-                                                        <span class="icon-reverse-wrapper">
-                                                            <span class="btn-text">Visit Histudy Template</span>
-                                                            <span class="btn-icon">
-                                                                <i class="feather-arrow-right"></i>
+                                        <div className="row">
+                                            <div className="col-lg-12">
+                                                <div className="btn-wrapper">
+                                                    <a className="rbt-btn btn-gradient hover-icon-reverse square btn-xl w-100 text-center mt--30 hover-transform-none" href="#!">
+                                                        <span className="icon-reverse-wrapper">
+                                                            <span className="btn-text">Visit Histudy Template</span>
+                                                            <span className="btn-icon">
+                                                                <i className="feather-arrow-right"></i>
                                                             </span>
-                                                            <span class="btn-icon">
-                                                                <i class="feather-arrow-right"></i>
+                                                            <span className="btn-icon">
+                                                                <i className="feather-arrow-right"></i>
                                                             </span>
                                                         </span>
                                                     </a>
@@ -2241,16 +2241,16 @@ function Layout({ children, title }) {
                                 </div>
                             </li>
 
-                            <li class="with-megamenu has-menu-child-item position-static">
-                                <a href="#">
-                                    Blog <i class="feather-chevron-down"></i>
+                            <li className="with-megamenu has-menu-child-item position-static">
+                                <a href="#!">
+                                    Blog <i className="feather-chevron-down"></i>
                                 </a>
-                                <div class="rbt-megamenu grid-item-3">
-                                    <div class="wrapper">
-                                        <div class="row row--15">
-                                            <div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
-                                                <h3 class="rbt-short-title">Blog Styles</h3>
-                                                <ul class="mega-menu-item">
+                                <div className="rbt-megamenu grid-item-3">
+                                    <div className="wrapper">
+                                        <div className="row row--15">
+                                            <div className="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
+                                                <h3 className="rbt-short-title">Blog Styles</h3>
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="blog-list.html">Blog List</a>
                                                     </li>
@@ -2275,9 +2275,9 @@ function Layout({ children, title }) {
                                                 </ul>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
-                                                <h3 class="rbt-short-title">Get Started</h3>
-                                                <ul class="mega-menu-item">
+                                            <div className="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
+                                                <h3 className="rbt-short-title">Get Started</h3>
+                                                <ul className="mega-menu-item">
                                                     <li>
                                                         <a href="post-format-quote.html">Post Format Quote</a>
                                                     </li>
@@ -2288,31 +2288,31 @@ function Layout({ children, title }) {
                                                         <a href="post-format-video.html">Post Format Video</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            Media Under Title <span class="rbt-badge-card">Coming</span>
+                                                        <a href="#!">
+                                                            Media Under Title <span className="rbt-badge-card">Coming</span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            Sticky Sidebar <span class="rbt-badge-card">Coming</span>
+                                                        <a href="#!">
+                                                            Sticky Sidebar <span className="rbt-badge-card">Coming</span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            Auto Masonry <span class="rbt-badge-card">Coming</span>
+                                                        <a href="#!">
+                                                            Auto Masonry <span className="rbt-badge-card">Coming</span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            Meta Overlaid <span class="rbt-badge-card">Coming</span>
+                                                        <a href="#!">
+                                                            Meta Overlaid <span className="rbt-badge-card">Coming</span>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </div>
 
-                                            <div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
-                                                <div class="rbt-ads-wrapper">
-                                                    <a class="d-block" href="#">
+                                            <div className="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
+                                                <div className="rbt-ads-wrapper">
+                                                    <a className="d-block" href="#!">
                                                         <img src="assets/images/service/mobile-cat.jpg" alt="Education Images" />
                                                     </a>
                                                 </div>
@@ -2324,34 +2324,34 @@ function Layout({ children, title }) {
                         </ul>
                     </nav>
 
-                    <div class="mobile-menu-bottom">
-                        <div class="rbt-btn-wrapper mb--20">
-                            <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="#">
+                    <div className="mobile-menu-bottom">
+                        <div className="rbt-btn-wrapper mb--20">
+                            <a className="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="#!">
                                 <span>Enroll Now</span>
                             </a>
                         </div>
 
-                        <div class="social-share-wrapper">
-                            <span class="rbt-short-title d-block">Find With Us</span>
-                            <ul class="social-icon social-default transparent-with-border justify-content-start mt--20">
+                        <div className="social-share-wrapper">
+                            <span className="rbt-short-title d-block">Find With Us</span>
+                            <ul className="social-icon social-default transparent-with-border justify-content-start mt--20">
                                 <li>
                                     <a href="https://www.facebook.com/">
-                                        <i class="feather-facebook"></i>
+                                        <i className="feather-facebook"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://www.twitter.com">
-                                        <i class="feather-twitter"></i>
+                                        <i className="feather-twitter"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://www.instagram.com/">
-                                        <i class="feather-instagram"></i>
+                                        <i className="feather-instagram"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://www.linkdin.com/">
-                                        <i class="feather-linkedin"></i>
+                                        <i className="feather-linkedin"></i>
                                     </a>
                                 </li>
                             </ul>
