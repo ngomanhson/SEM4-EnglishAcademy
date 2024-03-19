@@ -9,7 +9,7 @@ function Home() {
         <>
             <Layout title="Home Page">
                 <div class="rbt-splash-slider d-flex align-items-center">
-                    <div class="wrapper">
+                    <div class="wrapper" style={{ marginTop: "50px" }}>
                         <div class="container-fluid">
                             <div class="row align-items-center">
                                 <div class="col-lg-12 col-xl-6 order-2 order-xl-1">
