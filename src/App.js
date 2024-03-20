@@ -5,7 +5,7 @@ import EnrolledCourses from "./components/views/Profile/EnrolledCourses";
 import Wishlist from "./components/views/Profile/Wishlist";
 import Reviews from "./components/views/Profile/Reviews";
 import MyQuiz from "./components/views/Profile/MyQuiz";
-import UpdateInformation from "./components/views/Profile/UpdateInformation";
+import Settings from "./components/views/Profile/Settings";
 
 function App() {
     return (
@@ -21,8 +21,8 @@ function App() {
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/reviews" element={<Reviews />} />
                 <Route path="/my-quiz" element={<MyQuiz />} />
-                <Route path="/my-quiz" element={<MyQuiz />} />
-                <Route path="/update-information" element={<UpdateInformation />} />
+                <Route path="/settings" element={<Settings />} />
+
                 {/* ===== End Home ===== */}
             </Routes>
         </div>

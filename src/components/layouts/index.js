@@ -1324,6 +1324,7 @@ function Layout({ children, title }) {
             <Helmet>
                 <title> {title} | English Academy</title>
             </Helmet>
+
             <Header />
 
             {/* header for mobile devices */}
