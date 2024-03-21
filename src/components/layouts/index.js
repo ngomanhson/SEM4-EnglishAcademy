@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Helmet } from "react-helmet";
+import Separator from "./Separator";
 
 function Layout({ children, title }) {
     useEffect(() => {
@@ -1947,6 +1948,9 @@ function Layout({ children, title }) {
             </div>
 
             <div>{children}</div>
+
+            <Separator />
+
             <Footer />
         </>
     );
