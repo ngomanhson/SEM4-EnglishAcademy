@@ -1062,7 +1062,6 @@ ol ul {
 --------------------------------*/
 .rbt-header .mainmenu-nav .mainmenu li.with-megamenu .rbt-megamenu,
 .rbt-header .mainmenu-nav .mainmenu li.has-dropdown .submenu,
-.rbt-user-wrapper .rbt-user-menu-list-wrapper,
 .rbt-category-menu-wrapper .category-dropdown-menu,
 ul.rbt-dropdown-menu li .sub-menu {
     position: absolute;
@@ -1088,6 +1087,17 @@ ul.rbt-dropdown-menu li:hover .sub-menu {
     transition: clip 0.6s linear, opacity 0.4s linear;
 }
 
+
+.rbt-user-wrapper .rbt-user-menu-list-wrapper {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    visibility: hidden;
+    clip: rect(0px, 200vw, 0, 0px);
+    opacity: 0;
+    transition: opacity 0.4s linear, clip 0.6s linear, visibility 0s 0.4s;
+    transform: translateZ(0);
+}
 /*-----------------------------
     Rbt Background Gradient
 -------------------------------*/
@@ -21991,6 +22001,7 @@ body.modal-open {
 --------------------------*/
 .rbt-search-style-1 {
     position: relative;
+    flex: 1;
 }
 .rbt-search-style-1 input {
     height: 50px;
@@ -30478,5 +30489,9 @@ Course Sidebar
     color: #5ebbff;
     text-decoration: underline;
     font-weight: 300;
+}
+
+.lesson-save > i{
+    font-size: 20px;
 }
 /*# sourceMappingURL=../maps/style.css.map */

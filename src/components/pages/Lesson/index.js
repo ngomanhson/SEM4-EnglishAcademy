@@ -47,7 +47,12 @@ function Lesson() {
                                 <img src="assets/images/logo/logo.png" alt="English Academy" style={{ maxWidth: 150, objectFit: "cover" }} />
                             </div>
 
-                            <div className="lesson-search-wrapper">
+                            <div className="lesson-search-wrapper d-flex">
+                                <button className="btn text-primary d-flex flex-column align-items-center justify-content-center lesson-save">
+                                    <i className="fas fa-bookmark"></i>
+                                    Lesson saved
+                                </button>
+
                                 <form action="#" className="rbt-search-style-1">
                                     <input className="rbt-search-active" type="text" placeholder="Search Lesson" />
                                     <button className="search-btn disabled">

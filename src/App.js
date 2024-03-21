@@ -10,6 +10,10 @@ import Course from "./components/pages/Course/index.js";
 import CourseDetail from "./components/pages/Course/CourseDetail.js/index.js";
 import Lesson from "./components/pages/Lesson/index.js";
 import NotFound from "./components/pages/Other/NotFound.js";
+import Blog from "./components/pages/Blog/index.js";
+import BlogDetail from "./components/pages/Blog/BlogDetail.js";
+import ContactUs from "./components/pages/ContactUs.js";
+import Instructor from "./components/pages/Instructor/index.js";
 
 function App() {
     return (
@@ -24,9 +28,22 @@ function App() {
                 <Route path="/course-detail" element={<CourseDetail />} />
                 {/* ===== End Course ===== */}
 
+                {/* ===== Start Instructor ===== */}
+                <Route path="/instructor" element={<Instructor />} />
+                {/* ===== End Instructor ===== */}
+
                 {/* ===== Start Lesson ===== */}
                 <Route path="/lesson" element={<Lesson />} />
                 {/* ===== End Lesson ===== */}
+
+                {/* ===== Start Blog ===== */}
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog-detail" element={<BlogDetail />} />
+                {/* ===== End Blog ===== */}
+
+                {/* ===== Start Contact ===== */}
+                <Route path="/contact" element={<ContactUs />} />
+                {/* ===== End Contact ===== */}
 
                 {/* ===== Start Profile ===== */}
                 <Route path="/profile" element={<Profile />} />
