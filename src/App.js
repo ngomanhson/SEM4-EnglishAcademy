@@ -14,6 +14,7 @@ import Blog from "./components/pages/Blog/index.js";
 import BlogDetail from "./components/pages/Blog/BlogDetail.js";
 import ContactUs from "./components/pages/ContactUs.js";
 import Instructor from "./components/pages/Instructor/index.js";
+import Quiz from "./components/pages/Lesson/Quiz/index.js";
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
 
                 {/* ===== Start Lesson ===== */}
                 <Route path="/lesson" element={<Lesson />} />
+                <Route path="/lesson/quiz" element={<Quiz />} />
                 {/* ===== End Lesson ===== */}
 
                 {/* ===== Start Blog ===== */}
