@@ -33,7 +33,9 @@ function LayoutLesson({ children, title }) {
                     <div className="rbt-lesson-leftsidebar">
                         <div className="rbt-course-feature-inner rbt-search-activation">
                             <div className="section-title mt-3">
-                                <img src="assets/images/logo/logo.png" alt="English Academy" style={{ maxWidth: 150, objectFit: "cover" }} />
+                                <Link to="/">
+                                    <img src="assets/images/logo/logo.png" alt="English Academy" style={{ maxWidth: 150, objectFit: "cover" }} />
+                                </Link>
                             </div>
 
                             <div className="lesson-search-wrapper d-flex">

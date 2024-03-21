@@ -12,9 +12,11 @@ import Lesson from "./components/pages/Lesson/index.js";
 import NotFound from "./components/pages/Other/NotFound.js";
 import Blog from "./components/pages/Blog/index.js";
 import BlogDetail from "./components/pages/Blog/BlogDetail.js";
-import ContactUs from "./components/pages/ContactUs.js";
 import Instructor from "./components/pages/Instructor/index.js";
 import Quiz from "./components/pages/Lesson/Quiz/index.js";
+import ContactUs from "./components/pages/ContactUs/index.js";
+import Login from "./components/pages/Auth/Login.js";
+import Register from "./components/pages/Auth/Register.js";
 
 function App() {
     return (
@@ -54,7 +56,12 @@ function App() {
                 <Route path="/reviews" element={<Reviews />} />
                 <Route path="/my-quiz" element={<MyQuiz />} />
                 <Route path="/settings" element={<Settings />} />
-                {/* ===== End Home ===== */}
+                {/* ===== End Profile ===== */}
+
+                {/* ===== Start Auth page ===== */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                {/* ===== End Auth page ===== */}
 
                 {/* ===== Start Other page ===== */}
                 <Route path="*" element={<NotFound />} />
