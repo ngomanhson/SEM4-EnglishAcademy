@@ -137,7 +137,7 @@ function ChangePassword() {
                 </div>
                 <div className="col-12">
                     <div className="rbt-form-group mt-4">
-                        <label htmlFor="confirmPassword">Re-type New Password</label>
+                        <label htmlFor="confirmPassword">Conform New Password</label>
                         <div className="form-group__custom">
                             <input
                                 type={showConfirmPassword ? "text" : "password"}
