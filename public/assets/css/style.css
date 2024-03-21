@@ -19147,7 +19147,7 @@ span.transparent-button:hover i {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--color-primary);
+    /* background-color: var(--color-primary); */
     transition: 0.4s;
 }
 .form-group.focused label {
@@ -30504,4 +30504,10 @@ Course Sidebar
 .offcanvas-end {
     width: 700px;
 }
+
+.form-control:focus,
+.form-control.is-invalid:focus {
+    box-shadow: none;
+}
+
 /*# sourceMappingURL=../maps/style.css.map */
