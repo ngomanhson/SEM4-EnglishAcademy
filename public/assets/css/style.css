@@ -26700,6 +26700,12 @@ Course Sidebar
     padding-left: 30px;
     cursor: pointer;
 }
+.rbt-lesson-rightsidebar .rbt-checkbox-wrapper label,
+.rbt-lesson-rightsidebar .rbt-form-check label {
+    border-width: 1px;
+    height: 50px;
+    user-select: none;
+}
 .rbt-lesson-rightsidebar .rbt-checkbox-wrapper input[type="checkbox"]:checked ~ label,
 .rbt-lesson-rightsidebar .rbt-checkbox-wrapper input[type="radio"]:checked ~ label,
 .rbt-lesson-rightsidebar .rbt-form-check input[type="checkbox"]:checked ~ label,
@@ -26721,7 +26727,7 @@ Course Sidebar
 }
 .rbt-lesson-rightsidebar .rbt-checkbox-wrapper input[type="radio"] ~ label::after,
 .rbt-lesson-rightsidebar .rbt-form-check input[type="radio"] ~ label::after {
-    top: 41%;
+    top: 42%;
     left: 13px;
 }
 
@@ -30493,5 +30499,9 @@ Course Sidebar
 
 .lesson-save > i{
     font-size: 20px;
+}
+
+.offcanvas-end {
+    width: 700px;
 }
 /*# sourceMappingURL=../maps/style.css.map */
