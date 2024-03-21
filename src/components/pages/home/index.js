@@ -8,7 +8,6 @@ import Course from "../../views/Home/Course";
 import Education from "../../views/Home/Education";
 import Event from "../../views/Home/Event";
 import Newsletter from "../../views/Home/Newsletter";
-import Separator from "../../views/Home/Separator";
 import Teacher from "../../views/Home/Teacher";
 import WhyChoose from "../../views/Home/WhyChoose";
 
@@ -38,8 +37,6 @@ function Home() {
                     <Blog />
 
                     <Newsletter />
-
-                    <Separator />
                 </main>
             </Layout>
         </>
