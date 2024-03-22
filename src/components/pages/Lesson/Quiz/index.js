@@ -222,6 +222,8 @@ function Quiz() {
 
     const currentQuestion = questionData.questions[questionIndex];
 
+    console.log(submittedAnswers);
+
     return (
         <LayoutLesson title="Quiz">
             <div className="rbt-lesson-rightsidebar overflow-hidden">
