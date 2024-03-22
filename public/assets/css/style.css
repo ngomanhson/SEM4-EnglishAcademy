@@ -30540,4 +30540,11 @@ input[type="text"]::placeholder, input[type="password"]::placeholder, input[type
     color: #1d2630;
     font-weight: 500;
 }
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 /*# sourceMappingURL=../maps/style.css.map */

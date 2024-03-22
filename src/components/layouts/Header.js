@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Header() {
     return (
         <header className="rbt-header rbt-header-10">
-            <div className="rbt-sticky-placeholder" style={{ height: 0 }}></div>
+            <div className="rbt-sticky-placeholder"></div>
 
             <div className="rbt-header-top rbt-header-top-1 header-space-betwween bg-not-transparent bg-color-darker top-expended-activation">
                 <div className="container-fluid">

@@ -1,7 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Layout from "../../../layouts";
+import { useCallback, useEffect, useState } from "react";
+import api from "../../../../services/api";
+import url from "../../../../services/url";
+import { format } from "date-fns";
+import ReactPlayer from "react-player";
 
 function CourseDetail() {
+    const { slug } = useParams();
+
+    const [course, setCourse] = useState({});
+
+    const loadCourse = useCallback(async () => {
+        try {
+            const courseResponse = await api.get(url.ONLINE_COURSE.DETAIL + `/${slug}`);
+            setCourse(courseResponse.data.data);
+            console.log(courseResponse.data.data);
+        } catch (error) {
+            console.error("Error loading course:", error);
+        }
+    }, [slug]);
+
+    useEffect(() => {
+        loadCourse();
+    }, [loadCourse]);
+
     return (
         <Layout title="Course Detail">
             <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3">
@@ -14,17 +37,17 @@ function CourseDetail() {
                             <div className="content text-start">
                                 <ul className="page-list">
                                     <li className="rbt-breadcrumb-item">
-                                        <a href="index.html">Home</a>
+                                        <Link to="/">Home</Link>
                                     </li>
                                     <li>
                                         <div className="icon-right">
                                             <i className="feather-chevron-right"></i>
                                         </div>
                                     </li>
-                                    <li className="rbt-breadcrumb-item active">Web Development</li>
+                                    <li className="rbt-breadcrumb-item active">Course Detail</li>
                                 </ul>
-                                <h2 className="title">The Complete Histudy 2023: From Zero to Expert!</h2>
-                                <p className="description">Master Python by building 100 projects in 100 days. Learn data science, automation, build websites, games and apps!</p>
+                                <h2 className="title">{course.name}</h2>
+                                <p className="description">{course.description}</p>
 
                                 <div className="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
                                     <div className="feature-sin best-seller-badge">
@@ -37,22 +60,22 @@ function CourseDetail() {
                                     </div>
 
                                     <div className="feature-sin rating">
-                                        <a href="#!">4.8</a>
-                                        <a href="#!">
+                                        <Link to="">{course.star} </Link>{" "}
+                                        <Link to="">
                                             <i className="fa fa-star"></i>
-                                        </a>
-                                        <a href="#!">
+                                        </Link>
+                                        <Link to="">
                                             <i className="fa fa-star"></i>
-                                        </a>
-                                        <a href="#!">
+                                        </Link>
+                                        <Link to="">
                                             <i className="fa fa-star"></i>
-                                        </a>
-                                        <a href="#!">
+                                        </Link>
+                                        <Link to="">
                                             <i className="fa fa-star"></i>
-                                        </a>
-                                        <a href="#!">
+                                        </Link>
+                                        <Link to="">
                                             <i className="fa fa-star"></i>
-                                        </a>
+                                        </Link>
                                     </div>
 
                                     <div className="feature-sin total-rating">
@@ -66,23 +89,14 @@ function CourseDetail() {
                                     </div>
                                 </div>
 
-                                <div className="rbt-author-meta mb--20">
-                                    <div className="rbt-avater">
-                                        <a href="#!">
-                                            <img src="assets/images/client/avatar-02.png" alt="Sophia Jaymes" />
-                                        </a>
-                                    </div>
-                                    <div className="rbt-author-info">
-                                        By <a href="profile.html">Angela</a> In <a href="#!">Development</a>
-                                    </div>
-                                </div>
-
                                 <ul className="rbt-meta">
                                     <li>
-                                        <i className="feather-calendar"></i>Last updated 12/2024
+                                        <i className="feather-calendar"></i>
+                                        {course.createdDate && format(new Date(course.createdDate), "dd/MM/yyyy")}
                                     </li>
                                     <li>
-                                        <i className="feather-globe"></i>English
+                                        <i className="feather-globe"></i>
+                                        {course.language}
                                     </li>
                                     <li>
                                         <i className="feather-award"></i>Certified Course
@@ -100,7 +114,7 @@ function CourseDetail() {
                         <div className="col-lg-8">
                             <div className="course-details-content">
                                 <div className="rbt-course-feature-box rbt-shadow-box thuumbnail">
-                                    <img className="w-100" src="assets/images/course/course-01.jpg" alt="Card" />
+                                    <img className="w-100" src={course.image} alt="Card" />
                                 </div>
 
                                 <div className="rbt-inner-onepage-navigation sticky-top mt--30">
@@ -1329,23 +1343,11 @@ function CourseDetail() {
                         <div className="col-lg-4">
                             <div className="course-sidebar sticky-top rbt-shadow-box course-sidebar-top rbt-gradient-border">
                                 <div className="inner">
-                                    <a
-                                        className="video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15"
-                                        href="https://www.youtube.com/watch?v=nA1Aqp0sPQo"
-                                        style={{ display: "none" }}
-                                    >
+                                    <Link to="" className="video-popup-with-text  text-center popup-video sidebar-video-hidden mb--15">
                                         <div className="video-content">
-                                            <img className="w-100 rbt-radius" src="assets/images/others/video-01.jpg" alt="Video Images" />
-                                            <div className="position-to-top">
-                                                <span className="rbt-btn rounded-player-2 with-animation">
-                                                    <span className="play-icon"></span>
-                                                </span>
-                                            </div>
-                                            <span className="play-view-text d-block color-white">
-                                                <i className="feather-eye"></i> Preview this course
-                                            </span>
+                                            <ReactPlayer url={course.trailer} controls className="w-100" />
                                         </div>
-                                    </a>
+                                    </Link>
 
                                     <div className="content-item-content">
                                         <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
@@ -1362,15 +1364,6 @@ function CourseDetail() {
 
                                         <div className="add-to-card-button mt--15">
                                             <a className="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#!">
-                                                <span className="btn-text">Add to Cart</span>
-                                                <span className="btn-icon">
-                                                    <i className="feather-arrow-right"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-
-                                        <div className="buy-now-btn mt--15">
-                                            <a className="rbt-btn btn-border icon-hover w-100 d-block text-center" href="#!">
                                                 <span className="btn-text">Buy Now</span>
                                                 <span className="btn-icon">
                                                     <i className="feather-arrow-right"></i>

@@ -30,7 +30,7 @@ function App() {
 
                 {/* ===== Start Course ===== */}
                 <Route path="/courses" element={<Course />} />
-                <Route path="/course-detail" element={<CourseDetail />} />
+                <Route path="/course-detail/:slug" element={<CourseDetail />} />
                 {/* ===== End Course ===== */}
 
                 {/* ===== Start Instructor ===== */}
