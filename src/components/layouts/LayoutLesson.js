@@ -308,7 +308,7 @@ function LayoutLesson({ children, title }) {
                                                 </h5>
                                                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                             </div>
-                                            <div class="offcanvas-body">
+                                            <div className="offcanvas-body">
                                                 <p className="text-start" style={{ fontSize: "1.4rem" }}>
                                                     (If you see spam comments, please click report to help admin)
                                                 </p>
