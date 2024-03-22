@@ -1,241 +1,241 @@
 function Presentation() {
     return (
-        <div class="rbt-elements-presentation-area overflow-hidden bg-color-white rbt-section-gapBottom pt--80">
-            <div class="wrapper">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title text-center">
-                            <span class="subtitle bg-primary-opacity">You don't need any external plugins.</span>
-                            <h2 class="title">
-                                <strong class="theme-gradient">100+</strong> Elements included.
+        <div className="rbt-elements-presentation-area overflow-hidden bg-color-white rbt-section-gapBottom pt--80">
+            <div className="wrapper">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="section-title text-center">
+                            <span className="subtitle bg-primary-opacity">You don't need any external plugins.</span>
+                            <h2 className="title">
+                                <strong className="theme-gradient">100+</strong> Elements included.
                             </h2>
                         </div>
                     </div>
                 </div>
 
-                <div class="scroll-animation-all-wrapper">
-                    <div class="scroll-animation-wrapper mt--30">
-                        <div class="scroll-animation scroll-right-left">
-                            <div class="single-column-100">
-                                <div class="rbt-categori-list">
+                <div className="scroll-animation-all-wrapper">
+                    <div className="scroll-animation-wrapper mt--30">
+                        <div className="scroll-animation scroll-right-left">
+                            <div className="single-column-100">
+                                <div className="rbt-categori-list">
                                     <a href="#!">
-                                        <i class="feather-credit-card"></i> Accordion
+                                        <i className="feather-credit-card"></i> Accordion
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-folder"></i> Advance Tab
+                                        <i className="feather-folder"></i> Advance Tab
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-heart"></i> Brand
+                                        <i className="feather-heart"></i> Brand
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-link-2"></i> Button
+                                        <i className="feather-link-2"></i> Button
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-award"></i> Badge
+                                        <i className="feather-award"></i> Badge
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-layers"></i> Card
+                                        <i className="feather-layers"></i> Card
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-log-in"></i> Call To Action
+                                        <i className="feather-log-in"></i> Call To Action
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-hash"></i> Counter
+                                        <i className="feather-hash"></i> Counter
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-grid"></i> Categories
+                                        <i className="feather-grid"></i> Categories
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-mail"></i> Newsletter
+                                        <i className="feather-mail"></i> Newsletter
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-users"></i> Team
+                                        <i className="feather-users"></i> Team
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-twitter"></i> Social
+                                        <i className="feather-twitter"></i> Social
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-image"></i> Gallery
+                                        <i className="feather-image"></i> Gallery
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-dollar-sign"></i> Pricing
+                                        <i className="feather-dollar-sign"></i> Pricing
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-percent"></i> Progressbar
+                                        <i className="feather-percent"></i> Progressbar
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-message-square"></i> Testimonial
+                                        <i className="feather-message-square"></i> Testimonial
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-layout"></i> Service
+                                        <i className="feather-layout"></i> Service
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-map"></i> Split Area
+                                        <i className="feather-map"></i> Split Area
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-search"></i> Search Style
+                                        <i className="feather-search"></i> Search Style
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-instagram"></i> Instagram Style
+                                        <i className="feather-instagram"></i> Instagram Style
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-list"></i> List Style
+                                        <i className="feather-list"></i> List Style
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-airplay"></i> Creative Tab
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="scroll-animation-wrapper mt--30">
-                        <div class="scroll-animation scroll-left-right">
-                            <div class="single-column-100">
-                                <div class="rbt-categori-list">
-                                    <a href="#!">
-                                        <i class="feather-type"></i> Heading
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-align-center"></i> Section Title
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-arrow-right-circle"></i> Slider
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-rotate-ccw"></i> Flip Box
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-camera"></i> Fancy Image
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-chrome"></i> Group Image
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-circle"></i> Circle Badge
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-toggle-left"></i> Creative Badge
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-link"></i> Animated Button
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-globe"></i> Language Switcher
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-gift"></i> Offer Banner
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-video"></i> Video Popup
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-clock"></i> Timeline
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-code"></i> Carousel Testimonial
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-award"></i> Event Item
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-user-check"></i> Team Member
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-star"></i> Review
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-voicemail"></i> Subscribe
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-jash"></i> Counter
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-skip-back"></i> Go to Top
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-filter"></i> Isotope Filter
-                                    </a>
-                                    <a href="#!">
-                                        <i class="feather-bookmark"></i> Bookmark
+                                        <i className="feather-airplay"></i> Creative Tab
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="scroll-animation-wrapper mt--30">
-                        <div class="scroll-animation scroll-right-left">
-                            <div class="single-column-100">
-                                <div class="rbt-categori-list">
+                    <div className="scroll-animation-wrapper mt--30">
+                        <div className="scroll-animation scroll-left-right">
+                            <div className="single-column-100">
+                                <div className="rbt-categori-list">
                                     <a href="#!">
-                                        <i class="feather-bold"></i> Animated Big Text
+                                        <i className="feather-type"></i> Heading
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-user-plus"></i> Instructor Group
+                                        <i className="feather-align-center"></i> Section Title
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-heart"></i> Offer Badge
+                                        <i className="feather-arrow-right-circle"></i> Slider
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-file-text"></i> Exam Preparation
+                                        <i className="feather-rotate-ccw"></i> Flip Box
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-box"></i> Modal
+                                        <i className="feather-camera"></i> Fancy Image
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-copy"></i> Pricing Switcher
+                                        <i className="feather-chrome"></i> Group Image
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-database"></i> Step Box
+                                        <i className="feather-circle"></i> Circle Badge
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-credit-card"></i> Tuition &amp; Fees Table
+                                        <i className="feather-toggle-left"></i> Creative Badge
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-bar-chart"></i> Single Pricing
+                                        <i className="feather-link"></i> Animated Button
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-more-horizontal"></i> Contact From
+                                        <i className="feather-globe"></i> Language Switcher
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-watch"></i>Countdown Timer
+                                        <i className="feather-gift"></i> Offer Banner
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-pie-chart"></i> Radial Progress
+                                        <i className="feather-video"></i> Video Popup
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-command"></i> Parallax
+                                        <i className="feather-clock"></i> Timeline
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-search"></i> Advance Search
+                                        <i className="feather-code"></i> Carousel Testimonial
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-tv"></i> Content Box
+                                        <i className="feather-award"></i> Event Item
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-shopping-cart"></i> Minicart
+                                        <i className="feather-user-check"></i> Team Member
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-sidebar"></i> Offcanvas
+                                        <i className="feather-star"></i> Review
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-chevrons-right"></i> Image Carousel
+                                        <i className="feather-voicemail"></i> Subscribe
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-italic"></i> Sliding Heading
+                                        <i className="feather-jash"></i> Counter
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-paperclip"></i> Tag cloud
+                                        <i className="feather-skip-back"></i> Go to Top
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-menu"></i> Hamburger
+                                        <i className="feather-filter"></i> Isotope Filter
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-zap"></i> Advance Dropdown
+                                        <i className="feather-bookmark"></i> Bookmark
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="scroll-animation-wrapper mt--30">
+                        <div className="scroll-animation scroll-right-left">
+                            <div className="single-column-100">
+                                <div className="rbt-categori-list">
+                                    <a href="#!">
+                                        <i className="feather-bold"></i> Animated Big Text
                                     </a>
                                     <a href="#!">
-                                        <i class="feather-skip-forward"></i> Pagination
+                                        <i className="feather-user-plus"></i> Instructor Group
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-heart"></i> Offer Badge
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-file-text"></i> Exam Preparation
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-box"></i> Modal
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-copy"></i> Pricing Switcher
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-database"></i> Step Box
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-credit-card"></i> Tuition &amp; Fees Table
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-bar-chart"></i> Single Pricing
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-more-horizontal"></i> Contact From
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-watch"></i>Countdown Timer
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-pie-chart"></i> Radial Progress
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-command"></i> Parallax
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-search"></i> Advance Search
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-tv"></i> Content Box
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-shopping-cart"></i> Minicart
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-sidebar"></i> Offcanvas
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-chevrons-right"></i> Image Carousel
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-italic"></i> Sliding Heading
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-paperclip"></i> Tag cloud
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-menu"></i> Hamburger
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-zap"></i> Advance Dropdown
+                                    </a>
+                                    <a href="#!">
+                                        <i className="feather-skip-forward"></i> Pagination
                                     </a>
                                 </div>
                             </div>
@@ -243,10 +243,10 @@ function Presentation() {
                     </div>
                 </div>
 
-                {/* <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title text-center mt--30">
-                            <span class="rbt-title-style-2">Save your time and money by Using Ready Elements</span>
+                {/* <div className="row">
+                    <div className="col-lg-12">
+                        <div className="section-title text-center mt--30">
+                            <span className="rbt-title-style-2">Save your time and money by Using Ready Elements</span>
                         </div>
                     </div>
                 </div> */}

@@ -73,71 +73,85 @@ function Register() {
                 <div className="row gy-5 row--30">
                     <div className="col-lg-5 mx-auto">
                         <div className="rbt-contact-form contact-form-style-1 max-width-auto">
-                            <h3 className="title">Register</h3>
+                            <div className="text-center mb-4">
+                                <img src="assets/images/logo/logo.png" alt="English Academy" width={170} />
+                                <h5 className="title mb-0 fw-normal">Sign up with your work email.</h5>
+                            </div>
+
                             <form className="max-width-auto" onSubmit={handleRegister}>
-                                <div className="form-group">
-                                    <input type="text" name="fullname" className={`form-control ${formErrors.fullname ? "is-invalid" : ""}`} value={formData.fullname} onChange={handleChange} />
-                                    <label>
+                                <div className="rbt-form-group mb-3">
+                                    <label for="fullname" style={{ fontSize: 14, color: "#000" }} className="mb-2">
                                         Full Name <span className="text-danger">*</span>
                                     </label>
-                                    <span className="focus-border"></span>
-
-                                    {formErrors.fullname && <p className="invalid-feedback">{formErrors.fullname}</p>}
+                                    <div className="form-group__custom mb-3">
+                                        <input
+                                            type="text"
+                                            name="fullname"
+                                            className={`form-control ${formErrors.fullname ? "is-invalid" : ""}`}
+                                            placeholder="Enter your fullname"
+                                            value={formData.fullname}
+                                            onChange={handleChange}
+                                            autoFocus
+                                        />
+                                        {formErrors.fullname && <p className="invalid-feedback">{formErrors.fullname}</p>}
+                                    </div>
                                 </div>
-                                <div className="form-group">
-                                    <input type="email" name="email" className={`form-control ${formErrors.email ? "is-invalid" : ""}`} value={formData.email} onChange={handleChange} />
-                                    {formErrors.email && <p className="invalid-feedback">{formErrors.email}</p>}
-                                    <label>
-                                        Email address <span className="text-danger">*</span>
+
+                                <div className="rbt-form-group  mb-3">
+                                    <label for="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
+                                        Email Address <span className="text-danger">*</span>
                                     </label>
-                                    <span className="focus-border"></span>
+                                    <div className="form-group__custom mb-3">
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            className={`form-control ${formErrors.fullname ? "is-invalid" : ""}`}
+                                            placeholder="Email Address"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                        />
+                                        {formErrors.email && <p className="invalid-feedback">{formErrors.email}</p>}
+                                    </div>
                                 </div>
 
-                                <div className="form-group">
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        name="password"
-                                        className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                    />
-                                    {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
-                                    {!formErrors.password && (
-                                        <span className="view-password" onClick={handleTogglePassword}>
-                                            {!showPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
-                                        </span>
-                                    )}
-                                    <label>
+                                <div className="rbt-form-group  mb-3">
+                                    <label for="password" style={{ fontSize: 14, color: "#000" }} className="mb-2">
                                         Password <span className="text-danger">*</span>
                                     </label>
-                                    <span className="focus-border"></span>
+                                    <div className="form-group__custom mb-3">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
+                                            name="password"
+                                            placeholder="******"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                        />
+                                        {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
+                                        {!formErrors.password && (
+                                            <span className="view-password" onClick={handleTogglePassword}>
+                                                {!showPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
 
-                                <p className="rbt-checkbox-wrapper">
-                                    <input id="rbt-checkbox-2" name="rbt-checkbox-2" type="checkbox" value="yes" />
-                                    <label htmlFor="rbt-checkbox-2">Accept the Terms and Privacy Policy</label>
-                                </p>
+                                <div class="rbt-checkbox">
+                                    <input type="checkbox" id="agree" name="agree" />
+                                    <label for="agree">I agree to all the Terms & Condition</label>
+                                </div>
 
-                                <div className="form-submit-group">
-                                    <button type="submit" className="rbt-btn btn-md btn-gradient hover-icon-reverse w-100">
-                                        <span className="icon-reverse-wrapper">
-                                            <span className="btn-text">Register</span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                        </span>
+                                <div className="mt-4">
+                                    <button type="submit" className="rbt-btn btn-md fw-normal w-100" style={{ fontSize: 15 }}>
+                                        Register
                                     </button>
                                 </div>
 
-                                <div className="text-center mt-4" style={{ fontSize: 16, fontWeight: 300 }}>
-                                    Already have an account?{" "}
-                                    <Link to="/login" className="text-primary">
-                                        Login
+                                <div class="text-center mt-4" style={{ fontSize: 16, fontWeight: 300 }}>
+                                    Do you already have an account?{" "}
+                                    <Link to="/login" href="register.html" className="text-primary">
+                                        Login now.
                                     </Link>
-                                    .
                                 </div>
                             </form>
                         </div>

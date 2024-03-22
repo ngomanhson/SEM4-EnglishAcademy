@@ -59,36 +59,42 @@ function Login() {
                 <div className="row gy-5 row--30">
                     <div className="col-lg-5 mx-auto">
                         <div className="rbt-contact-form contact-form-style-1 max-width-auto">
-                            <h3 className="title">Login</h3>
-                            <form onSubmit={handleLogin} className="max-width-auto">
-                                <div className="form-group">
-                                    <input type="email" name="email" className={`form-control ${formErrors.email ? "is-invalid" : ""}`} value={formData.email} onChange={handleChange} />
-                                    {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
-                                    <label>
-                                        Email <span className="text-danger">*</span>
-                                    </label>
-                                    <span className="focus-border"></span>
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        onClick={handleTogglePassword}
-                                    />
-                                    {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
-                                    {!formErrors.password && (
-                                        <span className="view-password" onClick={handleTogglePassword}>
-                                            {!showPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
-                                        </span>
-                                    )}
+                            <div className="text-center mb-4">
+                                <img src="assets/images/logo/logo.png" alt="English Academy" width={170} />
+                                <h5 className="title mb-0 fw-normal">Login with your email</h5>
+                            </div>
 
-                                    <label>
-                                        Password <span className="text-danger">*</span>
-                                    </label>
-                                    <span className="focus-border"></span>
+                            <form className="max-width-auto" onSubmit={handleLogin}>
+                                <div className="rbt-form-group mb-3">
+                                    <input
+                                        type="email"
+                                        className={`form-control ${formErrors.email ? "is-invalid" : ""}`}
+                                        placeholder="Email Address"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        autoFocus
+                                    />
+                                    {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
+                                </div>
+
+                                <div className="rbt-form-group mt-4 mb-3">
+                                    <div className="form-group__custom mb-3">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
+                                            name="password"
+                                            placeholder="Password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                        />
+                                        {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
+                                        {!formErrors.password && (
+                                            <span className="view-password" onClick={handleTogglePassword}>
+                                                {!showPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="row mb--30">
@@ -100,35 +106,45 @@ function Login() {
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="rbt-lost-password text-end">
-                                            <a className="rbt-btn-link" href="#!">
-                                                Lost your password?
-                                            </a>
+                                            <Link to="/forgot-password" className="rbt-btn-link">
+                                                Forgot Password?
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="form-submit-group">
-                                    <button type="submit" className="rbt-btn btn-md btn-gradient hover-icon-reverse w-100">
-                                        <span className="icon-reverse-wrapper">
-                                            <span className="btn-text">Log In</span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                        </span>
+                                <div className="mt-4">
+                                    <button type="submit" className="rbt-btn btn-md fw-normal w-100" style={{ fontSize: 15 }}>
+                                        Login
                                     </button>
                                 </div>
-
-                                <div className="text-center mt-4" style={{ fontSize: 16, fontWeight: 300 }}>
-                                    Don't have an account?{" "}
-                                    <Link to="/register" href="register.html" className="text-primary">
-                                        Register Now
-                                    </Link>
-                                    .
-                                </div>
                             </form>
+
+                            <div className="saprator my-3">
+                                <span>OR</span>
+                            </div>
+
+                            <ul className="social-icon social-default">
+                                <li>
+                                    <a href="https://www.facebook.com/">
+                                        <i className="feather-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.twitter.com">
+                                        <i className="feather-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/">
+                                        <i className="feather-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkdin.com/">
+                                        <i className="feather-linkedin"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
