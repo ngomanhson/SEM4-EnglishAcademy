@@ -10,6 +10,7 @@ import Event from "../../views/Home/Event";
 import Newsletter from "../../views/Home/Newsletter";
 import Teacher from "../../views/Home/Teacher";
 import WhyChoose from "../../views/Home/WhyChoose";
+import Presentation from "../../views/Home/Presentation";
 
 function Home() {
     return (
@@ -24,11 +25,11 @@ function Home() {
 
                     <AboutUs />
 
-                    <CallToAction />
+                    <Presentation />
 
-                    <WhyChoose />
+                    {/* <CallToAction /> */}
 
-                    <Education />
+                    {/* <Education /> */}
 
                     <Event />
 
