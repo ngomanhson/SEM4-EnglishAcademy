@@ -17,6 +17,8 @@ import Quiz from "./components/pages/Lesson/Quiz/index.js";
 import ContactUs from "./components/pages/ContactUs/index.js";
 import Login from "./components/pages/Auth/Login.js";
 import Register from "./components/pages/Auth/Register.js";
+import ForgotPassword from "./components/pages/Auth/ForgotPassword.js";
+import ResetPassword from "./components/pages/Auth/ResetPassword.js";
 
 function App() {
     return (
@@ -61,6 +63,8 @@ function App() {
                 {/* ===== Start Auth page ===== */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
                 {/* ===== End Auth page ===== */}
 
                 {/* ===== Start Other page ===== */}

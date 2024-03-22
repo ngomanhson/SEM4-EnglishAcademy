@@ -54,22 +54,22 @@ function Login() {
         }
     };
     return (
-        <div class="rbt-elements-area bg-color-white rbt-section-gap">
-            <div class="container">
-                <div class="row gy-5 row--30">
-                    <div class="col-lg-5 mx-auto">
-                        <div class="rbt-contact-form contact-form-style-1 max-width-auto">
-                            <h3 class="title">Login</h3>
-                            <form onSubmit={handleLogin} class="max-width-auto">
-                                <div class="form-group">
+        <div className="rbt-elements-area bg-color-white rbt-section-gap">
+            <div className="container">
+                <div className="row gy-5 row--30">
+                    <div className="col-lg-5 mx-auto">
+                        <div className="rbt-contact-form contact-form-style-1 max-width-auto">
+                            <h3 className="title">Login</h3>
+                            <form onSubmit={handleLogin} className="max-width-auto">
+                                <div className="form-group">
                                     <input type="email" name="email" className={`form-control ${formErrors.email ? "is-invalid" : ""}`} value={formData.email} onChange={handleChange} />
                                     {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
                                     <label>
                                         Email <span className="text-danger">*</span>
                                     </label>
-                                    <span class="focus-border"></span>
+                                    <span className="focus-border"></span>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
@@ -88,40 +88,40 @@ function Login() {
                                     <label>
                                         Password <span className="text-danger">*</span>
                                     </label>
-                                    <span class="focus-border"></span>
+                                    <span className="focus-border"></span>
                                 </div>
 
-                                <div class="row mb--30">
-                                    <div class="col-lg-6">
-                                        <div class="rbt-checkbox">
+                                <div className="row mb--30">
+                                    <div className="col-lg-6">
+                                        <div className="rbt-checkbox">
                                             <input type="checkbox" id="rememberMe" name="rememberMe" />
-                                            <label for="rememberMe">Remember me</label>
+                                            <label htmlFor="rememberMe">Remember me</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="rbt-lost-password text-end">
-                                            <a class="rbt-btn-link" href="#!">
+                                    <div className="col-lg-6">
+                                        <div className="rbt-lost-password text-end">
+                                            <a className="rbt-btn-link" href="#!">
                                                 Lost your password?
                                             </a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-submit-group">
-                                    <button type="submit" class="rbt-btn btn-md btn-gradient hover-icon-reverse w-100">
-                                        <span class="icon-reverse-wrapper">
-                                            <span class="btn-text">Log In</span>
-                                            <span class="btn-icon">
-                                                <i class="feather-arrow-right"></i>
+                                <div className="form-submit-group">
+                                    <button type="submit" className="rbt-btn btn-md btn-gradient hover-icon-reverse w-100">
+                                        <span className="icon-reverse-wrapper">
+                                            <span className="btn-text">Log In</span>
+                                            <span className="btn-icon">
+                                                <i className="feather-arrow-right"></i>
                                             </span>
-                                            <span class="btn-icon">
-                                                <i class="feather-arrow-right"></i>
+                                            <span className="btn-icon">
+                                                <i className="feather-arrow-right"></i>
                                             </span>
                                         </span>
                                     </button>
                                 </div>
 
-                                <div class="text-center mt-4" style={{ fontSize: 16, fontWeight: 300 }}>
+                                <div className="text-center mt-4" style={{ fontSize: 16, fontWeight: 300 }}>
                                     Don't have an account?{" "}
                                     <Link to="/register" href="register.html" className="text-primary">
                                         Register Now

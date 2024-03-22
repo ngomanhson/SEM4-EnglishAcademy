@@ -1087,7 +1087,6 @@ ul.rbt-dropdown-menu li:hover .sub-menu {
     transition: clip 0.6s linear, opacity 0.4s linear;
 }
 
-
 .rbt-user-wrapper .rbt-user-menu-list-wrapper {
     position: absolute;
     top: 100%;
@@ -8152,7 +8151,7 @@ textarea {
     box-shadow: none;
     padding: 0 15px;
     outline: none;
-    border: var(--border-width) solid var(--color-border);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius);
     color: var(--color-body);
     box-shadow: var(--shadow-10);
@@ -19006,11 +19005,11 @@ span.transparent-button:hover i {
 }
 
 .rbt-contact-form.contact-form-style-1 {
-    padding: 50px;
+    padding: 40px;
     position: relative;
     z-index: 1;
     max-width: 490px;
-    padding-left: 60px;
+    /* padding-left: 60px; */
     z-index: 2;
     background: var(--color-white);
     box-shadow: var(--shadow-1);
@@ -30497,7 +30496,7 @@ Course Sidebar
     font-weight: 300;
 }
 
-.lesson-save > i{
+.lesson-save > i {
     font-size: 20px;
 }
 
@@ -30510,4 +30509,9 @@ Course Sidebar
     box-shadow: none;
 }
 
+
+input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder, input[type="number"]::placeholder{
+    font-weight: 300;
+    font-size: 15px;
+}
 /*# sourceMappingURL=../maps/style.css.map */
