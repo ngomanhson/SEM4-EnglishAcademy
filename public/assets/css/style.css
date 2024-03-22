@@ -30514,4 +30514,30 @@ input[type="text"]::placeholder, input[type="password"]::placeholder, input[type
     font-weight: 300;
     font-size: 15px;
 }
+
+.contact-form-style-1 .saprator {
+    position: relative;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+.contact-form-style-1 .saprator:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e7eaee;
+    z-index: 1;
+}
+.contact-form-style-1 .saprator span {
+    font-size: 1.5rem;
+    padding: 8px 24px;
+    background: #ffffff;
+    z-index: 5;
+    text-transform: capitalize;
+    color: #1d2630;
+    font-weight: 500;
+}
 /*# sourceMappingURL=../maps/style.css.map */
