@@ -16319,27 +16319,27 @@ span.transparent-button:hover i {
     height: auto;
 }
 .rbt-accordion-style.for-right-content .rbt-course-main-content li a,
-.rbt-accordion-style.for-right-content .rbt-course-main-content li p {
+.rbt-accordion-style.for-right-content .rbt-course-main-content li .wrap {
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: nowrap;
     padding: 10px 16px;
 }
-.rbt-accordion-style.for-right-content .rbt-course-main-content li p .course-content-left,
-.rbt-accordion-style.for-right-content .rbt-course-main-content li a .course-content-left {
+.rbt-accordion-style.for-right-content .rbt-course-main-content li .wrap .course-content-left,
+.rbt-accordion-style.for-right-content .rbt-course-main-content li .wrap .course-content-left {
     padding-right: 15px;
     align-items: flex-start;
 }
-.rbt-accordion-style.for-right-content .rbt-course-main-content li p .course-content-left i,
+.rbt-accordion-style.for-right-content .rbt-course-main-content li .wrap .course-content-left i,
 .rbt-accordion-style.for-right-content .rbt-course-main-content li a .course-content-left i {
     margin-top: 3px;
     color: #808b9a;
 }
 
 .rbt-course-main-content li a.active span.time,
-.rbt-course-main-content li p.active span.time,
+.rbt-course-main-content li .wrap.active span.time,
 .rbt-accordion-style.for-right-content .rbt-course-main-content li a.active .course-content-left i,
-.rbt-accordion-style.for-right-content .rbt-course-main-content li p.active .course-content-left i  {
+.rbt-accordion-style.for-right-content .rbt-course-main-content li .wrap.active .course-content-left i  {
     color: #fff;
 }
 .rbt-accordion-style.for-right-content .card .card-header {
@@ -25657,7 +25657,7 @@ blockquote.has-text-align-right cite,
     Video Course Content  
 ----------------------------*/
 .rbt-course-main-content li a,
-.rbt-course-main-content li p {
+.rbt-course-main-content li .wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25665,7 +25665,7 @@ blockquote.has-text-align-right cite,
 }
 @media only screen and (max-width: 575px) {
     .rbt-course-main-content li a,
-    .rbt-course-main-content li p {
+    .rbt-course-main-content li .wrap {
         display: block;
     }
 }

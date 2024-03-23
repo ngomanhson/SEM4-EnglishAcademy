@@ -20,19 +20,10 @@ function Lesson() {
                 <div className="rbt-lesson-rightsidebar overflow-hidden lesson-video">
                     <div className="lesson-top-bar">
                         <div className="lesson-top-left">
-                            {/* <div className="rbt-lesson-toggle">
-                                <button onClick={handleClose} className="lesson-toggle-active btn-round-white-opacity" title="Toggle Sidebar">
-                                    {closeSidebar ? <i className="feather-arrow-right"></i> : <i className="feather-arrow-left"></i>}
-                                </button>
-                            </div> */}
                             <h5>The Complete Histudy 2023: From Zero to Expert!</h5>
                         </div>
                         <div className="lesson-top-right">
-                            <div className="rbt-btn-close">
-                                {/* <a href="course-details.html" title="Go Back to Course" className="rbt-round-btn">
-                                        <i className="feather-x"></i>
-                                    </a> */}
-                            </div>
+                            <div className="rbt-btn-close"></div>
                         </div>
                     </div>
                     <div className="inner">

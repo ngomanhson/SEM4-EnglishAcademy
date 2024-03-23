@@ -204,7 +204,7 @@ function CourseDetail() {
                                                                             return (
                                                                                 <li key={topicItem.id}>
                                                                                     {topicItem.status === false ? (
-                                                                                        <p>
+                                                                                        <div className="wrap">
                                                                                             <div className="course-content-left">
                                                                                                 <div className="d-flex align-content-center">
                                                                                                     <i className="feather-play-circle mt-3"></i>
@@ -219,7 +219,7 @@ function CourseDetail() {
                                                                                                     <i className="feather-lock"></i>
                                                                                                 </span>
                                                                                             </div>
-                                                                                        </p>
+                                                                                        </div>
                                                                                     ) : (
                                                                                         <Link to={`/lesson/${topic.slug}`}>
                                                                                             <div className="course-content-left">
