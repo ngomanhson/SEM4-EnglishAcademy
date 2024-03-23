@@ -1,8 +1,8 @@
 import Layout from "../../layouts";
 
-function ContactUs() {
+function AboutUs() {
     return (
-        <Layout title="Contact Us">
+        <Layout title="About US">
             <div className="rbt-banner-area rbt-banner-8 variation-02">
                 <div className="container">
                     <div className="row g-5 align-items-center">
@@ -233,4 +233,4 @@ function ContactUs() {
     );
 }
 
-export default ContactUs;
+export default AboutUs;

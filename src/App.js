@@ -14,11 +14,11 @@ import Blog from "./components/pages/Blog/index.js";
 import BlogDetail from "./components/pages/Blog/BlogDetail.js";
 import Instructor from "./components/pages/Instructor/index.js";
 import Quiz from "./components/pages/Lesson/Quiz/index.js";
-import ContactUs from "./components/pages/ContactUs/index.js";
 import Login from "./components/pages/Auth/Login.js";
 import Register from "./components/pages/Auth/Register.js";
 import ForgotPassword from "./components/pages/Auth/ForgotPassword.js";
 import ResetPassword from "./components/pages/Auth/ResetPassword.js";
+import AboutUs from "./components/pages/AboutUs/index.js";
 
 function App() {
     return (
@@ -48,7 +48,7 @@ function App() {
                 {/* ===== End Blog ===== */}
 
                 {/* ===== Start Contact ===== */}
-                <Route path="/contact" element={<ContactUs />} />
+                <Route path="/about" element={<AboutUs />} />
                 {/* ===== End Contact ===== */}
 
                 {/* ===== Start Profile ===== */}
