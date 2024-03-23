@@ -25,6 +25,8 @@ function CourseDetail() {
         loadCourse();
     }, [loadCourse]);
 
+    const topics = course.topicOnlineDetailList || [];
+
     return (
         <Layout title="Course Detail">
             <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3">
@@ -47,7 +49,7 @@ function CourseDetail() {
                                     <li className="rbt-breadcrumb-item active">Course Detail</li>
                                 </ul>
                                 <h2 className="title">{course.name}</h2>
-                                <p className="description">{course.description}</p>
+                                <p className="description text-secondary">{course.description}</p>
 
                                 <div className="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
                                     <div className="feature-sin best-seller-badge">
@@ -117,28 +119,6 @@ function CourseDetail() {
                                     <img className="w-100" src={course.image} alt="Card" />
                                 </div>
 
-                                <div className="rbt-inner-onepage-navigation sticky-top mt--30">
-                                    <nav className="mainmenu-nav onepagenav">
-                                        <ul className="mainmenu">
-                                            <li className="current">
-                                                <a href="#overview">Overview</a>
-                                            </li>
-                                            <li>
-                                                <a href="#coursecontent">Course Content</a>
-                                            </li>
-                                            <li>
-                                                <a href="#details">Details</a>
-                                            </li>
-                                            <li>
-                                                <a href="#intructor">Intructor</a>
-                                            </li>
-                                            <li>
-                                                <a href="#review">Review</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-
                                 <div className="rbt-course-feature-box overview-wrapper rbt-shadow-box mt--30 has-show-more" id="overview">
                                     <div className="rbt-course-feature-inner has-show-more-inner-content">
                                         <div className="section-title">
@@ -185,15 +165,7 @@ function CourseDetail() {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, aliquam voluptas laudantium incidunt architecto nam excepturi provident rem laborum
-                                            repellendus placeat neque aut doloremque ut ullam, veritatis nesciunt iusto officia alias, non est vitae. Eius repudiandae optio quam alias aperiam nemo nam
-                                            tempora, dignissimos dicta excepturi ea quo ipsum omnis maiores perferendis commodi voluptatum facere vel vero. Praesentium quisquam iure veritatis,
-                                            perferendis adipisci sequi blanditiis quidem porro eligendi fugiat facilis inventore amet delectus expedita deserunt ut molestiae modi laudantium, quia
-                                            tenetur animi natus ea. Molestiae molestias ducimus pariatur et consectetur. Error vero, eum soluta delectus necessitatibus eligendi numquam hic at?
-                                        </p>
                                     </div>
-                                    <div className="rbt-show-more-btn">Show More</div>
                                 </div>
 
                                 <div className="course-content rbt-shadow-box coursecontent-wrapper mt--30" id="coursecontent">
@@ -203,454 +175,117 @@ function CourseDetail() {
                                         </div>
                                         <div className="rbt-accordion-style rbt-accordion-02 accordion">
                                             <div className="accordion" id="accordionExampleb2">
-                                                <div className="accordion-item card">
-                                                    <h2 className="accordion-header card-header" id="headingTwo1">
-                                                        <button
-                                                            className="accordion-button"
-                                                            type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseTwo1"
-                                                            aria-expanded="true"
-                                                            aria-controls="collapseTwo1"
-                                                        >
-                                                            Intro to Course and Histudy <span className="rbt-badge-5 ml--10">1hr 30min</span>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseTwo1" className="accordion-collapse collapse show" aria-labelledby="headingTwo1" data-bs-parent="#accordionExampleb2">
-                                                        <div className="accordion-body card-body pr--0">
-                                                            <ul className="rbt-course-main-content liststyle">
-                                                                <li>
-                                                                    <Link to="/lesson">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Course Intro</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="min-lable">30 min</span>
-                                                                            <span className="rbt-badge variation-03 bg-primary-opacity">
-                                                                                <i className="feather-eye"></i> Preview
-                                                                            </span>
-                                                                        </div>
-                                                                    </Link>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Watch Before Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="min-lable">0.5 min</span>
-                                                                            <span className="rbt-badge variation-03 bg-primary-opacity">
-                                                                                <i className="feather-eye"></i> Preview
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
+                                                {topics.map((topic, index) => {
+                                                    const accordionId = `accordion-${topic.id}-${index}`;
+                                                    const collapseId = `collapse-${topic.id}-${index}`;
+                                                    return (
+                                                        <div className="accordion-item card" key={topic.id}>
+                                                            <h2 className="accordion-header card-header" id={`heading-${accordionId}`}>
+                                                                <button
+                                                                    className="accordion-button"
+                                                                    type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target={`#${collapseId}`}
+                                                                    aria-expanded="true"
+                                                                    aria-controls={collapseId}
+                                                                >
+                                                                    {topic.name} <span className="rbt-badge-5 ml--10">1hr 30min</span>
+                                                                </button>
+                                                            </h2>
+                                                            <div
+                                                                id={collapseId}
+                                                                className="accordion-collapse collapse show"
+                                                                aria-labelledby={`heading-${accordionId}`}
+                                                                data-bs-parent="#accordionExampleb2"
+                                                            >
+                                                                <div className="accordion-body card-body pr--0">
+                                                                    <ul className="rbt-course-main-content liststyle">
+                                                                        {topic.itemOnlineDTOList.map((topicItem) => {
+                                                                            return (
+                                                                                <li key={topicItem.id}>
+                                                                                    {topicItem.status === false ? (
+                                                                                        <p>
+                                                                                            <div className="course-content-left">
+                                                                                                <div className="d-flex align-content-center">
+                                                                                                    <i className="feather-play-circle mt-3"></i>
+                                                                                                    <div className="d-flex flex-column">
+                                                                                                        <span className="text">{topicItem.title}</span>
+                                                                                                        <span className="time">04:00</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="course-content-right">
+                                                                                                <span className="rbt-check">
+                                                                                                    <i className="feather-lock"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </p>
+                                                                                    ) : (
+                                                                                        <Link to={`/lesson/${topic.slug}`}>
+                                                                                            <div className="course-content-left">
+                                                                                                <div className="d-flex align-content-center">
+                                                                                                    <i className="feather-play-circle mt-3"></i>
+                                                                                                    <div className="d-flex flex-column">
+                                                                                                        <span className="text">{topicItem.title}</span>
+                                                                                                        <span className="time">04:00</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="course-content-right">
+                                                                                                <span className="rbt-check">
+                                                                                                    <i className="feather-check"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </Link>
+                                                                                    )}
+                                                                                </li>
+                                                                            );
+                                                                        })}
+                                                                        {/* {topic.itemOnlineDTOList.map((topicItem) => {
+                                                                            return (
+                                                                                <li key={topicItem.id}>
+                                                                                    {topicItem.status === false ? (
+                                                                                        <div className="course-content-left">
+                                                                                            <div className="d-flex align-content-center">
+                                                                                                <i className="feather-play-circle mt-3"></i>
+                                                                                                <div className="d-flex flex-column">
+                                                                                                    <span className="text">{topicItem.title}</span>
+                                                                                                    <span className="time">04:00</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="course-content-right">
+                                                                                                <span className="rbt-check">
+                                                                                                    <i className="feather-lock"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    ) : (
+                                                                                        <Link to={`/lesson/${topic.slug}`}>
+                                                                                            <div className="course-content-left">
+                                                                                                <div className="d-flex align-content-center">
+                                                                                                    <i className="feather-play-circle mt-3"></i>
+                                                                                                    <div className="d-flex flex-column">
+                                                                                                        <span className="text">{topicItem.title}</span>
+                                                                                                        <span className="time">04:00</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="course-content-right">
+                                                                                                <span className="rbt-check">
+                                                                                                    <i className="feather-check"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </Link>
+                                                                                    )}
+                                                                                </li>
+                                                                            );
+                                                                        })} */}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="accordion-item card">
-                                                    <h2 className="accordion-header card-header" id="headingTwo2">
-                                                        <button
-                                                            className="accordion-button collapsed"
-                                                            type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseTwo2"
-                                                            aria-expanded="false"
-                                                            aria-controls="collapseTwo2"
-                                                        >
-                                                            Course Fundamentals <span className="rbt-badge-5 ml--10">2hr 30min</span>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseTwo2" className="accordion-collapse collapse" aria-labelledby="headingTwo2" data-bs-parent="#accordionExampleb2">
-                                                        <div className="accordion-body card-body pr--0">
-                                                            <ul className="rbt-course-main-content liststyle">
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Course Intro</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Why You Should Not Go To Education.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Ten Factors That Affect Education's Longevity.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="accordion-item card">
-                                                    <h2 className="accordion-header card-header" id="headingTwo3">
-                                                        <button
-                                                            className="accordion-button collapsed"
-                                                            type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseTwo3"
-                                                            aria-expanded="false"
-                                                            aria-controls="collapseTwo3"
-                                                        >
-                                                            You can develop skill and setup <span className="rbt-badge-5 ml--10">1hr 50min</span>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseTwo3" className="accordion-collapse collapse" aria-labelledby="headingTwo3" data-bs-parent="#accordionExampleb2">
-                                                        <div className="accordion-body card-body pr--0">
-                                                            <ul className="rbt-course-main-content liststyle">
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Course Intro</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Why You Should Not Go To Education.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Ten Factors That Affect Education's Longevity.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="accordion-item card">
-                                                    <h2 className="accordion-header card-header" id="headingTwo4">
-                                                        <button
-                                                            className="accordion-button collapsed"
-                                                            type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseTwo4"
-                                                            aria-expanded="false"
-                                                            aria-controls="collapseTwo4"
-                                                        >
-                                                            15 Things To Know About Education? <span className="rbt-badge-5 ml--10">2hr 60min</span>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseTwo4" className="accordion-collapse collapse" aria-labelledby="headingTwo4" data-bs-parent="#accordionExampleb2">
-                                                        <div className="accordion-body card-body pr--0">
-                                                            <ul className="rbt-course-main-content liststyle">
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Course Intro</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Why You Should Not Go To Education.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Ten Factors That Affect Education's Longevity.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="accordion-item card">
-                                                    <h2 className="accordion-header card-header" id="headingTwo5">
-                                                        <button
-                                                            className="accordion-button collapsed"
-                                                            type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseTwo5"
-                                                            aria-expanded="false"
-                                                            aria-controls="collapseTwo5"
-                                                        >
-                                                            Course Description <span className="rbt-badge-5 ml--10">2hr 20min</span>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseTwo5" className="accordion-collapse collapse" aria-labelledby="headingTwo5" data-bs-parent="#accordionExampleb2">
-                                                        <div className="accordion-body card-body pr--0">
-                                                            <ul className="rbt-course-main-content liststyle">
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Course Intro</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Why You Should Not Go To Education.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-play-circle"></i> <span className="text">Ten Factors That Affect Education's Longevity.</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="lesson.html">
-                                                                        <div className="course-content-left">
-                                                                            <i className="feather-file-text"></i> <span className="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div className="course-content-right">
-                                                                            <span className="course-lock">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
                                     </div>
@@ -696,70 +331,6 @@ function CourseDetail() {
                                                     <i className="feather-check"></i>Create data visualizations using matplotlib and the seaborn.
                                                 </li>
                                             </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="rbt-instructor rbt-shadow-box intructor-wrapper mt--30" id="intructor">
-                                    <div className="about-author border-0 pb--0 pt--0">
-                                        <div className="section-title mb--30">
-                                            <h4 className="rbt-title-style-3">Instructor</h4>
-                                        </div>
-                                        <div className="media align-items-center">
-                                            <div className="thumbnail">
-                                                <a href="#!">
-                                                    <img src="assets/images/testimonial/testimonial-7.jpg" alt="Author Images" />
-                                                </a>
-                                            </div>
-                                            <div className="media-body">
-                                                <div className="author-info">
-                                                    <h5 className="title">
-                                                        <a className="hover-flip-item-wrapper" href="author.html">
-                                                            B.M. Rafekul Islam
-                                                        </a>
-                                                    </h5>
-                                                    <span className="b3 subtitle">Advanced Educator</span>
-                                                    <ul className="rbt-meta mb--20 mt--10">
-                                                        <li>
-                                                            <i className="fa fa-star color-warning"></i>75,237 Reviews <span className="rbt-badge-5 ml--5">4.4 Rating</span>
-                                                        </li>
-                                                        <li>
-                                                            <i className="feather-users"></i>912,970 Students
-                                                        </li>
-                                                        <li>
-                                                            <a href="#!">
-                                                                <i className="feather-video"></i>16 Courses
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="content">
-                                                    <p className="description">John is a brilliant educator, whose life was spent for computer science and love of nature.</p>
-
-                                                    <ul className="social-icon social-default icon-naked justify-content-start">
-                                                        <li>
-                                                            <a href="https://www.facebook.com/">
-                                                                <i className="feather-facebook"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="https://www.twitter.com">
-                                                                <i className="feather-twitter"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="https://www.instagram.com/">
-                                                                <i className="feather-instagram"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="https://www.linkdin.com/">
-                                                                <i className="feather-linkedin"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1082,114 +653,10 @@ function CourseDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="rbt-course-review about-author">
-                                            <div className="media">
-                                                <div className="thumbnail">
-                                                    <a href="#!">
-                                                        <img src="assets/images/testimonial/testimonial-6.jpg" alt="Author Images" />
-                                                    </a>
-                                                </div>
-                                                <div className="media-body">
-                                                    <div className="author-info">
-                                                        <h5 className="title">
-                                                            <a className="hover-flip-item-wrapper" href="#!">
-                                                                Mohammad Ali
-                                                            </a>
-                                                        </h5>
-                                                        <div className="rating">
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="content">
-                                                        <p className="description">
-                                                            My favorite compliment is being told that I look like my mom. Seeing myself in her image, like this daughter up top.
-                                                        </p>
-                                                        <ul className="social-icon social-default transparent-with-border justify-content-start">
-                                                            <li>
-                                                                <a href="#!">
-                                                                    <i className="feather-thumbs-up"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#!">
-                                                                    <i className="feather-thumbs-down"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="rbt-course-review about-author">
-                                            <div className="media">
-                                                <div className="thumbnail">
-                                                    <a href="#!">
-                                                        <img src="assets/images/testimonial/testimonial-8.jpg" alt="Author Images" />
-                                                    </a>
-                                                </div>
-                                                <div className="media-body">
-                                                    <div className="author-info">
-                                                        <h5 className="title">
-                                                            <a className="hover-flip-item-wrapper" href="#!">
-                                                                Sakib Al Hasan
-                                                            </a>
-                                                        </h5>
-                                                        <div className="rating">
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                            <a href="#!">
-                                                                <i className="fa fa-star"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="content">
-                                                        <p className="description">
-                                                            My favorite compliment is being told that I look like my mom. Seeing myself in her image, like this daughter up top.
-                                                        </p>
-                                                        <ul className="social-icon social-default transparent-with-border justify-content-start">
-                                                            <li>
-                                                                <a href="#!">
-                                                                    <i className="feather-thumbs-up"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#!">
-                                                                    <i className="feather-thumbs-down"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div className="rbt-show-more-btn">Show More</div>
                                 </div>
                             </div>
+
                             <div className="related-course mt--60">
                                 <div className="row g-5 align-items-end mb--40">
                                     <div className="col-lg-8 col-md-8 col-12">
@@ -1364,7 +831,7 @@ function CourseDetail() {
 
                                         <div className="add-to-card-button mt--15">
                                             <a className="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#!">
-                                                <span className="btn-text">Buy Now</span>
+                                                <span className="btn-text">Register to study</span>
                                                 <span className="btn-icon">
                                                     <i className="feather-arrow-right"></i>
                                                 </span>
@@ -1410,34 +877,9 @@ function CourseDetail() {
                                                     <span className="rbt-feature-value rbt-badge-5">95%</span>
                                                 </li>
                                             </ul>
-                                            <div className="rbt-show-more-btn">Show More</div>
                                         </div>
 
                                         <div className="social-share-wrapper mt--30 text-center">
-                                            <div className="rbt-post-share d-flex align-items-center justify-content-center">
-                                                <ul className="social-icon social-default transparent-with-border justify-content-center">
-                                                    <li>
-                                                        <a href="https://www.facebook.com/">
-                                                            <i className="feather-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://www.twitter.com">
-                                                            <i className="feather-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://www.instagram.com/">
-                                                            <i className="feather-instagram"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://www.linkdin.com/">
-                                                            <i className="feather-linkedin"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                             <hr className="mt--20" />
                                             <div className="contact-with-us text-center">
                                                 <p>For details about the course</p>
@@ -1457,212 +899,7 @@ function CourseDetail() {
                 </div>
             </div>
 
-            <div className="rbt-related-course-area bg-color-white pt--60 rbt-section-gapBottom">
-                <div className="container">
-                    <div className="section-title mb--30">
-                        <span className="subtitle bg-primary-opacity">More Similar Courses</span>
-                        <h4 className="title">Related Courses</h4>
-                    </div>
-                    <div className="row g-5">
-                        <div className="col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div className="rbt-card variation-01 rbt-hover">
-                                <div className="rbt-card-img">
-                                    <a href="course-details.html">
-                                        <img src="assets/images/course/course-online-03.jpg" alt="Card" />
-                                        <div className="rbt-badge-3 bg-white">
-                                            <span>-10%</span>
-                                            <span>Off</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="rbt-card-body">
-                                    <div className="rbt-card-top">
-                                        <div className="rbt-review">
-                                            <div className="rating">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                            </div>
-                                            <span className="rating-count"> (5 Reviews)</span>
-                                        </div>
-                                        <div className="rbt-bookmark-btn">
-                                            <a className="rbt-round-btn" title="Bookmark" href="#!">
-                                                <i className="feather-bookmark"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <h4 className="rbt-card-title">
-                                        <a href="course-details.html">Angular Zero to Mastery</a>
-                                    </h4>
-                                    <ul className="rbt-meta">
-                                        <li>
-                                            <i className="feather-book"></i>8 Lessons
-                                        </li>
-                                        <li>
-                                            <i className="feather-users"></i>30 Students
-                                        </li>
-                                    </ul>
-                                    <p className="rbt-card-text">Angular Js long fact that a reader will be distracted by the readable.</p>
-
-                                    <div className="rbt-author-meta mb--20">
-                                        <div className="rbt-avater">
-                                            <a href="#!">
-                                                <img src="assets/images/client/avatar-03.png" alt="Sophia Jaymes" />
-                                            </a>
-                                        </div>
-                                        <div className="rbt-author-info">
-                                            By <a href="profile.html">Slaughter</a> In <a href="#!">Languages</a>
-                                        </div>
-                                    </div>
-                                    <div className="rbt-card-bottom">
-                                        <div className="rbt-price">
-                                            <span className="current-price">$80</span>
-                                            <span className="off-price">$100</span>
-                                        </div>
-                                        <a className="rbt-btn-link" href="course-details.html">
-                                            Learn More<i className="feather-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div className="rbt-card variation-01 rbt-hover">
-                                <div className="rbt-card-img">
-                                    <a href="course-details.html">
-                                        <img src="assets/images/course/course-online-04.jpg" alt="Card" />
-                                        <div className="rbt-badge-3 bg-white">
-                                            <span>-40%</span>
-                                            <span>Off</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="rbt-card-body">
-                                    <div className="rbt-card-top">
-                                        <div className="rbt-review">
-                                            <div className="rating">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                            </div>
-                                            <span className="rating-count"> (15 Reviews)</span>
-                                        </div>
-                                        <div className="rbt-bookmark-btn">
-                                            <a className="rbt-round-btn" title="Bookmark" href="#!">
-                                                <i className="feather-bookmark"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <h4 className="rbt-card-title">
-                                        <a href="course-details.html">Web Front To Back</a>
-                                    </h4>
-                                    <ul className="rbt-meta">
-                                        <li>
-                                            <i className="feather-book"></i>20 Lessons
-                                        </li>
-                                        <li>
-                                            <i className="feather-users"></i>40 Students
-                                        </li>
-                                    </ul>
-                                    <p className="rbt-card-text">Web Js long fact that a reader will be distracted by the readable.</p>
-                                    <div className="rbt-author-meta mb--20">
-                                        <div className="rbt-avater">
-                                            <a href="#!">
-                                                <img src="assets/images/client/avater-01.png" alt="Sophia Jaymes" />
-                                            </a>
-                                        </div>
-                                        <div className="rbt-author-info">
-                                            By <a href="profile.html">Patrick</a> In <a href="#!">Languages</a>
-                                        </div>
-                                    </div>
-
-                                    <div className="rbt-card-bottom">
-                                        <div className="rbt-price">
-                                            <span className="current-price">$60</span>
-                                            <span className="off-price">$120</span>
-                                        </div>
-                                        <a className="rbt-btn-link" href="course-details.html">
-                                            Learn More<i className="feather-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div className="rbt-card variation-01 rbt-hover">
-                                <div className="rbt-card-img">
-                                    <a href="course-details.html">
-                                        <img src="assets/images/course/course-online-05.jpg" alt="Card" />
-                                        <div className="rbt-badge-3 bg-white">
-                                            <span>-20%</span>
-                                            <span>Off</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="rbt-card-body">
-                                    <div className="rbt-card-top">
-                                        <div className="rbt-review">
-                                            <div className="rating">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                            </div>
-                                            <span className="rating-count"> (15 Reviews)</span>
-                                        </div>
-                                        <div className="rbt-bookmark-btn">
-                                            <a className="rbt-round-btn" title="Bookmark" href="#!">
-                                                <i className="feather-bookmark"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <h4 className="rbt-card-title">
-                                        <a href="course-details.html">SQL Beginner Advanced</a>
-                                    </h4>
-                                    <ul className="rbt-meta">
-                                        <li>
-                                            <i className="feather-book"></i>12 Lessons
-                                        </li>
-                                        <li>
-                                            <i className="feather-users"></i>50 Students
-                                        </li>
-                                    </ul>
-                                    <p className="rbt-card-text">It is a long established fact that a reader will be distracted by the readable.</p>
-                                    <div className="rbt-author-meta mb--20">
-                                        <div className="rbt-avater">
-                                            <a href="#!">
-                                                <img src="assets/images/client/avatar-02.png" alt="Sophia Jaymes" />
-                                            </a>
-                                        </div>
-                                        <div className="rbt-author-info">
-                                            By <a href="profile.html">Angela</a> In <a href="#!">Development</a>
-                                        </div>
-                                    </div>
-                                    <div className="rbt-card-bottom">
-                                        <div className="rbt-price">
-                                            <span className="current-price">$60</span>
-                                            <span className="off-price">$120</span>
-                                        </div>
-                                        <a className="rbt-btn-link left-icon" href="course-details.html">
-                                            <i className="feather-shopping-cart"></i> Add To Cart
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="rbt-course-action-bottom rbt-course-action-active">
+            {/* <div className="rbt-course-action-bottom rbt-course-action-active">
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-lg-6 col-md-6">
@@ -1693,7 +930,7 @@ function CourseDetail() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </Layout>
     );
 }

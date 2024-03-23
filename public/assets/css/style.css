@@ -7262,7 +7262,8 @@ textarea:-ms-input-placeholder {
 }
 
 .sticky-top {
-    top: 30px;
+    /* top: 30px; */
+    top: 85px;
     z-index: 9;
 }
 
@@ -16134,7 +16135,7 @@ span.transparent-button:hover i {
 }
 .rbt-accordion-style.rbt-accordion-02 .card .card-header {
     border-bottom: 1px solid var(--color-border);
-    padding: 0px 20px 20px 0;
+    padding: 20px 20px 20px 0;
 }
 .rbt-accordion-style.rbt-accordion-02 .card .card-header button::before {
     right: -20px;
@@ -16317,23 +16318,28 @@ span.transparent-button:hover i {
     width: auto;
     height: auto;
 }
-.rbt-accordion-style.for-right-content .rbt-course-main-content li a {
+.rbt-accordion-style.for-right-content .rbt-course-main-content li a,
+.rbt-accordion-style.for-right-content .rbt-course-main-content li p {
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: nowrap;
     padding: 10px 16px;
 }
+.rbt-accordion-style.for-right-content .rbt-course-main-content li p .course-content-left,
 .rbt-accordion-style.for-right-content .rbt-course-main-content li a .course-content-left {
     padding-right: 15px;
     align-items: flex-start;
 }
+.rbt-accordion-style.for-right-content .rbt-course-main-content li p .course-content-left i,
 .rbt-accordion-style.for-right-content .rbt-course-main-content li a .course-content-left i {
     margin-top: 3px;
     color: #808b9a;
 }
 
 .rbt-course-main-content li a.active span.time,
-.rbt-accordion-style.for-right-content .rbt-course-main-content li a.active .course-content-left i {
+.rbt-course-main-content li p.active span.time,
+.rbt-accordion-style.for-right-content .rbt-course-main-content li a.active .course-content-left i,
+.rbt-accordion-style.for-right-content .rbt-course-main-content li p.active .course-content-left i  {
     color: #fff;
 }
 .rbt-accordion-style.for-right-content .card .card-header {
@@ -25650,14 +25656,16 @@ blockquote.has-text-align-right cite,
 /*---------------------------
     Video Course Content  
 ----------------------------*/
-.rbt-course-main-content li a {
+.rbt-course-main-content li a,
+.rbt-course-main-content li p {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 @media only screen and (max-width: 575px) {
-    .rbt-course-main-content li a {
+    .rbt-course-main-content li a,
+    .rbt-course-main-content li p {
         display: block;
     }
 }
@@ -26290,18 +26298,18 @@ Course Sidebar
     content: "\e931";
 }
 
-.has-show-more .has-show-more-inner-content {
+/* .has-show-more .has-show-more-inner-content {
     max-height: 300px;
     overflow: hidden;
     position: relative;
     width: 100%;
-}
-.has-show-more .rbt-course-details-list-wrapper {
+} */
+/* .has-show-more .rbt-course-details-list-wrapper {
     max-height: 230px;
-}
-.has-show-more .rbt-featured-review-list-wrapper {
+} */
+/* .has-show-more .rbt-featured-review-list-wrapper {
     max-height: 550px;
-}
+} */
 .has-show-more.active .has-show-more-inner-content {
     max-height: inherit !important;
 }
