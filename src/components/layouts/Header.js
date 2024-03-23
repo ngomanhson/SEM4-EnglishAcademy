@@ -172,7 +172,7 @@ function Header() {
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item position-static">
-                                        <Link to="/contact">Contact Us</Link>
+                                        <Link to="/about">About Us</Link>
                                     </li>
                                 </ul>
                             </nav>
