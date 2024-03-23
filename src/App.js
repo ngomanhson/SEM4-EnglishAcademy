@@ -38,7 +38,7 @@ function App() {
                 {/* ===== End Instructor ===== */}
 
                 {/* ===== Start Lesson ===== */}
-                <Route path="/lesson" element={<Lesson />} />
+                <Route path="/lesson/:slug" element={<Lesson />} />
                 <Route path="/lesson/quiz" element={<Quiz />} />
                 {/* ===== End Lesson ===== */}
 
