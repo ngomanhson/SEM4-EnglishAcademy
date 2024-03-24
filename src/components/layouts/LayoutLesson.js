@@ -36,8 +36,10 @@ function LayoutLesson({ children, title }) {
     // Call the API Topic by Student
     const loadTopics = useCallback(async () => {
         try {
-            const topics = await api.get(url.ONLINE_COURSE.TOPIC_STUDENT + `/${slug}/` + studentId);
+            const topics = await api.get(url.ONLINE_COURSE.ITEM_ONLINE + `/${slug}/` + studentId);
             setTopicByStudent(topics.data.data);
+
+            console.table(topics.data.data);
         } catch (error) {}
     }, [slug]);
 
@@ -86,17 +88,17 @@ function LayoutLesson({ children, title }) {
                                                 <div className="accordion-item card" key={topic.id}>
                                                     <h2 className="accordion-header card-header" id={`heading-${accordionId}`}>
                                                         <button
-                                                            className="accordion-button"
+                                                            className="accordion-button collapsed"
                                                             type="button"
                                                             data-bs-toggle="collapse"
-                                                            aria-expanded="true"
+                                                            aria-expanded="false"
                                                             data-bs-target={`#${collapseId}`}
                                                             aria-controls={collapseId}
                                                         >
                                                             {topic.name} <span className="rbt-badge-5 ml--10">1/2</span>
                                                         </button>
                                                     </h2>
-                                                    <div id={collapseId} className="accordion-collapse collapse show" aria-labelledby={`heading-${accordionId}`}>
+                                                    <div id={collapseId} className="accordion-collapse collapse" aria-labelledby={`heading-${accordionId}`}>
                                                         <div className="accordion-body card-body">
                                                             <ul className="rbt-course-main-content liststyle">
                                                                 {topic.itemOnlineDTOList.map((topicItem) => (

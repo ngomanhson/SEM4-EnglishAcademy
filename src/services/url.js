@@ -4,7 +4,8 @@ const url = {
     ONLINE_COURSE: {
         GET_ALL: "/course-online",
         DETAIL: "/course-online/detail",
-        TOPIC_STUDENT: "/topic-online",
+        TOPIC_ONLINE: "/topic-online",
+        ITEM_ONLINE: "/topic-online",
     },
 };
 

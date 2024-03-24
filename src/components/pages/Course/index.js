@@ -19,6 +19,7 @@ function Course() {
     useEffect(() => {
         loadCourses();
     }, []);
+
     return (
         <Layout title="Courses">
             <div className="rbt-page-banner-wrapper">
@@ -45,11 +46,11 @@ function Course() {
                                         <h1 className="title mb--0">All Courses</h1>
                                         <a href="#!" className="rbt-badge-2">
                                             <div className="image">🎉</div>
-                                            50 Courses
+                                            {courses.length} Courses
                                         </a>
                                     </div>
 
-                                    <p className="description">Courses that help beginner designers become true unicorns.</p>
+                                    <p className="description fw-light">English Language relates to Teaching & Academics Personal Development.</p>
                                 </div>
                             </div>
                         </div>
@@ -270,65 +271,76 @@ function Course() {
                 <div className="inner">
                     <div className="container">
                         <div className="rbt-course-grid-column">
-                            {courses.map((course) => (
-                                <div className="course-grid-3" key={course.id}>
-                                    <div className="rbt-card variation-01 rbt-hover">
-                                        <div className="rbt-card-img">
-                                            <Link to={`/course-detail/${course.slug}`}>
-                                                <img src={course.image} alt={course.name} />
-                                                <div className="rbt-badge-3 bg-white">
-                                                    <span>-40%</span>
-                                                    <span>Off</span>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                        <div className="rbt-card-body">
-                                            <div className="rbt-card-top">
-                                                <div className="rbt-review">
-                                                    <div className="rating">
-                                                        <i className="fas fa-star"></i>
-                                                        <i className="fas fa-star"></i>
-                                                        <i className="fas fa-star"></i>
-                                                        <i className="fas fa-star"></i>
-                                                        <i className="fas fa-star"></i>
+                            {courses.map((course) => {
+                                const stars = [];
+                                const roundedScore = Math.round(course.star * 2) / 2;
+                                const fullStars = Math.floor(roundedScore);
+                                const halfStar = roundedScore - fullStars === 0.5;
+                                const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+                                for (let i = 0; i < fullStars; i++) {
+                                    stars.push(<i key={i} className="fa fa-star"></i>);
+                                }
+                                if (halfStar) {
+                                    stars.push(<i key="half" className="fas fa-star-half-alt"></i>);
+                                }
+                                for (let i = 0; i < emptyStars; i++) {
+                                    stars.push(<i key={`empty-${i}`} className="far fa-star"></i>);
+                                }
+                                return (
+                                    <div className="course-grid-3" key={course.id}>
+                                        <div className="rbt-card variation-01 rbt-hover">
+                                            <div className="rbt-card-img">
+                                                <Link to={`/course-detail/${course.slug}`}>
+                                                    <img src={course.image} alt={course.name} />
+                                                    <div className="rbt-badge-3 bg-white">
+                                                        <span>-40%</span>
+                                                        <span>Off</span>
                                                     </div>
-                                                    <span className="rating-count"> (15 Reviews)</span>
-                                                </div>
-                                                <div className="rbt-bookmark-btn">
-                                                    <button className="rbt-round-btn" title="Bookmark">
-                                                        <i className="feather-bookmark"></i>
-                                                    </button>
-                                                </div>
+                                                </Link>
                                             </div>
-
-                                            <h4 className="rbt-card-title">
-                                                <Link to={`/course-detail/${course.slug}`}>{course.name}</Link>
-                                            </h4>
-
-                                            <ul className="rbt-meta">
-                                                <li>
-                                                    <i className="feather-book"></i>12 Lessons
-                                                </li>
-                                                <li>
-                                                    <i className="feather-users"></i>50 Students
-                                                </li>
-                                            </ul>
-
-                                            <p className="rbt-card-text line-clamp">{course.description}</p>
-
-                                            <div className="rbt-card-bottom">
-                                                <div className="rbt-price">
-                                                    <span className="current-price">${course.price}</span>
-                                                    <span className="off-price">$120</span>
+                                            <div className="rbt-card-body">
+                                                <div className="rbt-card-top">
+                                                    <div className="rbt-review">
+                                                        <div className="rating">{stars}</div>
+                                                        {/* <span className="rating-count"> (15 Reviews)</span> */}
+                                                    </div>
+                                                    <div className="rbt-bookmark-btn">
+                                                        <button className="rbt-round-btn" title="Bookmark">
+                                                            <i className="feather-bookmark"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <a className="rbt-btn-link" href="course-details.html">
-                                                    Learn More<i className="feather-arrow-right"></i>
-                                                </a>
+
+                                                <h4 className="rbt-card-title">
+                                                    <Link to={`/course-detail/${course.slug}`}>{course.name}</Link>
+                                                </h4>
+
+                                                <ul className="rbt-meta">
+                                                    <li>
+                                                        <i className="feather-book"></i>12 Lessons
+                                                    </li>
+                                                    <li>
+                                                        <i className="feather-users"></i>50 Students
+                                                    </li>
+                                                </ul>
+
+                                                <p className="rbt-card-text line-clamp">{course.description}</p>
+
+                                                <div className="rbt-card-bottom">
+                                                    <div className="rbt-price">
+                                                        <span className="current-price">${course.price}</span>
+                                                        <span className="off-price">$120</span>
+                                                    </div>
+                                                    <a className="rbt-btn-link" href="course-details.html">
+                                                        Learn More<i className="feather-arrow-right"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                         <div className="row">
                             <div className="col-lg-12 mt--60">
