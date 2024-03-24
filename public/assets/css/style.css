@@ -18183,7 +18183,8 @@ span.transparent-button:hover i {
 .social-default li {
     margin: 5px;
 }
-.social-default li a {
+.social-default li a,
+.social-default li button {
     width: 48px;
     background-color: var(--color-gray-light);
     height: 48px;
@@ -18196,7 +18197,8 @@ span.transparent-button:hover i {
     z-index: 2;
     position: relative;
 }
-.social-default li a::after {
+.social-default li a::after,
+.social-default li button::after {
     position: absolute;
     content: "";
     left: 0;
@@ -18210,25 +18212,31 @@ span.transparent-button:hover i {
     transition: 0.3s;
     border-radius: 100%;
 }
-.social-default li a:hover {
+.social-default li a:hover,
+.social-default li button:hover {
     color: var(--color-white);
 }
-.social-default li a:hover::after {
+.social-default li a:hover::after,
+.social-default li button:hover::after {
     transform: scale(1);
     opacity: 1;
 }
-.social-default li a i {
+.social-default li a i,
+.social-default li button i {
     vertical-align: middle;
 }
-.social-default.transparent-with-border li a {
+.social-default.transparent-with-border li a,
+.social-default.transparent-with-border li button{
     line-height: 41px;
     background: transparent;
     border: 2px solid var(--color-border);
 }
-.social-default.transparent-with-border li a:hover {
+.social-default.transparent-with-border li a:hover,
+.social-default.transparent-with-border li button:hover {
     border-color: transparent !important;
 }
-.social-default.transparent-with-border li a::after {
+.social-default.transparent-with-border li a::after,
+.social-default.transparent-with-border li button::after {
     border: 1px solid var(--color-primary);
 }
 .social-default.with-gradient li a::after {
@@ -25364,7 +25372,8 @@ blockquote.has-text-align-right cite,
     }
 }
 
-.rbt-banner-area .social-default.transparent-with-border li a {
+.rbt-banner-area .social-default.transparent-with-border li a,
+.rbt-banner-area .social-default.transparent-with-border li button {
     color: var(--color-white);
     border: 2px solid var(--white-opacity);
 }
@@ -27110,7 +27119,9 @@ Course Sidebar
     border-color: var(--dark-border);
 }
 .bg-color-darker .social-default li a,
-.bg-color-dark .social-default li a {
+.bg-color-dark .social-default li a,
+.bg-color-darker .social-default li button,
+.bg-color-dark .social-default li button {
     background-color: var(--color-darkest);
     color: var(--color-white);
 }
