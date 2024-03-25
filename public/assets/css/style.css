@@ -30611,6 +30611,110 @@ input[type="text"]::placeholder, input[type="password"]::placeholder, input[type
     font-family: var(--font-secondary);
 }
 
+.widget {
+    background: #fff;
+    -webkit-box-shadow: 0px 3px 20px rgba(0, 33, 71, 0.06);
+    box-shadow: 0px 3px 20px rgba(0, 33, 71, 0.06);
+    padding: 30px;
+    border-radius: 4px;
+}
 
+.answers-group__label {
+    display: block;
+    border: 1px solid #f1f1f1;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    cursor: pointer;
+    color: #212121;
+    font-size: 16px;
+}
 
+.answers-group__input {
+    display: none;
+}
+
+.answers-group__label.checked {
+    border: 1px solid var(--color-primary);
+    background: var(--primary-opacity);
+}
+
+.btn-choose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background: #f3f4f6;
+    margin-right: 12px;
+    border: none;
+    color: #6d6d6d;
+    font-weight: 300;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.answers-group__label.checked .btn-choose {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.btn-circle:nth-child(2) {
+    margin-left: 15px;
+}
+
+.btn-circle:hover {
+    background: var(--primary-opacity);
+}
+
+.answers_number {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.answers-btn {
+    text-align: center;
+    padding: 0 20px;
+    border: 1px solid #e3e3e3;
+    height: 40px;
+    line-height: 38px;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: 400;
+    font-size: 14px;
+    color: #909090;
+}
+.answers-btn.selected {
+    background: #192335;
+}
+.background-secondary {
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.btn-circle-2 {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 1px solid #489aff ;
+  
+}
+
+.btn-circle-2 > i {
+    font-size: 20px;
+    color: #489aff;
+}
 /*# sourceMappingURL=../maps/style.css.map */

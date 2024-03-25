@@ -20,6 +20,8 @@ import ForgotPassword from "./components/pages/Auth/ForgotPassword.js";
 import ResetPassword from "./components/pages/Auth/ResetPassword.js";
 import AboutUs from "./components/pages/AboutUs/index.js";
 import EntranceTest from "./components/pages/EntranceTest/index.js";
+import Ielts from "./components/pages/EntranceTest/Ielts/index.js";
+import Toeic from "./components/pages/EntranceTest/Toeic/index.js";
 
 function App() {
     return (
@@ -42,6 +44,8 @@ function App() {
 
                 {/* ===== Start Entrance Test ===== */}
                 <Route path="/entrance-test" element={<EntranceTest />} />
+                <Route path="/entrance-test/ielts" element={<Ielts />} />
+                <Route path="/entrance-test/toeic" element={<Toeic />} />
                 {/* ===== End Entrance Test ===== */}
 
                 {/* ===== Start Blog ===== */}
