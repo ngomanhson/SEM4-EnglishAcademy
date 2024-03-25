@@ -526,7 +526,7 @@ function CourseDetail() {
 
                                         <div className="add-to-card-button mt--15">
                                             <a className="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#!">
-                                                <span className="btn-text">Register to study</span>
+                                                <span className="btn-text">Enroll Course</span>
                                                 <span className="btn-icon">
                                                     <i className="feather-arrow-right"></i>
                                                 </span>

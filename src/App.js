@@ -19,6 +19,7 @@ import Register from "./components/pages/Auth/Register.js";
 import ForgotPassword from "./components/pages/Auth/ForgotPassword.js";
 import ResetPassword from "./components/pages/Auth/ResetPassword.js";
 import AboutUs from "./components/pages/AboutUs/index.js";
+import EntranceTest from "./components/pages/EntranceTest/index.js";
 
 function App() {
     return (
@@ -27,30 +28,29 @@ function App() {
                 {/* ===== Start Home ===== */}
                 <Route path="/" element={<Home />} />
                 {/* ===== End Home ===== */}
-
                 {/* ===== Start Course ===== */}
                 <Route path="/courses" element={<Course />} />
                 <Route path="/course-detail/:slug" element={<CourseDetail />} />
                 {/* ===== End Course ===== */}
-
                 {/* ===== Start Instructor ===== */}
                 <Route path="/instructor" element={<Instructor />} />
                 {/* ===== End Instructor ===== */}
-
                 {/* ===== Start Lesson ===== */}
                 <Route path="/lesson/:slug" element={<Lesson />} />
                 <Route path="/lesson/quiz" element={<Quiz />} />
                 {/* ===== End Lesson ===== */}
 
+                {/* ===== Start Entrance Test ===== */}
+                <Route path="/entrance-test" element={<EntranceTest />} />
+                {/* ===== End Entrance Test ===== */}
+
                 {/* ===== Start Blog ===== */}
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog-detail" element={<BlogDetail />} />
                 {/* ===== End Blog ===== */}
-
                 {/* ===== Start Contact ===== */}
                 <Route path="/about" element={<AboutUs />} />
                 {/* ===== End Contact ===== */}
-
                 {/* ===== Start Profile ===== */}
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/enrolled-courses" element={<EnrolledCourses />} />
@@ -59,14 +59,12 @@ function App() {
                 <Route path="/my-quiz" element={<MyQuiz />} />
                 <Route path="/settings" element={<Settings />} />
                 {/* ===== End Profile ===== */}
-
                 {/* ===== Start Auth page ===== */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
                 {/* ===== End Auth page ===== */}
-
                 {/* ===== Start Other page ===== */}
                 <Route path="*" element={<NotFound />} />
                 {/* ===== End Other page ===== */}

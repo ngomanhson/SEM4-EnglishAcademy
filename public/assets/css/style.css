@@ -19998,23 +19998,33 @@ ul.testimonial-thumb-wrapper li a.active .thumb img {
 /*-------------------------
     Advance Tab Style Two  
 --------------------------*/
-.tab-button-style-2 {
+.tab-button-style-2,
+.tab-button-style-2-cs {
     border-bottom: 2px solid var(--color-border);
     justify-content: center;
     margin-bottom: 30px;
     padding: 0;
     list-style: none;
 }
+.tab-button-style-2-cs {
+    justify-content: space-evenly;
+}
+.tab-button-style-2-cs {
+    border: none;
+}
 @media only screen and (max-width: 767px) {
-    .tab-button-style-2 {
+    .tab-button-style-2,
+    .tab-button-style-2-cs {
         margin-bottom: 20px;
     }
 }
-.tab-button-style-2 li {
+.tab-button-style-2 li,
+.tab-button-style-2-cs li {
     margin-top: 0;
     margin-bottom: 0;
 }
-.tab-button-style-2 li a {
+.tab-button-style-2 li a,
+.tab-button-style-2-cs li a {
     position: relative;
     display: block;
     outline: none;
@@ -20023,16 +20033,19 @@ ul.testimonial-thumb-wrapper li a.active .thumb img {
     box-shadow: none;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .tab-button-style-2 li a {
+    .tab-button-style-2 li a,
+    .tab-button-style-2-cs li a {
         padding: 16px 12px;
     }
 }
 @media only screen and (max-width: 767px) {
-    .tab-button-style-2 li a {
+    .tab-button-style-2 li a,
+    .tab-button-style-2-cs li a {
         padding: 14px 10px;
     }
 }
-.tab-button-style-2 li a::after {
+.tab-button-style-2 li a::after,
+.tab-button-style-2-cs li a::after {
     content: "";
     display: inline-block;
     width: 100%;
@@ -20044,15 +20057,18 @@ ul.testimonial-thumb-wrapper li a.active .thumb img {
     transform: scaleX(0);
     transition: transform 0.3s;
 }
-.tab-button-style-2 li a.active {
+.tab-button-style-2 li a.active,
+.tab-button-style-2-cs li a.active  {
     border: 0 none;
     outline: none;
     color: var(--color-primary);
 }
-.tab-button-style-2 li a.active::after {
+.tab-button-style-2 li a.active::after,
+.tab-button-style-2-cs li a.active::after {
     transform: scaleX(1);
 }
-.tab-button-style-2 li a .title {
+.tab-button-style-2 li a .title,
+.tab-button-style-2-cs li a .title  {
     font-size: 18px;
     margin-bottom: 0;
     font-weight: 500;
@@ -30566,4 +30582,35 @@ input[type="text"]::placeholder, input[type="password"]::placeholder, input[type
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.content-label-tab {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.input-tab__option {
+    opacity: 1 !important; 
+    width: 25px;
+    position: initial;
+}
+
+.tab-title {
+    font-family: var(--font-secondary);
+    margin-left: 35px;
+}
+
+.tab-time {
+    font-size: 16px;
+}
+
+.tab-list > li{
+    font-size: 17px;
+    font-weight: 300;
+    color: #000;
+    font-family: var(--font-secondary);
+}
+
+
+
 /*# sourceMappingURL=../maps/style.css.map */

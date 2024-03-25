@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Header() {
     return (
@@ -156,24 +156,28 @@ function Header() {
                             <nav className="mainmenu-nav">
                                 <ul className="mainmenu">
                                     <li className="with-megamenu has-menu-child-item position-static menu-item-open">
-                                        <Link to="/">Home</Link>
+                                        <NavLink to="/">Home</NavLink>
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item">
-                                        <Link to="/courses">Courses</Link>
+                                        <NavLink to="/courses">Courses</NavLink>
+                                    </li>
+
+                                    <li className="has-dropdown has-menu-child-item">
+                                        <NavLink to="/entrance-test">Entrance Test</NavLink>
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item">
-                                        <Link to="/instructor">Instructor</Link>
+                                        <NavLink to="/instructor">Instructor</NavLink>
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item position-static">
-                                        <Link to="/blog">Blog</Link>
+                                        <NavLink to="/blog">Blog</NavLink>
                                     </li>
 
-                                    <li className="with-megamenu has-menu-child-item position-static">
-                                        <Link to="/about">About Us</Link>
-                                    </li>
+                                    {/* <li className="with-megamenu has-menu-child-item position-static">
+                                        <NavLink to="/about">About Us</NavLink>
+                                    </li> */}
                                 </ul>
                             </nav>
                         </div>
