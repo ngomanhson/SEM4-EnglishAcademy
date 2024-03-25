@@ -83,7 +83,7 @@ function EntranceTest() {
                                             <div className="text-start">
                                                 <div className="d-flex align-items-center mb-4">
                                                     <h5 className="fw-bold tab-title mb-0">IELTS Full test 1</h5>
-                                                    <input type="radio" name="exam-option" className="input-tab__option" />
+                                                    <input type="radio" name="exam-option" className="input-tab__option" defaultChecked />
                                                 </div>
 
                                                 <p className="fw-light tab-time mb-0">Exam time: 01:00:00</p>
@@ -110,6 +110,12 @@ function EntranceTest() {
                                                 </ul>
                                             </div>
                                         </label>
+                                    </div>
+                                    <div className="mt-5">
+                                        <Link to="ielts" className="rbt-moderbt-btn">
+                                            <span className="moderbt-btn-text">Start taking the test</span>
+                                            <i className="feather-arrow-right"></i>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
@@ -143,12 +149,13 @@ function EntranceTest() {
                                             </div>
                                         </label>
                                     </div>
-                                </div>
-                                <div className="mt-5">
-                                    <Link to="" className="rbt-moderbt-btn">
-                                        <span className="moderbt-btn-text">Start taking the test</span>
-                                        <i className="feather-arrow-right"></i>
-                                    </Link>
+
+                                    <div className="mt-5">
+                                        <Link to="toeic" className="rbt-moderbt-btn">
+                                            <span className="moderbt-btn-text">Start taking the test</span>
+                                            <i className="feather-arrow-right"></i>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
