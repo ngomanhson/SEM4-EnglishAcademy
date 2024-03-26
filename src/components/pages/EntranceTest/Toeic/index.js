@@ -1,56 +1,84 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import AudioPlayer from "react-audio-player";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
-const questions = [
-    {
-        id: 1,
-        question: "What is your family name?",
-        image: null,
-        audio: null,
-        options: [
-            { label: "A", text: "Do you want me to spell it?" },
-            { label: "B", text: "Do you like my surname?" },
-            { label: "C", text: "How could I say that?" },
-            { label: "D", text: "All the answers above" },
-        ],
-    },
-    {
-        id: 2,
-        question: "Choose the sentence that best describes the picture:",
-        image: "https://www.anhngumshoa.com/uploads/images/resize/550x550/test/ybm_2020_lc_test_10_pic1.png",
-        audio: "assets/audio/audio-demo.mp3",
-        options: [
-            { label: "A", text: "Option A" },
-            { label: "B", text: "Option B" },
-            { label: "C", text: "Option C" },
-            { label: "D", text: "Option D" },
-        ],
-    },
-];
+const questionData = {
+    questions: [
+        {
+            id: 1,
+            question: "What is the capital of France?",
+            image: null,
+            audio: null,
+            options: [
+                { id: 1, answer: "Paris" },
+                { id: 2, answer: "London" },
+                { id: 3, answer: "Berlin" },
+                { id: 4, answer: "Madrid" },
+            ],
+        },
+        {
+            id: 2,
+            question: "What is JavaScript?",
+            image: "https://www.anhngumshoa.com/uploads/images/resize/550x550/test/ybm_2020_lc_test_10_pic1.png",
+            audio: "assets/audio/audio-demo.mp3",
+            options: [
+                { id: 1, answer: "A programming language" },
+                { id: 2, answer: "A markup language" },
+                { id: 3, answer: "A styling language" },
+                { id: 4, answer: "All of the above" },
+            ],
+        },
+        {
+            id: 3,
+            question: "Which of the following are fruits?",
+            options: [
+                { id: 1, answer: "Apple" },
+                { id: 2, answer: "Carrot" },
+                { id: 3, answer: "Banana" },
+                { id: 4, answer: "Potato" },
+            ],
+        },
+    ],
+};
 
 function Toeic() {
-    const [selectedAnswers, setSelectedAnswers] = useState({});
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [questionIndex, setQuestionIndex] = useState(0);
+    const [selectedOptions, setSelectedOptions] = useState(Array(questionData.questions.length).fill(""));
+    const [submittedAnswers, setSubmittedAnswers] = useState([]);
 
-    const handleInputChange = (questionId, selectedOption) => {
-        setSelectedAnswers({
-            ...selectedAnswers,
-            [questionId]: selectedOption,
+    const navigate = useNavigate();
+
+    const handleNextQuestion = () => {
+        setQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questionData.questions.length - 1));
+    };
+
+    const handlePreviousQuestion = () => {
+        setQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    };
+
+    const handleOptionChange = (optionAnswer) => {
+        setSelectedOptions((prevOptions) => {
+            const updatedOptions = [...prevOptions];
+            updatedOptions[questionIndex] = optionAnswer;
+            return updatedOptions;
         });
     };
 
-    const handleNextQuestion = () => {
-        setSelectedAnswers({});
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const answers = selectedOptions.map((optionAnswer, index) => ({
+            questionId: questionData.questions[index].id,
+            selectedOptionAnswer: optionAnswer,
+        }));
+        setSubmittedAnswers(answers);
+
+        console.log(submittedAnswers);
+
+        navigate("/entrance-test/learning-paths");
     };
 
-    const handlePrevQuestion = () => {
-        setSelectedAnswers({});
-        setCurrentQuestionIndex(currentQuestionIndex - 1);
-    };
-
-    const currentQuestion = questions[currentQuestionIndex];
+    const currentQuestion = questionData.questions[questionIndex];
     const src = currentQuestion.audio;
 
     return (
@@ -69,32 +97,32 @@ function Toeic() {
                         <div className="col-lg-8 col-12">
                             <div className="widget">
                                 <h5 className="exam__inner-desc">
-                                    Question {currentQuestionIndex + 1}: {currentQuestion.question}
+                                    Question {questionIndex + 1}: {currentQuestion.question}
                                 </h5>
                                 {currentQuestion.image && <img src={currentQuestion.image} className="w-100 mb-5" alt="" />}
                                 {currentQuestion.audio && <AudioPlayer src={src} autoPlay={false} controls className="mb-5 w-100" />}
                                 <div className="answer-group">
                                     {currentQuestion.options.map((option) => (
-                                        <label key={option.label} className={`answers-group__label ${selectedAnswers[currentQuestion.id] === option.label ? "checked" : ""}`}>
+                                        <label key={option.id} className={`answers-group__label ${selectedOptions[questionIndex] === option.answer ? "checked" : ""}`}>
                                             <input
                                                 type="radio"
                                                 className="answers-group__input"
                                                 name="answer"
-                                                value={option.label}
-                                                checked={selectedAnswers[currentQuestion.id] === option.label}
-                                                onChange={() => handleInputChange(currentQuestion.id, option.label)}
+                                                id={`rbt-radio-${option.id}`}
+                                                checked={selectedOptions[questionIndex] === option.answer}
+                                                onChange={() => handleOptionChange(option.answer)}
                                             />
                                             <div className="d-flex align-content-center">
-                                                <div className="btn-choose">{option.label}</div> {option.text}
+                                                <div className="btn-choose">A</div> {option.answer}
                                             </div>
                                         </label>
                                     ))}
                                 </div>
                                 <div className="d-flex justify-content-end align-items-center mt-3">
-                                    <button type="button" className="btn-circle" onClick={handlePrevQuestion} disabled={currentQuestionIndex === 0}>
+                                    <button type="button" className="btn-circle" onClick={handlePreviousQuestion} disabled={questionIndex === 0}>
                                         <i className="feather-arrow-left"></i>
                                     </button>
-                                    <button type="button" className="btn-circle ml-2" onClick={handleNextQuestion} disabled={currentQuestionIndex === questions.length - 1}>
+                                    <button type="button" className="btn-circle ml-2" onClick={handleNextQuestion} disabled={questionIndex === questionData.questions.length - 1}>
                                         <i className="feather-arrow-right"></i>
                                     </button>
                                 </div>
@@ -107,11 +135,16 @@ function Toeic() {
                                     <div className="widget">
                                         <h5 className="text-center">Time remaining: </h5>
                                         <div className="answers_number">
-                                            {questions.map((question, index) => (
+                                            {questionData.questions.map((question, index) => (
                                                 <button type="button" className="answers-btn" key={question.id}>
                                                     {index + 1}
                                                 </button>
                                             ))}
+                                        </div>
+                                        <div className="d-flex justify-content-end">
+                                            <button type="button" onClick={handleSubmit} className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 mt-4">
+                                                <i className="fa fa-stop-circle"></i> Finish Test
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
