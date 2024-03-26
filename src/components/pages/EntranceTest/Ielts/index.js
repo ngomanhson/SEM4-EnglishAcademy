@@ -1,6 +1,12 @@
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
 function Ielts() {
+    const navigate = useNavigate();
+
+    const handleSubmit = () => {
+        navigate("/entrance-test/learning-paths");
+    };
     return (
         <>
             <Helmet>
@@ -118,6 +124,11 @@ function Ielts() {
                                             </button>
                                             <button type="button" className="answers-btn">
                                                 5
+                                            </button>
+                                        </div>
+                                        <div className="d-flex justify-content-end">
+                                            <button type="button" onClick={handleSubmit} className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 mt-4">
+                                                <i className="fa fa-stop-circle"></i> Finish Test
                                             </button>
                                         </div>
                                     </div>

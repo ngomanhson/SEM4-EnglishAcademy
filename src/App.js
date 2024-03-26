@@ -22,6 +22,7 @@ import AboutUs from "./components/pages/AboutUs/index.js";
 import EntranceTest from "./components/pages/EntranceTest/index.js";
 import Ielts from "./components/pages/EntranceTest/Ielts/index.js";
 import Toeic from "./components/pages/EntranceTest/Toeic/index.js";
+import LearningPaths from "./components/pages/EntranceTest/LearningPaths/index.js";
 
 function App() {
     return (
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/entrance-test" element={<EntranceTest />} />
                 <Route path="/entrance-test/ielts" element={<Ielts />} />
                 <Route path="/entrance-test/toeic" element={<Toeic />} />
+                <Route path="/entrance-test/learning-paths" element={<LearningPaths />} />
                 {/* ===== End Entrance Test ===== */}
 
                 {/* ===== Start Blog ===== */}
