@@ -83,7 +83,7 @@ function EntranceTest() {
                                             <div className="text-start">
                                                 <div className="d-flex align-items-center mb-4">
                                                     <h5 className="fw-bold tab-title mb-0">IELTS Full test 1</h5>
-                                                    <input type="radio" name="exam-option" className="input-tab__option" defaultChecked />
+                                                    <input type="radio" name="exam-option" className="input-tab__option" />
                                                 </div>
 
                                                 <p className="fw-light tab-time mb-0">Exam time: 01:00:00</p>

@@ -7,6 +7,11 @@ const url = {
         TOPIC_ONLINE: "/topic-online",
         ITEM_ONLINE: "/topic-online",
     },
+
+    ENTRANCE_TEST: {
+        TOIEC: "/test-input/detail",
+        SUBMIT: "/test-input/detail",
+    },
 };
 
 export default url;

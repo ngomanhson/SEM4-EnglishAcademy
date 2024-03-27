@@ -30621,6 +30621,11 @@ input[type="number"]::placeholder {
     border-radius: 4px;
 }
 
+.answers__inner {
+    position: sticky;
+    top: 20px;
+}
+
 .answers-group__label {
     display: block;
     border: 1px solid #f1f1f1;
@@ -30699,8 +30704,9 @@ input[type="number"]::placeholder {
     font-size: 14px;
     color: #909090;
 }
-.answers-btn.selected {
-    background: #192335;
+.answers-btn.active {
+    background: var(--color-primary);
+    color: var(--color-white);
 }
 .background-secondary {
     background: #f9fafb;
@@ -30781,6 +30787,9 @@ button.btn-circle[disabled]:hover {
     height: 6px;
     border-radius: 50%;
     background: #6c757d;
+}
 
+.fw-500 {
+    font-weight: 500;
 }
 /*# sourceMappingURL=../maps/style.css.map */
