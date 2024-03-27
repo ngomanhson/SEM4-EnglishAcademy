@@ -93,16 +93,16 @@ function LearningPaths() {
                                         <div className="content-wrap">
                                             <h5 className="fw-normal">Strengths</h5>
 
-                                            <ul class="plan-offer-list mt-3 mb-5">
+                                            <ul className="plan-offer-list mt-3 mb-5">
                                                 <li>
-                                                    <i class="feather-check"></i> Students can only determine the correct answer to a question when they do not need to read much and the language in
-                                                    the reading matches the information they are looking for.
+                                                    <i className="feather-check"></i> Students can only determine the correct answer to a question when they do not need to read much and the language
+                                                    in the reading matches the information they are looking for.
                                                 </li>
                                                 <li>
-                                                    <i class="feather-check"></i> Students can understand simple vocabulary and common phrases.
+                                                    <i className="feather-check"></i> Students can understand simple vocabulary and common phrases.
                                                 </li>
                                                 <li>
-                                                    <i class="feather-check"></i> Students can understand the most common, rule-based grammatical structures without having to read much.
+                                                    <i className="feather-check"></i> Students can understand the most common, rule-based grammatical structures without having to read much.
                                                 </li>
                                             </ul>
                                         </div>
@@ -110,15 +110,15 @@ function LearningPaths() {
                                         <div className="content-wrap">
                                             <h5 className="fw-normal">Weaknesses</h5>
 
-                                            <ul class="plan-offer-list mb-5">
-                                                <li class="off">
-                                                    <i class="feather-x"></i> Students cannot make inferences about information in the reading text
+                                            <ul className="plan-offer-list mb-5">
+                                                <li className="off">
+                                                    <i className="feather-x"></i> Students cannot make inferences about information in the reading text
                                                 </li>
-                                                <li class="off">
-                                                    <i class="feather-x"></i> Students often cannot connect information right in a sentence.
+                                                <li className="off">
+                                                    <i className="feather-x"></i> Students often cannot connect information right in a sentence.
                                                 </li>
-                                                <li class="off">
-                                                    <i class="feather-x"></i>
+                                                <li className="off">
+                                                    <i className="feather-x"></i>
                                                     Students only have a limited vocabulary.
                                                 </li>
                                             </ul>
