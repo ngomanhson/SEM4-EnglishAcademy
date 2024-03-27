@@ -19263,7 +19263,7 @@ Testimonial Styles
     height: 100%;
     left: -64px;
     top: -57px;
-    background-image: url(../images/testimonial/image-1.html);
+    background-image: url(../images/testimonial/image-1.png);
     content: "";
     opacity: 1;
     background-repeat: no-repeat;
@@ -30740,5 +30740,47 @@ button.btn-circle[disabled]:hover {
 
 .fz-16 {
     font-size: 16px;
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    background: #E4E9FE;
+    border-radius: 5px;
+}
+
+.icon-wrapper {
+    font-size: 20px;
+    color: var(--color-primary);
+}
+
+.tutor-edu {
+    margin-left: 15px;
+}
+.tutor-edu__info {
+    color: #000;
+    font-size: 14px;
+}
+
+.tutor-edu__desc {
+    position: relative;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.tutor-edu__desc::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6c757d;
+
 }
 /*# sourceMappingURL=../maps/style.css.map */

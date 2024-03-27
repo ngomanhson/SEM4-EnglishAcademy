@@ -533,11 +533,7 @@ function CourseDetail() {
                                             </a>
                                         </div>
 
-                                        <span className="subtitle">
-                                            <i className="feather-rotate-ccw"></i> 30-Day Money-Back Guarantee
-                                        </span>
-
-                                        <div className="rbt-widget-details has-show-more">
+                                        <div className="rbt-widget-details has-show-more m-5">
                                             <ul className="has-show-more-inner-content rbt-course-details-list-wrapper">
                                                 <li>
                                                     <span>Start Date</span>
