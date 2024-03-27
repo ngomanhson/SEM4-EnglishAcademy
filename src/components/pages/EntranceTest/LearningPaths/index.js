@@ -91,30 +91,41 @@ function LearningPaths() {
                                 <div className="row">
                                     <div className="col-lg-6 col-12">
                                         <div className="content-wrap">
-                                            <h5>Strengths</h5>
+                                            <h5 className="fw-normal">Strengths</h5>
 
-                                            <ul className="fw-light">
+                                            <ul class="plan-offer-list mt-3 mb-5">
                                                 <li>
-                                                    Students can only determine the correct answer to a question when they do not need to read much and the language in the reading matches the
-                                                    information they are looking for.
+                                                    <i class="feather-check"></i> Students can only determine the correct answer to a question when they do not need to read much and the language in
+                                                    the reading matches the information they are looking for.
                                                 </li>
-                                                <li>Students can understand simple vocabulary and common phrases.</li>
-                                                <li>Students can understand the most common, rule-based grammatical structures without having to read much.</li>
+                                                <li>
+                                                    <i class="feather-check"></i> Students can understand simple vocabulary and common phrases.
+                                                </li>
+                                                <li>
+                                                    <i class="feather-check"></i> Students can understand the most common, rule-based grammatical structures without having to read much.
+                                                </li>
                                             </ul>
                                         </div>
 
                                         <div className="content-wrap">
-                                            <h5>Weaknesses</h5>
+                                            <h5 className="fw-normal">Weaknesses</h5>
 
-                                            <ul className="fw-light">
-                                                <li>Students cannot make inferences about information in the reading text</li>
-                                                <li>Students often cannot connect information right in a sentence.</li>
-                                                <li>Students only have a limited vocabulary.</li>
+                                            <ul class="plan-offer-list mb-5">
+                                                <li class="off">
+                                                    <i class="feather-x"></i> Students cannot make inferences about information in the reading text
+                                                </li>
+                                                <li class="off">
+                                                    <i class="feather-x"></i> Students often cannot connect information right in a sentence.
+                                                </li>
+                                                <li class="off">
+                                                    <i class="feather-x"></i>
+                                                    Students only have a limited vocabulary.
+                                                </li>
                                             </ul>
                                         </div>
 
                                         <div className="content-wrap">
-                                            <h5>Advice for you</h5>
+                                            <h5 className="fw-normal mb-1">Advice for you</h5>
 
                                             <div className="advice-description background-secondary p-4">
                                                 <h6 className="mb-2">Improve general reading comprehension:</h6>
