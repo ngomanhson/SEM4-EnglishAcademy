@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { Helmet } from "react-helmet";
 import Separator from "./Separator";
+import BackToTop from "./BackToTop";
 
 function Layout({ children, title }) {
     useEffect(() => {
@@ -1321,6 +1322,12 @@ function Layout({ children, title }) {
         });
     }, []);
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, []);
     return (
         <>
             <Helmet>
@@ -1953,6 +1960,8 @@ function Layout({ children, title }) {
             <Separator />
 
             <Footer />
+
+            <BackToTop />
         </>
     );
 }

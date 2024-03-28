@@ -18376,7 +18376,7 @@ span.transparent-button:hover i {
     cursor: pointer;
     display: block;
     border-radius: 50px;
-    box-shadow: inset 0 0 0 2px var(--black-opacity);
+    box-shadow: inset 0 0 0 2px #EBEBEB;
     z-index: 10000;
     opacity: 0;
     visibility: hidden;
@@ -18396,7 +18396,7 @@ span.transparent-button:hover i {
     text-align: center;
     line-height: 46px;
     font-size: 20px;
-    color: var(--color-primary);
+    color: #EBEBEB;
     left: 0;
     top: 0;
     height: 46px;
@@ -18407,9 +18407,7 @@ span.transparent-button:hover i {
     -webkit-transition: all 200ms linear;
     transition: all 200ms linear;
 }
-.rbt-progress-parent:hover::after {
-    color: var(--color-primary);
-}
+
 .rbt-progress-parent::before {
     position: absolute;
     font-family: "feather" !important;
@@ -18436,7 +18434,6 @@ span.transparent-button:hover i {
     fill: none;
 }
 .rbt-progress-parent svg.rbt-back-circle path {
-    stroke: var(--color-primary);
     stroke-width: 4;
     box-sizing: border-box;
     -webkit-transition: all 200ms linear;
@@ -30769,6 +30766,9 @@ button.btn-circle[disabled]:hover {
 
 .fz-16 {
     font-size: 16px;
+}
+.fz-15 {
+    font-size: 15px;
 }
 
 .icon-wrapper {

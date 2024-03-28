@@ -12,6 +12,7 @@ const url = {
         TOIEC: "/test-input/detail",
         IELTS: "/test-input/detail",
         SUBMIT: "/test-input/detail",
+        RESULT: "/test-input/result",
     },
 };
 
