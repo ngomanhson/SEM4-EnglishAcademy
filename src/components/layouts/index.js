@@ -1320,6 +1320,7 @@ function Layout({ children, title }) {
             }
         });
     }, []);
+
     return (
         <>
             <Helmet>

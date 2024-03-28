@@ -25,7 +25,7 @@ function Header() {
                                             </li>
                                             <li>
                                                 <a href="#!">
-                                                    <i className="feather-phone"></i>+1-202-555-0174
+                                                    <i className="feather-phone"></i>0123 456 789
                                                 </a>
                                             </li>
                                         </ul>
@@ -40,7 +40,7 @@ function Header() {
                                                 <div className="content">
                                                     <span className="rbt-badge variation-02 bg-color-primary color-white radius-round">Hot</span>
                                                     <span className="news-text">
-                                                        <img src="assets/images/icons/hand-emojji.svg" alt="Hand Emojji Images" /> Intro price. Get Histudy for Big Sale -95% off.
+                                                        <img src="assets/images/icons/hand-emojji.svg" alt="Hand Emojji Images" /> Intro price. Get English Academy for Big Sale -95% off.
                                                     </span>
                                                 </div>
                                             </div>

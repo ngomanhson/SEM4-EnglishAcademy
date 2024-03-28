@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
     return (
         <footer className="rbt-footer footer-style-1 bg-color-white overflow-hidden">
@@ -7,9 +9,9 @@ function Footer() {
                         <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                             <div className="footer-widget">
                                 <div className="logo">
-                                    <a href="index.html">
-                                        <img src="assets/images/logo/logo.png" alt="Edu-cause" />
-                                    </a>
+                                    <Link to="/">
+                                        <img src="assets/images/logo/logo.png" alt="English Academy" />
+                                    </Link>
                                 </div>
 
                                 <p className="description mt--20">We’re always in search for talented and motivated people. Don’t be shy introduce yourself!</p>
@@ -58,25 +60,25 @@ function Footer() {
                                 <h5 className="ft-title">Useful Links</h5>
                                 <ul className="ft-link">
                                     <li>
-                                        <a href="12-marketplace.html">Marketplace</a>
+                                        <Link to="">Marketplace</Link>
                                     </li>
                                     <li>
-                                        <a href="04-kindergarten.html">kindergarten</a>
+                                        <Link to="">Kindergarten</Link>
                                     </li>
                                     <li>
-                                        <a href="13-university-classic.html">University</a>
+                                        <Link to="">University</Link>
                                     </li>
                                     <li>
-                                        <a href="09-gym-coaching.html">GYM Coaching</a>
+                                        <Link to="">GYM Coaching</Link>
                                     </li>
                                     <li>
-                                        <a href="faqs.html">FAQ</a>
+                                        <Link to="">FAQ</Link>
                                     </li>
                                     <li>
-                                        <a href="about-us-01.html">About Us</a>
+                                        <Link to="">About Us</Link>
                                     </li>
                                     <li>
-                                        <a href="privacy-policy.html">Privacy policy</a>
+                                        <Link to="">Privacy policy</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -87,25 +89,25 @@ function Footer() {
                                 <h5 className="ft-title">Our Company</h5>
                                 <ul className="ft-link">
                                     <li>
-                                        <a href="contact.html">Contact Us</a>
+                                        <Link to="">Contact Us</Link>
                                     </li>
                                     <li>
-                                        <a href="become-a-teacher.html">Become Teacher</a>
+                                        <Link to="">Become Teacher</Link>
                                     </li>
                                     <li>
-                                        <a href="blog.html">Blog</a>
+                                        <Link to="/blog">Blog</Link>
                                     </li>
                                     <li>
-                                        <a href="instructor.html">Instructor</a>
+                                        <Link to="">Instructor</Link>
                                     </li>
                                     <li>
-                                        <a href="event-list.html">Events</a>
+                                        <Link to="">Events</Link>
                                     </li>
                                     <li>
-                                        <a href="course-filter-one-toggle.html">Course</a>
+                                        <Link to="/courses">Course</Link>
                                     </li>
                                     <li>
-                                        <a href="contact.html">Contact</a>
+                                        <Link to="">Contact</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -116,10 +118,10 @@ function Footer() {
                                 <h5 className="ft-title">Get Contact</h5>
                                 <ul className="ft-link">
                                     <li>
-                                        <span>Phone:</span> <a href="#!">(406) 555-0120</a>
+                                        <span>Phone:</span> <a href="#!">0123 456 789</a>
                                     </li>
                                     <li>
-                                        <span>E-mail:</span> <a href="mailto:hr@example.com">admin@example.com</a>
+                                        <span>E-mail:</span> <a href="mailto:englishacademy@edu.com">englishacademy@edu.com</a>
                                     </li>
                                 </ul>
 
@@ -132,7 +134,7 @@ function Footer() {
 
                                     <div className="form-group right-icon icon-email mb--20">
                                         <label htmlFor="email">Enter Your Email Here</label>
-                                        <input id="email" type="email" />
+                                        <input id="email" type="email" required />
                                     </div>
 
                                     <div className="form-group mb--0">
@@ -156,22 +158,19 @@ function Footer() {
                     <div className="row align-items-center">
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
                             <p className="rbt-link-hover text-center text-lg-start">
-                                Copyright © 2024 <a href="#!">English-Academy.</a> All Rights Reserved
+                                Copyright © 2024 <Link to="">English Academy</Link> All Rights Reserved
                             </p>
                         </div>
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
                             <ul className="copyright-link rbt-link-hover justify-content-center justify-content-lg-end mt_sm--10 mt_md--10">
                                 <li>
-                                    <a href="#!">Terms of service</a>
+                                    <Link to="">Terms of service</Link>
                                 </li>
                                 <li>
-                                    <a href="privacy-policy.html">Privacy policy</a>
+                                    <Link to="">Privacy policy</Link>
                                 </li>
                                 <li>
-                                    <a href="subscription.html">Subscription</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login & Register</a>
+                                    <Link to="">Subscription</Link>
                                 </li>
                             </ul>
                         </div>

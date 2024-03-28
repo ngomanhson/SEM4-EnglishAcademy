@@ -610,7 +610,7 @@ html {
 }
 
 body {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.5;
     font-family: var(--font-primary);
     color: var(--color-body);
@@ -30832,4 +30832,109 @@ button.btn-circle[disabled]:hover {
     color: #c4c4c4;
 }
 
+/* ==== Preload ==== */
+
+.preloader-inner {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999999999999;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.preloader-inner .cancel-preloader {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+.preloader-inner .cancel-preloader a {
+    background-color: #fff;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--main-color);
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 30px;
+    display: block;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.preloader-inner .cancel-preloader a:hover {
+    background-color: var(--heading-color);
+    color: #fff;
+}
+
+.spinner {
+    margin: 120px auto;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    text-align: center;
+    -webkit-animation: sk-rotate 2s infinite linear;
+    animation: sk-rotate 2s infinite linear;
+}
+
+.dot1,
+.dot2 {
+    width: 60%;
+    height: 60%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    background: linear-gradient(90deg, #bdceff 0%, #e5c6ff 100%);;
+    border-radius: 100%;
+    -webkit-animation: sk-bounce 2s infinite ease-in-out;
+    animation: sk-bounce 2s infinite ease-in-out;
+}
+
+.dot2 {
+    top: auto;
+    bottom: 0;
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+
+@-webkit-keyframes sk-rotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes sk-rotate {
+    100% {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes sk-bounce {
+    0%,
+    100% {
+        -webkit-transform: scale(0);
+    }
+    50% {
+        -webkit-transform: scale(1);
+    }
+}
+@keyframes sk-bounce {
+    0%,
+    100% {
+        transform: scale(0);
+        -webkit-transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
+}
 /*# sourceMappingURL=../maps/style.css.map */
