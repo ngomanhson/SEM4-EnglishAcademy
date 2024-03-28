@@ -1,8 +1,51 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
+import api from "../../../../services/api";
+import url from "../../../../services/url";
+import { useEffect } from "react";
 
 function Ielts() {
     const navigate = useNavigate();
+
+    const [testIelts, setTestIelts] = useState({});
+    const [timeRemaining, setTimeRemaining] = useState(1800);
+
+    const loadTest = async () => {
+        try {
+            const testResponse = await api.get(url.ENTRANCE_TEST.IELTS + "/test-2");
+            setTestIelts(testResponse.data.data);
+            console.log(testResponse.data.data);
+        } catch (error) {
+            console.error("Error loading test:", error);
+        }
+    };
+
+    useEffect(() => {
+        loadTest();
+    }, []);
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+    };
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeRemaining((prevTime) => {
+                if (prevTime > 0) {
+                    return prevTime - 1;
+                } else {
+                    clearInterval(timer);
+
+                    return 0;
+                }
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
 
     const handleSubmit = () => {
         navigate("/entrance-test/learning-paths");
@@ -108,7 +151,7 @@ function Ielts() {
                             <div className="answers__inner">
                                 <div className="td-sidebar">
                                     <div className="widget">
-                                        <h5 className="text-center">Time remaining: </h5>
+                                        <h5 className="text-center">Time remaining: {formatTime(timeRemaining)}</h5>
                                         <div className="answers_number">
                                             <button type="button" className="answers-btn">
                                                 1

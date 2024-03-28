@@ -24,6 +24,7 @@ import Toeic from "./components/pages/EntranceTest/Toeic/index.js";
 import LearningPaths from "./components/pages/EntranceTest/LearningPaths/index.js";
 import Tutor from "./components/pages/Tutor/index.js";
 import TutorDetail from "./components/pages/Tutor/TutorDetail/index.js";
+import AnswerDetail from "./components/pages/EntranceTest/AnswerDetail/index.js";
 
 function App() {
     return (
@@ -53,6 +54,7 @@ function App() {
                 <Route path="/entrance-test/ielts" element={<Ielts />} />
                 <Route path="/entrance-test/toeic" element={<Toeic />} />
                 <Route path="/entrance-test/learning-paths" element={<LearningPaths />} />
+                <Route path="/entrance-test/answer-detail" element={<AnswerDetail />} />
                 {/* ===== End Entrance Test ===== */}
 
                 {/* ===== Start Blog ===== */}

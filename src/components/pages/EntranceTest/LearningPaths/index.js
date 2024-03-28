@@ -1,5 +1,6 @@
 import Chart from "react-apexcharts";
 import Layout from "../../../layouts/index";
+import { Link } from "react-router-dom";
 
 const options = {
     chart: {
@@ -74,9 +75,9 @@ function LearningPaths() {
                                     </p>
                                 </div>
 
-                                <button type="button" className="rbt-btn btn-white radius hover-icon-reverse">
+                                <Link to="/entrance-test/answer" className="rbt-btn btn-white radius hover-icon-reverse">
                                     <span className="icon-reverse-wrapper">
-                                        <span className="btn-text">See Answer</span>
+                                        <span className="btn-text">See detailed answer</span>
                                         <span className="btn-icon">
                                             <i className="feather-arrow-right"></i>
                                         </span>
@@ -84,7 +85,7 @@ function LearningPaths() {
                                             <i className="feather-arrow-right"></i>
                                         </span>
                                     </span>
-                                </button>
+                                </Link>
                             </div>
 
                             <div className="content widget">

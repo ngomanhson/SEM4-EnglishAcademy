@@ -10,6 +10,7 @@ const url = {
 
     ENTRANCE_TEST: {
         TOIEC: "/test-input/detail",
+        IELTS: "/test-input/detail",
         SUBMIT: "/test-input/detail",
     },
 };
