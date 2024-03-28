@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import api from "../../../../services/api";
 import url from "../../../../services/url";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Toeic() {
     const navigate = useNavigate();
@@ -51,8 +52,13 @@ function Toeic() {
             const response = await api.post(url.ENTRANCE_TEST.SUBMIT + "/test-1/1", selectedAnswersList);
 
             if (response.status === 200) {
-                alert("The test has been submitted successfully!");
                 navigate("/entrance-test/learning-paths");
+
+                toast.success("The test has been submitted successfully!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: "colored",
+                    autoClose: 3000,
+                });
             }
         } catch (error) {
             console.error("Error submitting test:", error);
