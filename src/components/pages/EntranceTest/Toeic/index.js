@@ -161,6 +161,16 @@ function Toeic() {
                                                 </button>
                                             ))}
                                         </div>
+
+                                        <div className="mt-5 choice-wrapper">
+                                            {/* {testToiec &&
+                                                testToiec.testInputSessionDetails[currentSessionIndex].questionTestInputs.map((question, index) => (
+                                                    <button type="button" className="choice-wrapper__btn" key={question.id}>
+                                                        {index + 1}
+                                                    </button>
+                                                ))} */}
+                                        </div>
+
                                         <div className="d-flex justify-content-end">
                                             <button type="button" className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 mt-4" onClick={handleSubmitTest}>
                                                 <i className="fa fa-stop-circle"></i> Finish Test

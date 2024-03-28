@@ -30646,6 +30646,16 @@ input[type="number"]::placeholder {
     background: var(--primary-opacity);
 }
 
+.answers-group__label.correct {
+    border: 1px solid var(--color-success);
+    background: var(--success-opacity);
+}
+
+.answers-group__label.incorrect {
+    border: 1px solid var(--color-danger);
+    background: var(--danger-opacity);
+}
+
 .btn-choose {
     display: flex;
     align-items: center;
@@ -30662,11 +30672,24 @@ input[type="number"]::placeholder {
     padding: 5px;
 }
 
-.answers-group__label.checked .btn-choose {
-    background: var(--color-primary);
+.answers-group__label.checked .btn-choose,
+.answers-group__label.correct .btn-choose,
+.answers-group__label.incorrect .btn-choose {
     color: var(--color-white);
 }
 
+.answers-group__label.checked .btn-choose {
+    background: var(--color-primary);
+    
+}
+
+.answers-group__label.correct .btn-choose {
+    background: var(--color-success);
+}
+
+.answers-group__label.incorrect .btn-choose {
+    background: var(--color-danger);
+}
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -30792,4 +30815,21 @@ button.btn-circle[disabled]:hover {
 .fw-500 {
     font-weight: 500;
 }
+
+.choice-wrapper {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.choice-wrapper__btn {
+    border: 1px solid #bfbfbf;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    color: #c4c4c4;
+}
+
 /*# sourceMappingURL=../maps/style.css.map */
