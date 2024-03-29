@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
-import AudioPlayer from "react-audio-player";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 import { Helmet } from "react-helmet";
 import api from "../../../../services/api";
 import url from "../../../../services/url";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loading from "../../../layouts/Loading";
 
 function Toeic() {
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState(false);
     const [testToiec, setTestToiec] = useState({});
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
@@ -18,15 +21,25 @@ function Toeic() {
     const loadTest = async () => {
         try {
             const testResponse = await api.get(url.ENTRANCE_TEST.TOIEC + "/test-1");
+            setLoading(true);
+
             setTestToiec(testResponse.data.data);
+            setLoading(false);
         } catch (error) {
             console.error("Error loading test:", error);
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         loadTest();
     }, []);
+
+    const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+
+    const handleQuestionClick = (questionId) => {
+        setSelectedQuestionId(questionId);
+    };
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -86,11 +99,25 @@ function Toeic() {
             <Helmet>
                 <title>TOEIC entrance test | English Academy</title>
             </Helmet>
+
+            {loading ? <Loading /> : ""}
+
             <div className="rbt-button-area">
                 <div className="container">
                     <div className="row mt--50">
                         <div className="col-12">
-                            <h4>TOEIC entrance test - {testToiec.title}</h4>
+                            <h4 className="mb-3">TOEIC entrance test - {testToiec.title}</h4>
+                            <ul className="page-list">
+                                <li className="rbt-breadcrumb-item">
+                                    <Link to="/">Home</Link>
+                                </li>
+                                <li>
+                                    <div className="icon-right">
+                                        <i className="feather-chevron-right"></i>
+                                    </div>
+                                </li>
+                                <li className="rbt-breadcrumb-item active">TOEIC entrance test - {testToiec.title}</li>
+                            </ul>
                         </div>
                     </div>
                     <div className="row mt--50">
@@ -155,27 +182,27 @@ function Toeic() {
                                 <div className="td-sidebar">
                                     <div className="widget">
                                         <h5 className="text-center">Time remaining: {formatTime(timeRemaining)}</h5>
-                                        <div className="answers_number">
-                                            {testToiec.testInputSessionDetails?.map((session, index) => (
-                                                <button
-                                                    key={session.id}
-                                                    type="button"
-                                                    className={`answers-btn ${currentSessionIndex === index ? "active" : ""}`}
-                                                    onClick={() => setCurrentSessionIndex(index)}
-                                                >
+
+                                        {testToiec.testInputSessionDetails?.map((session, index) => (
+                                            <div key={session.id}>
+                                                <button type="button" className={`answers-btn w-100 ${currentSessionIndex === index ? "active" : ""}`} onClick={() => setCurrentSessionIndex(index)}>
                                                     {session.sessionName}
                                                 </button>
-                                            ))}
-                                        </div>
 
-                                        <div className="mt-5 choice-wrapper">
-                                            {/* {testToiec &&
-                                                testToiec.testInputSessionDetails[currentSessionIndex].questionTestInputs.map((question, index) => (
-                                                    <button type="button" className="choice-wrapper__btn" key={question.id}>
-                                                        {index + 1}
-                                                    </button>
-                                                ))} */}
-                                        </div>
+                                                <div className="mt-5 choice-wrapper mb-5">
+                                                    {session.questionTestInputs.map((question, questionIndex) => (
+                                                        <button
+                                                            type="button"
+                                                            key={question.id}
+                                                            className={`choice-wrapper__btn ${selectedAnswers[question.id] ? "active" : ""}`}
+                                                            onClick={() => handleQuestionClick(selectedQuestionId)}
+                                                        >
+                                                            {questionIndex + 1}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
 
                                         <div className="d-flex justify-content-end">
                                             <button type="button" className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 mt-4" onClick={handleSubmitTest}>

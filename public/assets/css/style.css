@@ -30723,10 +30723,12 @@ input[type="number"]::placeholder {
     font-weight: 400;
     font-size: 14px;
     color: #909090;
+    background: var(--color-white);
 }
 .answers-btn.active {
     background: var(--color-primary);
     color: var(--color-white);
+    border-color: transparent;
 }
 .background-secondary {
     background: #f9fafb;
@@ -30828,8 +30830,13 @@ button.btn-circle[disabled]:hover {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: #fff;
+    background: var(--color-white);
     color: #c4c4c4;
+}
+
+.choice-wrapper__btn.active {
+    background: #c4c4c4;
+    color: var(--color-white);
 }
 
 /* ==== Preload ==== */
@@ -30936,5 +30943,11 @@ button.btn-circle[disabled]:hover {
         transform: scale(1);
         -webkit-transform: scale(1);
     }
+}
+
+
+/* ===== Custom ReactPlayer ===== */
+.rhap_container {
+    box-shadow: none !important;
 }
 /*# sourceMappingURL=../maps/style.css.map */
