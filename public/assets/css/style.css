@@ -30950,4 +30950,16 @@ button.btn-circle[disabled]:hover {
 .rhap_container {
     box-shadow: none !important;
 }
+
+/* definition */
+.definition-item {
+    padding: 10px 20px;
+    border-radius: 4px 0 0 4px;
+    border-left: 3px solid #4d59fb;
+    background: #F5F7FA;
+}
+
+.definition-item.example {
+    border-color: #28a745;
+}
 /*# sourceMappingURL=../maps/style.css.map */

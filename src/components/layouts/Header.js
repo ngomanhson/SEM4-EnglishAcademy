@@ -174,10 +174,6 @@ function Header() {
                                     <li className="with-megamenu has-menu-child-item position-static">
                                         <NavLink to="/blog">Blog</NavLink>
                                     </li>
-
-                                    {/* <li className="with-megamenu has-menu-child-item position-static">
-                                        <NavLink to="/about">About Us</NavLink>
-                                    </li> */}
                                 </ul>
                             </nav>
                         </div>
@@ -188,6 +184,12 @@ function Header() {
                                     <a className="search-trigger-active rbt-round-btn" href="#!">
                                         <i className="feather-search"></i>
                                     </a>
+                                </li>
+
+                                <li className="access-icon">
+                                    <NavLink to="/dictionary" className="rbt-round-btn">
+                                        <i className="fas fa-language"></i>
+                                    </NavLink>
                                 </li>
 
                                 <li className="account-access rbt-user-wrapper d-none d-xl-block">

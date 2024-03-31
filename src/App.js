@@ -25,6 +25,7 @@ import LearningPaths from "./components/pages/EntranceTest/LearningPaths/index.j
 import Tutor from "./components/pages/Tutor/index.js";
 import TutorDetail from "./components/pages/Tutor/TutorDetail/index.js";
 import AnswerDetail from "./components/pages/EntranceTest/AnswerDetail/index.js";
+import Dictionary from "./components/pages/Dictionary/index.js";
 
 function App() {
     return (
@@ -65,6 +66,10 @@ function App() {
                 {/* ===== Start Contact ===== */}
                 <Route path="/about" element={<AboutUs />} />
                 {/* ===== End Contact ===== */}
+
+                {/* ===== Start Dictionary ===== */}
+                <Route path="/dictionary" element={<Dictionary />} />
+                {/* ===== End Dictionary ===== */}
 
                 {/* ===== Start Profile ===== */}
                 <Route path="/profile" element={<Profile />} />
