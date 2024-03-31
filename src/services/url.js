@@ -14,6 +14,10 @@ const url = {
         SUBMIT: "/test-input/detail",
         RESULT: "/test-input/result",
     },
+
+    DICTIONARY: {
+        SEARCH: "https://api.dictionaryapi.dev/api/v2/entries/en",
+    },
 };
 
 export default url;
