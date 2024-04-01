@@ -8,11 +8,11 @@ import MyQuiz from "./components/views/Profile/MyQuiz";
 import Settings from "./components/views/Profile/Settings";
 import Course from "./components/pages/Course/index.js";
 import CourseDetail from "./components/pages/Course/CourseDetail.js/index.js";
-import Lesson from "./components/pages/Lesson/index.js";
+import Learning from "./components/pages/Learning/index.js";
 import NotFound from "./components/pages/Other/NotFound.js";
 import Blog from "./components/pages/Blog/index.js";
 import BlogDetail from "./components/pages/Blog/BlogDetail.js";
-import Quiz from "./components/pages/Lesson/Quiz/index.js";
+import Test from "./components/pages/Learning/Test/index.js";
 import Login from "./components/pages/Auth/Login.js";
 import Register from "./components/pages/Auth/Register.js";
 import ForgotPassword from "./components/pages/Auth/ForgotPassword.js";
@@ -45,10 +45,10 @@ function App() {
                 <Route path="/tutor/:slug" element={<TutorDetail />} />
                 {/* ===== End Tutor ===== */}
 
-                {/* ===== Start Lesson ===== */}
-                <Route path="/lesson/:courseSlug" element={<Lesson />} />
-                <Route path="/lesson/quiz" element={<Quiz />} />
-                {/* ===== End Lesson ===== */}
+                {/* ===== Start Learning ===== */}
+                <Route path="/learning/:courseSlug" element={<Learning />} />
+                <Route path="/learning/test/:courseSlug" element={<Test />} />
+                {/* ===== End Learning ===== */}
 
                 {/* ===== Start Entrance Test ===== */}
                 <Route path="/entrance-test" element={<EntranceTest />} />

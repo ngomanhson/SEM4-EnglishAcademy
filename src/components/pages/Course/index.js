@@ -12,13 +12,15 @@ function Course() {
     const loadCourses = async () => {
         try {
             setLoading(true);
-
             const courseResponse = await api.get(url.ONLINE_COURSE.GET_ALL);
 
             setCourses(courseResponse.data.data);
-            setLoading(false);
         } catch (error) {
-            setLoading(false);
+            console.log(error);
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+            }, 3000);
         }
     };
 
