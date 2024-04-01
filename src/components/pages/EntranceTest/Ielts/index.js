@@ -4,12 +4,15 @@ import "react-h5-audio-player/lib/styles.css";
 import { Helmet } from "react-helmet";
 import api from "../../../../services/api";
 import url from "../../../../services/url";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../../layouts/Loading";
+import NotFound from "../../Other/NotFound";
 
 function Ielts() {
+    const { slug } = useParams();
     const navigate = useNavigate();
+    const [error, setError] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [testIelts, setTestIelts] = useState({});
@@ -18,22 +21,23 @@ function Ielts() {
     const [selectedAnswersList, setSelectedAnswersList] = useState([]);
     const [timeRemaining, setTimeRemaining] = useState(1800);
 
-    const loadTest = async () => {
+    const loadTest = useCallback(async () => {
         try {
-            const testResponse = await api.get(url.ENTRANCE_TEST.IELTS + "/ai-eo-phun-test");
+            const testResponse = await api.get(url.ENTRANCE_TEST.IELTS + "/" + slug);
             setLoading(true);
 
             setTestIelts(testResponse.data.data);
-            setLoading(false);
         } catch (error) {
-            console.error("Error loading test:", error);
+            console.log(error);
+            setError(true);
+        } finally {
             setLoading(false);
         }
-    };
+    }, [slug]);
 
     useEffect(() => {
         loadTest();
-    }, []);
+    }, [loadTest]);
 
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
 
@@ -102,112 +106,120 @@ function Ielts() {
 
             {loading ? <Loading /> : ""}
 
-            <div className="rbt-button-area">
-                <div className="container">
-                    <div className="row mt--50">
-                        <div className="col-12">
-                            <h4 className="mb-3">IELTS entrance test - {testIelts.title}</h4>
-                            <ul className="page-list">
-                                <li className="rbt-breadcrumb-item">
-                                    <Link to="/">Home</Link>
-                                </li>
-                                <li>
-                                    <div className="icon-right">
-                                        <i className="feather-chevron-right"></i>
-                                    </div>
-                                </li>
-                                <li className="rbt-breadcrumb-item active">IELTS entrance test - {testIelts.title}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="row mt--50">
-                        <div className="col-lg-8 col-12">
-                            {testIelts.testInputSessionDetails?.map((session, index) => (
-                                <div key={session.id} style={{ display: currentSessionIndex === index ? "block" : "none" }}>
-                                    <div className="py-4 background-primary">
-                                        <h4 className="text-center text-white fw-500 mb-0" style={{ fontSize: 20 }}>
-                                            {session.sessionName}
-                                        </h4>
-                                    </div>
-
-                                    <div className="widget" style={{ background: "#f1f1f19e" }}>
-                                        {session.questionTestInputs?.map((question, questionIndex) => (
-                                            <div className="p-5 mb-5" style={{ background: "#fff", borderRadius: 8 }} key={questionIndex}>
-                                                <h5 className="exam__inner-desc fw-500">
-                                                    Question {questionIndex + 1}: {question.title}
-                                                </h5>
-                                                {question.image && <img src={question.image} className="w-100 mb-5" alt="" />}
-                                                {question.audiomp3 && <AudioPlayer src={question.audiomp3} autoPlay={false} className="mb-5 w-100" />}
-                                                {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
-                                                    <div className="answer-group" key={optionIndex}>
-                                                        <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
-                                                            <input
-                                                                type="radio"
-                                                                className="answers-group__input"
-                                                                name={`answer_${question.id}`}
-                                                                id={`answer_${question.id}_${option}`}
-                                                                checked={selectedAnswers[question.id] === question[option]}
-                                                                onChange={() => handleAnswerSelect(question.id, question[option])}
-                                                            />
-                                                            <div className="d-flex align-content-center">
-                                                                <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
-                                                            </div>
-                                                        </label>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        ))}
-
-                                        <div className="d-flex justify-content-end align-items-center mt-3">
-                                            <button type="button" className="btn-circle" onClick={handlePrevSession} disabled={currentSessionIndex === 0}>
-                                                <i className="feather-arrow-left"></i>
-                                            </button>
-
-                                            <button
-                                                type="button"
-                                                className="btn-circle ml-2"
-                                                onClick={handleNextSession}
-                                                disabled={currentSessionIndex === testIelts.testInputSessionDetails.length - 1}
-                                            >
-                                                <i className="feather-arrow-right"></i>
-                                            </button>
+            {error ? (
+                <NotFound />
+            ) : (
+                <div className="rbt-button-area">
+                    <div className="container">
+                        <div className="row mt--50">
+                            <div className="col-12">
+                                <h4 className="mb-3">IELTS entrance test - {testIelts.title}</h4>
+                                <ul className="page-list">
+                                    <li className="rbt-breadcrumb-item">
+                                        <Link to="/">Home</Link>
+                                    </li>
+                                    <li>
+                                        <div className="icon-right">
+                                            <i className="feather-chevron-right"></i>
                                         </div>
-                                    </div>
-                                </div>
-                            ))}
+                                    </li>
+                                    <li className="rbt-breadcrumb-item active">IELTS entrance test - {testIelts.title}</li>
+                                </ul>
+                            </div>
                         </div>
+                        <div className="row mt--50">
+                            <div className="col-lg-8 col-12">
+                                {testIelts.testInputSessionDetails?.map((session, index) => (
+                                    <div key={session.id} style={{ display: currentSessionIndex === index ? "block" : "none" }}>
+                                        <div className="py-4 background-primary">
+                                            <h4 className="text-center text-white fw-500 mb-0" style={{ fontSize: 20 }}>
+                                                {session.sessionName}
+                                            </h4>
+                                        </div>
 
-                        <div className="col-lg-4 col-12">
-                            <div className="answers__inner">
-                                <div className="td-sidebar">
-                                    <div className="widget">
-                                        <h5 className="text-center">Time remaining: {formatTime(timeRemaining)}</h5>
-
-                                        {testIelts.testInputSessionDetails?.map((session, index) => (
-                                            <div key={session.id}>
-                                                <button type="button" className={`answers-btn w-100 ${currentSessionIndex === index ? "active" : ""}`} onClick={() => setCurrentSessionIndex(index)}>
-                                                    {session.sessionName}
-                                                </button>
-
-                                                <div className="mt-5 choice-wrapper mb-5">
-                                                    {session.questionTestInputs.map((question, questionIndex) => (
-                                                        <button
-                                                            type="button"
-                                                            key={question.id}
-                                                            className={`choice-wrapper__btn ${selectedAnswers[question.id] ? "active" : ""}`}
-                                                            onClick={() => handleQuestionClick(selectedQuestionId)}
-                                                        >
-                                                            {questionIndex + 1}
-                                                        </button>
+                                        <div className="widget" style={{ background: "#f1f1f19e" }}>
+                                            {session.questionTestInputs?.map((question, questionIndex) => (
+                                                <div className="p-5 mb-5" style={{ background: "#fff", borderRadius: 8 }} key={questionIndex}>
+                                                    <h5 className="exam__inner-desc fw-500">
+                                                        Question {questionIndex + 1}: {question.title}
+                                                    </h5>
+                                                    {question.image && <img src={question.image} className="w-100 mb-5" alt="" />}
+                                                    {question.audiomp3 && <AudioPlayer src={question.audiomp3} autoPlay={false} className="mb-5 w-100" />}
+                                                    {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
+                                                        <div className="answer-group" key={optionIndex}>
+                                                            <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
+                                                                <input
+                                                                    type="radio"
+                                                                    className="answers-group__input"
+                                                                    name={`answer_${question.id}`}
+                                                                    id={`answer_${question.id}_${option}`}
+                                                                    checked={selectedAnswers[question.id] === question[option]}
+                                                                    onChange={() => handleAnswerSelect(question.id, question[option])}
+                                                                />
+                                                                <div className="d-flex align-content-center">
+                                                                    <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
+                                                                </div>
+                                                            </label>
+                                                        </div>
                                                     ))}
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ))}
 
-                                        <div className="d-flex justify-content-end">
-                                            <button type="button" className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 mt-4" onClick={handleSubmitTest}>
-                                                <i className="fa fa-stop-circle"></i> Finish Test
-                                            </button>
+                                            <div className="d-flex justify-content-end align-items-center mt-3">
+                                                <button type="button" className="btn-circle" onClick={handlePrevSession} disabled={currentSessionIndex === 0}>
+                                                    <i className="feather-arrow-left"></i>
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    className="btn-circle ml-2"
+                                                    onClick={handleNextSession}
+                                                    disabled={currentSessionIndex === testIelts.testInputSessionDetails.length - 1}
+                                                >
+                                                    <i className="feather-arrow-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="col-lg-4 col-12">
+                                <div className="answers__inner">
+                                    <div className="td-sidebar">
+                                        <div className="widget">
+                                            <h5 className="text-center">Time remaining: {formatTime(timeRemaining)}</h5>
+
+                                            {testIelts.testInputSessionDetails?.map((session, index) => (
+                                                <div key={session.id}>
+                                                    <button
+                                                        type="button"
+                                                        className={`answers-btn w-100 ${currentSessionIndex === index ? "active" : ""}`}
+                                                        onClick={() => setCurrentSessionIndex(index)}
+                                                    >
+                                                        {session.sessionName}
+                                                    </button>
+
+                                                    <div className="mt-5 choice-wrapper mb-5">
+                                                        {session.questionTestInputs.map((question, questionIndex) => (
+                                                            <button
+                                                                type="button"
+                                                                key={question.id}
+                                                                className={`choice-wrapper__btn ${selectedAnswers[question.id] ? "active" : ""}`}
+                                                                onClick={() => handleQuestionClick(selectedQuestionId)}
+                                                            >
+                                                                {questionIndex + 1}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ))}
+
+                                            <div className="d-flex justify-content-end">
+                                                <button type="button" className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 mt-4" onClick={handleSubmitTest}>
+                                                    <i className="fa fa-stop-circle"></i> Finish Test
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +227,7 @@ function Ielts() {
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     );
 }
