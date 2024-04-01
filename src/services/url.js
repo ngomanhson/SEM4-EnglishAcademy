@@ -6,6 +6,7 @@ const url = {
         DETAIL: "/course-online/detail",
         TOPIC_ONLINE: "/topic-online",
         ITEM_ONLINE: "/item-online",
+        EXERCISE: "/topic-online",
     },
 
     ENTRANCE_TEST: {

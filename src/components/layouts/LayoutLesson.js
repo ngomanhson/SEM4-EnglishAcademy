@@ -49,13 +49,12 @@ function LayoutLesson({ children, title }) {
         try {
             const topics = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/` + studentId);
             setTopicByStudent(topics.data.data);
-            console.log(topics.data.data);
         } catch (error) {}
     }, [courseSlug]);
 
     useEffect(() => {
         loadTopics();
-    }, [loadTopics]);
+    }, [loadTopics, activeLink]);
 
     return (
         <>
@@ -119,13 +118,15 @@ function LayoutLesson({ children, title }) {
                                                             {topic.itemOnlineDetailList.map((topicItem) => (
                                                                 <li key={topicItem.id}>
                                                                     <Link
-                                                                        to={`/lesson/${courseSlug}?lesson=${topicItem.slug}`}
+                                                                        to={`/learning/${courseSlug}?lesson=${topicItem.slug}`}
                                                                         onClick={() => handleLinkClick(topicItem.slug)}
                                                                         className={activeLink === topicItem.slug ? "active" : ""}
                                                                     >
                                                                         <div className="course-content-left">
                                                                             <div className="d-flex align-content-center">
-                                                                                <i className="feather-play-circle mt-3"></i>
+                                                                                {topicItem.itemType === 0 && <i className="feather-play-circle mt-3"></i>}
+                                                                                {topicItem.itemType === 1 && <i className="feather-help-circle mt-3"></i>}
+                                                                                {topicItem.itemType === 2 && <i className="fas fa-thumbtack mt-3"></i>}
                                                                                 <div className="d-flex flex-column">
                                                                                     <span className="text">{topicItem.title}</span>
                                                                                     <span className="time">04:00</span>
@@ -140,16 +141,17 @@ function LayoutLesson({ children, title }) {
                                                                     </Link>
                                                                 </li>
                                                             ))}
+
                                                             {topic.testOnlineResponseDTOList.map((topicItem) => (
                                                                 <li key={topicItem.id}>
                                                                     <Link
-                                                                        to={`/lesson/quiz/${courseSlug}?test=${topicItem.slug}`}
+                                                                        to={`/learning/test/${courseSlug}?test=${topicItem.slug}`}
                                                                         onClick={() => handleLinkClick(topicItem.slug)}
                                                                         className={activeLink === topicItem.slug ? "active" : ""}
                                                                     >
                                                                         <div className="course-content-left">
                                                                             <div className="d-flex align-content-center">
-                                                                                <i className="feather-help-circle mt-3"></i>
+                                                                                <i className="far fa-file-alt mt-3"></i>
                                                                                 <div className="d-flex flex-column">
                                                                                     <span className="text">{topicItem.title}</span>
                                                                                     <span className="time">04:00</span>

@@ -11,7 +11,6 @@ function Lesson() {
     const location = useLocation();
     const itemSlug = new URLSearchParams(location.search).get("lesson");
     const [lessonData, setLessonData] = useState({});
-    const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const loadItemOnline = useCallback(async () => {
@@ -20,7 +19,6 @@ function Lesson() {
             const itemOnlineResponse = await api.get(url.ONLINE_COURSE.ITEM_ONLINE + "/" + itemSlug);
             setLessonData(itemOnlineResponse.data.data);
         } catch (error) {
-            setError(true);
         } finally {
             setLoading(false);
         }
@@ -45,12 +43,8 @@ function Lesson() {
         <>
             {loading && <Loading />}
             <LayoutLesson title="Lesson">
-                {error ? (
-                    <div className="d-flex align-items-center justify-content-center mx-auto">
-                        <p>Please select 1 lesson!</p>
-                    </div>
-                ) : (
-                    <div className="rbt-lesson-rightsidebar overflow-hidden lesson-video">
+                <div className="rbt-lesson-rightsidebar overflow-hidden lesson-video">
+                    {lessonData.itemType === 0 && (
                         <div className="inner">
                             <VideoLesson onCurrentTimeChange={handleCurrentTimeChange} src={lessonData.pathUrl} />
 
@@ -104,8 +98,12 @@ function Lesson() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
+
+                    {lessonData.itemType === 1 && <p>bai tap</p>}
+
+                    {lessonData.itemType === 2 && <p>tai lieu</p>}
+                </div>
             </LayoutLesson>
         </>
     );
