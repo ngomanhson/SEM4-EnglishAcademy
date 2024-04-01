@@ -46,7 +46,7 @@ function App() {
                 {/* ===== End Tutor ===== */}
 
                 {/* ===== Start Lesson ===== */}
-                <Route path="/lesson/:slug" element={<Lesson />} />
+                <Route path="/lesson/:courseSlug" element={<Lesson />} />
                 <Route path="/lesson/quiz" element={<Quiz />} />
                 {/* ===== End Lesson ===== */}
 
