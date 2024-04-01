@@ -52,8 +52,8 @@ function App() {
 
                 {/* ===== Start Entrance Test ===== */}
                 <Route path="/entrance-test" element={<EntranceTest />} />
-                <Route path="/entrance-test/ielts" element={<Ielts />} />
-                <Route path="/entrance-test/toeic" element={<Toeic />} />
+                <Route path="/entrance-test/ielts/:slug" element={<Ielts />} />
+                <Route path="/entrance-test/toiec/:slug" element={<Toeic />} />
                 <Route path="/entrance-test/learning-paths" element={<LearningPaths />} />
                 <Route path="/entrance-test/answer-detail" element={<AnswerDetail />} />
                 {/* ===== End Entrance Test ===== */}

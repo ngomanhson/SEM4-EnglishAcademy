@@ -1,7 +1,37 @@
 import { Link } from "react-router-dom";
 import Layout from "../../layouts";
+import { useEffect, useState } from "react";
+import api from "../../../services/api";
+import url from "../../../services/url";
 
 function EntranceTest() {
+    const [testList, setTestList] = useState([]);
+    const [selectedTestSlug, setSelectedTestSlug] = useState("");
+    const [selectedTestType, setSelectedTestType] = useState(null);
+
+    const loadTestList = async () => {
+        try {
+            const testListResponse = await api.get(url.ENTRANCE_TEST.LIST);
+            setTestList(testListResponse.data.data);
+            console.table(testListResponse.data.data);
+        } catch (error) {}
+    };
+
+    useEffect(() => {
+        loadTestList();
+    }, []);
+
+    const handleTestSelection = (slug, type) => {
+        setSelectedTestSlug(slug);
+        setSelectedTestType(type);
+    };
+
+    const filteredTests = (type) => {
+        return testList.filter((test) => test.type === type);
+    };
+
+    const startTestLink = selectedTestType === 1 ? `/entrance-test/ielts/${selectedTestSlug}` : selectedTestType === 0 ? `/entrance-test/toiec/${selectedTestSlug}` : "";
+
     return (
         <Layout title="Entrance Test">
             <div className="rbt-breadcrumb-default ptb--100 ptb_md--50 ptb_sm--30 bg-gradient-1">
@@ -78,85 +108,51 @@ function EntranceTest() {
 
                             <div className="tab-content advance-tab-content-style-2 p-0">
                                 <div className="tab-pane fade active show" id="home-4" role="tabpanel" aria-labelledby="home-tab-4">
-                                    <div className="content">
-                                        <label className="d-flex align-items-center position-relative content-label-tab mb-5">
-                                            <div className="text-start">
-                                                <div className="d-flex align-items-center mb-4">
-                                                    <h5 className="fw-bold tab-title mb-0">IELTS Full test 1</h5>
-                                                    <input type="radio" name="exam-option" className="input-tab__option" />
+                                    {filteredTests(1).map((test) => (
+                                        <div className="content" key={test.id}>
+                                            <label className="d-flex align-items-center position-relative content-label-tab mb-5">
+                                                <div className="text-start">
+                                                    <div className="d-flex align-items-center mb-4">
+                                                        <h5 className="fw-bold tab-title mb-0">{test.title}</h5>
+                                                        <input type="radio" name="exam-option" className="input-tab__option" onChange={() => handleTestSelection(test.slug, test.type)} />
+                                                    </div>
+                                                    <p className="fw-light tab-time mb-0">Total number of questions: {test.totalQuestion}</p>
+                                                    <ul className="tab-list">
+                                                        <li>{test.description}</li>
+                                                    </ul>
                                                 </div>
-
-                                                <p className="fw-light tab-time mb-0">Exam time: 01:00:00</p>
-                                                <ul className="tab-list">
-                                                    <li>The test is divided into three parts with a total of 20 questions, each question worth 1 point</li>
-                                                    <li>The test is divided into two parts: Listening (4 sections) and Reading (3 sections) with 40 questions for each part.</li>
-                                                    <li>The test will last for 90 minutes. There will be no break between sections.</li>
-                                                </ul>
-                                            </div>
-                                        </label>
-
-                                        <label className="d-flex align-items-center position-relative content-label-tab mb-5">
-                                            <div className="text-start">
-                                                <div className="d-flex align-items-center mb-4">
-                                                    <h5 className="fw-bold tab-title mb-0">IELTS Full test 2</h5>
-                                                    <input type="radio" name="exam-option" className="input-tab__option" />
-                                                </div>
-
-                                                <p className="fw-light tab-time mb-0">Exam time: 01:00:00</p>
-                                                <ul className="tab-list">
-                                                    <li>The test is divided into three parts with a total of 20 questions, each question worth 1 point</li>
-                                                    <li>The test is divided into two parts: Listening (4 sections) and Reading (3 sections) with 40 questions for each part.</li>
-                                                    <li>The test will last for 90 minutes. There will be no break between sections.</li>
-                                                </ul>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="mt-5">
-                                        <Link to="ielts" className="rbt-moderbt-btn">
-                                            <span className="moderbt-btn-text">Start taking the test</span>
-                                            <i className="feather-arrow-right"></i>
-                                        </Link>
-                                    </div>
+                                            </label>
+                                        </div>
+                                    ))}
                                 </div>
+
                                 <div className="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
-                                    <div className="content">
-                                        <label className="d-flex align-items-center position-relative content-label-tab mb-5">
-                                            <div className="text-start">
-                                                <div className="d-flex align-items-center mb-4">
-                                                    <h5 className="fw-bold tab-title mb-0">TOEIC Full Test</h5>
-                                                    <input type="radio" name="exam-option" className="input-tab__option" />
+                                    {filteredTests(0).map((test) => (
+                                        <div className="content" key={test.id}>
+                                            <label className="d-flex align-items-center position-relative content-label-tab mb-5">
+                                                <div className="text-start">
+                                                    <div className="d-flex align-items-center mb-4">
+                                                        <h5 className="fw-bold tab-title mb-0">{test.title}</h5>
+                                                        <input type="radio" name="exam-option" className="input-tab__option" onChange={() => handleTestSelection(test.slug, test.type)} />
+                                                    </div>
+                                                    <p className="fw-light tab-time mb-0">Total number of questions: {test.totalQuestion}</p>
+                                                    <ul className="tab-list">
+                                                        <li>{test.description}</li>
+                                                    </ul>
                                                 </div>
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
 
-                                                <p className="fw-light tab-time mb-0">Exam time: 02:00:00</p>
-                                                <ul className="tab-list">
-                                                    <li>The test consists of 2 parts - Listening (100 questions) and Reading (100 questions)</li>
-                                                </ul>
-                                            </div>
-                                        </label>
-
-                                        <label className="d-flex align-items-center position-relative content-label-tab mb-5">
-                                            <div className="text-start">
-                                                <div className="d-flex align-items-center mb-4">
-                                                    <h5 className="fw-bold tab-title mb-0">TOEIC Quick Test</h5>
-                                                    <input type="radio" name="exam-option" className="input-tab__option" />
-                                                </div>
-
-                                                <p className="fw-light tab-time mb-0">Exam time: 01:00:00</p>
-                                                <ul className="tab-list">
-                                                    <li>The test is divided into two parts: Part 1 - tests language ability: Grammar, vocabulary, reading comprehension (25 questions) and Part 2</li>
-                                                    <li>Listening lesson (31 questions)</li>
-                                                </ul>
-                                            </div>
-                                        </label>
-                                    </div>
-
+                                {selectedTestSlug && (
                                     <div className="mt-5">
-                                        <Link to="toeic" className="rbt-moderbt-btn">
+                                        <Link to={startTestLink} className="rbt-moderbt-btn">
                                             <span className="moderbt-btn-text">Start taking the test</span>
                                             <i className="feather-arrow-right"></i>
                                         </Link>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ const url = {
     },
 
     ENTRANCE_TEST: {
+        LIST: "/test-input",
         TOIEC: "/test-input/detail",
         IELTS: "/test-input/detail",
         SUBMIT: "/test-input/detail",
