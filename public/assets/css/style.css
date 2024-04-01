@@ -16320,7 +16320,7 @@ span.transparent-button:hover i {
 }
 .rbt-accordion-style.for-right-content .rbt-course-main-content li a,
 .rbt-accordion-style.for-right-content .rbt-course-main-content li .wrap {
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
     padding: 10px 16px;
@@ -30454,6 +30454,7 @@ Course Sidebar
 .lesson-title {
     font-weight: 500;
     font-size: 2.4rem;
+    font-family: var(--bs-font-sans-serif);
     color: #45494f;
     margin-bottom: 0;
 }

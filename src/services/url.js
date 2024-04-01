@@ -5,7 +5,7 @@ const url = {
         GET_ALL: "/course-online",
         DETAIL: "/course-online/detail",
         TOPIC_ONLINE: "/topic-online",
-        ITEM_ONLINE: "/topic-online",
+        ITEM_ONLINE: "/item-online",
     },
 
     ENTRANCE_TEST: {

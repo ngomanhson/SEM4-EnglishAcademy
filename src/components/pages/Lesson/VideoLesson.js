@@ -78,7 +78,7 @@ function VideoLesson(props) {
             {controlsVisible && (
                 <div className="plyr__controls">
                     <button type="button" className="plyr__controls__item plyr__control" onClick={playing ? handlePause : handlePlay}>
-                        {playing ? <i className="feather-pause"></i> : <i className="feather-play"></i>}
+                        {playing ? <i className="feather-pause"></i> : <i className="fas fa-play"></i>}
                     </button>
 
                     <div className="plyr__controls__item plyr__progress__container">
@@ -128,7 +128,7 @@ function VideoLesson(props) {
             <div className="plyr__video-wrapper plyr__video-embed" style={{ aspectRatio: 16 / 9 }}>
                 <ReactPlayer
                     ref={playerRef}
-                    url="https://youtu.be/8IogxPUrW7k?si=PsRdfY9dxrNqQetg"
+                    url={props.src}
                     playing={playing}
                     controls={false}
                     volume={volume}
