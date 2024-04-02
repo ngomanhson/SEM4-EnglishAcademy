@@ -30963,4 +30963,15 @@ button.btn-circle[disabled]:hover {
 .definition-item.example {
     border-color: #28a745;
 }
+
+.font-system {
+    font-family: var(--bs-font-sans-serif);
+}
+.font-roboto {
+    font-family: "Roboto", sans-serif;
+}
+
+.lesson-btn__wrapper > button.rbt-btn:hover {
+    transform: translate3d(0, 0, 0);
+}
 /*# sourceMappingURL=../maps/style.css.map */
