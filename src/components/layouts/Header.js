@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import config from "../../config/index";
 
 function Header() {
     return (
@@ -156,23 +157,23 @@ function Header() {
                             <nav className="mainmenu-nav">
                                 <ul className="mainmenu">
                                     <li className="with-megamenu has-menu-child-item position-static menu-item-open">
-                                        <NavLink to="/">Home</NavLink>
+                                        <NavLink to={config.routes.home}>Home</NavLink>
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item">
-                                        <NavLink to="/courses">Courses</NavLink>
+                                        <NavLink to={config.routes.course}>Courses</NavLink>
                                     </li>
 
                                     <li className="has-dropdown has-menu-child-item">
-                                        <NavLink to="/entrance-test">Entrance Test</NavLink>
+                                        <NavLink to={config.routes.entrance_test}>Entrance Test</NavLink>
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item">
-                                        <NavLink to="/tutor">Tutor</NavLink>
+                                        <NavLink to={config.routes.tutor}>Tutor</NavLink>
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item position-static">
-                                        <NavLink to="/blog">Blog</NavLink>
+                                        <NavLink to={config.routes.blog}>Blog</NavLink>
                                     </li>
                                 </ul>
                             </nav>
@@ -187,9 +188,9 @@ function Header() {
                                 </li>
 
                                 <li className="access-icon">
-                                    <NavLink to="/dictionary" className="rbt-round-btn">
+                                    <Link to={config.routes.dictionary} className="rbt-round-btn">
                                         <i className="fas fa-language"></i>
-                                    </NavLink>
+                                    </Link>
                                 </li>
 
                                 <li className="account-access rbt-user-wrapper d-none d-xl-block">
