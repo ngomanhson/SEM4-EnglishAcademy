@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
 import url from "../../services/url";
 
 function LayoutLesson({ children, title }) {
     const { courseSlug } = useParams();
+    const navigate = useNavigate();
 
     const [closeSidebar, setCloseSidebar] = useState(false);
     const [topicByStudent, setTopicByStudent] = useState([]);
@@ -56,6 +57,101 @@ function LayoutLesson({ children, title }) {
         loadTopics();
     }, [loadTopics, activeLink]);
 
+    const [openAccordion, setOpenAccordion] = useState({});
+
+    useEffect(() => {
+        topicByStudent.forEach((topic, index) => {
+            const collapseId = `collapse-${topic.id}-${index}`;
+            const accordionElement = document.getElementById(collapseId);
+            if (accordionElement) {
+                if (openAccordion[index]) {
+                    accordionElement.classList.add("show");
+                } else {
+                    accordionElement.classList.remove("show");
+                }
+            }
+        });
+    }, [openAccordion, topicByStudent]);
+
+    const handleAccordionClick = (index) => {
+        setOpenAccordion((prevOpenAccordion) => ({
+            ...prevOpenAccordion,
+            [index]: !prevOpenAccordion[index],
+        }));
+    };
+
+    useEffect(() => {
+        const storedOpenAccordion = localStorage.getItem("accordion");
+        if (storedOpenAccordion) {
+            setOpenAccordion(JSON.parse(storedOpenAccordion));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("accordion", JSON.stringify(openAccordion));
+    }, [openAccordion]);
+
+    const handleNextLessonClick = () => {
+        const currentTopicIndex = topicByStudent.findIndex(
+            (topic) => topic.itemOnlineDetailList.some((item) => item.slug === activeLink) || topic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)
+        );
+
+        if (currentTopicIndex !== -1) {
+            let nextTopicIndex = currentTopicIndex;
+            let nextItemIndex = 0;
+            let isTest = false;
+
+            const currentTopic = topicByStudent[currentTopicIndex];
+
+            if (currentTopic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)) {
+                isTest = true;
+            }
+
+            const currentItemIndex = currentTopic.itemOnlineDetailList.findIndex((item) => item.slug === activeLink);
+
+            if (!isTest) {
+                if (currentItemIndex !== -1 && currentItemIndex < currentTopic.itemOnlineDetailList.length - 1) {
+                    nextItemIndex = currentItemIndex + 1;
+                } else {
+                    nextTopicIndex++;
+                    nextItemIndex = 0;
+
+                    if (nextTopicIndex >= topicByStudent.length) {
+                        nextTopicIndex = 0;
+                    }
+                }
+            } else {
+                if (currentItemIndex !== -1 && currentItemIndex < currentTopic.itemOnlineDetailList.length - 1) {
+                    nextItemIndex = currentItemIndex + 1;
+                } else {
+                    nextTopicIndex++;
+                    nextItemIndex = 0;
+
+                    if (nextTopicIndex >= topicByStudent.length) {
+                        nextTopicIndex = 0;
+                    }
+                }
+            }
+
+            const nextTopic = topicByStudent[nextTopicIndex];
+            let nextSlug = null;
+
+            if (!isTest) {
+                nextSlug = nextTopic.itemOnlineDetailList[nextItemIndex].slug;
+            } else {
+                if (nextTopic.itemOnlineDetailList.length > 0) {
+                    nextSlug = nextTopic.itemOnlineDetailList[0].slug;
+                } else if (nextTopic.testOnlineResponseDTOList.length > 0) {
+                    nextSlug = nextTopic.testOnlineResponseDTOList[0].slug;
+                }
+            }
+
+            if (nextSlug) {
+                navigate(`/learning/${courseSlug}?lesson=${nextSlug}`);
+            }
+        }
+    };
+
     return (
         <>
             <Helmet>
@@ -86,37 +182,33 @@ function LayoutLesson({ children, title }) {
                                 </form>
                             </div>
 
-                            <hr className="mt--10" />
-
-                            <div className="rbt-accordion-style rbt-accordion-02 for-right-content accordion">
+                            <div className="rbt-accordion-style rbt-accordion-02 for-right-content accordion scrollbar-accordion">
                                 <div className="accordion" id="accordionExampleb2">
                                     {topicByStudent.map((topic, index) => {
                                         const accordionId = `accordion-${topic.id}-${index}`;
                                         const collapseId = `collapse-${topic.id}-${index}`;
-                                        let itemIndex = 0;
+
                                         const totalItems = topic.itemOnlineDetailList.length + topic.testOnlineResponseDTOList.length;
                                         return (
                                             <div className="accordion-item card" key={topic.id}>
                                                 <h2 className="accordion-header card-header" id={`heading-${accordionId}`}>
                                                     <button
-                                                        className="accordion-button collapsed"
+                                                        className={`accordion-button ${openAccordion[index] ? "" : "collapsed"}`}
                                                         type="button"
                                                         data-bs-toggle="collapse"
-                                                        aria-expanded="false"
+                                                        aria-expanded={openAccordion[index] ? "true" : "false"}
                                                         data-bs-target={`#${collapseId}`}
                                                         aria-controls={collapseId}
+                                                        onClick={() => handleAccordionClick(index)}
                                                     >
-                                                        {topic.name}{" "}
-                                                        <span className="rbt-badge-5 ml--10">
-                                                            {itemIndex + 1}/{totalItems}
-                                                        </span>
+                                                        {index + 1}. {topic.name} <span className="rbt-badge-5 ml--10">0/{totalItems}</span>
                                                     </button>
                                                 </h2>
                                                 <div id={collapseId} className="accordion-collapse collapse" aria-labelledby={`heading-${accordionId}`}>
                                                     <div className="accordion-body card-body">
                                                         <ul className="rbt-course-main-content liststyle">
                                                             {topic.itemOnlineDetailList.map((topicItem) => (
-                                                                <li key={topicItem.id}>
+                                                                <li className="m-0" key={topicItem.id}>
                                                                     <Link
                                                                         to={`/learning/${courseSlug}?lesson=${topicItem.slug}`}
                                                                         onClick={() => handleLinkClick(topicItem.slug)}
@@ -126,18 +218,18 @@ function LayoutLesson({ children, title }) {
                                                                             <div className="d-flex align-content-center">
                                                                                 {topicItem.itemType === 0 && <i className="feather-play-circle mt-3"></i>}
                                                                                 {topicItem.itemType === 1 && <i className="feather-help-circle mt-3"></i>}
-                                                                                {topicItem.itemType === 2 && <i className="fas fa-thumbtack mt-3"></i>}
+                                                                                {topicItem.itemType === 2 && <i className="feather-hash mt-3"></i>}
                                                                                 <div className="d-flex flex-column">
                                                                                     <span className="text">{topicItem.title}</span>
                                                                                     <span className="time">04:00</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div className="course-content-right">
+                                                                        {/* <div className="course-content-right">
                                                                             <span className="rbt-check">
                                                                                 <i className="feather-check"></i>
                                                                             </span>
-                                                                        </div>
+                                                                        </div> */}
                                                                     </Link>
                                                                 </li>
                                                             ))}
@@ -191,31 +283,13 @@ function LayoutLesson({ children, title }) {
                                 </div>
 
                                 <div className="col-lg-6 col-md-6 mt_sm--15">
-                                    <div className="text-center text-md-end">
-                                        <button
-                                            className="btn btn-primary__custom"
-                                            data-bs-toggle="offcanvas"
-                                            data-bs-target="#offcanvasNavbar"
-                                            aria-controls="offcanvasNavbar"
-                                            aria-label="Toggle navigation"
-                                        >
+                                    <div className="text-end">
+                                        <button className="btn btn-primary__custom btn-primary__custom-2" onClick={handleNextLessonClick}>
                                             <span>
-                                                <i className="fas fa-question"></i>
+                                                NEXT LESSON
+                                                <i className="feather-arrow-right"></i>
                                             </span>
                                         </button>
-                                        <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                                            <div className="offcanvas-header">
-                                                <h5 className="offcanvas-title text-center" id="offcanvasNavbarLabel">
-                                                    Q&A
-                                                </h5>
-                                                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                            </div>
-                                            <div className="offcanvas-body">
-                                                <p className="text-start" style={{ fontSize: "1.4rem" }}>
-                                                    (If you see spam comments, please click report to help admin)
-                                                </p>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
