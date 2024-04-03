@@ -16152,7 +16152,7 @@ span.transparent-button:hover i {
     padding-right: 0;
 }
 .rbt-accordion-style.rbt-accordion-02.for-right-content .card .card-header {
-    font-family: "Roboto", sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     padding: 12px 44px 12px 16px;
 }
 .rbt-accordion-style.rbt-accordion-02.for-right-content .card .card-body {
@@ -25716,8 +25716,8 @@ blockquote.has-text-align-right cite,
 }
 .rbt-course-main-content .course-content-left span.text {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 300;
 }
 
 .rbt-course-main-content .course-content-left span.time {
@@ -26639,8 +26639,8 @@ Course Sidebar
     }
 }
 .rbt-lesson-content-wrapper .rbt-lesson-leftsidebar {
-    flex: 0 0 400px;
-    width: 400px;
+    flex: 0 0 360px;
+    width: 360px;
     background-color: var(--color-extra2);
     /* border-right: 1px solid var(--color-border); */
     max-height: 100%;
@@ -26663,6 +26663,11 @@ Course Sidebar
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.rbt-lesson-content-wrapper .rbt-lesson-rightsidebar.scrollbar-screen {
+    height: 100vh;
+    overflow-y: auto !important;
 }
 
 /*-------------------------
@@ -30456,7 +30461,6 @@ Course Sidebar
     font-size: 2.4rem;
     font-family: var(--bs-font-sans-serif);
     color: #45494f;
-    margin-bottom: 0;
 }
 
 .lesson-title > i {
@@ -30485,7 +30489,7 @@ Course Sidebar
     align-items: center;
     justify-content: center;
     gap: 5px;
-    padding: 0 20px;
+    padding: 10px 20px;
     background: #f9f9ff;
     border: none;
     border-radius: 5px;
@@ -30498,6 +30502,7 @@ Course Sidebar
     color: transparent;
     text-transform: uppercase;
     font-weight: 500;
+    font-family: Arial, sans-serif;
 }
 .add-note > i {
     background: linear-gradient(rgb(94, 187, 255) 0%, rgb(161, 116, 255) 40%);
@@ -30516,7 +30521,7 @@ Course Sidebar
 
 .resource-list {
     padding-left: 50px;
-    font-family: "Roboto", sans-serif;
+    font-family: var(--bs-font-sans-serif);
 }
 
 .resource-list > li {
@@ -30635,6 +30640,10 @@ input[type="number"]::placeholder {
     font-size: 16px;
 }
 
+.answers-group__label-2 {
+    color: var(--color-body);
+}
+
 .answers-group__input {
     display: none;
 }
@@ -30665,7 +30674,7 @@ input[type="number"]::placeholder {
     margin-right: 12px;
     border: none;
     color: #6d6d6d;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 12px;
     padding: 5px;
 }
@@ -30813,6 +30822,10 @@ button.btn-circle[disabled]:hover {
     height: 6px;
     border-radius: 50%;
     background: #6c757d;
+}
+
+.fw-300 {
+    font-weight: 300;
 }
 
 .fw-500 {
@@ -30973,5 +30986,65 @@ button.btn-circle[disabled]:hover {
 
 .lesson-btn__wrapper > button.rbt-btn:hover {
     transform: translate3d(0, 0, 0);
+}
+.rbt-accordion-style .card .card-header button[aria-expanded="true"],
+.accordion-button:not(.collapsed) {
+    color: #303b44;
+}
+
+.btn-primary__custom-2 {
+    border-radius: 5px;
+    padding: 4px 15px;
+    border-width: 2px;
+}
+
+.btn-primary__custom-2 > span {
+    width: initial;
+    font-size: 12px;
+    background: linear-gradient(rgb(94, 187, 255) 0%, rgb(161, 116, 255) 40%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.btn-primary__custom-2 > span > i {
+    margin-left: 3px;
+}
+
+/* Custom scrollbar */
+html ::-webkit-scrollbar {
+    border-radius: 0;
+    width: 0;
+}
+
+html ::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: transparent;
+}
+
+html ::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: transparent;
+}
+
+.scrollbar-accordion{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+.content-top__lesson {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 767px) {
+    .content-top__lesson {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .add-note {
+        margin-top: 20px;
+    }
 }
 /*# sourceMappingURL=../maps/style.css.map */

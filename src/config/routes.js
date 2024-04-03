@@ -1,7 +1,7 @@
 const routes = {
     home: "/",
-    course: "/course",
-    course_detail: "/course-detail/:courseSlug",
+    course: "/courses",
+    course_detail: "/course-detail/:slug",
     learning: "/learning/:courseSlug",
     learning_test: "/learning/test/:courseSlug",
     entrance_test: "/entrance-test",
