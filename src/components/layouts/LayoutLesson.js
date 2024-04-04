@@ -1,16 +1,15 @@
 import PropTypes from "prop-types";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import api from "../../services/api";
 import url from "../../services/url";
+import useAxios from "../../hooks/useAxios";
 
 function LayoutLesson({ children, title, nextLesson }) {
     const { courseSlug } = useParams();
     const navigate = useNavigate();
 
     const [closeSidebar, setCloseSidebar] = useState(false);
-    const [topicByStudent, setTopicByStudent] = useState([]);
 
     const location = useLocation();
     const [activeLink, setActiveLink] = useState("");
@@ -46,17 +45,12 @@ function LayoutLesson({ children, title, nextLesson }) {
         setCloseSidebar((prev) => !prev);
     };
 
-    // Call the API Topic by Student
-    const loadTopics = useCallback(async () => {
-        try {
-            const topics = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/` + studentId);
-            setTopicByStudent(topics.data.data);
-        } catch (error) {}
-    }, [courseSlug]);
+    const { response } = useAxios({
+        method: "GET",
+        path: url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`,
+    });
 
-    useEffect(() => {
-        loadTopics();
-    }, [loadTopics, activeLink]);
+    const topicByStudent = useMemo(() => response || [], [response]);
 
     const [openAccordion, setOpenAccordion] = useState({});
 

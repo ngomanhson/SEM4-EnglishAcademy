@@ -1,32 +1,16 @@
 import { Link } from "react-router-dom";
 import Layout from "../../layouts";
-import { useEffect, useState } from "react";
-import api from "../../../services/api";
 import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
+import useAxios from "../../../hooks/useAxios";
 
 function Course() {
-    const [loading, setLoading] = useState(false);
-    const [courses, setCourses] = useState([]);
+    const { response, loading } = useAxios({
+        method: "GET",
+        path: url.ONLINE_COURSE.GET_ALL,
+    });
 
-    const loadCourses = async () => {
-        try {
-            setLoading(true);
-            const courseResponse = await api.get(url.ONLINE_COURSE.GET_ALL);
-
-            setCourses(courseResponse.data.data);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setTimeout(() => {
-                setLoading(false);
-            }, 3000);
-        }
-    };
-
-    useEffect(() => {
-        loadCourses();
-    }, []);
+    const courses = response || [];
 
     return (
         <>

@@ -1,25 +1,19 @@
 import { Link } from "react-router-dom";
 import Layout from "../../layouts";
-import { useEffect, useState } from "react";
-import api from "../../../services/api";
+import { useState } from "react";
 import url from "../../../services/url";
+import useAxios from "../../../hooks/useAxios";
 
 function EntranceTest() {
-    const [testList, setTestList] = useState([]);
     const [selectedTestSlug, setSelectedTestSlug] = useState("");
     const [selectedTestType, setSelectedTestType] = useState(null);
 
-    const loadTestList = async () => {
-        try {
-            const testListResponse = await api.get(url.ENTRANCE_TEST.LIST);
-            setTestList(testListResponse.data.data);
-            console.table(testListResponse.data.data);
-        } catch (error) {}
-    };
+    const { response } = useAxios({
+        method: "GET",
+        path: url.ENTRANCE_TEST.LIST,
+    });
 
-    useEffect(() => {
-        loadTestList();
-    }, []);
+    const testList = response || [];
 
     const handleTestSelection = (slug, type) => {
         setSelectedTestSlug(slug);

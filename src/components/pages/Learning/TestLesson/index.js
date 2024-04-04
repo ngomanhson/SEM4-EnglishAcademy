@@ -5,6 +5,7 @@ import url from "../../../../services/url";
 import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
+import useAxios from "../../../../hooks/useAxios";
 
 function TestLesson() {
     const { courseSlug } = useParams();
@@ -13,42 +14,31 @@ function TestLesson() {
 
     const navigate = useNavigate();
 
-    const [testData, setTestData] = useState([]);
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [selectedAnswersList, setSelectedAnswersList] = useState([]);
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
     const [confirmed, setConfirmed] = useState(false);
-    const [loading, setLoading] = useState(false);
     const [dataNotFound, setDataNotFound] = useState(false);
     const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
-
-    useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, []);
 
     const [timeRemaining, setTimeRemaining] = useState(1800);
 
     const studentId = 1;
 
-    const loadTest = useCallback(async () => {
-        try {
-            const testResponse = await api.get(url.ONLINE_COURSE.TEST + "/" + testSlug + "/" + studentId);
-            setTestData(testResponse.data.data);
-        } catch (error) {
-            if (error.response && error.response.status === 404) {
-                setDataNotFound(true);
-            } else {
-                console.log(error);
-            }
-        }
-    }, [testSlug, studentId]);
+    const { response, loading, status } = useAxios({
+        method: "GET",
+        path: url.ONLINE_COURSE.TEST + `/${testSlug}/${studentId}`,
+    });
+
+    const testData = response || [];
 
     useEffect(() => {
-        loadTest();
-    }, [loadTest]);
+        if (status === 404) {
+            setDataNotFound(true);
+        } else {
+            setDataNotFound(false);
+        }
+    }, [status]);
 
     const handleAnswerSelect = (questionId, selectedOption) => {
         setSelectedAnswers({ ...selectedAnswers, [questionId]: selectedOption });
