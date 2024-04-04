@@ -157,7 +157,7 @@ function Toeic() {
                                                                     checked={selectedAnswers[question.id] === question[option]}
                                                                     onChange={() => handleAnswerSelect(question.id, question[option])}
                                                                 />
-                                                                <div className="d-flex align-content-center">
+                                                                <div className="d-flex align-items-center">
                                                                     <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
                                                                 </div>
                                                             </label>

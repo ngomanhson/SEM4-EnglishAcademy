@@ -4,7 +4,7 @@ import Home from "../components/pages/Home";
 import Course from "../components/pages/Course";
 import CourseDetail from "../components/pages/Course/CourseDetail/index";
 import Learning from "../components/pages/Learning/index";
-import Test from "../components/pages/Learning/Test/index";
+import TestLesson from "../components/pages/Learning/TestLesson/index";
 import EntranceTest from "../components/pages/EntranceTest/index";
 import Ielts from "../components/pages/EntranceTest/Ielts/index";
 import Toeic from "../components/pages/EntranceTest/Toeic/index";
@@ -33,7 +33,7 @@ const publicRoutes = [
     { path: config.routes.course, component: Course },
     { path: config.routes.course_detail, component: CourseDetail },
     { path: config.routes.learning, component: Learning },
-    { path: config.routes.learning_test, component: Test },
+    { path: config.routes.learning_test, component: TestLesson },
     { path: config.routes.entrance_test, component: EntranceTest },
     { path: config.routes.entrance_test_ielts, component: Ielts },
     { path: config.routes.entrance_test_toiec, component: Toeic },

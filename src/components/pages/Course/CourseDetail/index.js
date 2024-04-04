@@ -74,7 +74,7 @@ function CourseDetail() {
                                         </li>
                                         <li className="rbt-breadcrumb-item active">Course Detail</li>
                                     </ul>
-                                    <h2 className="title">{course.name}</h2>
+                                    <h2 className="title font-system">{course.name}</h2>
                                     <p className="description text-secondary">{course.description}</p>
 
                                     <div className="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
@@ -191,7 +191,7 @@ function CourseDetail() {
                                                             <div className="accordion-item card" key={topic.id}>
                                                                 <h2 className="accordion-header card-header" id={`heading-${accordionId}`}>
                                                                     <button
-                                                                        className="accordion-button collapsed"
+                                                                        className="accordion-button collapsed font-system"
                                                                         type="button"
                                                                         data-bs-toggle="collapse"
                                                                         data-bs-target={`#${collapseId}`}

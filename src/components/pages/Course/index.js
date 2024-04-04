@@ -323,7 +323,9 @@ function Course() {
                                                     </div>
 
                                                     <h4 className="rbt-card-title">
-                                                        <Link to={`/course-detail/${course.slug}`}>{course.name}</Link>
+                                                        <Link to={`/course-detail/${course.slug}`} className="font-system">
+                                                            {course.name}
+                                                        </Link>
                                                     </h4>
 
                                                     <ul className="rbt-meta">
@@ -342,9 +344,9 @@ function Course() {
                                                             <span className="current-price">${course.price}</span>
                                                             <span className="off-price">$120</span>
                                                         </div>
-                                                        <a className="rbt-btn-link" href="course-details.html">
+                                                        <Link to={`/course-detail/${course.slug}`} className="rbt-btn-link">
                                                             Learn More<i className="feather-arrow-right"></i>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
