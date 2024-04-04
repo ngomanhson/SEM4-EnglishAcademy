@@ -1,10 +1,11 @@
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
 import url from "../../services/url";
 
-function LayoutLesson({ children, title }) {
+function LayoutLesson({ children, title, nextLesson }) {
     const { courseSlug } = useParams();
     const navigate = useNavigate();
 
@@ -120,16 +121,16 @@ function LayoutLesson({ children, title }) {
                         nextTopicIndex = 0;
                     }
                 }
+                setOpenAccordion((prevOpenAccordion) => ({
+                    ...prevOpenAccordion,
+                    [nextItemIndex + 1]: !prevOpenAccordion[nextTopicIndex],
+                }));
             } else {
                 if (currentItemIndex !== -1 && currentItemIndex < currentTopic.itemOnlineDetailList.length - 1) {
                     nextItemIndex = currentItemIndex + 1;
                 } else {
                     nextTopicIndex++;
                     nextItemIndex = 0;
-
-                    if (nextTopicIndex >= topicByStudent.length) {
-                        nextTopicIndex = 0;
-                    }
                 }
             }
 
@@ -282,16 +283,18 @@ function LayoutLesson({ children, title }) {
                                     </div>
                                 </div>
 
-                                <div className="col-lg-6 col-md-6 mt_sm--15">
-                                    <div className="text-end">
-                                        <button className="btn btn-primary__custom btn-primary__custom-2" onClick={handleNextLessonClick}>
-                                            <span>
-                                                NEXT LESSON
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                        </button>
+                                {nextLesson && (
+                                    <div className="col-lg-6 col-md-6 mt_sm--15">
+                                        <div className="text-end">
+                                            <button className="btn btn-primary__custom btn-primary__custom-2" onClick={handleNextLessonClick}>
+                                                <span>
+                                                    NEXT LESSON
+                                                    <i className="feather-arrow-right"></i>
+                                                </span>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -300,5 +303,14 @@ function LayoutLesson({ children, title }) {
         </>
     );
 }
+
+LayoutLesson.defaultProps = {
+    nextLesson: true,
+};
+
+LayoutLesson.proTypes = {
+    children: PropTypes.node.isRequired,
+    title: PropTypes.string.isRequired,
+};
 
 export default LayoutLesson;
