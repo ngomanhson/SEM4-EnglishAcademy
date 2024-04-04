@@ -1,15 +1,12 @@
 import Chart from "react-apexcharts";
 import Layout from "../../../layouts/index";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import api from "../../../../services/api";
+import { useEffect, useMemo, useState } from "react";
 import url from "../../../../services/url";
 import Loading from "../../../layouts/Loading";
+import useAxios from "../../../../hooks/useAxios";
 
 function LearningPaths() {
-    const [loading, setLoading] = useState(false);
-    const [resultTest, setResultTest] = useState({});
-
     const [chartData, setChartData] = useState([]);
 
     const options = {
@@ -42,28 +39,16 @@ function LearningPaths() {
         ],
     };
 
-    const loadResult = async () => {
-        try {
-            setLoading(true);
-            const resultResponse = await api.get(url.ENTRANCE_TEST.RESULT + "/jq3HdA7o");
+    const { response, loading } = useAxios({
+        method: "GET",
+        path: url.ENTRANCE_TEST.RESULT + "/xJZR0qyR",
+    });
 
-            setResultTest(resultResponse.data.data);
-            console.table(resultResponse.data.data);
-            setTimeout(() => {
-                setLoading(false);
-            }, 3000);
-        } catch (error) {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        loadResult();
-    }, []);
+    const resultTest = useMemo(() => response || {}, [response]);
 
     useEffect(() => {
         if (Object.keys(resultTest).length !== 0) {
-            const data = [resultTest.correctReading, resultTest.correctListening, resultTest.correctVocabulary || 0, resultTest.correctGrammar || 0];
+            const data = [resultTest.correctReading || 0, resultTest.correctListening || 0, resultTest.correctVocabulary || 0, resultTest.correctGrammar || 0];
             setChartData(data);
         }
     }, [resultTest]);

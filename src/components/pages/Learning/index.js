@@ -1,40 +1,33 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import VideoLesson from "./VideoLesson";
 import LayoutLesson from "../../layouts/LayoutLesson";
 import { useLocation } from "react-router-dom";
-import api from "../../../services/api";
 import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
 import Confetti from "react-confetti-boom";
+import useAxios from "../../../hooks/useAxios";
 
 function Learning() {
     const location = useLocation();
     const itemSlug = new URLSearchParams(location.search).get("lesson");
-    const [lessonData, setLessonData] = useState({});
+
     const [selectedAnswers, setSelectedAnswers] = useState([]);
-    const [loading, setLoading] = useState(false);
+
     const [answered, setAnswered] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
     const [answerResults, setAnswerResults] = useState([]);
-    const [error, setError] = useState(false);
 
     const [windowSize, setWindowSize] = useState({
         with: undefined,
         height: undefined,
     });
 
-    const loadItemOnline = useCallback(async () => {
-        try {
-            setError(false);
-            setLoading(true);
-            const itemOnlineResponse = await api.get(url.ONLINE_COURSE.ITEM_ONLINE + "/" + itemSlug);
-            setLessonData(itemOnlineResponse.data.data);
-        } catch (error) {
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
-    }, [itemSlug]);
+    const { response, loading, error } = useAxios({
+        method: "GET",
+        path: url.ONLINE_COURSE.ITEM_ONLINE + `/${itemSlug}`,
+    });
+
+    const lessonData = useMemo(() => response || {}, [response]);
 
     function handleWindowSize() {
         setWindowSize({
@@ -42,11 +35,6 @@ function Learning() {
             height: window.innerHeight,
         });
     }
-
-    useEffect(() => {
-        loadItemOnline();
-        window.onresize = () => handleWindowSize();
-    }, [loadItemOnline]);
 
     const [currentTime, setCurrentTime] = useState(0);
 
@@ -70,6 +58,7 @@ function Learning() {
     };
 
     useEffect(() => {
+        window.onresize = () => handleWindowSize();
         if (lessonData.questionItemOnlineDTOList) {
             setAnswerResults(new Array(lessonData.questionItemOnlineDTOList.length).fill(null));
         }
@@ -77,7 +66,6 @@ function Learning() {
 
     const handleCheckAnswers = () => {
         try {
-            setLoading(true);
             const correctAnswers = lessonData.questionItemOnlineDTOList.map((question) => question.answerCorrect);
             const userAnswers = selectedAnswers;
 
@@ -94,8 +82,6 @@ function Learning() {
             }
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);
         }
     };
 

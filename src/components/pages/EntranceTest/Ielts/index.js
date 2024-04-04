@@ -8,36 +8,23 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
+import useAxios from "../../../../hooks/useAxios";
 
 function Ielts() {
     const { slug } = useParams();
     const navigate = useNavigate();
-    const [error, setError] = useState(false);
 
-    const [loading, setLoading] = useState(false);
-    const [testIelts, setTestIelts] = useState({});
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
     const [selectedAnswersList, setSelectedAnswersList] = useState([]);
     const [timeRemaining, setTimeRemaining] = useState(1800);
 
-    const loadTest = useCallback(async () => {
-        try {
-            const testResponse = await api.get(url.ENTRANCE_TEST.IELTS + "/" + slug);
-            setLoading(true);
+    const { response, loading, error } = useAxios({
+        method: "GET",
+        path: url.ENTRANCE_TEST.IELTS + `/${slug}`,
+    });
 
-            setTestIelts(testResponse.data.data);
-        } catch (error) {
-            console.log(error);
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
-    }, [slug]);
-
-    useEffect(() => {
-        loadTest();
-    }, [loadTest]);
+    const testIelts = response || [];
 
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
 

@@ -1,37 +1,22 @@
 import { Link, useParams } from "react-router-dom";
 import Layout from "../../../layouts";
-import { useCallback, useEffect, useState } from "react";
-import api from "../../../../services/api";
 import url from "../../../../services/url";
 import { format } from "date-fns";
 import ReactPlayer from "react-player";
 import Review from "../../../views/Course/CourseDetail/Review";
 import Rating from "../../../views/Course/CourseDetail/Rating";
 import Loading from "../../../layouts/Loading";
+import useAxios from "../../../../hooks/useAxios";
 
 function CourseDetail() {
     const { slug } = useParams();
 
-    const [loading, setLoading] = useState(false);
-    const [course, setCourse] = useState({});
+    const { response, loading } = useAxios({
+        method: "GET",
+        path: url.ONLINE_COURSE.DETAIL + `/${slug}`,
+    });
 
-    const loadCourse = useCallback(async () => {
-        try {
-            setLoading(true);
-            const courseResponse = await api.get(url.ONLINE_COURSE.DETAIL + `/${slug}`);
-            setCourse(courseResponse.data.data);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setTimeout(() => {
-                setLoading(false);
-            }, 3000);
-        }
-    }, [slug]);
-
-    useEffect(() => {
-        loadCourse();
-    }, [loadCourse]);
+    const course = response || [];
 
     const topics = course.topicOnlineDetailList || [];
     const reviews = course.reviewList || [];

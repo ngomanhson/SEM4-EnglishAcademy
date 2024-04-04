@@ -8,38 +8,25 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
+import useAxios from "../../../../hooks/useAxios";
 
 function Toeic() {
     const { slug } = useParams();
     const navigate = useNavigate();
     const [error, setError] = useState(false);
 
-    const [loading, setLoading] = useState(false);
-    const [testToiec, setTestToiec] = useState({});
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
     const [selectedAnswersList, setSelectedAnswersList] = useState([]);
+    const [selectedQuestionId, setSelectedQuestionId] = useState(null);
     const [timeRemaining, setTimeRemaining] = useState(1800);
 
-    const loadTest = useCallback(async () => {
-        try {
-            setLoading(true);
+    const { response, loading } = useAxios({
+        method: "GET",
+        path: url.ENTRANCE_TEST.TOIEC + "/" + slug,
+    });
 
-            const testResponse = await api.get(url.ENTRANCE_TEST.TOIEC + "/" + slug);
-            setTestToiec(testResponse.data.data);
-        } catch (error) {
-            console.log(error);
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
-    }, [slug]);
-
-    useEffect(() => {
-        loadTest();
-    }, [loadTest]);
-
-    const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+    const testToiec = response || [];
 
     const handleQuestionClick = (questionId) => {
         setSelectedQuestionId(questionId);
