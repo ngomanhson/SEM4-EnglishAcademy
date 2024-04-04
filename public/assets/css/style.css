@@ -13375,7 +13375,8 @@ button.btn-underline-gradient:hover::after {
 /*-----------------------
     Modern Button  
 ------------------------*/
-a.rbt-moderbt-btn {
+a.rbt-moderbt-btn,
+button.rbt-moderbt-btn {
     position: relative;
     height: 60px;
     line-height: 56px;
@@ -13385,15 +13386,21 @@ a.rbt-moderbt-btn {
     z-index: 1;
     color: var(--color-heading);
 }
+button.rbt-moderbt-btn {
+    border: none;
+    outline: none;
+    background: transparent;
+}
 @media only screen and (max-width: 767px) {
-    a.rbt-moderbt-btn {
+    a.rbt-moderbt-btn,
+    button.rbt-moderbt-btn {
         padding: 0 10px;
     }
 }
-a.rbt-moderbt-btn::before {
+a.rbt-moderbt-btn::before,
+button.rbt-moderbt-btn::before {
     content: "";
     position: absolute;
-    top: 0;
     left: 0;
     display: block;
     border-radius: 28px;
@@ -13404,7 +13411,11 @@ a.rbt-moderbt-btn::before {
     transition: all 0.3s ease;
     z-index: -1;
 }
-a.rbt-moderbt-btn i {
+a.rbt-moderbt-btn::before {
+    top: 0;
+}
+a.rbt-moderbt-btn i,
+button.rbt-moderbt-btn i {
     position: relative;
     top: 2px;
     margin-left: 10px;
@@ -13412,13 +13423,16 @@ a.rbt-moderbt-btn i {
     transition: all 0.3s ease;
     display: inline-block;
 }
-a.rbt-moderbt-btn:hover {
+a.rbt-moderbt-btn:hover,
+button.rbt-moderbt-btn:hover {
     color: var(--color-white);
 }
-a.rbt-moderbt-btn:hover i {
+a.rbt-moderbt-btn:hover i,
+button.rbt-moderbt-btn:hover i {
     transform: translateX(0);
 }
-a.rbt-moderbt-btn:hover::before {
+a.rbt-moderbt-btn:hover::before,
+button.rbt-moderbt-btn:hover::before {
     width: 100%;
     background: var(--color-primary);
     opacity: 1;
@@ -31046,5 +31060,10 @@ html ::-webkit-scrollbar-track {
     .add-note {
         margin-top: 20px;
     }
+}
+
+.rbt-splash-service.not-hover:hover,
+.btn-not__hover:hover {
+    transform: translate3d(0, 0, 0);
 }
 /*# sourceMappingURL=../maps/style.css.map */
