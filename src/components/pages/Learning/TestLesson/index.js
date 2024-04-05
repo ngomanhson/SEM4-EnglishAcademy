@@ -15,13 +15,13 @@ function TestLesson() {
     const navigate = useNavigate();
 
     const [selectedAnswers, setSelectedAnswers] = useState({});
-    const [selectedAnswersList, setSelectedAnswersList] = useState([]);
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
     const [confirmed, setConfirmed] = useState(false);
     const [dataNotFound, setDataNotFound] = useState(false);
     const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
 
     const [timeRemaining, setTimeRemaining] = useState(1800);
+    const [startTime, setStartTime] = useState(null);
 
     const studentId = 1;
 
@@ -40,9 +40,15 @@ function TestLesson() {
         }
     }, [status]);
 
+    const handleConfirm = () => {
+        setConfirmed(true);
+        setStartTime(Date.now());
+    };
+
     const handleAnswerSelect = (questionId, selectedOption) => {
-        setSelectedAnswers({ ...selectedAnswers, [questionId]: selectedOption });
-        setSelectedAnswersList((prevList) => [...prevList, { content: selectedOption, questionId }]);
+        const updatedAnswers = { ...selectedAnswers };
+        updatedAnswers[questionId] = selectedOption;
+        setSelectedAnswers(updatedAnswers);
     };
 
     const handleQuestionClick = (questionId) => {
@@ -51,15 +57,26 @@ function TestLesson() {
 
     const handleSubmitTest = useCallback(async () => {
         try {
-            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${testSlug}/${studentId}`, selectedAnswersList);
+            const answersToSubmit = Object.entries(selectedAnswers).map(([questionId, selectedOption]) => ({ content: selectedOption, questionId }));
+
+            const endTime = Date.now();
+
+            const elapsedTimeInSeconds = Math.floor((endTime - startTime) / 1000);
+
+            const dataSubmit = {
+                time: elapsedTimeInSeconds,
+                createAnswerStudentList: answersToSubmit,
+            };
+
+            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${testSlug}/${studentId}`, dataSubmit);
 
             if (response.status === 200) {
-                navigate();
+                navigate(`/result-test/${response.data.data}`);
             }
         } catch (error) {
             console.log(error);
         }
-    }, [navigate, selectedAnswersList, testSlug, studentId]);
+    }, [navigate, selectedAnswers, startTime, testSlug, studentId]);
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -85,10 +102,6 @@ function TestLesson() {
     }, [handleSubmitTest, confirmed]);
 
     const totalSession = testData.testOnlineSessionDetails ? testData.testOnlineSessionDetails.length : 0;
-
-    const handleConfirm = () => {
-        setConfirmed(true);
-    };
 
     const handleNextSession = () => {
         setCurrentSessionIndex((prevIndex) => prevIndex + 1);
@@ -116,6 +129,18 @@ function TestLesson() {
             </>
         );
     };
+
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, []);
 
     return (
         <>
@@ -174,7 +199,9 @@ function TestLesson() {
                                                     <div>
                                                         <div className="d-flex justify-content-between align-items-start mb-5">
                                                             <div>
-                                                                <h4 className="mb-2">{session.sessionName}</h4>
+                                                                <h4 className="mb-2">
+                                                                    Part {sessionIndex + 1}: {session.sessionName}
+                                                                </h4>
                                                                 <p className="fw-300">The total number of questions: {session.totalQuestion}</p>
                                                             </div>
                                                             <div className="d-flex justify-content-end align-items-center">
@@ -194,7 +221,7 @@ function TestLesson() {
                                                         </div>
                                                         {session.questionTestOnlineDTOS?.map((question, questionIndex) => (
                                                             <div className="rbt-single-quiz mb-5" key={questionIndex}>
-                                                                <h5 className="exam__inner-desc fw-500">
+                                                                <h5 className="exam__inner-desc fw-500 font-system" style={{ fontSize: 18 }}>
                                                                     Questions {questionIndex + 1}: {question.title}
                                                                 </h5>
                                                                 {question.image && <img src={question.image} className="w-100 mb-5" alt="" />}
@@ -213,7 +240,7 @@ function TestLesson() {
                                                                                         checked={selectedAnswers[question.id] === question[option]}
                                                                                         onChange={() => handleAnswerSelect(question.id, question[option])}
                                                                                     />
-                                                                                    <div className="d-flex align-items-center">
+                                                                                    <div className="d-flex align-items-center font-system">
                                                                                         <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
                                                                                     </div>
                                                                                 </label>

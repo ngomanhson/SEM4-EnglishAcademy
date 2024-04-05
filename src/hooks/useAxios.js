@@ -25,7 +25,9 @@ function useAxios({ method, path, body = null, headers = null }) {
                 setError(true);
                 setStatus(error.response.status);
             } finally {
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1500);
             }
         };
 

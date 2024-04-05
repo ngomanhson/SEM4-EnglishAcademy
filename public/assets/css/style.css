@@ -16260,6 +16260,10 @@ span.transparent-button:hover i {
     color: var(--color-body);
     font-size: 16px;
 }
+.rbt-table.ss tbody tr th,
+.rbt-table.ss tbody tr td {
+    color: #000;
+}
 .rbt-table tfoot tr th,
 .rbt-table tfoot tr td {
     background: var(--color-grey);
@@ -30603,7 +30607,7 @@ input[type="number"]::placeholder {
 }
 
 .content-label-tab {
-    border: 1px solid #ccc;
+    border: 1px dashed #b966e7;
     border-radius: 8px;
     padding: 20px;
 }
@@ -30652,6 +30656,7 @@ input[type="number"]::placeholder {
     cursor: pointer;
     color: #212121;
     font-size: 16px;
+    transition: all 0.2s linear;
 }
 
 .answers-group__label-2 {
@@ -30663,8 +30668,8 @@ input[type="number"]::placeholder {
 }
 
 .answers-group__label.checked {
-    border: 1px solid var(--color-primary);
-    background: var(--primary-opacity);
+    border: 1px solid #9dc0ff;
+    background: #e1ecff;
 }
 
 .answers-group__label.correct {
@@ -30700,7 +30705,7 @@ input[type="number"]::placeholder {
 }
 
 .answers-group__label.checked .btn-choose {
-    background: var(--color-primary);
+    background: #4b8bff;
     
 }
 
@@ -30860,11 +30865,13 @@ button.btn-circle[disabled]:hover {
     border-radius: 50%;
     background: var(--color-white);
     color: #c4c4c4;
+    transition: all 0.2s linear;
 }
 
 .choice-wrapper__btn.active {
-    background: #c4c4c4;
-    color: var(--color-white);
+    background: var(--pink-opacity);
+    color: var(--color-pink) !important;
+    border-color: var(--pink-opacity);
 }
 
 /* ==== Preload ==== */
@@ -31065,5 +31072,21 @@ html ::-webkit-scrollbar-track {
 .rbt-splash-service.not-hover:hover,
 .btn-not__hover:hover {
     transform: translate3d(0, 0, 0);
+}
+.rhap_progress-bar-show-download .rhap_progress-filled {
+    background-color: #4b8bff;
+}
+.rhap_progress-bar .rhap_progress-indicator,
+.rhap_volume-bar .rhap_volume-indicator {
+    background: #4b8bff;
+}
+.rhap_progress-bar-show-download .rhap_download-progress,
+.rhap_volume-bar-area .rhap_volume-bar {
+    background-color: #f5f6ff;
+}
+.rhap_time.rhap_current-time,
+.rhap_time.rhap_total-time,
+.iconify.iconify--mdi {
+    color:#4b8bff;
 }
 /*# sourceMappingURL=../maps/style.css.map */
