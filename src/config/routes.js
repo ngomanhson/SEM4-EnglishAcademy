@@ -4,6 +4,7 @@ const routes = {
     course_detail: "/course-detail/:slug",
     learning: "/learning/:courseSlug",
     learning_test: "/learning/test/:courseSlug",
+    result_test: "/result-test/:testCode",
     entrance_test: "/entrance-test",
     entrance_test_ielts: "/entrance-test/ielts/:slug",
     entrance_test_toiec: "/entrance-test/toiec/:slug",
