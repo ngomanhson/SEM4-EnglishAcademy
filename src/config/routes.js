@@ -8,7 +8,7 @@ const routes = {
     entrance_test: "/entrance-test",
     entrance_test_ielts: "/entrance-test/ielts/:slug",
     entrance_test_toiec: "/entrance-test/toiec/:slug",
-    entrance_test_learning_paths: "/entrance-test/learning-paths",
+    entrance_test_learning_paths: "/entrance-test/learning-paths/:testCode",
     entrance_test_answer: "/entrance-test/answer-detail",
     tutor: "/tutor",
     tutor_detail: "/tutor/:slug",

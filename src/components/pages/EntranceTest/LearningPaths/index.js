@@ -1,12 +1,13 @@
 import Chart from "react-apexcharts";
 import Layout from "../../../layouts/index";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import url from "../../../../services/url";
 import Loading from "../../../layouts/Loading";
 import useAxios from "../../../../hooks/useAxios";
 
 function LearningPaths() {
+    const { testCode } = useParams();
     const [chartData, setChartData] = useState([]);
 
     const options = {
@@ -41,7 +42,7 @@ function LearningPaths() {
 
     const { response, loading } = useAxios({
         method: "GET",
-        path: url.ENTRANCE_TEST.RESULT + "/xJZR0qyR",
+        path: url.ENTRANCE_TEST.RESULT + `/${testCode}`,
     });
 
     const resultTest = useMemo(() => response || {}, [response]);

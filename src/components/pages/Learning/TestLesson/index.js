@@ -196,7 +196,7 @@ function TestLesson() {
                                         <div className="col-lg-9">
                                             {testData.testOnlineSessionDetails?.map((session, sessionIndex) => (
                                                 <div className="widget" style={{ display: currentSessionIndex === sessionIndex ? "block" : "none" }} key={sessionIndex}>
-                                                    <div>
+                                                    <div className="w-100">
                                                         <div className="d-flex justify-content-between align-items-start mb-5">
                                                             <div>
                                                                 <h4 className="mb-2">
