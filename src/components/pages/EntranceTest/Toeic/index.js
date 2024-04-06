@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { Helmet } from "react-helmet";
@@ -8,7 +8,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
 import useAxios from "../../../../hooks/useAxios";
-import config from "../../../../config/index";
+import { formatMinute } from "../../../../utils/FormatTime";
+import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
 
 function Toeic() {
     const { slug } = useParams();
@@ -28,13 +29,7 @@ function Toeic() {
         path: url.ENTRANCE_TEST.TOIEC + `/${slug}`,
     });
 
-    const testToiec = response || [];
-
-    const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
-    };
+    const testToiec = useMemo(() => response || [], [response]);
 
     const handleConfirm = () => {
         setConfirmed(true);
@@ -61,7 +56,14 @@ function Toeic() {
 
     const handleSubmitTest = useCallback(async () => {
         try {
-            const answersToSubmit = Object.entries(selectedAnswers).map(([questionId, selectedOption]) => ({ content: selectedOption, questionId }));
+            // const answersToSubmit = Object.entries(selectedAnswers).map(([questionId, selectedOption]) => ({ content: selectedOption, questionId }));
+
+            const answersToSubmit = testToiec.testInputSessionDetails.flatMap((session) =>
+                session.questionTestInputs.map((question) => ({
+                    content: selectedAnswers[question.id] || "",
+                    questionId: question.id,
+                }))
+            );
 
             const endTime = Date.now();
 
@@ -72,16 +74,16 @@ function Toeic() {
                 createAnswerStudentList: answersToSubmit,
             };
 
-            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + "/test-1/1", dataSubmit);
+            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + `/${slug}/1`, dataSubmit);
 
             if (response.status === 200) {
-                navigate(`/entrance-test/learning-paths/${response.data.data}`);
+                navigate("/entrance-test/success");
             }
         } catch (error) {
             console.log(error);
             setError(true);
         }
-    }, [navigate, selectedAnswers, startTime]);
+    }, [slug, navigate, selectedAnswers, startTime, testToiec]);
 
     useEffect(() => {
         if (confirmed) {
@@ -102,25 +104,6 @@ function Toeic() {
 
     const totalSession = testToiec.testInputSessionDetails ? testToiec.testInputSessionDetails.length : 0;
 
-    const breadcrumbs = () => {
-        return (
-            <>
-                <h4 className="font-system fw-500 m-0">Entrance Test - {testToiec.title}</h4>
-                <ul className="page-list">
-                    <li className="rbt-breadcrumb-item">
-                        <Link to={config.routes.home}>Home</Link>
-                    </li>
-                    <li>
-                        <div className="icon-right">
-                            <i className="feather-chevron-right"></i>
-                        </div>
-                    </li>
-                    <li className="rbt-breadcrumb-item active">Entrance Test - {testToiec.title}</li>
-                </ul>
-            </>
-        );
-    };
-
     return (
         <>
             <Helmet>
@@ -139,7 +122,7 @@ function Toeic() {
                                 <div className="row mt--50">
                                     <div className="col-lg-6 mx-auto">
                                         <div className="text-center">
-                                            {breadcrumbs()}
+                                            <BreadcrumbTest title={testToiec.title} />
 
                                             <div className="rbt-splash-service no-translate support h-100 not-hover mt-3">
                                                 <div className="w-100">
@@ -251,7 +234,7 @@ function Toeic() {
                                             <div className="answers__inner">
                                                 <div className="td-sidebar">
                                                     <div className="widget">
-                                                        <h5 className="text-center">Time remaining: {formatTime(timeRemaining)}</h5>
+                                                        <h5 className="text-center">Time remaining: {formatMinute(timeRemaining)}</h5>
 
                                                         {testToiec.testInputSessionDetails?.map((session, index) => (
                                                             <div key={session.id}>
