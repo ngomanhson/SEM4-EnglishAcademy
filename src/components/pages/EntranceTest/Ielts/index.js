@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { Helmet } from "react-helmet";
@@ -8,7 +8,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
 import useAxios from "../../../../hooks/useAxios";
-import config from "../../../../config";
+import { formatMinute } from "../../../../utils/FormatTime/index";
+import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
 
 function Ielts() {
     const { slug } = useParams();
@@ -26,19 +27,13 @@ function Ielts() {
         path: url.ENTRANCE_TEST.IELTS + `/${slug}`,
     });
 
-    const testIelts = response || [];
+    const testIelts = useMemo(() => response || [], [response]);
 
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
 
     const handleConfirm = () => {
         setConfirmed(true);
         setStartTime(Date.now());
-    };
-
-    const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
     };
 
     const handleQuestionClick = (questionId) => {
@@ -61,7 +56,14 @@ function Ielts() {
 
     const handleSubmitTest = useCallback(async () => {
         try {
-            const answersToSubmit = Object.entries(selectedAnswers).map(([questionId, selectedOption]) => ({ content: selectedOption, questionId }));
+            // const answersToSubmit = Object.entries(selectedAnswers).map(([questionId, selectedOption]) => ({ content: selectedOption, questionId }));
+
+            const answersToSubmit = testIelts.testInputSessionDetails.flatMap((session) =>
+                session.questionTestInputs.map((question) => ({
+                    content: selectedAnswers[question.id] || "",
+                    questionId: question.id,
+                }))
+            );
 
             const endTime = Date.now();
 
@@ -72,52 +74,35 @@ function Ielts() {
                 createAnswerStudentList: answersToSubmit,
             };
 
-            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + "/test-1/1", dataSubmit);
+            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + `/${slug}/1`, dataSubmit);
 
             if (response.status === 200) {
-                navigate(`/entrance-test/learning-paths/${response.data.data}`);
+                navigate("/entrance-test/success");
             }
         } catch (error) {
             console.error("Error submitting test:", error);
         }
-    }, [navigate, selectedAnswers, startTime]);
+    }, [slug, navigate, selectedAnswers, startTime, testIelts]);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeRemaining((prevTime) => {
-                if (prevTime > 0) {
-                    return prevTime - 1;
-                } else {
-                    clearInterval(timer);
-                    handleSubmitTest();
-                    return 0;
-                }
-            });
-        }, 1000);
+        if (confirmed) {
+            const timer = setInterval(() => {
+                setTimeRemaining((prevTime) => {
+                    if (prevTime > 0) {
+                        return prevTime - 1;
+                    } else {
+                        clearInterval(timer);
+                        handleSubmitTest();
+                        return 0;
+                    }
+                });
+            }, 1000);
 
-        return () => clearInterval(timer);
-    }, [handleSubmitTest]);
+            return () => clearInterval(timer);
+        }
+    }, [confirmed, handleSubmitTest]);
 
     const totalSession = testIelts.testInputSessionDetails ? testIelts.testInputSessionDetails.length : 0;
-
-    const breadcrumbs = () => {
-        return (
-            <>
-                <h4 className="font-system fw-500 m-0">Entrance Test - {testIelts.title}</h4>
-                <ul className="page-list">
-                    <li className="rbt-breadcrumb-item">
-                        <Link to={config.routes.home}>Home</Link>
-                    </li>
-                    <li>
-                        <div className="icon-right">
-                            <i className="feather-chevron-right"></i>
-                        </div>
-                    </li>
-                    <li className="rbt-breadcrumb-item active">Entrance Test - {testIelts.title}</li>
-                </ul>
-            </>
-        );
-    };
 
     return (
         <>
@@ -136,7 +121,7 @@ function Ielts() {
                             <div className="row mt--50">
                                 <div className="col-lg-6 mx-auto">
                                     <div className="text-center">
-                                        {breadcrumbs()}
+                                        <BreadcrumbTest title={testIelts.title} />
 
                                         <div className="rbt-splash-service no-translate support h-100 not-hover mt-3">
                                             <div className="w-100">
@@ -188,18 +173,18 @@ function Ielts() {
                                     </div>
                                 </div>
                                 <div className="row mt--50">
-                                    <div className="col-lg-8 col-12">
+                                    <div className="col-lg-9">
                                         {testIelts.testInputSessionDetails?.map((session, index) => (
                                             <div key={session.id} style={{ display: currentSessionIndex === index ? "block" : "none" }}>
-                                                <div className="py-4 background-primary">
+                                                {/* <div className="py-4 background-primary">
                                                     <h4 className="text-center text-white fw-500 mb-0" style={{ fontSize: 20 }}>
                                                         {session.sessionName}
                                                     </h4>
-                                                </div>
+                                                </div> */}
 
-                                                <div className="widget" style={{ background: "#f1f1f19e" }}>
+                                                <div className="widget">
                                                     {session.questionTestInputs?.map((question, questionIndex) => (
-                                                        <div className="p-5 mb-5" style={{ background: "#fff", borderRadius: 8 }} key={questionIndex}>
+                                                        <div className="mb-5" key={questionIndex}>
                                                             <h5 className="exam__inner-desc fw-500">
                                                                 Question {questionIndex + 1}: {question.title}
                                                             </h5>
@@ -244,11 +229,11 @@ function Ielts() {
                                         ))}
                                     </div>
 
-                                    <div className="col-lg-4 col-12">
+                                    <div className="col-lg-3">
                                         <div className="answers__inner">
                                             <div className="td-sidebar">
                                                 <div className="widget">
-                                                    <h5 className="text-center">Time remaining: {formatTime(timeRemaining)}</h5>
+                                                    <h5 className="text-center">Time remaining: {formatMinute(timeRemaining)}</h5>
 
                                                     {testIelts.testInputSessionDetails?.map((session, index) => (
                                                         <div key={session.id}>

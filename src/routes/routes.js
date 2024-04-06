@@ -8,7 +8,6 @@ import TestLesson from "../components/pages/Learning/TestLesson/index";
 import EntranceTest from "../components/pages/EntranceTest/index";
 import Ielts from "../components/pages/EntranceTest/Ielts/index";
 import Toeic from "../components/pages/EntranceTest/Toeic/index";
-import LearningPaths from "../components/pages/EntranceTest/LearningPaths/index";
 import AnswerDetail from "../components/pages/EntranceTest/AnswerDetail/index";
 import Tutor from "../components/pages/Tutor/index";
 import TutorDetail from "../components/pages/Tutor/TutorDetail/index";
@@ -28,6 +27,9 @@ import ForgotPassword from "../components/pages/Auth/ForgotPassword";
 import ResetPassword from "../components/pages/Auth/ResetPassword";
 import NotFound from "../components/pages/Other/NotFound";
 import ResultTest from "../components/pages/Learning/ResultTest/index";
+import LearningPathIelts from "../components/pages/EntranceTest/LearningPaths/Ielts";
+import LearningPathToeic from "../components/pages/EntranceTest/LearningPaths/Toeic";
+import EntranceTestSuccess from "../components/pages/EntranceTest/TestSuccess";
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -39,7 +41,9 @@ const publicRoutes = [
     { path: config.routes.entrance_test, component: EntranceTest },
     { path: config.routes.entrance_test_ielts, component: Ielts },
     { path: config.routes.entrance_test_toiec, component: Toeic },
-    { path: config.routes.entrance_test_learning_paths, component: LearningPaths },
+    { path: config.routes.entrance_test_success, component: EntranceTestSuccess },
+    { path: config.routes.learning_paths_ielts, component: LearningPathIelts },
+    { path: config.routes.learning_paths_toeic, component: LearningPathToeic },
     { path: config.routes.entrance_test_answer, component: AnswerDetail },
     { path: config.routes.tutor, component: Tutor },
     { path: config.routes.tutor_detail, component: TutorDetail },
