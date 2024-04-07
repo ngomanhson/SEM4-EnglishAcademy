@@ -7,6 +7,7 @@ import Review from "../../../views/Course/CourseDetail/Review";
 import Rating from "../../../views/Course/CourseDetail/Rating";
 import Loading from "../../../layouts/Loading";
 import useAxios from "../../../../hooks/useAxios";
+import config from "../../../../config/index";
 
 function CourseDetail() {
     const { slug } = useParams();
@@ -36,6 +37,27 @@ function CourseDetail() {
     for (let i = 0; i < emptyStars; i++) {
         stars.push(<i key={`empty-${i}`} className="far fa-star"></i>);
     }
+
+    let formatLevel;
+    if (course.level === 0) {
+        formatLevel = "Basic";
+    } else if (course.level === 1) {
+        formatLevel = "Intermediate";
+    } else if (course.level === 2) {
+        formatLevel = "Advanced";
+    } else if (course.level === 3) {
+        formatLevel = "Expert";
+    }
+
+    let totalItems = 0;
+    let totalTest = 0;
+    if (course && course.topicOnlineDetailList) {
+        course.topicOnlineDetailList.forEach((topic) => {
+            totalItems += topic.itemOnlineDTOList.length;
+            totalTest += topic.testOnlineDTOList.length;
+        });
+    }
+
     return (
         <>
             {loading && <Loading />}
@@ -75,13 +97,11 @@ function CourseDetail() {
                                         <div className="feature-sin rating">{stars}</div>
 
                                         <div className="feature-sin total-rating">
-                                            <a className="rbt-badge-4" href="#!">
-                                                {course.reviewList?.length} rating
-                                            </a>
+                                            <p className="rbt-badge-4">{course.reviewList?.length} rating</p>
                                         </div>
 
                                         <div className="feature-sin total-student">
-                                            <span>616,029 students</span>
+                                            <span>2 students</span>
                                         </div>
                                     </div>
 
@@ -110,13 +130,13 @@ function CourseDetail() {
                             <div className="col-lg-8">
                                 <div className="course-details-content">
                                     <div className="rbt-course-feature-box rbt-shadow-box thuumbnail">
-                                        <img className="w-100" src={course.image} alt="Card" />
+                                        <ReactPlayer url={course.trailer} controls className="w-100" />
                                     </div>
 
                                     <div className="rbt-course-feature-box overview-wrapper rbt-shadow-box mt--30 has-show-more" id="overview">
                                         <div className="rbt-course-feature-inner has-show-more-inner-content">
                                             <div className="section-title">
-                                                <h4 className="rbt-title-style-3">What you'll learn</h4>
+                                                <h4 className="rbt-title-style-3 font-system">What you'll learn</h4>
                                             </div>
                                             <p>
                                                 Are you new to PHP or need a refresher? Then this course will help you get all the fundamentals of Procedural PHP, Object Oriented PHP, MYSQLi and
@@ -124,50 +144,113 @@ function CourseDetail() {
                                                 courses like this one for students all over the world.
                                             </p>
 
-                                            <div className="row g-5 mb--30">
-                                                <div className="col-lg-6">
-                                                    <ul className="rbt-list-style-1">
-                                                        <li>
-                                                            <i className="feather-check"></i>Become an advanced, confident, and modern JavaScript developer from scratch.
-                                                        </li>
-                                                        <li>
-                                                            <i className="feather-check"></i>Have an intermediate skill level of Python programming.
-                                                        </li>
-                                                        <li>
-                                                            <i className="feather-check"></i>Have a portfolio of various data analysis projects.
-                                                        </li>
-                                                        <li>
-                                                            <i className="feather-check"></i>Use the numpy library to create and manipulate arrays.
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                <div className="col-lg-6">
-                                                    <ul className="rbt-list-style-1">
-                                                        <li>
-                                                            <i className="feather-check"></i>Use the Jupyter Notebook Environment. JavaScript developer from scratch.
-                                                        </li>
-                                                        <li>
-                                                            <i className="feather-check"></i>Use the pandas module with Python to create and structure data.
-                                                        </li>
-                                                        <li>
-                                                            <i className="feather-check"></i>Have a portfolio of various data analysis projects.
-                                                        </li>
-                                                        <li>
-                                                            <i className="feather-check"></i>Create data visualizations using matplotlib and the seaborn.
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            <ul className="plan-offer-list">
+                                                <li>
+                                                    <i className="feather-check"></i>Become an advanced, confident, and modern JavaScript developer from scratch.
+                                                </li>
+                                                <li>
+                                                    <i className="feather-check"></i>Have an intermediate skill level of Python programming.
+                                                </li>
+                                                <li>
+                                                    <i className="feather-check"></i>Have a portfolio of various data analysis projects.
+                                                </li>
+                                                <li>
+                                                    <i className="feather-check"></i>Use the numpy library to create and manipulate arrays.
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
 
                                     <div className="course-content rbt-shadow-box coursecontent-wrapper mt--30" id="coursecontent">
                                         <div className="rbt-course-feature-inner">
                                             <div className="section-title">
-                                                <h4 className="rbt-title-style-3">Course Content</h4>
+                                                <h4 className="rbt-title-style-3 font-system">Course Content</h4>
                                             </div>
-                                            <div className="rbt-accordion-style rbt-accordion-02 accordion">
+                                            {topics.length === 0 ? (
+                                                <p className="m-0">Coming soon...</p>
+                                            ) : (
+                                                <div className="rbt-accordion-style rbt-accordion-02 accordion">
+                                                    <div className="accordion" id="accordionExampleb2">
+                                                        {topics.map((topic, index) => {
+                                                            const accordionId = `accordion-${topic.id}-${index}`;
+                                                            const collapseId = `collapse-${topic.id}-${index}`;
+                                                            return (
+                                                                <div className="accordion-item card" key={topic.id}>
+                                                                    <h2 className="accordion-header card-header" id={`heading-${accordionId}`}>
+                                                                        <button
+                                                                            className="accordion-button collapsed font-system"
+                                                                            type="button"
+                                                                            data-bs-toggle="collapse"
+                                                                            data-bs-target={`#${collapseId}`}
+                                                                            aria-expanded="false"
+                                                                            aria-controls={collapseId}
+                                                                        >
+                                                                            {topic.name} <span className="rbt-badge-5 ml--10">1hr 30min</span>
+                                                                        </button>
+                                                                    </h2>
+                                                                    <div
+                                                                        id={collapseId}
+                                                                        className="accordion-collapse collapse"
+                                                                        aria-labelledby={`heading-${accordionId}`}
+                                                                        data-bs-parent="#accordionExampleb2"
+                                                                    >
+                                                                        <div className="accordion-body card-body pr--0">
+                                                                            <ul className="rbt-course-main-content liststyle">
+                                                                                {topic.itemOnlineDTOList.map((topicItem) => {
+                                                                                    return (
+                                                                                        <li className="mb-4" key={topicItem.id}>
+                                                                                            <div className="wrap">
+                                                                                                <div className="course-content-left">
+                                                                                                    <div className="d-flex align-content-center">
+                                                                                                        {topicItem.itemType === 0 && <i className="feather-play-circle mt-3"></i>}
+                                                                                                        {topicItem.itemType === 1 && <i className="feather-help-circle mt-3"></i>}
+                                                                                                        {topicItem.itemType === 2 && <i className="feather-hash mt-3"></i>}
+                                                                                                        <div className="d-flex flex-column">
+                                                                                                            <span className="text">{topicItem.title}</span>
+                                                                                                            <span className="time">04:00</span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div className="course-content-right">
+                                                                                                    <span className="rbt-check">
+                                                                                                        <i className="feather-lock"></i>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    );
+                                                                                })}
+
+                                                                                {topic.testOnlineDTOList.map((topicItem) => (
+                                                                                    <li className="mb-4" key={topicItem.id}>
+                                                                                        <div className="wrap">
+                                                                                            <div className="course-content-left">
+                                                                                                <div className="d-flex align-content-center">
+                                                                                                    <i className="far fa-file-alt mt-3"></i>
+                                                                                                    <div className="d-flex flex-column">
+                                                                                                        <span className="text">{topicItem.title}</span>
+                                                                                                        <span className="time">04:00</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="course-content-right">
+                                                                                                <span className="rbt-check">
+                                                                                                    <i className="feather-lock"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                ))}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {/* <div className="rbt-accordion-style rbt-accordion-02 accordion">
                                                 <div className="accordion" id="accordionExampleb2">
                                                     {topics.map((topic, index) => {
                                                         const accordionId = `accordion-${topic.id}-${index}`;
@@ -196,68 +279,13 @@ function CourseDetail() {
                                                                         <ul className="rbt-course-main-content liststyle">
                                                                             {topic.itemOnlineDTOList.map((topicItem) => {
                                                                                 return (
-                                                                                    <li key={topicItem.id}>
-                                                                                        {topicItem.status === false ? (
-                                                                                            <div className="wrap">
-                                                                                                <div className="course-content-left">
-                                                                                                    <div className="d-flex align-content-center">
-                                                                                                        <i className="feather-play-circle mt-3"></i>
-                                                                                                        <div className="d-flex flex-column">
-                                                                                                            <span className="text">{topicItem.title}</span>
-                                                                                                            <span className="time">04:00</span>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div className="course-content-right">
-                                                                                                    <span className="rbt-check">
-                                                                                                        <i className="feather-lock"></i>
-                                                                                                    </span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        ) : (
-                                                                                            <Link to={`/lesson/${topic.slug}`}>
-                                                                                                <div className="course-content-left">
-                                                                                                    <div className="d-flex align-content-center">
-                                                                                                        <i className="feather-play-circle mt-3"></i>
-                                                                                                        <div className="d-flex flex-column">
-                                                                                                            <span className="text">{topicItem.title}</span>
-                                                                                                            <span className="time">04:00</span>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div className="course-content-right">
-                                                                                                    <span className="rbt-check">
-                                                                                                        <i className="feather-check"></i>
-                                                                                                    </span>
-                                                                                                </div>
-                                                                                            </Link>
-                                                                                        )}
-                                                                                    </li>
-                                                                                );
-                                                                            })}
-                                                                            {/* {topic.itemOnlineDTOList.map((topicItem) => {
-                                                                            return (
-                                                                                <li key={topicItem.id}>
-                                                                                    {topicItem.status === false ? (
-                                                                                        <div className="course-content-left">
-                                                                                            <div className="d-flex align-content-center">
-                                                                                                <i className="feather-play-circle mt-3"></i>
-                                                                                                <div className="d-flex flex-column">
-                                                                                                    <span className="text">{topicItem.title}</span>
-                                                                                                    <span className="time">04:00</span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div className="course-content-right">
-                                                                                                <span className="rbt-check">
-                                                                                                    <i className="feather-lock"></i>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    ) : (
-                                                                                        <Link to={`/lesson/${topic.slug}`}>
+                                                                                    <li className="mb-4" key={topicItem.id}>
+                                                                                        <div className="wrap">
                                                                                             <div className="course-content-left">
                                                                                                 <div className="d-flex align-content-center">
-                                                                                                    <i className="feather-play-circle mt-3"></i>
+                                                                                                    {topicItem.itemType === 0 && <i className="feather-play-circle mt-3"></i>}
+                                                                                                    {topicItem.itemType === 1 && <i className="feather-help-circle mt-3"></i>}
+                                                                                                    {topicItem.itemType === 2 && <i className="feather-hash mt-3"></i>}
                                                                                                     <div className="d-flex flex-column">
                                                                                                         <span className="text">{topicItem.title}</span>
                                                                                                         <span className="time">04:00</span>
@@ -266,14 +294,34 @@ function CourseDetail() {
                                                                                             </div>
                                                                                             <div className="course-content-right">
                                                                                                 <span className="rbt-check">
-                                                                                                    <i className="feather-check"></i>
+                                                                                                    <i className="feather-lock"></i>
                                                                                                 </span>
                                                                                             </div>
-                                                                                        </Link>
-                                                                                    )}
+                                                                                        </div>
+                                                                                    </li>
+                                                                                );
+                                                                            })}
+
+                                                                            {topic.testOnlineDTOList.map((topicItem) => (
+                                                                                <li className="mb-4" key={topicItem.id}>
+                                                                                    <div className="wrap">
+                                                                                        <div className="course-content-left">
+                                                                                            <div className="d-flex align-content-center">
+                                                                                                <i className="far fa-file-alt mt-3"></i>
+                                                                                                <div className="d-flex flex-column">
+                                                                                                    <span className="text">{topicItem.title}</span>
+                                                                                                    <span className="time">04:00</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className="course-content-right">
+                                                                                            <span className="rbt-check">
+                                                                                                <i className="feather-lock"></i>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </li>
-                                                                            );
-                                                                        })} */}
+                                                                            ))}
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -281,66 +329,26 @@ function CourseDetail() {
                                                         );
                                                     })}
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="rbt-course-feature-box rbt-shadow-box details-wrapper mt--30" id="details">
-                                        <div className="row g-5">
-                                            <div className="col-lg-6">
-                                                <div className="section-title">
-                                                    <h4 className="rbt-title-style-3 mb--20">Requirements</h4>
-                                                </div>
-                                                <ul className="rbt-list-style-1">
-                                                    <li>
-                                                        <i className="feather-check"></i>Become an advanced, confident, and modern JavaScript developer from scratch.
-                                                    </li>
-                                                    <li>
-                                                        <i className="feather-check"></i>Have an intermediate skill level of Python programming.
-                                                    </li>
-                                                    <li>
-                                                        <i className="feather-check"></i>Have a portfolio of various data analysis projects.
-                                                    </li>
-                                                    <li>
-                                                        <i className="feather-check"></i>Use the numpy library to create and manipulate arrays.
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div className="col-lg-6">
-                                                <div className="section-title">
-                                                    <h4 className="rbt-title-style-3 mb--20">Description</h4>
-                                                </div>
-                                                <ul className="rbt-list-style-1">
-                                                    <li>
-                                                        <i className="feather-check"></i>Use the Jupyter Notebook Environment. JavaScript developer from scratch.
-                                                    </li>
-                                                    <li>
-                                                        <i className="feather-check"></i>Use the pandas module with Python to create and structure data.
-                                                    </li>
-                                                    <li>
-                                                        <i className="feather-check"></i>Have a portfolio of various data analysis projects.
-                                                    </li>
-                                                    <li>
-                                                        <i className="feather-check"></i>Create data visualizations using matplotlib and the seaborn.
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
 
                                     <Rating />
 
-                                    <div className="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
-                                        <div className="section-title">
-                                            <h4 className="rbt-title-style-3">Featured review</h4>
+                                    {reviews.length === 0 ? (
+                                        ""
+                                    ) : (
+                                        <div className="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
+                                            <div className="section-title">
+                                                <h4 className="rbt-title-style-3 font-system">Featured review</h4>
+                                            </div>
+                                            <div className="has-show-more-inner-content rbt-featured-review-list-wrapper">
+                                                {reviews.map((review) => (
+                                                    <Review key={review.id} review={review} />
+                                                ))}
+                                            </div>
                                         </div>
-                                        <div className="has-show-more-inner-content rbt-featured-review-list-wrapper">
-                                            {reviews.map((review) => (
-                                                <Review key={review.id} review={review} />
-                                            ))}
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
 
                                 <div className="related-course mt--60">
@@ -348,16 +356,16 @@ function CourseDetail() {
                                         <div className="col-lg-8 col-md-8 col-12">
                                             <div className="section-title">
                                                 <span className="subtitle bg-pink-opacity">Top Course</span>
-                                                <h4 className="title">
-                                                    More Course By <strong className="color-primary">Angela</strong>
+                                                <h4 className="title font-system">
+                                                    Top Related <strong className="color-primary">Courses</strong>
                                                 </h4>
                                             </div>
                                         </div>
                                         <div className="col-lg-4 col-md-4 col-12">
                                             <div className="read-more-btn text-start text-md-end">
-                                                <a className="rbt-btn rbt-switch-btn btn-border btn-sm" href="#!">
+                                                <Link to={config.routes.course} className="rbt-btn rbt-switch-btn btn-border btn-sm">
                                                     <span data-text="View All Course">View All Course</span>
-                                                </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -393,7 +401,9 @@ function CourseDetail() {
                                                     </div>
 
                                                     <h4 className="rbt-card-title">
-                                                        <a href="course-details.html">React Front To Back</a>
+                                                        <a href="course-details.html" className="font-system">
+                                                            React Front To Back
+                                                        </a>
                                                     </h4>
 
                                                     <ul className="rbt-meta">
@@ -406,16 +416,7 @@ function CourseDetail() {
                                                     </ul>
 
                                                     <p className="rbt-card-text">It is a long established fact that a reader will be distracted.</p>
-                                                    <div className="rbt-author-meta mb--10">
-                                                        <div className="rbt-avater">
-                                                            <a href="#!">
-                                                                <img src="assets/images/client/avatar-02.png" alt="Sophia Jaymes" />
-                                                            </a>
-                                                        </div>
-                                                        <div className="rbt-author-info">
-                                                            By <a href="profile.html">Angela</a> In <a href="#!">Development</a>
-                                                        </div>
-                                                    </div>
+
                                                     <div className="rbt-card-bottom">
                                                         <div className="rbt-price">
                                                             <span className="current-price">$60</span>
@@ -455,7 +456,9 @@ function CourseDetail() {
                                                         </div>
                                                     </div>
                                                     <h4 className="rbt-card-title">
-                                                        <a href="course-details.html">PHP Beginner Advanced</a>
+                                                        <a href="course-details.html" className="font-system">
+                                                            PHP Beginner Advanced
+                                                        </a>
                                                     </h4>
                                                     <ul className="rbt-meta">
                                                         <li>
@@ -467,16 +470,7 @@ function CourseDetail() {
                                                     </ul>
 
                                                     <p className="rbt-card-text">It is a long established fact that a reader will be distracted.</p>
-                                                    <div className="rbt-author-meta mb--10">
-                                                        <div className="rbt-avater">
-                                                            <a href="#!">
-                                                                <img src="assets/images/client/avatar-02.png" alt="Sophia Jaymes" />
-                                                            </a>
-                                                        </div>
-                                                        <div className="rbt-author-info">
-                                                            By <a href="profile.html">Angela</a> In <a href="#!">Development</a>
-                                                        </div>
-                                                    </div>
+
                                                     <div className="rbt-card-bottom">
                                                         <div className="rbt-price">
                                                             <span className="current-price">$60</span>
@@ -498,15 +492,15 @@ function CourseDetail() {
                                     <div className="inner">
                                         <Link to="" className="video-popup-with-text  text-center popup-video sidebar-video-hidden mb--15">
                                             <div className="video-content">
-                                                <ReactPlayer url={course.trailer} controls className="w-100" />
+                                                <img className="w-100" src={course.image} alt="Card" />
                                             </div>
                                         </Link>
 
                                         <div className="content-item-content">
                                             <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
                                                 <div className="rbt-price">
-                                                    <span className="current-price">$60.99</span>
-                                                    <span className="off-price">$84.99</span>
+                                                    <span className="current-price">${course.price && course.price.toFixed(2)}</span>
+                                                    {/* <span className="off-price">$84.99</span> */}
                                                 </div>
                                                 <div className="discount-time">
                                                     <span className="rbt-badge color-danger bg-color-danger-opacity">
@@ -516,7 +510,7 @@ function CourseDetail() {
                                             </div>
 
                                             <div className="add-to-card-button mt--15">
-                                                <a className="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#!">
+                                                <a className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover" href="#!">
                                                     <span className="btn-text">Enroll Course</span>
                                                     <span className="btn-icon">
                                                         <i className="feather-arrow-right"></i>
@@ -527,28 +521,24 @@ function CourseDetail() {
                                             <div className="rbt-widget-details has-show-more m-5">
                                                 <ul className="has-show-more-inner-content rbt-course-details-list-wrapper">
                                                     <li>
-                                                        <span>Start Date</span>
-                                                        <span className="rbt-feature-value rbt-badge-5">5 Hrs 20 Min</span>
-                                                    </li>
-                                                    <li>
                                                         <span>Enrolled</span>
-                                                        <span className="rbt-feature-value rbt-badge-5">100</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>Lectures</span>
-                                                        <span className="rbt-feature-value rbt-badge-5">50</span>
+                                                        <span className="rbt-feature-value rbt-badge-5">2</span>
                                                     </li>
                                                     <li>
                                                         <span>Skill Level</span>
-                                                        <span className="rbt-feature-value rbt-badge-5">Basic</span>
+                                                        <span className="rbt-feature-value rbt-badge-5">{formatLevel}</span>
                                                     </li>
                                                     <li>
                                                         <span>Language</span>
-                                                        <span className="rbt-feature-value rbt-badge-5">English</span>
+                                                        <span className="rbt-feature-value rbt-badge-5">{course.language}</span>
                                                     </li>
                                                     <li>
-                                                        <span>Quizzes</span>
-                                                        <span className="rbt-feature-value rbt-badge-5">10</span>
+                                                        <span>Lesson</span>
+                                                        <span className="rbt-feature-value rbt-badge-5">{totalItems}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Test</span>
+                                                        <span className="rbt-feature-value rbt-badge-5">{totalTest}</span>
                                                     </li>
                                                     <li>
                                                         <span>Certificate</span>
@@ -565,12 +555,12 @@ function CourseDetail() {
                                                 <hr className="mt--20" />
                                                 <div className="contact-with-us text-center">
                                                     <p>For details about the course</p>
-                                                    <p className="rbt-badge-2 mt--10 justify-content-center w-100">
+                                                    <div className="rbt-badge-2 mt--10 justify-content-center w-100">
                                                         <i className="feather-phone mr--5"></i> Call Us:{" "}
-                                                        <a href="#!">
-                                                            <strong>+444 555 666 777</strong>
+                                                        <a href="tel:0123456789">
+                                                            <strong>0123 456 789</strong>
                                                         </a>
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

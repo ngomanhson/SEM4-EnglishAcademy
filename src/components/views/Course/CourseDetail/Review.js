@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Review(props) {
     const review = props.review;
@@ -23,29 +24,29 @@ function Review(props) {
         <div className="rbt-course-review about-author">
             <div className="media">
                 <div className="thumbnail">
-                    <a href="#!">
+                    <Link to="">
                         <img src="assets/images/testimonial/user-placeholder.png" alt="User Images" />
-                    </a>
+                    </Link>
                 </div>
                 <div className="media-body">
                     <div className="author-info">
                         <h5 className="title">
-                            <a className="hover-flip-item-wrapper" href="#!">
+                            <Link to="" className="hover-flip-item-wrapper font-system">
                                 {review.createdBy}
-                            </a>
+                            </Link>
                         </h5>
                         <div className="rating">{stars}</div>
                     </div>
                     <div className="content">
-                        <p className="description">{review.message}</p>
+                        <p className="description font-system">{review.message}</p>
                         <ul className="social-icon social-default transparent-with-border justify-content-start">
                             <li>
-                                <button type="button">
+                                <button type="button" style={{ lineHeight: 0 }}>
                                     <i className="feather-thumbs-up"></i>
                                 </button>
                             </li>
                             <li>
-                                <button type="button">
+                                <button type="button" style={{ lineHeight: 0 }}>
                                     <i className="feather-thumbs-down"></i>
                                 </button>
                             </li>

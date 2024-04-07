@@ -283,7 +283,7 @@ function LearningPathToeic() {
                                                 </div>
                                                 <div className="rbt-card-bottom">
                                                     <div className="rbt-price">
-                                                        <span className="current-price">${course.price}</span>
+                                                        <span className="current-price">${course.price && course.price.toFixed(2)}</span>
                                                     </div>
                                                     <Link to={`/course-detail/${course.slug}`} className="rbt-btn-link">
                                                         Learn More<i className="feather-arrow-right"></i>

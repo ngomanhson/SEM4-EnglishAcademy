@@ -3,6 +3,7 @@ import Layout from "../../layouts";
 import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
 import useAxios from "../../../hooks/useAxios";
+import { useState } from "react";
 
 function Course() {
     const { response, loading } = useAxios({
@@ -11,6 +12,23 @@ function Course() {
     });
 
     const courses = response || [];
+
+    const itemsPerPage = 6;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const totalPages = Math.ceil(courses.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, courses.length);
+
+    const currentCourses = courses.slice(startIndex, endIndex);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo({
+            top: 380,
+            behavior: "smooth",
+        });
+    };
 
     return (
         <>
@@ -37,11 +55,11 @@ function Course() {
                                         </ul>
 
                                         <div className="title-wrapper">
-                                            <h1 className="title mb--0">All Courses</h1>
-                                            <p className="rbt-badge-2">
-                                                <div className="image">🎉</div>
+                                            <h1 className="title mb--0 font-system">All Courses</h1>
+                                            <div className="rbt-badge-2">
+                                                <p className="image">🎉</p>
                                                 {courses.length} Courses
-                                            </p>
+                                            </div>
                                         </div>
 
                                         <p className="description fw-light">English Language relates to Teaching & Academics Personal Development.</p>
@@ -265,7 +283,7 @@ function Course() {
                     <div className="inner">
                         <div className="container">
                             <div className="rbt-course-grid-column">
-                                {courses.map((course) => {
+                                {currentCourses.map((course) => {
                                     const stars = [];
                                     const roundedScore = Math.round(course.star * 2) / 2;
                                     const fullStars = Math.floor(roundedScore);
@@ -286,7 +304,7 @@ function Course() {
                                             <div className="rbt-card variation-01 rbt-hover">
                                                 <div className="rbt-card-img">
                                                     <Link to={`/course-detail/${course.slug}`}>
-                                                        <img src={course.image} alt={course.name} />
+                                                        <img src={course.image} alt={course.name} className="course-item__image" />
                                                         <div className="rbt-badge-3 bg-white">
                                                             <span>-40%</span>
                                                             <span>Off</span>
@@ -325,8 +343,8 @@ function Course() {
 
                                                     <div className="rbt-card-bottom">
                                                         <div className="rbt-price">
-                                                            <span className="current-price">${course.price}</span>
-                                                            <span className="off-price">$120</span>
+                                                            <span className="current-price">${course.price && course.price.toFixed(2)}</span>
+                                                            {/* <span className="off-price">$120</span> */}
                                                         </div>
                                                         <Link to={`/course-detail/${course.slug}`} className="rbt-btn-link">
                                                             Learn More<i className="feather-arrow-right"></i>
@@ -342,24 +360,20 @@ function Course() {
                                 <div className="col-lg-12 mt--60">
                                     <nav>
                                         <ul className="rbt-pagination">
-                                            <li>
-                                                <a href="#!" aria-label="Previous">
+                                            <li className={`${currentPage === 1 ? "disabled" : ""}`}>
+                                                <button onClick={() => handlePageChange(currentPage - 1)}>
                                                     <i className="feather-chevron-left"></i>
-                                                </a>
+                                                </button>
                                             </li>
-                                            <li>
-                                                <a href="#!">1</a>
-                                            </li>
-                                            <li className="active">
-                                                <a href="#!">2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#!">3</a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" aria-label="Next">
+                                            {Array.from({ length: totalPages }, (_, index) => (
+                                                <li key={index} className={`${currentPage === index + 1 ? "active" : ""}`}>
+                                                    <button onClick={() => handlePageChange(index + 1)}>{index + 1}</button>
+                                                </li>
+                                            ))}
+                                            <li className={`${currentPage === totalPages ? "disabled" : ""}`}>
+                                                <button onClick={() => handlePageChange(currentPage + 1)}>
                                                     <i className="feather-chevron-right"></i>
-                                                </a>
+                                                </button>
                                             </li>
                                         </ul>
                                     </nav>
