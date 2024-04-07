@@ -19,6 +19,7 @@ const url = {
         IELTS: "test-input/detail",
         SUBMIT: "test-input/detail",
         RESULT: "test-input/result",
+        RESULT_DETAIL: "test-input/result-detail",
     },
 
     DICTIONARY: {

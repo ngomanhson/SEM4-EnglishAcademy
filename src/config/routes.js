@@ -11,7 +11,7 @@ const routes = {
     entrance_test_success: "/entrance-test/success",
     learning_paths_toeic: "/learning-paths/toeic/:testCode",
     learning_paths_ielts: "/learning-paths/ielts/:testCode",
-    entrance_test_answer: "/entrance-test/answer-detail",
+    entrance_test_answer: "/entrance-test/answer-detail/:testCode",
     tutor: "/tutor",
     tutor_detail: "/tutor/:slug",
     blog: "/blog",

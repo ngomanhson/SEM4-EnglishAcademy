@@ -170,7 +170,7 @@ function LearningPathIelts() {
                                         <p className="text-white fw-light fz-15 d-flex align-items-center gap-2">Time to complete: {formatMinute(resultTest.time)}</p>
                                     </div>
 
-                                    <Link to="/entrance-test/answer-detail" className="rbt-btn btn-white radius hover-icon-reverse btn-not__hover">
+                                    <Link to={`/entrance-test/answer-detail/${testCode}`} className="rbt-btn btn-white radius hover-icon-reverse btn-not__hover">
                                         <span className="icon-reverse-wrapper">
                                             <span className="btn-text">View detail answer</span>
                                             <span className="btn-icon">
