@@ -1,17 +1,21 @@
 import PropTypes from "prop-types";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import url from "../../services/url";
-import useAxios from "../../hooks/useAxios";
+import api from "../../services/api";
 
 function LayoutLesson({ children, title, nextLesson }) {
     const { courseSlug } = useParams();
+
     const navigate = useNavigate();
 
     const [closeSidebar, setCloseSidebar] = useState(false);
 
     const location = useLocation();
+    const itemSlug = new URLSearchParams(location.search).get("lesson");
+
+    const [topicByStudent, setTopicByStudent] = useState([]);
     const [activeLink, setActiveLink] = useState("");
 
     const handleLinkClick = (slug) => {
@@ -45,12 +49,18 @@ function LayoutLesson({ children, title, nextLesson }) {
         setCloseSidebar((prev) => !prev);
     };
 
-    const { response } = useAxios({
-        method: "GET",
-        path: url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`,
-    });
+    const loadData = useCallback(async () => {
+        try {
+            const topicResponse = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`);
+            setTopicByStudent(topicResponse.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [courseSlug, studentId]);
 
-    const topicByStudent = useMemo(() => response || [], [response]);
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
 
     const [openAccordion, setOpenAccordion] = useState({});
 
@@ -86,7 +96,7 @@ function LayoutLesson({ children, title, nextLesson }) {
         localStorage.setItem("accordion", JSON.stringify(openAccordion));
     }, [openAccordion]);
 
-    const handleNextLessonClick = () => {
+    const handleNextLessonClick = async () => {
         const currentTopicIndex = topicByStudent.findIndex(
             (topic) => topic.itemOnlineDetailList.some((item) => item.slug === activeLink) || topic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)
         );
@@ -138,6 +148,18 @@ function LayoutLesson({ children, title, nextLesson }) {
                     nextSlug = nextTopic.itemOnlineDetailList[0].slug;
                 } else if (nextTopic.testOnlineResponseDTOList.length > 0) {
                     nextSlug = nextTopic.testOnlineResponseDTOList[0].slug;
+                }
+            }
+
+            if (!topicByStudent.itemOnlineDetailList === true) {
+                try {
+                    const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}/1`);
+
+                    if (completeItem.status === 200) {
+                        await loadData();
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
             }
 
@@ -220,11 +242,13 @@ function LayoutLesson({ children, title, nextLesson }) {
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        {/* <div className="course-content-right">
-                                                                            <span className="rbt-check">
-                                                                                <i className="feather-check"></i>
-                                                                            </span>
-                                                                        </div> */}
+                                                                        {topicItem.status === true && (
+                                                                            <div className="course-content-right">
+                                                                                <span className="rbt-check">
+                                                                                    <i className="feather-check"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                        )}
                                                                     </Link>
                                                                 </li>
                                                             ))}
@@ -246,9 +270,15 @@ function LayoutLesson({ children, title, nextLesson }) {
                                                                             </div>
                                                                         </div>
                                                                         <div className="course-content-right">
-                                                                            <span className="">
-                                                                                <i className="feather-lock"></i>
-                                                                            </span>
+                                                                            {topicItem.status === false ? (
+                                                                                <span className="">
+                                                                                    <i className="feather-unlock"></i>{" "}
+                                                                                </span>
+                                                                            ) : (
+                                                                                <span className="rbt-check">
+                                                                                    <i className="feather-check"></i>
+                                                                                </span>
+                                                                            )}
                                                                         </div>
                                                                     </Link>
                                                                 </li>

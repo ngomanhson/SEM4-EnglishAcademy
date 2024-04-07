@@ -10,6 +10,7 @@ const url = {
         TEST: "test-online/detail",
         SUBMIT_TEST: "test-online/detail",
         RESULT_TEST: "test-online/result",
+        COMPLETE_ITEM: "/item-online",
     },
 
     ENTRANCE_TEST: {

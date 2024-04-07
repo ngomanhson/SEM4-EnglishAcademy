@@ -38,10 +38,10 @@ function Course() {
 
                                         <div className="title-wrapper">
                                             <h1 className="title mb--0">All Courses</h1>
-                                            <a href="#!" className="rbt-badge-2">
+                                            <p className="rbt-badge-2">
                                                 <div className="image">🎉</div>
                                                 {courses.length} Courses
-                                            </a>
+                                            </p>
                                         </div>
 
                                         <p className="description fw-light">English Language relates to Teaching & Academics Personal Development.</p>
