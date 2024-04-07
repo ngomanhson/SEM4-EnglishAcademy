@@ -113,12 +113,11 @@ function Learning() {
                 <Confetti width={windowSize.with} height={windowSize.height} mode="boom" y={1} particleCount={100} launchSpeed={5} colors={["#8000ff", "#ff00fb", "#29f500", "#e1ff00", "#ff0000"]} />
             )}
 
-            <LayoutLesson title="Lesson">
+            <LayoutLesson title="Lesson" nextLesson={error ? false : true}>
                 {error ? (
                     <div className="col-lg-4 mx-auto">
                         <div className="d-flex flex-column align-item-center justify-content-center" style={{ height: "100vh" }}>
                             {!loading && <Lottie animationData={Learn} loop={true} />}
-                            {/* <p className="text-center mt-3 font-system">Choose a lesson to continue your learning process!</p> */}
                         </div>
                     </div>
                 ) : (
@@ -227,10 +226,14 @@ function Learning() {
                                                 ))}
                                             </div>
                                             {allQuestionsAnswered() && (
-                                                <div className="text-end lesson-btn__wrapper">
-                                                    <button className="rbt-btn btn-gradient btn-gradient-3 fw-light" style={{ height: 40, lineHeight: "40px" }} onClick={handleCheckAnswers}>
-                                                        Answer the question
-                                                    </button>
+                                                <div className="d-flex align-items-center justify-content-between">
+                                                    <div>{answered && answerResults.includes(false) && <p className="text-danger shake">The answer is not correct!</p>}</div>
+
+                                                    <div className="text-end lesson-btn__wrapper">
+                                                        <button className="rbt-btn btn-gradient btn-gradient-3 fw-light" style={{ height: 40, lineHeight: "40px" }} onClick={handleCheckAnswers}>
+                                                            Answer the question
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
@@ -239,7 +242,13 @@ function Learning() {
                             </div>
                         )}
 
-                        {lessonData.itemType === 2 && <p>tai lieu</p>}
+                        {lessonData.itemType === 2 && (
+                            <div className="rbt-lesson-rightsidebar overflow-hidden">
+                                <div className="inner">
+                                    <div className="content">{lessonData && lessonData.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: lessonData.content }} />}</div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
             </LayoutLesson>

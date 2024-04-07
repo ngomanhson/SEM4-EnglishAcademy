@@ -15,17 +15,17 @@ function Header() {
                                     <div className="header-info">
                                         <ul className="rbt-information-list">
                                             <li>
-                                                <a href="#!">
+                                                <Link to="">
                                                     <i className="fab fa-instagram"></i>100k <span className="d-none d-xxl-block">Followers</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#!">
+                                                <Link to="">
                                                     <i className="fab fa-facebook-square"></i>500k <span className="d-none d-xxl-block">Followers</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#!">
+                                                <a href="tel:0123456789">
                                                     <i className="feather-phone"></i>0123 456 789
                                                 </a>
                                             </li>
@@ -54,24 +54,24 @@ function Header() {
                                     <div className="header-info d-none d-xl-block">
                                         <ul className="social-share-transparent">
                                             <li>
-                                                <a href="#!">
+                                                <Link to="">
                                                     <i className="fab fa-facebook-f"></i>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#!">
+                                                <Link to="">
                                                     <i className="fab fa-twitter"></i>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#!">
+                                                <Link to="">
                                                     <i className="fab fa-linkedin-in"></i>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#!">
+                                                <Link to="">
                                                     <i className="fab fa-instagram"></i>
-                                                </a>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>

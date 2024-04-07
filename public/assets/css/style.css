@@ -118,6 +118,7 @@
 ***************************************/
 /*-- Variables --*/
 @import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400&amp;display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
     --color-primary: #2f57ef;
     --color-secondary: #b966e7;
@@ -612,7 +613,7 @@ html {
 body {
     font-size: 16px;
     line-height: 1.5;
-    font-family: var(--font-primary);
+    font-family: var(--bs-font-sans-serif);
     color: var(--color-body);
     font-weight: 400;
     scroll-behavior: auto;
@@ -18324,7 +18325,8 @@ span.transparent-button:hover i {
         margin: 4px;
     }
 }
-.rbt-pagination li a {
+.rbt-pagination li a,
+.rbt-pagination li button {
     width: 45px;
     height: 45px;
     background: var(--color-white);
@@ -18338,18 +18340,25 @@ span.transparent-button:hover i {
     align-items: center;
     justify-content: center;
 }
+.rbt-pagination li button {
+    border: none;
+}
 @media only screen and (max-width: 767px) {
-    .rbt-pagination li a {
+    .rbt-pagination li a,
+    .rbt-pagination li button {
         width: 45px;
         height: 45px;
     }
 }
-.rbt-pagination li a i {
+.rbt-pagination li a i,
+.rbt-pagination li button i {
     font-size: 22px;
     font-weight: 500;
 }
 .rbt-pagination li.active a,
-.rbt-pagination li:hover a {
+.rbt-pagination li:hover a,
+.rbt-pagination li.active button,
+.rbt-pagination li:hover button  {
     background: var(--color-primary);
     color: var(--color-white);
 }
@@ -31209,4 +31218,90 @@ html ::-webkit-scrollbar-track {
     height: 220px;
     object-fit: cover;
 }
+.course-item__image {
+    width: 355px;
+    height: 265px;
+    object-fit: cover;
+}
+.data-texteditor h1,
+.data-texteditor h2,
+.data-texteditor h3,
+.data-texteditor h4 {
+    font-family: "Roboto", sans-serif;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.data-texteditor h1 {
+    font-size: 25px;
+}
+.data-texteditor h2 {
+    font-size: 22px;
+}
+.data-texteditor h3 {
+    font-size: 18px;
+}
+.data-texteditor h4 {
+    font-size: 16px;
+}
+
+.data-texteditor p,
+.data-texteditor blockquote,
+.data-texteditor img,
+.data-texteditor figure,
+.data-texteditor ul,
+.data-texteditor ol,
+.data-texteditor table {
+    margin: 10px 0;
+}
+.data-texteditor p {
+    color: #45494f;
+    font-size: 16px;
+}
+.data-texteditor blockquote {
+    background: rgba(119, 218, 230, 0.1);
+    padding: 20px;
+    border: none;
+    border-left: 3px solid #77dae6;
+}
+
+.data-texteditor blockquote p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.data-texteditor ul li {
+    list-style-type: none;
+    color: #45494f;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.data-texteditor ul li::before {
+    content: "#";
+    color: #04a0ff; 
+    margin-right: 5px; 
+}
+
+.data-texteditor a {
+    color: #04a0ff;
+    text-decoration: underline;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.5s ease;
+}
+
 /*# sourceMappingURL=../maps/style.css.map */

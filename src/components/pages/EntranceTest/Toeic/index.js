@@ -176,41 +176,14 @@ function Toeic() {
                                     <div className="row mt--50">
                                         <div className="col-lg-9 col-12">
                                             {testToiec.testInputSessionDetails?.map((session, index) => (
-                                                <div key={session.id} style={{ display: currentSessionIndex === index ? "block" : "none" }}>
-                                                    <div className="py-4 background-primary">
-                                                        <h4 className="text-center text-white fw-500 mb-0" style={{ fontSize: 20 }}>
-                                                            {session.sessionName}
-                                                        </h4>
-                                                    </div>
-
-                                                    <div className="widget" style={{ background: "#f1f1f19e" }}>
-                                                        {session.questionTestInputs?.map((question, questionIndex) => (
-                                                            <div className="p-5 mb-5" style={{ background: "#fff", borderRadius: 8 }} key={questionIndex}>
-                                                                <h5 className="exam__inner-desc fw-500">
-                                                                    Question {questionIndex + 1}: {question.title}
-                                                                </h5>
-                                                                {question.image && <img src={question.image} className="w-100 mb-5" alt="" />}
-                                                                {question.audiomp3 && <AudioPlayer src={question.audiomp3} autoPlay={false} controls className="mb-5 w-100" />}
-                                                                {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
-                                                                    <div className="answer-group" key={optionIndex}>
-                                                                        <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
-                                                                            <input
-                                                                                type="radio"
-                                                                                className="answers-group__input"
-                                                                                name={`answer_${question.id}`}
-                                                                                id={`answer_${question.id}_${option}`}
-                                                                                checked={selectedAnswers[question.id] === question[option]}
-                                                                                onChange={() => handleAnswerSelect(question.id, question[option])}
-                                                                            />
-                                                                            <div className="d-flex align-items-center">
-                                                                                <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
-                                                                            </div>
-                                                                        </label>
-                                                                    </div>
-                                                                ))}
-                                                            </div>
-                                                        ))}
-
+                                                <div className="widget" key={session.id} style={{ display: currentSessionIndex === index ? "block" : "none" }}>
+                                                    <div className="d-flex justify-content-between align-items-start mb-5">
+                                                        <div>
+                                                            <h4 className="mb-2">
+                                                                Part {index + 1}: {session.sessionName}
+                                                            </h4>
+                                                            <p className="fw-300">The total number of questions: {session.totalQuestion}</p>
+                                                        </div>
                                                         <div className="d-flex justify-content-end align-items-center mt-3">
                                                             <button type="button" className="btn-circle" onClick={handlePrevSession} disabled={currentSessionIndex === 0}>
                                                                 <i className="feather-arrow-left"></i>
@@ -226,6 +199,33 @@ function Toeic() {
                                                             </button>
                                                         </div>
                                                     </div>
+
+                                                    {session.questionTestInputs?.map((question, questionIndex) => (
+                                                        <div key={questionIndex}>
+                                                            <h5 className="exam__inner-desc fw-500">
+                                                                Question {questionIndex + 1}: {question.title}
+                                                            </h5>
+                                                            {question.image && <img src={question.image} className="w-100 mb-5" alt="" />}
+                                                            {question.audiomp3 && <AudioPlayer src={question.audiomp3} autoPlay={false} controls className="mb-5 w-100" />}
+                                                            {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
+                                                                <div className="answer-group" key={optionIndex}>
+                                                                    <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
+                                                                        <input
+                                                                            type="radio"
+                                                                            className="answers-group__input"
+                                                                            name={`answer_${question.id}`}
+                                                                            id={`answer_${question.id}_${option}`}
+                                                                            checked={selectedAnswers[question.id] === question[option]}
+                                                                            onChange={() => handleAnswerSelect(question.id, question[option])}
+                                                                        />
+                                                                        <div className="d-flex align-items-center">
+                                                                            <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
+                                                                        </div>
+                                                                    </label>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             ))}
                                         </div>
