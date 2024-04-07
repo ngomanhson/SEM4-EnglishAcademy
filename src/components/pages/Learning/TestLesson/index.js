@@ -1,11 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import api from "../../../../services/api";
 import url from "../../../../services/url";
 import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
 import useAxios from "../../../../hooks/useAxios";
+import { formatHour } from "../../../../utils/FormatTime";
+import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
+import LayoutLesson from "../../../layouts/LayoutLesson";
+import Lottie from "lottie-react";
+import ComingSoon from "../../../../lottie/ComingSoon.json";
 
 function TestLesson() {
     const { courseSlug } = useParams();
@@ -30,7 +35,7 @@ function TestLesson() {
         path: url.ONLINE_COURSE.TEST + `/${testSlug}/${studentId}`,
     });
 
-    const testData = response || [];
+    const testData = useMemo(() => response || [], [response]);
 
     useEffect(() => {
         if (status === 404) {
@@ -57,10 +62,14 @@ function TestLesson() {
 
     const handleSubmitTest = useCallback(async () => {
         try {
-            const answersToSubmit = Object.entries(selectedAnswers).map(([questionId, selectedOption]) => ({ content: selectedOption, questionId }));
+            const answersToSubmit = testData.testOnlineSessionDetails.flatMap((session) =>
+                session.questionTestOnlineDTOS.map((question) => ({
+                    content: selectedAnswers[question.id] || "",
+                    questionId: question.id,
+                }))
+            );
 
             const endTime = Date.now();
-
             const elapsedTimeInSeconds = Math.floor((endTime - startTime) / 1000);
 
             const dataSubmit = {
@@ -76,13 +85,7 @@ function TestLesson() {
         } catch (error) {
             console.log(error);
         }
-    }, [navigate, selectedAnswers, startTime, testSlug, studentId]);
-
-    const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
-    };
+    }, [navigate, selectedAnswers, startTime, testSlug, studentId, testData]);
 
     useEffect(() => {
         if (confirmed) {
@@ -111,42 +114,19 @@ function TestLesson() {
         setCurrentSessionIndex((prevIndex) => prevIndex - 1);
     };
 
-    const breadcrumbs = () => {
-        return (
-            <>
-                <h4 className="font-system fw-500 m-0">{testData.title}</h4>
-                <ul className="page-list">
-                    <li className="rbt-breadcrumb-item">
-                        <Link to={`/learning/${courseSlug}`}>Learning</Link>
-                    </li>
-                    <li>
-                        <div className="icon-right">
-                            <i className="feather-chevron-right"></i>
-                        </div>
-                    </li>
-                    <li className="rbt-breadcrumb-item active">{testData.title}</li>
-                </ul>
-            </>
-        );
-    };
-
-    useEffect(() => {
-        const handleBeforeUnload = (e) => {
-            e.preventDefault();
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-        };
-    }, []);
-
     return (
         <>
             {loading && <Loading />}
-            {dataNotFound || (testData.testOnlineSessionDetails && testData.testOnlineSessionDetails.length === 0) ? (
+            {dataNotFound ? (
                 <NotFound />
+            ) : testData.testOnlineSessionDetails && testData.testOnlineSessionDetails.length === 0 ? (
+                <LayoutLesson title="Coming soon!">
+                    <div className="col-lg-4 mx-auto">
+                        <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: "100vh" }}>
+                            <Lottie animationData={ComingSoon} loop={true} />
+                        </div>
+                    </div>
+                </LayoutLesson>
             ) : (
                 <div className="rbt-button-area">
                     <div className="container">
@@ -154,10 +134,10 @@ function TestLesson() {
                             <div className="row mt--50">
                                 <div className="col-lg-6 mx-auto">
                                     <div className="text-center">
-                                        {breadcrumbs()}
+                                        <BreadcrumbTest title={testData.title} path={`/learning/${courseSlug}`} />
 
                                         <div className="rbt-splash-service no-translate support h-100 not-hover mt-3">
-                                            <div>
+                                            <div className="w-100">
                                                 <h5 className="font-system fw-300">
                                                     <span className="text-danger">*</span> Some notes before taking the test
                                                 </h5>
@@ -190,7 +170,9 @@ function TestLesson() {
                         ) : (
                             <div className="content">
                                 <div className="question" style={{ display: "block" }}>
-                                    <div className="mt-5">{breadcrumbs()}</div>
+                                    <div className="mt-5">
+                                        <BreadcrumbTest title={testData.title} path={`/learning/${courseSlug}`} />
+                                    </div>
 
                                     <div className="row mt--50">
                                         <div className="col-lg-9">
@@ -258,7 +240,7 @@ function TestLesson() {
                                             <div className="answers__inner">
                                                 <div className="td-sidebar">
                                                     <div className="widget">
-                                                        <h5 className="text-center">Time remaining: {formatTime(timeRemaining)}</h5>
+                                                        <h5 className="text-center">Time remaining: {formatHour(timeRemaining)}</h5>
 
                                                         {testData.testOnlineSessionDetails?.map((session, index) => (
                                                             <div key={index}>

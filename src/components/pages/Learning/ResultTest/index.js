@@ -8,6 +8,7 @@ import Loading from "../../../layouts/Loading";
 import { format } from "date-fns";
 import config from "../../../../config";
 import NotFound from "../../Other/NotFound";
+import { formatHour } from "../../../../utils/FormatTime";
 
 function ResultTest() {
     const { testCode } = useParams();
@@ -31,7 +32,6 @@ function ResultTest() {
         xaxis: {
             categories: ["Reading", "Listening", "Vocabulary", "Grammar"],
         },
-        colors: ["#41E5A1", "#7AC1FF"],
         fill: {
             opacity: 0.9,
         },
@@ -52,18 +52,34 @@ function ResultTest() {
                 },
             },
         ],
+        dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+                return val + "%";
+            },
+        },
+        tooltip: {
+            enabled: true,
+            followCursor: true,
+            y: {
+                formatter: function (val) {
+                    return val + "%";
+                },
+            },
+        },
+        colors: "#41E5A1",
     };
 
     useEffect(() => {
         if (Object.keys(resultTest).length !== 0) {
-            const correctData = [resultTest.correctReading || 0, resultTest.correctListening || 0, resultTest.correctVocabulary || 0, resultTest.correctGrammar || 0];
+            const correctData = [
+                (resultTest.correctReading / resultTest.totalQuestionReading) * 100 || 0,
+                (resultTest.correctListening / resultTest.totalQuestionListening) * 100 || 0,
+                (resultTest.correctVocabulary / resultTest.totalQuestionVocabulary) * 100 || 0,
+                (resultTest.correctGrammar / resultTest.totalQuestionGrammar) * 100 || 0,
+            ];
 
-            const totalData = [resultTest.totalQuestionReading || 0, resultTest.totalQuestionListening || 0, resultTest.totalQuestionVocabulary || 0, resultTest.totalQuestionGrammar || 0];
-
-            setChartData([
-                { name: "Correct answer", data: correctData },
-                { name: "Total question", data: totalData },
-            ]);
+            setChartData([{ name: "Correct answer", data: correctData }]);
         }
     }, [resultTest]);
 
@@ -95,13 +111,13 @@ function ResultTest() {
                                                                 <td>{resultTest.score}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>Test time</th>
-                                                                <td>{resultTest.time}</td>
+                                                                <th>The test duration </th>
+                                                                <td>{formatHour(resultTest.time)}</td>
                                                             </tr>
 
                                                             <tr>
-                                                                <th>Last updated</th>
-                                                                <td>{resultTest.modifiedDate && format(new Date(resultTest.modifiedDate), "HH:mm:ss  dd-MM-yyyy")}</td>
+                                                                <th>The completion time of the test</th>
+                                                                <td>{resultTest.createdDate && format(new Date(resultTest.createdDate), "HH:mm:ss  dd-MM-yyyy")}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -113,9 +129,7 @@ function ResultTest() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-lg-6 col-12">
-                                                <Chart options={options} series={chartData} type="bar" />
-                                            </div>
+                                            <div className="col-lg-6 col-12">{!loading && <Chart options={options} series={chartData} type="bar" />}</div>
                                         </div>
                                     </div>
                                 </div>

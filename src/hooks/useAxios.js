@@ -16,6 +16,8 @@ function useAxios({ method, path, body = null, headers = null }) {
                     responseData = await api.get(path, { headers });
                 } else if (method === "POST") {
                     responseData = await api.post(path, body, { headers });
+                } else if (method === "PUT") {
+                    responseData = await api.put(path, body, { headers });
                 }
 
                 setResponse(responseData.data.data);
@@ -34,7 +36,7 @@ function useAxios({ method, path, body = null, headers = null }) {
         loadData();
     }, [method, path, body, headers]);
 
-    return { response, error, loading, status };
+    return { response, setResponse, error, loading, status };
 }
 
 export default useAxios;

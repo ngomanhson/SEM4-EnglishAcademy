@@ -6,6 +6,8 @@ import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
 import Confetti from "react-confetti-boom";
 import useAxios from "../../../hooks/useAxios";
+import Lottie from "lottie-react";
+import Learn from "../../../lottie/Learn.json";
 
 function Learning() {
     const location = useLocation();
@@ -115,8 +117,8 @@ function Learning() {
                 {error ? (
                     <div className="col-lg-4 mx-auto">
                         <div className="d-flex flex-column align-item-center justify-content-center" style={{ height: "100vh" }}>
-                            <img src="./assets/images/shape/learning_sketching.svg" className="w-100" alt="" />
-                            <p className="text-center mt-3 font-system">Choose a lesson to continue your learning process!</p>
+                            {!loading && <Lottie animationData={Learn} loop={true} />}
+                            {/* <p className="text-center mt-3 font-system">Choose a lesson to continue your learning process!</p> */}
                         </div>
                     </div>
                 ) : (
