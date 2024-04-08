@@ -185,7 +185,8 @@ function CourseDetail() {
                                                                             aria-expanded="false"
                                                                             aria-controls={collapseId}
                                                                         >
-                                                                            {topic.name} <span className="rbt-badge-5 ml--10">1hr 30min</span>
+                                                                            {topic.name}
+                                                                            {/* <span className="rbt-badge-5 ml--10">1hr 30min</span> */}
                                                                         </button>
                                                                     </h2>
                                                                     <div
@@ -250,86 +251,6 @@ function CourseDetail() {
                                                     </div>
                                                 </div>
                                             )}
-                                            {/* <div className="rbt-accordion-style rbt-accordion-02 accordion">
-                                                <div className="accordion" id="accordionExampleb2">
-                                                    {topics.map((topic, index) => {
-                                                        const accordionId = `accordion-${topic.id}-${index}`;
-                                                        const collapseId = `collapse-${topic.id}-${index}`;
-                                                        return (
-                                                            <div className="accordion-item card" key={topic.id}>
-                                                                <h2 className="accordion-header card-header" id={`heading-${accordionId}`}>
-                                                                    <button
-                                                                        className="accordion-button collapsed font-system"
-                                                                        type="button"
-                                                                        data-bs-toggle="collapse"
-                                                                        data-bs-target={`#${collapseId}`}
-                                                                        aria-expanded="false"
-                                                                        aria-controls={collapseId}
-                                                                    >
-                                                                        {topic.name} <span className="rbt-badge-5 ml--10">1hr 30min</span>
-                                                                    </button>
-                                                                </h2>
-                                                                <div
-                                                                    id={collapseId}
-                                                                    className="accordion-collapse collapse"
-                                                                    aria-labelledby={`heading-${accordionId}`}
-                                                                    data-bs-parent="#accordionExampleb2"
-                                                                >
-                                                                    <div className="accordion-body card-body pr--0">
-                                                                        <ul className="rbt-course-main-content liststyle">
-                                                                            {topic.itemOnlineDTOList.map((topicItem) => {
-                                                                                return (
-                                                                                    <li className="mb-4" key={topicItem.id}>
-                                                                                        <div className="wrap">
-                                                                                            <div className="course-content-left">
-                                                                                                <div className="d-flex align-content-center">
-                                                                                                    {topicItem.itemType === 0 && <i className="feather-play-circle mt-3"></i>}
-                                                                                                    {topicItem.itemType === 1 && <i className="feather-help-circle mt-3"></i>}
-                                                                                                    {topicItem.itemType === 2 && <i className="feather-hash mt-3"></i>}
-                                                                                                    <div className="d-flex flex-column">
-                                                                                                        <span className="text">{topicItem.title}</span>
-                                                                                                        <span className="time">04:00</span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div className="course-content-right">
-                                                                                                <span className="rbt-check">
-                                                                                                    <i className="feather-lock"></i>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                );
-                                                                            })}
-
-                                                                            {topic.testOnlineDTOList.map((topicItem) => (
-                                                                                <li className="mb-4" key={topicItem.id}>
-                                                                                    <div className="wrap">
-                                                                                        <div className="course-content-left">
-                                                                                            <div className="d-flex align-content-center">
-                                                                                                <i className="far fa-file-alt mt-3"></i>
-                                                                                                <div className="d-flex flex-column">
-                                                                                                    <span className="text">{topicItem.title}</span>
-                                                                                                    <span className="time">04:00</span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div className="course-content-right">
-                                                                                            <span className="rbt-check">
-                                                                                                <i className="feather-lock"></i>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            ))}
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div> */}
                                         </div>
                                     </div>
 
@@ -504,18 +425,22 @@ function CourseDetail() {
                                                 </div>
                                                 <div className="discount-time">
                                                     <span className="rbt-badge color-danger bg-color-danger-opacity">
-                                                        <i className="feather-clock"></i> 3 days left!
+                                                        <i className="fab fa-gripfire"></i> Top Course!
                                                     </span>
                                                 </div>
                                             </div>
 
                                             <div className="add-to-card-button mt--15">
-                                                <a className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover" href="#!">
+                                                <Link
+                                                    to={`/checkout/${slug}`}
+                                                    className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover"
+                                                    // data-bs-toggle="modal" data-bs-target="#paymentModal"
+                                                >
                                                     <span className="btn-text">Enroll Course</span>
                                                     <span className="btn-icon">
                                                         <i className="feather-arrow-right"></i>
                                                     </span>
-                                                </a>
+                                                </Link>
                                             </div>
 
                                             <div className="rbt-widget-details has-show-more m-5">
@@ -545,13 +470,17 @@ function CourseDetail() {
                                                         <span className="rbt-feature-value rbt-badge-5">Yes</span>
                                                     </li>
                                                     <li>
+                                                        <span>Duration</span>
+                                                        <span className="rbt-feature-value rbt-badge-5">{course.duration}</span>
+                                                    </li>
+                                                    <li>
                                                         <span>Pass Percentage</span>
                                                         <span className="rbt-feature-value rbt-badge-5">95%</span>
                                                     </li>
                                                 </ul>
                                             </div>
 
-                                            <div className="social-share-wrapper mt--30 text-center">
+                                            <div className="social-share-wrapper text-center pt-0">
                                                 <hr className="mt--20" />
                                                 <div className="contact-with-us text-center">
                                                     <p>For details about the course</p>
@@ -571,38 +500,67 @@ function CourseDetail() {
                     </div>
                 </div>
 
-                {/* <div className="rbt-course-action-bottom rbt-course-action-active">
-                <div className="container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 col-md-6">
-                            <div className="section-title text-center text-md-start">
-                                <h5 className="title mb--0">The Complete Histudy 2023: From Zero to Expert!</h5>
+                {/* <div className="modal fade" id="paymentModal" tabIndex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header p-5 pb-2" style={{ alignItems: "start", border: "none" }}>
+                                <div className="rbt-feature">
+                                    <div>
+                                        <div class="icon bg-pink-opacity">
+                                            <i className="fas fa-wallet"></i>
+                                        </div>
+                                        <h5 className="modal-title fw-500" id="paymentModalLabel">
+                                            Payment Methods
+                                        </h5>
+                                        <p className="fw-300" style={{ fontSize: 12 }}>
+                                            Choose the payment method that's right for you!
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 mt_sm--15">
-                            <div className="course-action-bottom-right rbt-single-group">
-                                <div className="rbt-single-list rbt-price large-size justify-content-center">
-                                    <span className="current-price color-primary">$750.00</span>
-                                    <span className="off-price">$1500.00</span>
+                            <div className="modal-body p-5 pt-0">
+                                <div className="form-checkout mt-4">
+                                    <input
+                                        type="radio"
+                                        className="form-checkout__input"
+                                        name="paymentMethod"
+                                        id="credit"
+                                        value="credit"
+                                        checked={selectedPaymentMethod === "credit"}
+                                        onChange={handlePaymentMethodChange}
+                                    />
+                                    <label htmlFor="credit" className="form-checkout__label">
+                                        <p className="m-0 form-checkout__title">Credit or Debit Card</p>
+                                        <span className="form-checkout__desc">Use a credit or debit card to pay with automatic payments</span>
+                                    </label>
                                 </div>
-                                <div className="rbt-single-list action-btn">
-                                    <a className="rbt-btn btn-gradient hover-icon-reverse btn-md" href="#!">
-                                        <span className="icon-reverse-wrapper">
-                                            <span className="btn-text">Purchase Now</span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                        </span>
-                                    </a>
+                                <div className="form-checkout">
+                                    <input
+                                        type="radio"
+                                        className="form-checkout__input"
+                                        name="paymentMethod"
+                                        id="paypal"
+                                        value="paypal"
+                                        checked={selectedPaymentMethod === "paypal"}
+                                        onChange={handlePaymentMethodChange}
+                                    />
+                                    <label htmlFor="paypal" className="form-checkout__label">
+                                        <p className="m-0 form-checkout__title">PayPal</p>
+                                        <span className="form-checkout__desc">Use your Paypal account to make payments</span>
+                                    </label>
                                 </div>
+                                <hr className="mt-5" />
+
+                                {selectedPaymentMethod === "credit" && (
+                                    <Elements stripe={stripePromise}>
+                                        <StripePaymentForm onSuccess={handleStripePaymentSuccess} />
+                                    </Elements>
+                                )}
+                                {selectedPaymentMethod === "paypal" && <PayPal amount={course.price} />}
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> */}
+                </div> */}
             </Layout>
         </>
     );
