@@ -31303,5 +31303,73 @@ html ::-webkit-scrollbar-track {
 .shake {
   animation: shake 0.5s ease;
 }
+.form-checkout {
+    margin-bottom: 10px;
+}
+
+.form-checkout__input ,
+.form-checkout__label::before,
+.form-checkout__label::after {
+    display: none;
+}
+
+input[type="radio"].form-checkout__input:checked ~ label::before {
+    background: var(--color-pink);
+    border: 1px solid #fff;
+}
+
+.form-checkout__input:checked + .form-checkout__label {
+    background: var(--pink-opacity);
+}
+/* .form-checkout__label::before {
+    top: 14px !important;
+    left: 10px !important;
+}
+.form-checkout__label::after {
+    top: 18px !important;
+    left: 14px !important;
+} */
+/* .form-checkout__label::before {
+    width: 16px !important;
+    height: 16px !important;
+} */
+
+.checkout-course__img {
+    width: 195px;
+    height: 158px;
+    object-fit: cover;
+}
+
+.form-checkout__image {
+    max-width: 70px;
+    padding-right: 5px;
+}
+
+.form-checkout__label {
+    padding-left: 10px !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    line-height: 0;
+}
+
+input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label {
+    border-color: var(--color-pink);
+}
+.form-checkout__title {
+    color: #45494f;
+    font-weight: 300;
+    font-size: 16px;
+}
+.form-checkout__desc {
+    font-size: 11px;
+    font-weight: 300;
+}
+input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .form-checkout__title,
+input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .form-checkout__desc  {
+    color: var(--color-pink);
+}
 
 /*# sourceMappingURL=../maps/style.css.map */

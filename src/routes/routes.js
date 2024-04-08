@@ -30,11 +30,17 @@ import ResultTest from "../components/pages/Learning/ResultTest/index";
 import LearningPathIelts from "../components/pages/EntranceTest/LearningPaths/Ielts";
 import LearningPathToeic from "../components/pages/EntranceTest/LearningPaths/Toeic";
 import EntranceTestSuccess from "../components/pages/EntranceTest/TestSuccess";
+import Checkout from "../components/pages/Checkout";
+import ThankYou from "../components/pages/Checkout/ThankYou";
+import PaymentFail from "../components/pages/Checkout/PaymentFail";
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.course, component: Course },
     { path: config.routes.course_detail, component: CourseDetail },
+    { path: config.routes.checkout, component: Checkout },
+    { path: config.routes.checkout_thank_you, component: ThankYou },
+    { path: config.routes.checkout_fail, component: PaymentFail },
     { path: config.routes.learning, component: Learning },
     { path: config.routes.learning_test, component: TestLesson },
     { path: config.routes.result_test, component: ResultTest },
