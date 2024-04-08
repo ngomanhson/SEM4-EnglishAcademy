@@ -25713,8 +25713,9 @@ blockquote.has-text-align-right cite,
     flex-wrap: wrap;
 }
 @media only screen and (max-width: 575px) {
-    .rbt-course-main-content li a,
-    .rbt-course-main-content li .wrap {
+    .rbt-course-main-content li a
+    /* .rbt-course-main-content li .wrap  */
+    {
         display: block;
     }
 }
@@ -31321,19 +31322,6 @@ input[type="radio"].form-checkout__input:checked ~ label::before {
 .form-checkout__input:checked + .form-checkout__label {
     background: var(--pink-opacity);
 }
-/* .form-checkout__label::before {
-    top: 14px !important;
-    left: 10px !important;
-}
-.form-checkout__label::after {
-    top: 18px !important;
-    left: 14px !important;
-} */
-/* .form-checkout__label::before {
-    width: 16px !important;
-    height: 16px !important;
-} */
-
 .checkout-course__img {
     width: 195px;
     height: 158px;
