@@ -50,7 +50,7 @@ function AnswerDetail() {
                     <div className="rbt-become-area bg-color-white rbt-section-gap">
                         <div className="container">
                             <div className="row mt--50">
-                                <div className="col-8 mx-auto">
+                                <div className="col-lg-8 mx-auto">
                                     <div>
                                         <div className="widget" style={{ background: "#eff1ff" }}>
                                             <div className="content">
@@ -66,7 +66,6 @@ function AnswerDetail() {
 
                                                     {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
                                                         <div className="answer-group" key={optionIndex}>
-                                                            {/* <label className={`answers-group__label ${result[option] === result.answerForStudent ? "checked" : ""}`} style={{ cursor: "not-allowed" }}> */}
                                                             <label
                                                                 className={`answers-group__label ${
                                                                     result[option] === result.answerCorrect ? "correct" : result[option] === result.answerForStudent ? "incorrect" : ""
@@ -80,6 +79,8 @@ function AnswerDetail() {
                                                             </label>
                                                         </div>
                                                     ))}
+
+                                                    {result.answerForStudent === "" && <p className="text-danger fw-300">You have not answered this question!</p>}
                                                 </div>
                                             ))}
                                         </div>
