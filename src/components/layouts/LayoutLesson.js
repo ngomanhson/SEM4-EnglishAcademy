@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import url from "../../services/url";
@@ -33,21 +33,6 @@ function LayoutLesson({ children, title, nextLesson }) {
 
     const studentId = 1;
 
-    // Open and close the Sidebar
-    useEffect(() => {
-        const sidebar = document.getElementsByClassName("rbt-lesson-leftsidebar");
-
-        const sidebarArray = Array.from(sidebar);
-
-        sidebarArray.forEach((element) => {
-            if (closeSidebar) {
-                element.classList.add("sibebar-none");
-            } else {
-                element.classList.remove("sibebar-none");
-            }
-        });
-    }, [closeSidebar]);
-
     const handleClose = () => {
         setCloseSidebar((prev) => !prev);
     };
@@ -69,10 +54,12 @@ function LayoutLesson({ children, title, nextLesson }) {
         loadData();
     }, [loadData]);
 
+    const topics = useMemo(() => topicByStudent.topicOnlineDetailResponseList || [], [topicByStudent]);
+
     const [openAccordion, setOpenAccordion] = useState({});
 
     useEffect(() => {
-        topicByStudent.forEach((topic, index) => {
+        topics.forEach((topic, index) => {
             const collapseId = `collapse-${topic.id}-${index}`;
             const accordionElement = document.getElementById(collapseId);
             if (accordionElement) {
@@ -83,7 +70,7 @@ function LayoutLesson({ children, title, nextLesson }) {
                 }
             }
         });
-    }, [openAccordion, topicByStudent]);
+    }, [openAccordion, topics]);
 
     const handleAccordionClick = (index) => {
         setOpenAccordion((prevOpenAccordion) => ({
@@ -211,7 +198,7 @@ function LayoutLesson({ children, title, nextLesson }) {
 
                                 <div className="rbt-accordion-style rbt-accordion-02 for-right-content accordion scrollbar-accordion">
                                     <div className="accordion" id="accordionExampleb2">
-                                        {topicByStudent.map((topic, index) => {
+                                        {topics.map((topic, index) => {
                                             const accordionId = `accordion-${topic.id}-${index}`;
                                             const collapseId = `collapse-${topic.id}-${index}`;
 
