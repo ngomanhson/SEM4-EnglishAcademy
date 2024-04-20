@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import Layout from "../../../layouts/index";
-import { useAxios } from "../../../../hooks";
+import Layout from "../../../../layouts/index";
+import { useAxios } from "../../../../../hooks";
 import { Link, useParams } from "react-router-dom";
 import Chart from "react-apexcharts";
-import url from "../../../../services/url";
-import Loading from "../../../layouts/Loading";
+import url from "../../../../../services/url";
+import Loading from "../../../../layouts/Loading";
 import { format } from "date-fns";
-import config from "../../../../config";
-import NotFound from "../../Other/NotFound";
-import { formatHour } from "../../../../utils/FormatTime";
+import config from "../../../../../config";
+import NotFound from "../../../Other/NotFound";
+import { formatHour } from "../../../../../utils/FormatTime";
 
-function ResultTest() {
+function ResultTestOnline() {
     const { testCode } = useParams();
     const [chartData, setChartData] = useState([]);
     const { response, loading, status } = useAxios({
@@ -142,4 +142,4 @@ function ResultTest() {
     );
 }
 
-export default ResultTest;
+export default ResultTestOnline;

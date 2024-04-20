@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import VideoLesson from "./VideoLesson";
-import LayoutLesson from "../../layouts/LayoutLesson";
+import LayoutLessonOnline from "../../../layouts/Lesson/LayoutLessonOnline";
 import { useLocation } from "react-router-dom";
-import url from "../../../services/url";
-import Loading from "../../layouts/Loading";
+import url from "../../../../services/url";
+import Loading from "../../../layouts/Loading";
 import Confetti from "react-confetti-boom";
-import useAxios from "../../../hooks/useAxios";
+import useAxios from "../../../../hooks/useAxios";
 import Lottie from "lottie-react";
-import Learn from "../../../lottie/Learn.json";
+import Learn from "../../../../lottie/Learn.json";
 
-function Learning() {
+function LearningOnline() {
     const location = useLocation();
     const itemSlug = new URLSearchParams(location.search).get("lesson");
 
@@ -113,7 +113,7 @@ function Learning() {
                 <Confetti width={windowSize.with} height={windowSize.height} mode="boom" y={1} particleCount={100} launchSpeed={5} colors={["#8000ff", "#ff00fb", "#29f500", "#e1ff00", "#ff0000"]} />
             )}
 
-            <LayoutLesson title="Lesson" nextLesson={error ? false : true}>
+            <LayoutLessonOnline title="Lesson" nextLesson={error ? false : true}>
                 {error ? (
                     <div className="col-lg-4 mx-auto">
                         <div className="d-flex flex-column align-item-center justify-content-center" style={{ height: "100vh" }}>
@@ -251,9 +251,9 @@ function Learning() {
                         )}
                     </div>
                 )}
-            </LayoutLesson>
+            </LayoutLessonOnline>
         </>
     );
 }
 
-export default Learning;
+export default LearningOnline;

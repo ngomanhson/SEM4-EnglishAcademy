@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 
-function VideoLesson(props) {
+function TestLessonOnline(props) {
     const playerRef = useRef(null);
     const [playing, setPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -150,4 +150,4 @@ function VideoLesson(props) {
     );
 }
 
-export default VideoLesson;
+export default TestLessonOnline;

@@ -2,9 +2,6 @@ import config from "../config/index";
 
 import Home from "../components/pages/Home";
 import Course from "../components/pages/Course";
-import CourseDetail from "../components/pages/Course/CourseDetail/index";
-import Learning from "../components/pages/Learning/index";
-import TestLesson from "../components/pages/Learning/TestLesson/index";
 import EntranceTest from "../components/pages/EntranceTest/index";
 import Ielts from "../components/pages/EntranceTest/Ielts/index";
 import Toeic from "../components/pages/EntranceTest/Toeic/index";
@@ -26,24 +23,33 @@ import Register from "../components/pages/Auth/Register";
 import ForgotPassword from "../components/pages/Auth/ForgotPassword";
 import ResetPassword from "../components/pages/Auth/ResetPassword";
 import NotFound from "../components/pages/Other/NotFound";
-import ResultTest from "../components/pages/Learning/ResultTest/index";
 import LearningPathIelts from "../components/pages/EntranceTest/LearningPaths/Ielts";
 import LearningPathToeic from "../components/pages/EntranceTest/LearningPaths/Toeic";
 import EntranceTestSuccess from "../components/pages/EntranceTest/TestSuccess";
 import Checkout from "../components/pages/Checkout";
 import ThankYou from "../components/pages/Checkout/ThankYou";
 import PaymentFail from "../components/pages/Checkout/PaymentFail";
+import CourseDetailOnline from "../components/pages/Course/CourseDetail/CourseDetailOnline";
+import CourseDetailOffline from "../components/pages/Course/CourseDetail/CourseDetailOffline";
+import LearningOnline from "../components/pages/Learning/Online";
+import TestLessonOnline from "../components/pages/Learning/Online/TestLesson";
+import ResultTestOnline from "../components/pages/Learning/Online/ResultTest";
+import SubjectOffline from "../components/pages/Learning/Offline/Subject";
+import SubjectLearning from "../components/pages/Learning/Offline/index";
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.course, component: Course },
-    { path: config.routes.course_detail, component: CourseDetail },
+    { path: config.routes.course_detail_online, component: CourseDetailOnline },
+    { path: config.routes.course_detail_offline, component: CourseDetailOffline },
     { path: config.routes.checkout, component: Checkout },
     { path: config.routes.checkout_thank_you, component: ThankYou },
     { path: config.routes.checkout_fail, component: PaymentFail },
-    { path: config.routes.learning, component: Learning },
-    { path: config.routes.learning_test, component: TestLesson },
-    { path: config.routes.result_test, component: ResultTest },
+    { path: config.routes.learning_online, component: LearningOnline },
+    { path: config.routes.learning_test, component: TestLessonOnline },
+    { path: config.routes.subject_offline, component: SubjectOffline },
+    { path: config.routes.subject_learning_offline, component: SubjectLearning },
+    { path: config.routes.result_test, component: ResultTestOnline },
     { path: config.routes.entrance_test, component: EntranceTest },
     { path: config.routes.entrance_test_ielts, component: Ielts },
     { path: config.routes.entrance_test_toiec, component: Toeic },

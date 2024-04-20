@@ -1,14 +1,22 @@
 const routes = {
     home: "/",
     course: "/courses",
-    course_detail: "/course-detail/:slug",
+    course_detail_online: "/course-online/:slug",
     checkout: "/checkout/:courseSlug",
     checkout_thank_you: "/checkout/:courseSlug/thank-you",
     checkout_fail: "/checkout/:courseSlug/failed",
-    learning: "/learning/:courseSlug",
-    learning_test: "/learning/test/:courseSlug",
+
+    // Online
+    learning_online: "/learning-online/:courseSlug",
+    learning_test: "/learning-test/:courseSlug",
     result_test: "/result-test/:testCode",
     entrance_test: "/entrance-test",
+
+    // Offline
+    course_detail_offline: "/course-offline/:slug",
+    subject_offline: "/subject/:slug",
+    subject_learning_offline: "/subject-learning/:slug",
+
     entrance_test_ielts: "/entrance-test/ielts/:slug",
     entrance_test_toiec: "/entrance-test/toiec/:slug",
     entrance_test_success: "/entrance-test/success",

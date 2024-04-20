@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import url from "../../services/url";
-import api from "../../services/api";
-import NotFound from "../pages/Other/NotFound";
+import url from "../../../services/url";
+import api from "../../../services/api";
+import NotFound from "../../pages/Other/NotFound";
 
-function LayoutLesson({ children, title, nextLesson }) {
+function LayoutLessonOnline({ children, title, nextLesson }) {
     const { courseSlug } = useParams();
 
     const navigate = useNavigate();
@@ -224,7 +224,7 @@ function LayoutLesson({ children, title, nextLesson }) {
                                                                 {topic.itemOnlineDetailList.map((topicItem) => (
                                                                     <li className="m-0" key={topicItem.id}>
                                                                         <Link
-                                                                            to={`/learning/${courseSlug}?lesson=${topicItem.slug}`}
+                                                                            to={`/learning-online/${courseSlug}?lesson=${topicItem.slug}`}
                                                                             onClick={() => handleLinkClick(topicItem.slug)}
                                                                             className={activeLink === topicItem.slug ? "active" : ""}
                                                                         >
@@ -253,7 +253,7 @@ function LayoutLesson({ children, title, nextLesson }) {
                                                                 {topic.testOnlineResponseDTOList.map((topicItem) => (
                                                                     <li key={topicItem.id}>
                                                                         <Link
-                                                                            to={`/learning/test/${courseSlug}?test=${topicItem.slug}`}
+                                                                            to={`/learning-test/${courseSlug}?test=${topicItem.slug}`}
                                                                             onClick={() => handleLinkClick(topicItem.slug)}
                                                                             className={activeLink === topicItem.slug ? "active" : ""}
                                                                         >
@@ -326,13 +326,13 @@ function LayoutLesson({ children, title, nextLesson }) {
     );
 }
 
-LayoutLesson.defaultProps = {
+LayoutLessonOnline.defaultProps = {
     nextLesson: true,
 };
 
-LayoutLesson.proTypes = {
+LayoutLessonOnline.proTypes = {
     children: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
 };
 
-export default LayoutLesson;
+export default LayoutLessonOnline;

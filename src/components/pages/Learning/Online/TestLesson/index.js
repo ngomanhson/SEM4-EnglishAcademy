@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import api from "../../../../services/api";
-import url from "../../../../services/url";
+import api from "../../../../../services/api";
+import url from "../../../../../services/url";
 import AudioPlayer from "react-h5-audio-player";
-import Loading from "../../../layouts/Loading";
-import NotFound from "../../Other/NotFound";
-import useAxios from "../../../../hooks/useAxios";
-import { formatHour } from "../../../../utils/FormatTime";
-import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
-import LayoutLesson from "../../../layouts/LayoutLesson";
+import Loading from "../../../../layouts/Loading";
+import NotFound from "../../../Other/NotFound";
+import useAxios from "../../../../../hooks/useAxios";
+import { formatHour } from "../../../../../utils/FormatTime";
+import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
+import LayoutLessonOnline from "../../../../layouts/Lesson/LayoutLessonOnline";
 import Lottie from "lottie-react";
-import ComingSoon from "../../../../lottie/ComingSoon.json";
+import ComingSoon from "../../../../../lottie/ComingSoon.json";
 
-function TestLesson() {
+function TestLessonOnline() {
     const { courseSlug } = useParams();
     const location = useLocation();
     const testSlug = new URLSearchParams(location.search).get("test");
@@ -120,13 +120,13 @@ function TestLesson() {
             {dataNotFound ? (
                 <NotFound />
             ) : testData.testOnlineSessionDetails && testData.testOnlineSessionDetails.length === 0 ? (
-                <LayoutLesson title="Coming soon!">
+                <LayoutLessonOnline title="Coming soon!">
                     <div className="col-lg-4 mx-auto">
                         <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: "100vh" }}>
                             <Lottie animationData={ComingSoon} loop={true} />
                         </div>
                     </div>
-                </LayoutLesson>
+                </LayoutLessonOnline>
             ) : (
                 <div className="rbt-button-area">
                     <div className="container">
@@ -278,4 +278,4 @@ function TestLesson() {
     );
 }
 
-export default TestLesson;
+export default TestLessonOnline;
