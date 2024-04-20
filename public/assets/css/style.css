@@ -666,7 +666,7 @@ h6,
 .h5,
 .h6 {
     word-break: break-word;
-    font-family: var(--font-secondary);
+    font-family: var(--bs-font-sans-serif);
     line-height: 1.4074;
     color: var(--color-heading);
 }
@@ -963,8 +963,7 @@ var {
 /*---------------------------
 	List Style 
 ---------------------------*/
-ul,
-ol {
+ul{
     padding-left: 18px;
 }
 
@@ -30805,7 +30804,9 @@ button.btn-circle[disabled]:hover {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-
+.fz-12 {
+    font-size: 12px;
+}
 .fz-16 {
     font-size: 16px;
 }
@@ -31227,7 +31228,11 @@ html ::-webkit-scrollbar-track {
 .data-texteditor h1,
 .data-texteditor h2,
 .data-texteditor h3,
-.data-texteditor h4 {
+.data-texteditor h4,
+.ql-editor h1, 
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4 {
     font-family: "Roboto", sans-serif;
     margin: 10px 0;
     font-weight: 500;
@@ -31359,5 +31364,71 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .form-checkout__desc  {
     color: var(--color-pink);
 }
+
+.border-lft-prm-opacity {
+    border-left: 4px solid #2F57EF21;
+}
+.heading-discuss {
+    font-size: 22px;
+    font-family: var(--bs-font-sans-serif);
+    color: var(--color-heading);
+    padding-bottom: 5px;
+    border-bottom: 3px solid #f1f1f1;
+}
+.wrapper-content {
+    position: relative;
+    background: #F5F7FA;
+    padding: 5px 15px;
+    border-radius: 8px;
+}
+.answer-star {
+    position: absolute;
+    right: 15px;
+    bottom: -15px;
+    background: #ffffff;
+    padding: 5px 10px;
+    border-radius: 99px;
+}
+.vote-container {
+    display: flex;
+    align-items: center;
+}
+.reaction-content {
+    border-right: 1px solid #f1f1f1;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    transition: all 0.25s linear;
+}
+.reaction-content:hover {
+    background: #F4F5F7;
+}
+.reaction-content:last-child {
+    border-right: none;
+}
+.reaction-star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+    padding: 8px ;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s linear;
+}
+.reaction-star.active {
+    visibility: visible;
+    opacity: 1;
+}
+.reaction-content span {
+    font-size: 12px;
+}
+/* .vote-hv:hover ~ .reaction-star {
+    visibility: visible;
+    opacity: 1;
+} */
 
 /*# sourceMappingURL=../maps/style.css.map */

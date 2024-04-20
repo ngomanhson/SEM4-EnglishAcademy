@@ -10,7 +10,7 @@ const url = {
         TEST: "test-online/detail",
         SUBMIT_TEST: "test-online/detail",
         RESULT_TEST: "test-online/result",
-        COMPLETE_ITEM: "/item-online",
+        COMPLETE_ITEM: "item-online",
         BUY_COURSE: "course-online-student",
     },
 
@@ -21,6 +21,14 @@ const url = {
         SUBMIT: "test-input/detail",
         RESULT: "test-input/result",
         RESULT_DETAIL: "test-input/result-detail",
+    },
+
+    OFFLINE_COURSE: {
+        GET_ALL_BY_STUDENT: "course-offline/get-by-class",
+        DETAIL: "course-offline/detail",
+        SUBJECT: "subject/detail",
+        ITEM_SLOT: "item-slot",
+        ITEM_SLOT_ANSWER: "answer-student-item-slot",
     },
 
     DICTIONARY: {

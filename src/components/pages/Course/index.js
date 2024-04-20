@@ -303,7 +303,7 @@ function Course() {
                                         <div className="course-grid-3" key={course.id}>
                                             <div className="rbt-card variation-01 rbt-hover">
                                                 <div className="rbt-card-img">
-                                                    <Link to={`/course-detail/${course.slug}`}>
+                                                    <Link to={`/course-online/${course.slug}`}>
                                                         <img src={course.image} alt={course.name} className="course-item__image" />
                                                         <div className="rbt-badge-3 bg-white">
                                                             <span>-40%</span>
@@ -325,7 +325,7 @@ function Course() {
                                                     </div>
 
                                                     <h4 className="rbt-card-title">
-                                                        <Link to={`/course-detail/${course.slug}`} className="font-system">
+                                                        <Link to={`/course-online/${course.slug}`} className="font-system">
                                                             {course.name}
                                                         </Link>
                                                     </h4>
@@ -346,7 +346,7 @@ function Course() {
                                                             <span className="current-price">${course.price && course.price.toFixed(2)}</span>
                                                             {/* <span className="off-price">$120</span> */}
                                                         </div>
-                                                        <Link to={`/course-detail/${course.slug}`} className="rbt-btn-link">
+                                                        <Link to={`/course-online/${course.slug}`} className="rbt-btn-link">
                                                             Learn More<i className="feather-arrow-right"></i>
                                                         </Link>
                                                     </div>
