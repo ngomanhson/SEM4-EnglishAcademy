@@ -194,9 +194,9 @@ function Header() {
                                 </li>
 
                                 <li className="account-access rbt-user-wrapper d-none d-xl-block">
-                                    <a href="#!">
+                                    <Link to={config.routes.profile}>
                                         <i className="feather-user"></i>Five Idiots
-                                    </a>
+                                    </Link>
                                     <div className="rbt-user-menu-list-wrapper">
                                         <div className="inner">
                                             <div className="rbt-admin-profile">
@@ -205,9 +205,9 @@ function Header() {
                                                 </div>
                                                 <div className="admin-info">
                                                     <span className="name">Nipa Bali</span>
-                                                    <a className="rbt-btn-link color-primary" href="profile.html">
+                                                    <Link to={config.routes.profile} className="rbt-btn-link color-primary">
                                                         View Profile
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <ul className="user-list-wrapper">
@@ -224,10 +224,10 @@ function Header() {
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="instructor-enrolled-courses.html">
+                                                    <Link to={config.routes.enrolled_courses}>
                                                         <i className="feather-shopping-bag"></i>
                                                         <span>Enrolled Courses</span>
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                                 <li>
                                                     <a href="instructor-wishlist.html">

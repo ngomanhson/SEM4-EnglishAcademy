@@ -31368,6 +31368,9 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 .border-lft-prm-opacity {
     border-left: 4px solid #2F57EF21;
 }
+.border-lft-darker {
+    border-left: 4px solid #525260;
+}
 .heading-discuss {
     font-size: 22px;
     font-family: var(--bs-font-sans-serif);
@@ -31385,6 +31388,7 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     position: absolute;
     right: 15px;
     bottom: -15px;
+    font-size: 13px;
     background: #ffffff;
     padding: 5px 10px;
     border-radius: 99px;
@@ -31426,9 +31430,25 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 .reaction-content span {
     font-size: 12px;
 }
-/* .vote-hv:hover ~ .reaction-star {
-    visibility: visible;
-    opacity: 1;
-} */
+.item-subject {
+    padding: 15px 5px;
+    transition: all 0.25s linear;
+}
 
+.item-subject a {
+    color: var(--color-body);
+}
+
+.item-subject:hover {
+    background: #eef4fc;
+}
+.item-subject:hover a {
+    color: var(--color-body);
+}
+.dropdown.bootstrap-select.ql-header,
+.dropdown.bootstrap-select.ql-font,
+.dropdown.bootstrap-select.ql-color,
+.dropdown.bootstrap-select.ql-align {
+    display: none;
+}
 /*# sourceMappingURL=../maps/style.css.map */
