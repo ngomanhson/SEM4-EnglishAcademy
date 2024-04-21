@@ -30,26 +30,35 @@ import Checkout from "../components/pages/Checkout";
 import ThankYou from "../components/pages/Checkout/ThankYou";
 import PaymentFail from "../components/pages/Checkout/PaymentFail";
 import CourseDetailOnline from "../components/pages/Course/CourseDetail/CourseDetailOnline";
-import CourseDetailOffline from "../components/pages/Course/CourseDetail/CourseDetailOffline";
 import LearningOnline from "../components/pages/Learning/Online";
 import TestLessonOnline from "../components/pages/Learning/Online/TestLesson";
 import ResultTestOnline from "../components/pages/Learning/Online/ResultTest";
-import SubjectOffline from "../components/pages/Learning/Offline/Subject";
 import SubjectLearning from "../components/pages/Learning/Offline/index";
+import SubjectOffline from "../components/pages/Learning/Offline/Subject";
+import SlotOffline from "../components/pages/Learning/Offline/Slot";
 
 const publicRoutes = [
+    // Home routes
     { path: config.routes.home, component: Home },
+
+    // Course Online routes
     { path: config.routes.course, component: Course },
     { path: config.routes.course_detail_online, component: CourseDetailOnline },
-    { path: config.routes.course_detail_offline, component: CourseDetailOffline },
+    { path: config.routes.learning_online, component: LearningOnline },
+    { path: config.routes.learning_test, component: TestLessonOnline },
+    { path: config.routes.result_test, component: ResultTestOnline },
+
+    // Checkout routes
     { path: config.routes.checkout, component: Checkout },
     { path: config.routes.checkout_thank_you, component: ThankYou },
     { path: config.routes.checkout_fail, component: PaymentFail },
-    { path: config.routes.learning_online, component: LearningOnline },
-    { path: config.routes.learning_test, component: TestLessonOnline },
+
+    // Course Offline routes
     { path: config.routes.subject_offline, component: SubjectOffline },
+    { path: config.routes.slot_offline, component: SlotOffline },
     { path: config.routes.subject_learning_offline, component: SubjectLearning },
-    { path: config.routes.result_test, component: ResultTestOnline },
+
+    // Entrance test routes
     { path: config.routes.entrance_test, component: EntranceTest },
     { path: config.routes.entrance_test_ielts, component: Ielts },
     { path: config.routes.entrance_test_toiec, component: Toeic },
@@ -57,22 +66,32 @@ const publicRoutes = [
     { path: config.routes.learning_paths_ielts, component: LearningPathIelts },
     { path: config.routes.learning_paths_toeic, component: LearningPathToeic },
     { path: config.routes.entrance_test_answer, component: AnswerDetail },
+
+    // Tutor routes
     { path: config.routes.tutor, component: Tutor },
     { path: config.routes.tutor_detail, component: TutorDetail },
+
+    // Blog routes
     { path: config.routes.blog, component: Blog },
     { path: config.routes.blog_detail, component: BlogDetail },
     { path: config.routes.about_us, component: AboutUs },
     { path: config.routes.dictionary, component: Dictionary },
+
+    // Profile routes
     { path: config.routes.profile, component: Profile },
     { path: config.routes.enrolled_courses, component: EnrolledCourses },
     { path: config.routes.wishlist, component: Wishlist },
     { path: config.routes.reviews, component: Reviews },
     { path: config.routes.my_quiz, component: MyQuiz },
     { path: config.routes.settings, component: Settings },
+
+    // Auth routes
     { path: config.routes.login, component: Login },
     { path: config.routes.register, component: Register },
     { path: config.routes.forgot_password, component: ForgotPassword },
     { path: config.routes.reset_password, component: ResetPassword },
+
+    // Other routes
     { path: config.routes.not_found, component: NotFound },
 ];
 

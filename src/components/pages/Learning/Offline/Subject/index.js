@@ -1,30 +1,48 @@
-import useAxios from "../../../../../hooks/useAxios";
+import { Link, useParams } from "react-router-dom";
+import { format } from "date-fns";
+import { useState } from "react";
 import Layout from "../../../../layouts";
 import url from "../../../../../services/url";
-import { Link, useParams } from "react-router-dom";
-import config from "../../../../../config";
 import Loading from "../../../../layouts/Loading";
+import { useAxios } from "../../../../../hooks";
 import NotFound from "../../../Other/NotFound";
+import config from "../../../../../config";
 
 function SubjectOffline() {
     const { slug } = useParams();
-    const studentId = 1;
 
+    const studentId = 1;
     const { response, loading, status } = useAxios({
         method: "GET",
-        path: url.OFFLINE_COURSE.SUBJECT + `/${slug}/${studentId}`,
+        path: url.OFFLINE_COURSE.DETAIL + `/${slug}/${studentId}`,
     });
 
-    const subject = response || {};
-    const slotList = subject.slotResponseDetailList || [];
+    const course = response || [];
+    const subjectList = course.subjectList || [];
 
+    const itemsPerPage = 6;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const totalPages = Math.ceil(subjectList.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, subjectList.length);
+
+    const currentSubject = subjectList.slice(startIndex, endIndex);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo({
+            top: 380,
+            behavior: "smooth",
+        });
+    };
     return (
         <>
             {loading && <Loading />}
             {status === 404 ? (
                 <NotFound />
             ) : (
-                <Layout title="Subject">
+                <Layout title="Course Detail">
                     <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3 bg-color-darker p-0" style={{ minHeight: 280 }}>
                         <div className="container">
                             <div className="row">
@@ -40,94 +58,84 @@ function SubjectOffline() {
                                                         <i className="feather-chevron-right"></i>
                                                     </div>
                                                 </li>
-                                                <li className="rbt-breadcrumb-item font-system active">{subject.name}</li>
+                                                <li className="rbt-breadcrumb-item font-system active">{course.name}</li>
                                             </ul>
-                                            <h2 className="title font-system mb--0">{subject.name}</h2>
+                                            <h2 className="title font-system mb--0">{course.name}</h2>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <section className="rbt-pricing-area bg-color-white rbt-section-gap pt-5">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-8">
-                                    <div className="course-content rbt-shadow-box coursecontent-wrapper border-lft-darker" id="coursecontent">
-                                        <div className="rbt-course-feature-inner">
-                                            <div className="section-title">
-                                                <h4 className="rbt-title-style-3 font-system">Subject Content</h4>
-                                            </div>
 
-                                            <div className="rbt-accordion-style rbt-accordion-02 accordion">
-                                                <div className="accordion" id="accordionExampleb2">
-                                                    {slotList.map((slot, index) => {
-                                                        const accordionId = `accordion-${slot.id}-${index}`;
-                                                        const collapseId = `collapse-${slot.id}-${index}`;
-                                                        return (
-                                                            <div className="accordion-item card" key={index}>
-                                                                <h2 className="accordion-header card-header" style={{ fontSize: 18 }} id={`heading-${accordionId}`}>
-                                                                    <button
-                                                                        className="accordion-button collapsed font-system"
-                                                                        type="button"
-                                                                        data-bs-toggle="collapse"
-                                                                        data-bs-target={`#${collapseId}`}
-                                                                        aria-expanded="false"
-                                                                        aria-controls={collapseId}
-                                                                    >
-                                                                        {slot.name}
-                                                                    </button>
-                                                                    <span className="fz-12 fw-300">{slot.time}</span>
-                                                                </h2>
-                                                                <div
-                                                                    id={collapseId}
-                                                                    className="accordion-collapse collapse"
-                                                                    aria-labelledby={`heading-${accordionId}`}
-                                                                    data-bs-parent="#accordionExampleb2"
-                                                                >
-                                                                    <div className="accordion-body card-body pr--0 p-0">
-                                                                        <ul className="rbt-course-main-content liststyle">
-                                                                            {slot.itemSlotResponseList ? (
-                                                                                slot.itemSlotResponseList.length === 0 ? (
-                                                                                    <p style={{ padding: "20px 5px" }}>This slot has no content</p>
-                                                                                ) : (
-                                                                                    slot.itemSlotResponseList.map((slotItem) => (
-                                                                                        <li className="item-subject" key={slotItem.id}>
-                                                                                            <Link to={`/subject-learning/${slotItem.slug}`}>
-                                                                                                <div className="wrap" style={{ flex: 1 }}>
-                                                                                                    <div className="course-content-left">
-                                                                                                        <div className="d-flex align-content-center" style={{ flex: 1 }}>
-                                                                                                            {slotItem.itemType === 0 && <i className="feather-play-circle mt-1"></i>}
-                                                                                                            {slotItem.itemType === 1 && <i className="feather-help-circle mt-1"></i>}
-                                                                                                            {slotItem.itemType === 2 && <i className="feather-hash mt-1"></i>}
-                                                                                                            <div className="d-flex flex-column">
-                                                                                                                <span className="text">{slotItem.title}</span>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div className="course-content-right">
-                                                                                                        <span className="rbt-check">
-                                                                                                            <i className="feather-unlock"></i>
-                                                                                                        </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </Link>
-                                                                                        </li>
-                                                                                    ))
-                                                                                )
-                                                                            ) : (
-                                                                                <p style={{ padding: "20px 5px" }}>This slot has no content</p>
-                                                                            )}
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    })}
+                    <div className="rbt-course-details-area ptb--60">
+                        <div className="container">
+                            <div className="row g-5">
+                                <div className="col-lg-8">
+                                    <div className="row">
+                                        {currentSubject.map((subject) => (
+                                            <div className="col-lg-6" key={subject.id}>
+                                                <div className="widget border-a-secondary p-4">
+                                                    <Link to={`/subject-slot/${subject.slug}`}>
+                                                        <h5 className="border-bt-secondary mb-4 pb-3">{subject.name}</h5>
+                                                    </Link>
+
+                                                    <p className="d-flex align-items-center mb-4 fz-16 fw-300">
+                                                        <i className="fab fa-leanpub pr--5"></i> Slot: 0{subject.totalSlot}
+                                                    </p>
+
+                                                    <p className="d-flex align-items-center mb-4 fz-16 fw-300">
+                                                        <i className="fas fa-calendar-alt pr--5"></i> {subject.createdDate && format(new Date(subject.createdDate), "dd-MM-yyyy")}
+                                                    </p>
+
+                                                    <div className="d-flex align-items-center justify-content-between border-t-secondary pt-3">
+                                                        <p className="d-flex align-items-center m-0 fw-300 fz-16">
+                                                            <i className="fas fa-user-graduate pr--5"></i> {subject.totalSlot} students
+                                                        </p>
+
+                                                        <Link to={`/subject-slot/${subject.slug}`} className="transparent-button fw-300" href="#!">
+                                                            Learn More
+                                                            <i>
+                                                                <svg width="17" height="12" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g stroke="#27374D" fill="none" fillRule="evenodd">
+                                                                        <path d="M10.614 0l5.629 5.629-5.63 5.629"></path>
+                                                                        <path strokeLinecap="square" d="M.663 5.572h14.594"></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </i>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        ))}
                                     </div>
+                                    {currentSubject.length <= 6 ? (
+                                        ""
+                                    ) : (
+                                        <div className="row">
+                                            <div className="col-lg-12 mt--60">
+                                                <nav>
+                                                    <ul className="rbt-pagination">
+                                                        <li className={`${currentPage === 1 ? "disabled" : ""}`}>
+                                                            <button onClick={() => handlePageChange(currentPage - 1)}>
+                                                                <i className="feather-chevron-left"></i>
+                                                            </button>
+                                                        </li>
+                                                        {Array.from({ length: totalPages }, (_, index) => (
+                                                            <li key={index} className={`${currentPage === index + 1 ? "active" : ""}`}>
+                                                                <button onClick={() => handlePageChange(index + 1)}>{index + 1}</button>
+                                                            </li>
+                                                        ))}
+                                                        <li className={`${currentPage === totalPages ? "disabled" : ""}`}>
+                                                            <button onClick={() => handlePageChange(currentPage + 1)}>
+                                                                <i className="feather-chevron-right"></i>
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="col-lg-4">
                                     <div className="widget">
@@ -145,7 +153,7 @@ function SubjectOffline() {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
                 </Layout>
             )}
         </>

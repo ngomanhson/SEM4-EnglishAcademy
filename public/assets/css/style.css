@@ -31371,6 +31371,15 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 .border-lft-darker {
     border-left: 4px solid #525260;
 }
+.border-bt-secondary {
+    border-bottom: 1px solid #f1f1f1;
+}
+.border-a-secondary {
+    border: 1px solid #f1f1f1;
+}
+.border-t-secondary {
+    border-top: 1px solid #f1f1f1;
+}
 .heading-discuss {
     font-size: 22px;
     font-family: var(--bs-font-sans-serif);
