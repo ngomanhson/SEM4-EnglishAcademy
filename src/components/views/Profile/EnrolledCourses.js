@@ -26,7 +26,7 @@ function EnrolledCourses() {
                                 <div className="col-lg-4 col-md-6 col-12" key={course.id}>
                                     <div className="rbt-card variation-01 rbt-hover">
                                         <div className="rbt-card-img">
-                                            <Link to={`/course-offline/${course.slug}`}>
+                                            <Link to={`/subject-offline/${course.slug}`}>
                                                 <img src={course.image} alt={course.name} />
                                             </Link>
                                         </div>
@@ -49,7 +49,7 @@ function EnrolledCourses() {
                                                         </div>
                                                     </div> */}
                                             <h4 className="rbt-card-title font-system" style={{ fontSize: 22 }}>
-                                                <Link to={`/learning-offline/${course.slug}`}>{course.name}</Link>
+                                                <Link to={`/subject-offline/${course.slug}`}>{course.name}</Link>
                                             </h4>
 
                                             <div className="rbt-progress-style-1 mb--20 mt--20">
