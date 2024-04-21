@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 import url from "../../../services/url";
 import LayoutProfile from "../../layouts/LayoutProfile";
-import config from "../../../config";
 
 function EnrolledCourses() {
     const studentId = 1;
