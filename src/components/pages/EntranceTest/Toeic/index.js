@@ -36,6 +36,13 @@ function Toeic() {
         setStartTime(Date.now());
     };
 
+    useEffect(() => {
+        if (response && response.time) {
+            const apiTime = response.time;
+            setTimeRemaining(apiTime);
+        }
+    }, [response]);
+
     const handleAnswerSelect = (questionId, selectedOption) => {
         const updatedAnswers = { ...selectedAnswers };
         updatedAnswers[questionId] = selectedOption;
@@ -238,15 +245,10 @@ function Toeic() {
 
                                                         {testToiec.testInputSessionDetails?.map((session, index) => (
                                                             <div key={session.id}>
-                                                                <button
-                                                                    type="button"
-                                                                    className={`answers-btn w-100 ${currentSessionIndex === index ? "active" : ""}`}
-                                                                    onClick={() => setCurrentSessionIndex(index)}
-                                                                >
-                                                                    {session.sessionName}
-                                                                </button>
-
-                                                                <div className="mt-5 choice-wrapper mb-5">
+                                                                <p className="m-0 fz-16 label-session" onClick={() => setCurrentSessionIndex(index)}>
+                                                                    Part {index + 1}: {session.sessionName}
+                                                                </p>
+                                                                <div className="mt-3 choice-wrapper mb-3">
                                                                     {session.questionTestInputs.map((question, questionIndex) => (
                                                                         <button
                                                                             type="button"
@@ -262,7 +264,12 @@ function Toeic() {
                                                         ))}
 
                                                         <div className="d-flex justify-content-end">
-                                                            <button type="button" className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 mt-4" onClick={handleSubmitTest}>
+                                                            <button
+                                                                type="button"
+                                                                className="rbt-btn bg-pink-opacity rbt-marquee-btn w-100 btn-not__hover mt-4"
+                                                                style={{ height: 50, lineHeight: "50px" }}
+                                                                onClick={handleSubmitTest}
+                                                            >
                                                                 <i className="fa fa-stop-circle"></i> Finish Test
                                                             </button>
                                                         </div>

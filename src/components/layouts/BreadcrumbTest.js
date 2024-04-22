@@ -4,7 +4,7 @@ import config from "../../config";
 const BreadcrumbTest = ({ title, path }) => {
     return (
         <>
-            <h4 className="font-system fw-500 m-0">Entrance Test - {title}</h4>
+            <h4 className="font-system fw-500 m-0">{title}</h4>
             <ul className="page-list">
                 <li className="rbt-breadcrumb-item">
                     <Link to={path}>Home</Link>
@@ -14,7 +14,7 @@ const BreadcrumbTest = ({ title, path }) => {
                         <i className="feather-chevron-right"></i>
                     </div>
                 </li>
-                <li className="rbt-breadcrumb-item active">Entrance Test - {title}</li>
+                <li className="rbt-breadcrumb-item active">{title}</li>
             </ul>
         </>
     );

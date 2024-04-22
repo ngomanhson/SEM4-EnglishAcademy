@@ -30866,14 +30866,14 @@ button.btn-circle[disabled]:hover {
 .choice-wrapper {
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(10, 1fr);
 }
 
 .choice-wrapper__btn {
     border: 1px solid #bfbfbf;
     outline: none;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background: var(--color-white);
     color: #c4c4c4;
@@ -31459,5 +31459,17 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 .dropdown.bootstrap-select.ql-color,
 .dropdown.bootstrap-select.ql-align {
     display: none;
+}
+.label-session {
+    transition: color 0.25s linear;
+    cursor: pointer;
+}
+.label-session:hover {
+    color: #4b8bff;
+}
+.audio-recorder {
+    box-shadow: none !important;
+    background: transparent !important;
+    border: 1px solid #f1f1f1;
 }
 /*# sourceMappingURL=../maps/style.css.map */
