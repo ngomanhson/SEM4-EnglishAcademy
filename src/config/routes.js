@@ -18,6 +18,7 @@ const routes = {
     subject_offline: "/subject-offline/:slug",
     slot_offline: "/subject-slot/:slug",
     subject_learning_offline: "/subject-learning/:slug",
+    subject_test_offline: "/subject-test/:slug",
 
     // Entrance test routes
     entrance_test: "/entrance-test",

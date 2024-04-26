@@ -91,7 +91,7 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
     }, [openAccordion]);
 
     const handleNextLessonClick = async () => {
-        const currentTopicIndex = topicByStudent.findIndex(
+        const currentTopicIndex = topics.findIndex(
             (topic) => topic.itemOnlineDetailList.some((item) => item.slug === activeLink) || topic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)
         );
 
@@ -100,7 +100,7 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
             let nextItemIndex = 0;
             let isTest = false;
 
-            const currentTopic = topicByStudent[currentTopicIndex];
+            const currentTopic = topics[currentTopicIndex];
 
             if (currentTopic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)) {
                 isTest = true;
@@ -115,7 +115,7 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
                     nextTopicIndex++;
                     nextItemIndex = 0;
 
-                    if (nextTopicIndex >= topicByStudent.length) {
+                    if (nextTopicIndex >= topics.length) {
                         nextTopicIndex = 0;
                     }
                 }
@@ -132,7 +132,7 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
                 }
             }
 
-            const nextTopic = topicByStudent[nextTopicIndex];
+            const nextTopic = topics[nextTopicIndex];
             let nextSlug = null;
 
             if (!isTest) {
@@ -145,7 +145,7 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
                 }
             }
 
-            if (!topicByStudent.itemOnlineDetailList === true) {
+            if (!topics === true) {
                 try {
                     const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}/1`);
 
@@ -158,7 +158,7 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
             }
 
             if (nextSlug) {
-                navigate(`/learning/${courseSlug}?lesson=${nextSlug}`);
+                navigate(`/learning-online/${courseSlug}?lesson=${nextSlug}`);
             }
         }
     };

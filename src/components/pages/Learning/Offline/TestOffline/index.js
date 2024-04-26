@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../../../services/api";
 import url from "../../../../../services/url";
 import AudioPlayer from "react-h5-audio-player";
@@ -7,15 +7,12 @@ import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
 import useAxios from "../../../../../hooks/useAxios";
 import { formatHour } from "../../../../../utils/FormatTime";
-import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
-import LayoutLessonOnline from "../../../../layouts/Lesson/LayoutLessonOnline";
 import Lottie from "lottie-react";
 import ComingSoon from "../../../../../lottie/ComingSoon.json";
+import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
 
-function TestLessonOnline() {
-    const { courseSlug } = useParams();
-    const location = useLocation();
-    const testSlug = new URLSearchParams(location.search).get("test");
+function TestOffline() {
+    const { slug } = useParams();
 
     const navigate = useNavigate();
 
@@ -32,17 +29,10 @@ function TestLessonOnline() {
 
     const { response, loading, status } = useAxios({
         method: "GET",
-        path: url.ONLINE_COURSE.TEST + `/${testSlug}/${studentId}`,
+        path: url.OFFLINE_COURSE.SUBJECT_TEST + `/${slug}/${studentId}`,
     });
 
     const testData = useMemo(() => response || [], [response]);
-
-    useEffect(() => {
-        if (response && response.time) {
-            const apiTime = response.time;
-            setTimeRemaining(apiTime);
-        }
-    }, [response]);
 
     useEffect(() => {
         if (status === 404) {
@@ -69,7 +59,7 @@ function TestLessonOnline() {
 
     const handleSubmitTest = useCallback(async () => {
         try {
-            const answersToSubmit = testData.testOnlineSessionDetails.flatMap((session) =>
+            const answersToSubmit = testData.testOfflineSessionDetails.flatMap((session) =>
                 session.questionTestOnlineDTOS.map((question) => ({
                     content: selectedAnswers[question.id] || "",
                     questionId: question.id,
@@ -84,7 +74,7 @@ function TestLessonOnline() {
                 createAnswerStudentList: answersToSubmit,
             };
 
-            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${testSlug}/${studentId}`, dataSubmit);
+            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${slug}/${studentId}`, dataSubmit);
 
             if (response.status === 200) {
                 navigate(`/result-test/${response.data.data}`);
@@ -92,7 +82,7 @@ function TestLessonOnline() {
         } catch (error) {
             console.log(error);
         }
-    }, [navigate, selectedAnswers, startTime, testSlug, studentId, testData]);
+    }, [navigate, selectedAnswers, startTime, slug, studentId, testData]);
 
     useEffect(() => {
         if (confirmed) {
@@ -111,7 +101,7 @@ function TestLessonOnline() {
         }
     }, [handleSubmitTest, confirmed]);
 
-    const totalSession = testData.testOnlineSessionDetails ? testData.testOnlineSessionDetails.length : 0;
+    const totalSession = testData.testOfflineSessionDetails ? testData.testOfflineSessionDetails.length : 0;
 
     const handleNextSession = () => {
         setCurrentSessionIndex((prevIndex) => prevIndex + 1);
@@ -126,14 +116,12 @@ function TestLessonOnline() {
             {loading && <Loading />}
             {dataNotFound ? (
                 <NotFound />
-            ) : testData.testOnlineSessionDetails && testData.testOnlineSessionDetails.length === 0 ? (
-                <LayoutLessonOnline title="Coming soon!">
-                    <div className="col-lg-4 mx-auto">
-                        <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: "100vh" }}>
-                            <Lottie animationData={ComingSoon} loop={true} />
-                        </div>
+            ) : testData.testOfflineSessionDetails && testData.testOfflineSessionDetails.length === 0 ? (
+                <div className="col-lg-4 mx-auto">
+                    <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: "100vh" }}>
+                        <Lottie animationData={ComingSoon} loop={true} />
                     </div>
-                </LayoutLessonOnline>
+                </div>
             ) : (
                 <div className="rbt-button-area">
                     <div className="container">
@@ -141,7 +129,7 @@ function TestLessonOnline() {
                             <div className="row mt--50">
                                 <div className="col-lg-6 mx-auto">
                                     <div className="text-center">
-                                        <BreadcrumbTest title={testData.title} path={`/learning/${courseSlug}`} />
+                                        {/* <BreadcrumbTest title={testData.title} path={`/learning/${courseSlug}`} /> */}
 
                                         <div className="rbt-splash-service no-translate support h-100 not-hover mt-3">
                                             <div className="w-100">
@@ -153,7 +141,7 @@ function TestLessonOnline() {
                                                     The test has a total of {totalSession} part and {testData.totalQuestion} questions:
                                                 </p>
                                                 <ul className="mb-4">
-                                                    {testData.testOnlineSessionDetails?.map((session, sessionIndex) => (
+                                                    {testData.testOfflineSessionDetails?.map((session, sessionIndex) => (
                                                         <li className="font-system fw-300 mb-2" key={sessionIndex}>
                                                             Part {sessionIndex + 1}: {session.sessionName} <span>{session.totalQuestion} questions.</span>
                                                         </li>
@@ -178,12 +166,12 @@ function TestLessonOnline() {
                             <div className="content">
                                 <div className="question" style={{ display: "block" }}>
                                     <div className="mt-5">
-                                        <BreadcrumbTest title={testData.title} path={`/learning/${courseSlug}`} />
+                                        <BreadcrumbTest title={testData.title} path={`/learning/${slug}`} />
                                     </div>
 
                                     <div className="row mt--50">
                                         <div className="col-lg-9">
-                                            {testData.testOnlineSessionDetails?.map((session, sessionIndex) => (
+                                            {testData.testOfflineSessionDetails?.map((session, sessionIndex) => (
                                                 <div className="widget border-lft-prm-opacity" style={{ display: currentSessionIndex === sessionIndex ? "block" : "none" }} key={sessionIndex}>
                                                     <div className="w-100">
                                                         <div className="d-flex justify-content-between align-items-start mb-5">
@@ -202,13 +190,13 @@ function TestLessonOnline() {
                                                                     type="button"
                                                                     className="btn-circle ml-2"
                                                                     onClick={handleNextSession}
-                                                                    disabled={currentSessionIndex === testData.testOnlineSessionDetails?.length - 1}
+                                                                    disabled={currentSessionIndex === testData.testOfflineSessionDetails?.length - 1}
                                                                 >
                                                                     <i className="feather-chevron-right"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        {session.questionTestOnlineDTOS?.map((question, questionIndex) => (
+                                                        {session.questionTestOfflineDTOS?.map((question, questionIndex) => (
                                                             <div className="rbt-single-quiz mb-5" key={questionIndex}>
                                                                 <h5 className="exam__inner-desc fw-500 font-system" style={{ fontSize: 18 }}>
                                                                     Questions {questionIndex + 1}: {question.title}
@@ -219,23 +207,39 @@ function TestLessonOnline() {
                                                                 <div className="row">
                                                                     {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
                                                                         <div className="col-lg-6" key={optionIndex}>
-                                                                            <div className="answer-group">
-                                                                                <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
-                                                                                    <input
-                                                                                        type="radio"
-                                                                                        className="answers-group__input"
-                                                                                        name={`answer_${question.id}`}
-                                                                                        id={`answer_${question.id}_${option}`}
-                                                                                        checked={selectedAnswers[question.id] === question[option]}
-                                                                                        onChange={() => handleAnswerSelect(question.id, question[option])}
-                                                                                    />
-                                                                                    <div className="d-flex align-items-center font-system">
-                                                                                        <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
-                                                                                    </div>
-                                                                                </label>
-                                                                            </div>
+                                                                            {question[option] !== null && (
+                                                                                <div className="answer-group">
+                                                                                    <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
+                                                                                        <input
+                                                                                            type="radio"
+                                                                                            className="answers-group__input"
+                                                                                            name={`answer_${question.id}`}
+                                                                                            id={`answer_${question.id}_${option}`}
+                                                                                            checked={selectedAnswers[question.id] === question[option]}
+                                                                                            onChange={() => handleAnswerSelect(question.id, question[option])}
+                                                                                        />
+                                                                                        <div className="d-flex align-items-center font-system">
+                                                                                            <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
+                                                                                        </div>
+                                                                                    </label>
+                                                                                </div>
+                                                                            )}
                                                                         </div>
                                                                     ))}
+                                                                </div>
+
+                                                                <div className="d-flex flex-column justify-content-center align-items-center background-secondary p-5">
+                                                                    <button type="button" className="btn btn-circle-2">
+                                                                        <i className="fas fa-microphone"></i>
+                                                                    </button>
+                                                                    <div className="mt-3 text-center">
+                                                                        <p className="fw-light mb-0" style={{ fontSize: 15 }}>
+                                                                            Click to start recording
+                                                                        </p>
+                                                                        <p className="fw-light" style={{ fontSize: 16 }}>
+                                                                            The system will automatically process your speech
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         ))}
@@ -246,16 +250,16 @@ function TestLessonOnline() {
                                         <div className="col-lg-3">
                                             <div className="answers__inner">
                                                 <div className="td-sidebar">
-                                                    <div className="widget">
-                                                        <h5 className="text-center">Time remaining: {formatHour(timeRemaining)}</h5>
+                                                    <div className="widget border-a-secondary">
+                                                        <h5 className="text-center border-bt-secondary pb-3">Time remaining: {formatHour(timeRemaining)}</h5>
 
-                                                        {testData.testOnlineSessionDetails?.map((session, index) => (
+                                                        {testData.testOfflineSessionDetails?.map((session, index) => (
                                                             <div key={index}>
                                                                 <p className="m-0 fz-16 label-session" onClick={() => setCurrentSessionIndex(index)}>
                                                                     Part {index + 1}: {session.sessionName}
                                                                 </p>
                                                                 <div className="mt-3 choice-wrapper mb-3">
-                                                                    {session.questionTestOnlineDTOS.map((question, questionIndex) => (
+                                                                    {session.questionTestOfflineDTOS.map((question, questionIndex) => (
                                                                         <button
                                                                             type="button"
                                                                             key={question.id}
@@ -293,4 +297,4 @@ function TestLessonOnline() {
     );
 }
 
-export default TestLessonOnline;
+export default TestOffline;

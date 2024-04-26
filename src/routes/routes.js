@@ -36,6 +36,7 @@ import ResultTestOnline from "../components/pages/Learning/Online/ResultTest";
 import SubjectLearning from "../components/pages/Learning/Offline/index";
 import SubjectOffline from "../components/pages/Learning/Offline/Subject";
 import SlotOffline from "../components/pages/Learning/Offline/Slot";
+import TestOffline from "../components/pages/Learning/Offline/TestOffline";
 
 const publicRoutes = [
     // Home routes
@@ -57,6 +58,7 @@ const publicRoutes = [
     { path: config.routes.subject_offline, component: SubjectOffline },
     { path: config.routes.slot_offline, component: SlotOffline },
     { path: config.routes.subject_learning_offline, component: SubjectLearning },
+    { path: config.routes.subject_test_offline, component: TestOffline },
 
     // Entrance test routes
     { path: config.routes.entrance_test, component: EntranceTest },
