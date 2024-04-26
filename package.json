@@ -14,6 +14,7 @@
         "lottie-react": "^2.4.0",
         "react": "^18.2.0",
         "react-apexcharts": "^1.4.1",
+        "react-audio-voice-recorder": "^2.2.0",
         "react-confetti-boom": "^1.0.0",
         "react-dom": "^18.2.0",
         "react-h5-audio-player": "^3.9.1",
@@ -23,7 +24,9 @@
         "react-router-dom": "^6.22.3",
         "react-scripts": "5.0.1",
         "react-toastify": "^9.0.3",
-        "web-vitals": "^2.1.4"
+        "sockjs-client": "^1.6.1",
+        "web-vitals": "^2.1.4",
+        "webstomp-client": "^1.2.6"
     },
     "scripts": {
         "start": "react-scripts start",

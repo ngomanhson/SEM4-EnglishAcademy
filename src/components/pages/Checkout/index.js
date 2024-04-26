@@ -4,7 +4,6 @@ import config from "../../../config";
 import useAxios from "../../../hooks/useAxios";
 import url from "../../../services/url";
 
-// import PayPal from "../../../payment/PayPal";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripePaymentForm from "../../../payment/Stripe";
@@ -12,7 +11,6 @@ import api from "../../../services/api";
 import { useState } from "react";
 import Loading from "../../layouts/Loading";
 import ChooseCourse from "../Other/ChooseCourse";
-
 const stripePromise = (async () => {
     try {
         return await loadStripe("pk_test_51OVqT0DQZzhwaulm9QNS20I55bgkpOt6eQa1gHTm113njc8xGE3A3YoiJ5WEweMhQizzHnQGtFH0zEw8mXCYFbcB00s9xR5vEC");
@@ -80,7 +78,6 @@ function Checkout() {
     const handleStripePaymentSuccess = async () => {
         await createPayment();
     };
-
     return (
         <>
             {loading && <Loading />}
@@ -230,7 +227,8 @@ function Checkout() {
                                                 <StripePaymentForm onSuccess={handleStripePaymentSuccess} amount={course.price} />
                                             </Elements>
                                         )}
-                                        {/* {selectedPaymentMethod === "paypal" && <PayPal amount={course.price} />} */}
+
+                                        {/* {selectedPaymentMethod === "paypal" && <PayPalComponent />} */}
                                     </div>
                                 </div>
                             </div>
