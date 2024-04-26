@@ -35,6 +35,18 @@ const url = {
     DICTIONARY: {
         SEARCH: "https://api.dictionaryapi.dev/api/v2/entries/en",
     },
+
+    AUTH: {
+        REGISTER: "auth/student/signup",
+        LOGIN: "auth/student/signip",
+        CHANGE_PASSWORD: "student/change-password",
+        FORGOT_PASSWORD: "auth/student/forgot-password",
+        RESET_PASSWORD: "auth/student/reset-password",
+    },
+
+    PROFILE: {
+        DETAIL: "student/profile",
+    },
 };
 
 export default url;

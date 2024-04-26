@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
-import useAxios from "../../../hooks/useAxios";
 import url from "../../../services/url";
 import LayoutProfile from "../../layouts/LayoutProfile";
+import { useAxiosGet } from "../../../hooks";
 
 function EnrolledCourses() {
     const studentId = 1;
 
-    const { response } = useAxios({
-        method: "GET",
+    const { response } = useAxiosGet({
         path: url.OFFLINE_COURSE.GET_ALL_BY_STUDENT + "/" + studentId,
     });
 

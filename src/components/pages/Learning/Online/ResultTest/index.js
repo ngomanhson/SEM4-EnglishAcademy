@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import Layout from "../../../../layouts/index";
-import { useAxios } from "../../../../../hooks";
 import { Link, useParams } from "react-router-dom";
 import Chart from "react-apexcharts";
 import url from "../../../../../services/url";
@@ -9,12 +8,12 @@ import { format } from "date-fns";
 import config from "../../../../../config";
 import NotFound from "../../../Other/NotFound";
 import { formatHour } from "../../../../../utils/FormatTime";
+import { useAxiosGet } from "../../../../../hooks";
 
 function ResultTestOnline() {
     const { testCode } = useParams();
     const [chartData, setChartData] = useState([]);
-    const { response, loading, status } = useAxios({
-        method: "GET",
+    const { response, loading, status } = useAxiosGet({
         path: url.ONLINE_COURSE.RESULT_TEST + `/${testCode}`,
     });
 

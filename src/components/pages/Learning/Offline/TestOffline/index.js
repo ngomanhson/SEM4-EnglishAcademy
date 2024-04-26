@@ -5,11 +5,11 @@ import url from "../../../../../services/url";
 import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
-import useAxios from "../../../../../hooks/useAxios";
 import { formatHour } from "../../../../../utils/FormatTime";
 import Lottie from "lottie-react";
 import ComingSoon from "../../../../../lottie/ComingSoon.json";
 import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
+import { useAxiosGet } from "../../../../../hooks";
 
 function TestOffline() {
     const { slug } = useParams();
@@ -27,8 +27,7 @@ function TestOffline() {
 
     const studentId = 1;
 
-    const { response, loading, status } = useAxios({
-        method: "GET",
+    const { response, loading, status } = useAxiosGet({
         path: url.OFFLINE_COURSE.SUBJECT_TEST + `/${slug}/${studentId}`,
     });
 

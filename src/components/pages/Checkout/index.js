@@ -1,7 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Layout from "../../layouts";
 import config from "../../../config";
-import useAxios from "../../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxiosGet";
 import url from "../../../services/url";
 
 import { loadStripe } from "@stripe/stripe-js";
@@ -25,7 +25,6 @@ function Checkout() {
     const navigate = useNavigate();
 
     const { response, loading, status } = useAxios({
-        method: "GET",
         path: url.ONLINE_COURSE.DETAIL + `/${courseSlug}`,
     });
 

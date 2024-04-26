@@ -7,9 +7,9 @@ import url from "../../../../services/url";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
-import useAxios from "../../../../hooks/useAxios";
 import { formatMinute } from "../../../../utils/FormatTime/index";
 import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
+import { useAxiosGet } from "../../../../hooks";
 
 function Ielts() {
     const { slug } = useParams();
@@ -22,8 +22,7 @@ function Ielts() {
 
     const [startTime, setStartTime] = useState(null);
 
-    const { response, loading, error } = useAxios({
-        method: "GET",
+    const { response, loading, error } = useAxiosGet({
         path: url.ENTRANCE_TEST.IELTS + `/${slug}`,
     });
 

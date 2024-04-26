@@ -7,9 +7,9 @@ import url from "../../../../services/url";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
-import useAxios from "../../../../hooks/useAxios";
 import { formatMinute } from "../../../../utils/FormatTime";
 import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
+import { useAxiosGet } from "../../../../hooks";
 
 function Toeic() {
     const { slug } = useParams();
@@ -24,8 +24,7 @@ function Toeic() {
 
     const [startTime, setStartTime] = useState(null);
 
-    const { response, loading } = useAxios({
-        method: "GET",
+    const { response, loading } = useAxiosGet({
         path: url.ENTRANCE_TEST.TOIEC + `/${slug}`,
     });
 

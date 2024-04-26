@@ -4,16 +4,15 @@ import { useState } from "react";
 import Layout from "../../../../layouts";
 import url from "../../../../../services/url";
 import Loading from "../../../../layouts/Loading";
-import { useAxios } from "../../../../../hooks";
 import NotFound from "../../../Other/NotFound";
 import config from "../../../../../config";
+import { useAxiosGet } from "../../../../../hooks";
 
 function SubjectOffline() {
     const { slug } = useParams();
 
     const studentId = 1;
-    const { response, loading, status } = useAxios({
-        method: "GET",
+    const { response, loading, status } = useAxiosGet({
         path: url.OFFLINE_COURSE.DETAIL + `/${slug}/${studentId}`,
     });
 

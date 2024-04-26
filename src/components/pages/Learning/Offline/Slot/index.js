@@ -1,17 +1,16 @@
-import useAxios from "../../../../../hooks/useAxios";
 import Layout from "../../../../layouts";
 import url from "../../../../../services/url";
 import { Link, useParams } from "react-router-dom";
 import config from "../../../../../config";
 import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
+import { useAxiosGet } from "../../../../../hooks";
 
 function SlotOffline() {
     const { slug } = useParams();
     const studentId = 1;
 
-    const { response, loading, status } = useAxios({
-        method: "GET",
+    const { response, loading, status } = useAxiosGet({
         path: url.OFFLINE_COURSE.SUBJECT + `/${slug}/${studentId}`,
     });
 

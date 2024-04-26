@@ -2,12 +2,11 @@ import { Link } from "react-router-dom";
 import Layout from "../../layouts";
 import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
-import useAxios from "../../../hooks/useAxios";
 import { useState } from "react";
+import { useAxiosGet } from "../../../hooks";
 
 function Course() {
-    const { response, loading } = useAxios({
-        method: "GET",
+    const { response, loading } = useAxiosGet({
         path: url.ONLINE_COURSE.GET_ALL,
     });
 

@@ -1,4 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../../../services/api";
+import url from "../../../../services/url";
+import { toast } from "react-toastify";
+import { getAccessToken, removeAccessToken } from "../../../../utils/auth";
 
 function ChangePassword() {
     const [incorrectPassword, setIncorrectPassword] = useState(false);
@@ -6,7 +11,7 @@ function ChangePassword() {
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         currentPassword: "",
@@ -40,6 +45,7 @@ function ChangePassword() {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
         setFormErrors({ ...formErrors, [name]: "" });
+        setIncorrectPassword(false)
     };
 
     const validateForm = () => {
@@ -84,6 +90,38 @@ function ChangePassword() {
         e.preventDefault();
 
         if (validateForm()) {
+            try {
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    },
+                };
+
+                const passwordResponse = await api.post(url.AUTH.CHANGE_PASSWORD, formData, config);
+
+                if (passwordResponse.status === 200) {
+                    removeAccessToken();
+
+                    navigate("/login");
+
+                    setTimeout(() => {
+                        toast.success("Password changed successfully. Please login again!", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 2000,
+                        });
+                    }, 1500);
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 400) {
+                    setIncorrectPassword(true);
+                } else {
+                    toast.error("An error occurred while changing the password.", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 5000,
+                    });
+                }
+            }
         }
     };
 
@@ -158,8 +196,8 @@ function ChangePassword() {
                     </div>
                 </div>
                 <div className="col-12 mt--10">
-                    <div className="rbt-form-group">
-                        <button type="submit" className="rbt-btn btn-gradient">
+                    <div className="rbt-form-group text-end">
+                        <button type="submit" className="rbt-btn btn-gradient btn-not__hover" style={{height: 45, lineHeight: "45px"}}>
                             Update Password
                         </button>
                     </div>

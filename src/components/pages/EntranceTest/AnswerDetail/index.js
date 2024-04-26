@@ -1,16 +1,15 @@
 import { Link, useParams } from "react-router-dom";
 import Layout from "../../../layouts/index";
-import useAxios from "../../../../hooks/useAxios";
 import url from "../../../../services/url";
 import NotFound from "../../Other/NotFound";
 import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../layouts/Loading";
+import { useAxiosGet } from "../../../../hooks";
 
 function AnswerDetail() {
     const { testCode } = useParams();
 
-    const { response, loading, status } = useAxios({
-        method: "GET",
+    const { response, loading, status } = useAxiosGet({
         path: url.ENTRANCE_TEST.RESULT_DETAIL + `/${testCode}`,
     });
 
