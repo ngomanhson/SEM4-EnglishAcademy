@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "../../../layouts";
 import url from "../../../../services/url";
 import { format } from "date-fns";
@@ -9,9 +9,11 @@ import Loading from "../../../layouts/Loading";
 import config from "../../../../config/index";
 import NotFound from "../../Other/NotFound";
 import { useAxiosGet } from "../../../../hooks";
+import { isLoggedIn } from "../../../../utils/auth";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
+    const navigate = useNavigate();
 
     const { response, loading, status } = useAxiosGet({
         path: url.ONLINE_COURSE.DETAIL + `/${slug}`,
@@ -57,6 +59,15 @@ function CourseDetailOnline() {
             totalTest += topic.testOnlineDTOList.length;
         });
     }
+
+    const handleEnroll = () => {
+        if (!isLoggedIn()) {
+            localStorage.setItem("redirect_path", window.location.pathname);
+            navigate(`${config.routes.login}`);
+        } else {
+            navigate(`/checkout/${slug}`);
+        }
+    };
 
     return (
         <>
@@ -434,16 +445,12 @@ function CourseDetailOnline() {
                                                 </div>
 
                                                 <div className="add-to-card-button mt--15">
-                                                    <Link
-                                                        to={`/checkout/${slug}`}
-                                                        className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover"
-                                                        // data-bs-toggle="modal" data-bs-target="#paymentModal"
-                                                    >
+                                                    <button className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover" onClick={handleEnroll}>
                                                         <span className="btn-text">Enroll Course</span>
                                                         <span className="btn-icon">
                                                             <i className="feather-arrow-right"></i>
                                                         </span>
-                                                    </Link>
+                                                    </button>
                                                 </div>
 
                                                 <div className="rbt-widget-details has-show-more m-5">

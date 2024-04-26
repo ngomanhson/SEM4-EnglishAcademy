@@ -71,7 +71,9 @@ function Login() {
                     const token = loginRequest.data.token;
                     setAccessToken(token);
 
-                    navigate("/");
+                    const redirectPath = localStorage.getItem("redirect_path") || "/";
+                    localStorage.removeItem("redirectPath");
+                    navigate(redirectPath);
                 } else {
                     setFormErrors({
                         email: "Invalid email or password.",

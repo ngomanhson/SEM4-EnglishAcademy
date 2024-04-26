@@ -8,6 +8,7 @@ import Confetti from "react-confetti-boom";
 import Lottie from "lottie-react";
 import Learn from "../../../../lottie/Learn.json";
 import { useAxiosGet } from "../../../../hooks";
+import { getAccessToken } from "../../../../utils/auth";
 
 function LearningOnline() {
     const location = useLocation();
@@ -26,6 +27,10 @@ function LearningOnline() {
 
     const { response, loading, error } = useAxiosGet({
         path: url.ONLINE_COURSE.ITEM_ONLINE + `/${itemSlug}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const lessonData = useMemo(() => response || {}, [response]);

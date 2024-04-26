@@ -11,6 +11,7 @@ import api from "../../../services/api";
 import { useState } from "react";
 import Loading from "../../layouts/Loading";
 import ChooseCourse from "../Other/ChooseCourse";
+import { getAccessToken, getDecodedToken } from "../../../utils/auth";
 const stripePromise = (async () => {
     try {
         return await loadStripe("pk_test_51OVqT0DQZzhwaulm9QNS20I55bgkpOt6eQa1gHTm113njc8xGE3A3YoiJ5WEweMhQizzHnQGtFH0zEw8mXCYFbcB00s9xR5vEC");
@@ -56,15 +57,23 @@ function Checkout() {
         setSelectedPaymentMethod(event.target.value);
     };
 
+    const decodeToken = getDecodedToken();
+
     const createPayment = async () => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${getAccessToken()}`,
+            },
+        };
         try {
             const info = {
-                studentId: 2,
+                studentId: decodeToken.Id,
                 courseOnlineId: course.id,
                 paymentMethod: selectedPaymentMethod,
             };
 
-            const paymentRequest = await api.post(url.ONLINE_COURSE.BUY_COURSE, info);
+            const paymentRequest = await api.post(url.ONLINE_COURSE.BUY_COURSE, info, config);
 
             if (paymentRequest.status === 200) {
                 navigate("thank-you");
