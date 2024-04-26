@@ -4,6 +4,7 @@ import { useState } from "react";
 import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
 import { useAxiosGet } from "../../../hooks";
+import { getAccessToken } from "../../../utils/auth";
 
 function EntranceTest() {
     const [selectedTestSlug, setSelectedTestSlug] = useState("");
@@ -11,6 +12,10 @@ function EntranceTest() {
 
     const { response, loading } = useAxiosGet({
         path: url.ENTRANCE_TEST.LIST,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const testList = response || [];

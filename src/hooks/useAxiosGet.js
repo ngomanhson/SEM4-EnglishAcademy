@@ -17,14 +17,12 @@ function useAxiosGet({ method, path, body = null, headers = null }) {
                 setStatus(responseData.status);
             } catch (error) {
                 setError(true);
-                setStatus(error.response.status);
             } finally {
                 setTimeout(() => {
                     setLoading(false);
                 }, 1500);
             }
         };
-
         loadData();
     }, [method, path, body, headers]);
 

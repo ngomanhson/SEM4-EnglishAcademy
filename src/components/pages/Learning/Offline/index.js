@@ -453,6 +453,7 @@ import ReactPlayer from "react-player";
 import * as Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
 import { useAxiosGet } from "../../../../hooks";
+import { getAccessToken } from "../../../../utils/auth";
 
 const toolbarOptions = [
     { header: [1, 2, 3, 4, 5, 6, false] },
@@ -479,6 +480,10 @@ function SubjectLearning() {
 
     const { response, setResponse } = useAxiosGet({
         path: url.OFFLINE_COURSE.ITEM_SLOT + `/${slug}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const item = response || {};
