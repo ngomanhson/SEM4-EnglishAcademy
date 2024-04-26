@@ -5,12 +5,12 @@ import url from "../../../../../services/url";
 import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
-import useAxios from "../../../../../hooks/useAxios";
 import { formatHour } from "../../../../../utils/FormatTime";
 import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
 import LayoutLessonOnline from "../../../../layouts/Lesson/LayoutLessonOnline";
 import Lottie from "lottie-react";
 import ComingSoon from "../../../../../lottie/ComingSoon.json";
+import { useAxiosGet } from "../../../../../hooks";
 
 function TestLessonOnline() {
     const { courseSlug } = useParams();
@@ -30,8 +30,7 @@ function TestLessonOnline() {
 
     const studentId = 1;
 
-    const { response, loading, status } = useAxios({
-        method: "GET",
+    const { response, loading, status } = useAxiosGet({
         path: url.ONLINE_COURSE.TEST + `/${testSlug}/${studentId}`,
     });
 

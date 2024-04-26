@@ -45,6 +45,23 @@ const publicRoutes = [
     // Course Online routes
     { path: config.routes.course, component: Course },
     { path: config.routes.course_detail_online, component: CourseDetailOnline },
+
+    // Tutor routes
+    { path: config.routes.tutor, component: Tutor },
+    { path: config.routes.tutor_detail, component: TutorDetail },
+
+    // Blog routes
+    { path: config.routes.blog, component: Blog },
+    { path: config.routes.blog_detail, component: BlogDetail },
+    { path: config.routes.about_us, component: AboutUs },
+    { path: config.routes.dictionary, component: Dictionary },
+
+    // Other routes
+    { path: config.routes.not_found, component: NotFound },
+];
+
+const privateRoutes = [
+    // Course Online routes
     { path: config.routes.learning_online, component: LearningOnline },
     { path: config.routes.learning_test, component: TestLessonOnline },
     { path: config.routes.result_test, component: ResultTestOnline },
@@ -69,16 +86,6 @@ const publicRoutes = [
     { path: config.routes.learning_paths_toeic, component: LearningPathToeic },
     { path: config.routes.entrance_test_answer, component: AnswerDetail },
 
-    // Tutor routes
-    { path: config.routes.tutor, component: Tutor },
-    { path: config.routes.tutor_detail, component: TutorDetail },
-
-    // Blog routes
-    { path: config.routes.blog, component: Blog },
-    { path: config.routes.blog_detail, component: BlogDetail },
-    { path: config.routes.about_us, component: AboutUs },
-    { path: config.routes.dictionary, component: Dictionary },
-
     // Profile routes
     { path: config.routes.profile, component: Profile },
     { path: config.routes.enrolled_courses, component: EnrolledCourses },
@@ -86,17 +93,13 @@ const publicRoutes = [
     { path: config.routes.reviews, component: Reviews },
     { path: config.routes.my_quiz, component: MyQuiz },
     { path: config.routes.settings, component: Settings },
+];
 
-    // Auth routes
+const authenticationRoutes = [
     { path: config.routes.login, component: Login },
     { path: config.routes.register, component: Register },
     { path: config.routes.forgot_password, component: ForgotPassword },
     { path: config.routes.reset_password, component: ResetPassword },
-
-    // Other routes
-    { path: config.routes.not_found, component: NotFound },
 ];
 
-const privateRoutes = [];
-
-export { publicRoutes, privateRoutes };
+export { publicRoutes, privateRoutes, authenticationRoutes };

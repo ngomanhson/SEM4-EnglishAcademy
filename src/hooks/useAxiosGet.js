@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
 
-function useAxios({ method, path, body = null, headers = null }) {
+function useAxiosGet({ method, path, body = null, headers = null }) {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -10,15 +10,7 @@ function useAxios({ method, path, body = null, headers = null }) {
     useEffect(() => {
         const loadData = async () => {
             try {
-                let responseData;
-
-                if (method === "GET") {
-                    responseData = await api.get(path, { headers });
-                } else if (method === "POST") {
-                    responseData = await api.post(path, body, { headers });
-                } else if (method === "PUT") {
-                    responseData = await api.put(path, body, { headers });
-                }
+                const responseData = await api.get(path, { headers });
 
                 setResponse(responseData.data.data);
                 setError(false);
@@ -39,4 +31,4 @@ function useAxios({ method, path, body = null, headers = null }) {
     return { response, setResponse, error, loading, status };
 }
 
-export default useAxios;
+export default useAxiosGet;

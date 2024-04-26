@@ -37,7 +37,7 @@
 //     const [activeReactions, setActiveReactions] = useState({});
 
 //     const { response, loading, status } = useAxios({
-//         method: "GET",
+//
 //         path: url.OFFLINE_COURSE.ITEM_SLOT + `/${slug}/${studentId}`,
 //     });
 
@@ -452,7 +452,7 @@ import ReactPlayer from "react-player";
 
 import * as Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
-import useAxios from "../../../../hooks/useAxios";
+import { useAxiosGet } from "../../../../hooks";
 
 const toolbarOptions = [
     { header: [1, 2, 3, 4, 5, 6, false] },
@@ -477,8 +477,7 @@ function SubjectLearning() {
     const [editorError, setEditorError] = useState("");
     const [activeReactions, setActiveReactions] = useState({});
 
-    const { response, setResponse } = useAxios({
-        method: "GET",
+    const { response, setResponse } = useAxiosGet({
         path: url.OFFLINE_COURSE.ITEM_SLOT + `/${slug}`,
     });
 

@@ -5,20 +5,18 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import url from "../../../services/url";
 import api from "../../../services/api";
 import NotFound from "../../pages/Other/NotFound";
+import { getAccessToken, getDecodedToken } from "../../../utils/auth";
 
 function LayoutLessonOnline({ children, title, nextLesson }) {
     const { courseSlug } = useParams();
-
     const navigate = useNavigate();
+    const location = useLocation();
+    const decodedToken = getDecodedToken();
 
     const [closeSidebar, setCloseSidebar] = useState(false);
-
-    const location = useLocation();
     const itemSlug = new URLSearchParams(location.search).get("lesson");
-
     const [topicByStudent, setTopicByStudent] = useState([]);
     const [activeLink, setActiveLink] = useState("");
-
     const [dataNotFound, setDataNotFound] = useState(false);
 
     const handleLinkClick = (slug) => {
@@ -31,15 +29,22 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
         setActiveLink(slug || "");
     }, [location.search]);
 
-    const studentId = 1;
-
     const handleClose = () => {
         setCloseSidebar((prev) => !prev);
     };
 
+    const studentId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+
     const loadData = useCallback(async () => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${getAccessToken()}`,
+            },
+        };
+
         try {
-            const topicResponse = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`);
+            const topicResponse = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`, config);
             setTopicByStudent(topicResponse.data.data);
         } catch (error) {
             console.log(error);

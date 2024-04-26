@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import api from "../../../services/api";
+import url from "../../../services/url";
+import config from "../../../config/index";
+import { toast } from "react-toastify";
 
 function ResetPassword() {
-    // const { resetToken } = useParams();
+    const { resetToken } = useParams();
     const [showPassword, setShowPassword] = useState(false);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -65,7 +69,22 @@ function ResetPassword() {
 
         if (validateForm()) {
             try {
-            } catch (error) {}
+                const response = await api.post(url.AUTH.RESET_PASSWORD + `/${resetToken}`, formData);
+                if (response.status === 200) {
+                    setTimeout(() => {
+                        toast.success("Password reset successful. Please login again.", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 5000,
+                        });
+                    }, 1500);
+                    navigate(`${config.routes.login}`);
+                }
+            } catch (error) {
+                toast.error("Error! An error occurred. Please try again later.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
+                });
+            }
         }
     };
     return (
@@ -125,7 +144,7 @@ function ResetPassword() {
                                 </div>
 
                                 <div className="mt-4">
-                                    <button type="submit" className="rbt-btn btn-md fw-normal w-100" style={{ fontSize: 15 }}>
+                                    <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
                                         Reset Password
                                     </button>
                                 </div>

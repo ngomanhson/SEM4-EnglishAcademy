@@ -2,15 +2,14 @@ import { Link } from "react-router-dom";
 import Layout from "../../layouts";
 import { useState } from "react";
 import url from "../../../services/url";
-import useAxios from "../../../hooks/useAxios";
 import Loading from "../../layouts/Loading";
+import { useAxiosGet } from "../../../hooks";
 
 function EntranceTest() {
     const [selectedTestSlug, setSelectedTestSlug] = useState("");
     const [selectedTestType, setSelectedTestType] = useState(null);
 
-    const { response, loading } = useAxios({
-        method: "GET",
+    const { response, loading } = useAxiosGet({
         path: url.ENTRANCE_TEST.LIST,
     });
 

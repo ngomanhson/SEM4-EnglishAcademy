@@ -6,15 +6,14 @@ import ReactPlayer from "react-player";
 import Review from "../../../views/Course/CourseDetail/Review";
 import Rating from "../../../views/Course/CourseDetail/Rating";
 import Loading from "../../../layouts/Loading";
-import useAxios from "../../../../hooks/useAxios";
 import config from "../../../../config/index";
 import NotFound from "../../Other/NotFound";
+import { useAxiosGet } from "../../../../hooks";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
 
-    const { response, loading, status } = useAxios({
-        method: "GET",
+    const { response, loading, status } = useAxiosGet({
         path: url.ONLINE_COURSE.DETAIL + `/${slug}`,
     });
 

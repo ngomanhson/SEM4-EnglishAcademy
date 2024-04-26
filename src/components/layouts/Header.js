@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import config from "../../config/index";
-
+import { isLoggedIn, getDecodedToken } from "../../utils/auth";
 function Header() {
+    const decodedToken = getDecodedToken();
+
     return (
         <header className="rbt-header rbt-header-10">
             <div className="rbt-sticky-placeholder"></div>
@@ -193,102 +195,110 @@ function Header() {
                                     </Link>
                                 </li>
 
-                                <li className="account-access rbt-user-wrapper d-none d-xl-block">
-                                    <Link to={config.routes.profile}>
-                                        <i className="feather-user"></i>Five Idiots
-                                    </Link>
-                                    <div className="rbt-user-menu-list-wrapper">
-                                        <div className="inner">
-                                            <div className="rbt-admin-profile">
-                                                <div className="admin-thumbnail">
-                                                    <img src="assets/images/team/avatar.jpg" alt="User Images" />
+                                {isLoggedIn() ? (
+                                    <li className="account-access rbt-user-wrapper d-none d-xl-block">
+                                        <Link to={config.routes.profile}>
+                                            <i className="feather-user"></i> {truncateText(decodedToken.sub, 8)}
+                                        </Link>
+                                        <div className="rbt-user-menu-list-wrapper">
+                                            <div className="inner">
+                                                <div className="rbt-admin-profile">
+                                                    <div className="admin-thumbnail">
+                                                        <img src="assets/images/team/avatar.jpg" alt="User Images" />
+                                                    </div>
+                                                    <div className="admin-info">
+                                                        <span className="name">{decodedToken.sub}</span>
+                                                        <Link to={config.routes.profile} className="rbt-btn-link color-primary">
+                                                            View Profile
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                                <div className="admin-info">
-                                                    <span className="name">Nipa Bali</span>
-                                                    <Link to={config.routes.profile} className="rbt-btn-link color-primary">
-                                                        View Profile
-                                                    </Link>
-                                                </div>
+                                                <ul className="user-list-wrapper">
+                                                    <li>
+                                                        <a href="instructor-dashboard.html">
+                                                            <i className="feather-home"></i>
+                                                            <span>My Dashboard</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#!">
+                                                            <i className="feather-bookmark"></i>
+                                                            <span>Bookmark</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <Link to={config.routes.enrolled_courses}>
+                                                            <i className="feather-shopping-bag"></i>
+                                                            <span>Enrolled Courses</span>
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <a href="instructor-wishlist.html">
+                                                            <i className="feather-heart"></i>
+                                                            <span>Wishlist</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="instructor-reviews.html">
+                                                            <i className="feather-star"></i>
+                                                            <span>Reviews</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="instructor-my-quiz-attempts.html">
+                                                            <i className="feather-list"></i>
+                                                            <span>My Quiz Attempts</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="instructor-order-history.html">
+                                                            <i className="feather-clock"></i>
+                                                            <span>Order History</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="instructor-quiz-attempts.html">
+                                                            <i className="feather-message-square"></i>
+                                                            <span>Question &amp; Answer</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <hr className="mt--10 mb--10" />
+                                                <ul className="user-list-wrapper">
+                                                    <li>
+                                                        <a href="#!">
+                                                            <i className="feather-book-open"></i>
+                                                            <span>Getting Started</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <hr className="mt--10 mb--10" />
+                                                <ul className="user-list-wrapper">
+                                                    <li>
+                                                        <a href="instructor-settings.html">
+                                                            <i className="feather-settings"></i>
+                                                            <span>Settings</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="index.html">
+                                                            <i className="feather-log-out"></i>
+                                                            <span>Logout</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <ul className="user-list-wrapper">
-                                                <li>
-                                                    <a href="instructor-dashboard.html">
-                                                        <i className="feather-home"></i>
-                                                        <span>My Dashboard</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#!">
-                                                        <i className="feather-bookmark"></i>
-                                                        <span>Bookmark</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <Link to={config.routes.enrolled_courses}>
-                                                        <i className="feather-shopping-bag"></i>
-                                                        <span>Enrolled Courses</span>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <a href="instructor-wishlist.html">
-                                                        <i className="feather-heart"></i>
-                                                        <span>Wishlist</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="instructor-reviews.html">
-                                                        <i className="feather-star"></i>
-                                                        <span>Reviews</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="instructor-my-quiz-attempts.html">
-                                                        <i className="feather-list"></i>
-                                                        <span>My Quiz Attempts</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="instructor-order-history.html">
-                                                        <i className="feather-clock"></i>
-                                                        <span>Order History</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="instructor-quiz-attempts.html">
-                                                        <i className="feather-message-square"></i>
-                                                        <span>Question &amp; Answer</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <hr className="mt--10 mb--10" />
-                                            <ul className="user-list-wrapper">
-                                                <li>
-                                                    <a href="#!">
-                                                        <i className="feather-book-open"></i>
-                                                        <span>Getting Started</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <hr className="mt--10 mb--10" />
-                                            <ul className="user-list-wrapper">
-                                                <li>
-                                                    <a href="instructor-settings.html">
-                                                        <i className="feather-settings"></i>
-                                                        <span>Settings</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="index.html">
-                                                        <i className="feather-log-out"></i>
-                                                        <span>Logout</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
+                                    </li>
+                                ) : (
+                                    <div className="rbt-btn-wrapper d-none d-xl-block">
+                                        <Link to={config.routes.login} className="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none">
+                                            <span data-text="Enroll Now">Enroll Now</span>
+                                        </Link>
                                     </div>
-                                </li>
+                                )}
 
-                                <li className="access-icon rbt-user-wrapper d-block d-xl-none">
+                                {/* <li className="access-icon rbt-user-wrapper d-block d-xl-none">
                                     <a className="rbt-round-btn" href="#!">
                                         <i className="feather-user"></i>
                                     </a>
@@ -381,14 +391,8 @@ function Header() {
                                             </ul>
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
                             </ul>
-
-                            {/* <div className="rbt-btn-wrapper d-none d-xl-block">
-                                <a className="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="#!">
-                                    <span data-text="Enroll Now">Enroll Now</span>
-                                </a>
-                            </div> */}
 
                             <div className="mobile-menu-bar d-block d-xl-none">
                                 <div className="hamberger">
@@ -710,3 +714,11 @@ function Header() {
 }
 
 export default Header;
+
+function truncateText(text, limit) {
+    if (text.length <= limit) {
+        return text;
+    } else {
+        return text.slice(0, limit) + "...";
+    }
+}

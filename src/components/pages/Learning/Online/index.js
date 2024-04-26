@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 import url from "../../../../services/url";
 import Loading from "../../../layouts/Loading";
 import Confetti from "react-confetti-boom";
-import useAxios from "../../../../hooks/useAxios";
 import Lottie from "lottie-react";
 import Learn from "../../../../lottie/Learn.json";
+import { useAxiosGet } from "../../../../hooks";
 
 function LearningOnline() {
     const location = useLocation();
@@ -24,8 +24,7 @@ function LearningOnline() {
         height: undefined,
     });
 
-    const { response, loading, error } = useAxios({
-        method: "GET",
+    const { response, loading, error } = useAxiosGet({
         path: url.ONLINE_COURSE.ITEM_ONLINE + `/${itemSlug}`,
     });
 
