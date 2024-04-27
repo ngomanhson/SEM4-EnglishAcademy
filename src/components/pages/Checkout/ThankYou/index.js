@@ -29,7 +29,7 @@ function ThankYou() {
                                             Go to Home
                                         </Link>
 
-                                        <Link to={`/learning/${courseSlug}`} className="rbt-btn icon-hover btn-not__hover">
+                                        <Link to={`/learning-online/${courseSlug}`} className="rbt-btn icon-hover btn-not__hover">
                                             <span className="btn-text">Learning Now</span>
                                             <span className="btn-icon">
                                                 <i className="feather-arrow-right"></i>

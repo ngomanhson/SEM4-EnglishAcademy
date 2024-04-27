@@ -5,12 +5,17 @@ import NotFound from "../../Other/NotFound";
 import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../layouts/Loading";
 import { useAxiosGet } from "../../../../hooks";
+import { getAccessToken } from "../../../../utils/auth";
 
 function AnswerDetail() {
     const { testCode } = useParams();
 
     const { response, loading, status } = useAxiosGet({
         path: url.ENTRANCE_TEST.RESULT_DETAIL + `/${testCode}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const resultDetail = response || [];

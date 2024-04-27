@@ -8,7 +8,7 @@ const url = {
         ITEM_ONLINE: "item-online",
         EXERCISE: "topic-online",
         TEST: "test-online/detail",
-        SUBMIT_TEST: "test-offline/detail",
+        SUBMIT_TEST: "test-online/detail",
         RESULT_TEST: "test-online/result",
         COMPLETE_ITEM: "item-online",
         BUY_COURSE: "course-online-student",

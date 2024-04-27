@@ -7,13 +7,17 @@ import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
 import config from "../../../../../config";
 import { useAxiosGet } from "../../../../../hooks";
+import { getAccessToken } from "../../../../../utils/auth";
 
 function SubjectOffline() {
     const { slug } = useParams();
 
-    const studentId = 1;
     const { response, loading, status } = useAxiosGet({
-        path: url.OFFLINE_COURSE.DETAIL + `/${slug}/${studentId}`,
+        path: url.OFFLINE_COURSE.DETAIL + `/${slug}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const course = response || [];

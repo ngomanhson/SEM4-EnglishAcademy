@@ -10,6 +10,7 @@ import NotFound from "../../Other/NotFound";
 import { formatMinute } from "../../../../utils/FormatTime";
 import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
 import { useAxiosGet } from "../../../../hooks";
+import { getAccessToken } from "../../../../utils/auth";
 
 function Toeic() {
     const { slug } = useParams();
@@ -26,6 +27,10 @@ function Toeic() {
 
     const { response, loading } = useAxiosGet({
         path: url.ENTRANCE_TEST.TOIEC + `/${slug}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const testToiec = useMemo(() => response || [], [response]);
@@ -80,7 +85,12 @@ function Toeic() {
                 createAnswerStudentList: answersToSubmit,
             };
 
-            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + `/${slug}/1`, dataSubmit);
+            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + `/${slug}`, dataSubmit, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            });
 
             if (response.status === 200) {
                 navigate("/entrance-test/success");

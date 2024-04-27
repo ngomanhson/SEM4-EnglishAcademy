@@ -10,6 +10,7 @@ import NotFound from "../../Other/NotFound";
 import { formatMinute } from "../../../../utils/FormatTime/index";
 import BreadcrumbTest from "../../../layouts/BreadcrumbTest";
 import { useAxiosGet } from "../../../../hooks";
+import { getAccessToken } from "../../../../utils/auth";
 
 function Ielts() {
     const { slug } = useParams();
@@ -24,6 +25,10 @@ function Ielts() {
 
     const { response, loading, error } = useAxiosGet({
         path: url.ENTRANCE_TEST.IELTS + `/${slug}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const testIelts = useMemo(() => response || [], [response]);
@@ -80,7 +85,12 @@ function Ielts() {
                 createAnswerStudentList: answersToSubmit,
             };
 
-            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + `/${slug}/1`, dataSubmit);
+            const response = await api.post(url.ENTRANCE_TEST.SUBMIT + `/${slug}`, dataSubmit, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            });
 
             if (response.status === 200) {
                 navigate("/entrance-test/success");

@@ -17,7 +17,6 @@ import EnrolledCourses from "../components/views/Profile/EnrolledCourses";
 import Wishlist from "../components/views/Profile/Wishlist";
 import Reviews from "../components/views/Profile/Reviews";
 import MyQuiz from "../components/views/Profile/MyQuiz";
-import Settings from "../components/views/Profile/Settings/index";
 import Login from "../components/pages/Auth/Login";
 import Register from "../components/pages/Auth/Register";
 import ForgotPassword from "../components/pages/Auth/ForgotPassword";
@@ -37,6 +36,7 @@ import SubjectLearning from "../components/pages/Learning/Offline/index";
 import SubjectOffline from "../components/pages/Learning/Offline/Subject";
 import SlotOffline from "../components/pages/Learning/Offline/Slot";
 import TestOffline from "../components/pages/Learning/Offline/TestOffline";
+import ChangePassword from "../components/views/Profile/ChangePassword";
 
 const publicRoutes = [
     // Home routes
@@ -92,7 +92,7 @@ const privateRoutes = [
     { path: config.routes.wishlist, component: Wishlist },
     { path: config.routes.reviews, component: Reviews },
     { path: config.routes.my_quiz, component: MyQuiz },
-    { path: config.routes.settings, component: Settings },
+    { path: config.routes.change_password, component: ChangePassword },
 ];
 
 const authenticationRoutes = [

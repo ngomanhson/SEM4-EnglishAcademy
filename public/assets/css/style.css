@@ -31489,7 +31489,8 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 }
 .chat-box__close-btn,
 .chat-box__send-btn,
-.chat-box__action-btn {
+.chat-box__action-btn,
+.btn-edit {
     background: transparent;
     border: none;
     outline: none;
@@ -31605,5 +31606,34 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     color: var(--color-white);
     font-size: 18px;
 }
+.btn-edit {
+    font-size: 18px;
+    color: var(--color-body);
+}
 
+.info-content {
+    font-size: 16px;
+    font-weight: 300;
+}
+.rbt-profile-content > .input-change {
+    height: 35px;
+    font-weight: 300;
+}
+.rbt-avatars img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.info-act__btn {
+    border: none;
+    outline: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+}
+.info-act__btn + .info-act__btn  {
+    margin-left: 15px;
+}
 /*# sourceMappingURL=../maps/style.css.map */

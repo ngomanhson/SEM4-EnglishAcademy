@@ -8,6 +8,7 @@ import { formatMinute } from "../../../../utils/FormatTime";
 import { format } from "date-fns";
 import NotFound from "../../Other/NotFound";
 import { useAxiosGet } from "../../../../hooks";
+import { getAccessToken } from "../../../../utils/auth";
 
 function LearningPathIelts() {
     const { testCode } = useParams();
@@ -15,6 +16,10 @@ function LearningPathIelts() {
 
     const { response, loading } = useAxiosGet({
         path: url.ENTRANCE_TEST.RESULT + `/${testCode}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const resultTest = useMemo(() => response || {}, [response]);

@@ -72,7 +72,7 @@ function Login() {
                     setAccessToken(token);
 
                     const redirectPath = localStorage.getItem("redirect_path") || "/";
-                    localStorage.removeItem("redirectPath");
+                    localStorage.removeItem("redirect_path");
                     navigate(redirectPath);
                 } else {
                     setFormErrors({

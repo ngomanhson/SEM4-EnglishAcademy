@@ -11,6 +11,7 @@ import LayoutLessonOnline from "../../../../layouts/Lesson/LayoutLessonOnline";
 import Lottie from "lottie-react";
 import ComingSoon from "../../../../../lottie/ComingSoon.json";
 import { useAxiosGet } from "../../../../../hooks";
+import { getAccessToken, getDecodedToken } from "../../../../../utils/auth";
 
 function TestLessonOnline() {
     const { courseSlug } = useParams();
@@ -28,13 +29,18 @@ function TestLessonOnline() {
     const [timeRemaining, setTimeRemaining] = useState(1800);
     const [startTime, setStartTime] = useState(null);
 
-    const studentId = 1;
-
     const { response, loading, status } = useAxiosGet({
-        path: url.ONLINE_COURSE.TEST + `/${testSlug}/${studentId}`,
+        path: url.ONLINE_COURSE.TEST + `/${testSlug}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const testData = useMemo(() => response || [], [response]);
+
+    const decodeToken = getDecodedToken();
+    const studentId = decodeToken.Id;
 
     useEffect(() => {
         if (response && response.time) {
@@ -83,7 +89,12 @@ function TestLessonOnline() {
                 createAnswerStudentList: answersToSubmit,
             };
 
-            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${testSlug}/${studentId}`, dataSubmit);
+            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${testSlug}/${studentId}`, dataSubmit, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            });
 
             if (response.status === 200) {
                 navigate(`/result-test/${response.data.data}`);
