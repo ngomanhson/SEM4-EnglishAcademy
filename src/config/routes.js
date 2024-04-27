@@ -44,12 +44,12 @@ const routes = {
     enrolled_courses: "/enrolled-courses",
     wishlist: "/wishlist",
     reviews: "/reviews",
-    my_quiz: "my-quiz",
-    settings: "/settings",
+    my_quiz: "/my-quiz",
 
     // Auth routes
     login: "/login",
     register: "/register",
+    change_password: "/change-password",
     forgot_password: "/forgot-password",
     reset_password: "/reset-password/:resetToken",
 

@@ -150,17 +150,24 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
                 }
             }
 
-            if (!topics === true) {
-                try {
-                    const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}/1`);
+            // if (topics !== true) {
+            try {
+                const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    },
+                });
 
-                    if (completeItem.status === 200) {
-                        await loadData();
-                    }
-                } catch (error) {
-                    console.log(error);
+                console.log(completeItem);
+
+                if (completeItem.status === 200) {
+                    await loadData();
                 }
+            } catch (error) {
+                console.log(error);
             }
+            // }
 
             if (nextSlug) {
                 navigate(`/learning-online/${courseSlug}?lesson=${nextSlug}`);

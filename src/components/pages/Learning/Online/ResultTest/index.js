@@ -9,12 +9,17 @@ import config from "../../../../../config";
 import NotFound from "../../../Other/NotFound";
 import { formatHour } from "../../../../../utils/FormatTime";
 import { useAxiosGet } from "../../../../../hooks";
+import { getAccessToken } from "../../../../../utils/auth";
 
 function ResultTestOnline() {
     const { testCode } = useParams();
     const [chartData, setChartData] = useState([]);
     const { response, loading, status } = useAxiosGet({
         path: url.ONLINE_COURSE.RESULT_TEST + `/${testCode}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const resultTest = useMemo(() => response || {}, [response]);

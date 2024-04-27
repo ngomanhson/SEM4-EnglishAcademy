@@ -5,13 +5,17 @@ import config from "../../../../../config";
 import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
 import { useAxiosGet } from "../../../../../hooks";
+import { getAccessToken } from "../../../../../utils/auth";
 
 function SlotOffline() {
     const { slug } = useParams();
-    const studentId = 1;
 
     const { response, loading, status } = useAxiosGet({
-        path: url.OFFLINE_COURSE.SUBJECT + `/${slug}/${studentId}`,
+        path: url.OFFLINE_COURSE.SUBJECT + `/${slug}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const subject = response || {};
