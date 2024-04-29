@@ -1,4 +1,4 @@
-import LayoutProfile from "../../layouts/LayoutProfile";
+import LayoutProfile from "./LayoutProfile";
 
 function Reviews() {
     return (

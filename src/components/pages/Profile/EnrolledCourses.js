@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
 import url from "../../../services/url";
-import LayoutProfile from "../../layouts/LayoutProfile";
 import { useAxiosGet } from "../../../hooks";
 import { getAccessToken } from "../../../utils/auth";
 import config from "../../../config";
+import LayoutProfile from "./LayoutProfile";
 
 function EnrolledCourses() {
     const { response, status } = useAxiosGet({
         path: url.OFFLINE_COURSE.GET_ALL_BY_STUDENT,
         headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${getAccessToken()}`,
         },
     });

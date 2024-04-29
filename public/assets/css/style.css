@@ -26201,7 +26201,8 @@ Course Sidebar
 .rbt-widget-details .rbt-course-details-list-wrapper li a:hover,
 .rbt-widget-details .rbt-default-sidebar-list li a:hover,
 .rbt-default-sidebar-wrapper .rbt-course-details-list-wrapper li a:hover,
-.rbt-default-sidebar-wrapper .rbt-default-sidebar-list li a:hover {
+.rbt-default-sidebar-wrapper .rbt-default-sidebar-list li:hover > a,
+.rbt-default-sidebar-wrapper .rbt-default-sidebar-list li:hover > a > i {
     color: var(--color-primary);
 }
 .rbt-widget-details .rbt-course-details-list-wrapper li + li,
@@ -30807,13 +30808,15 @@ button.btn-circle[disabled]:hover {
 .fz-12 {
     font-size: 12px;
 }
-.fz-16 {
-    font-size: 16px;
+.fz-14 {
+    font-size: 14px;
 }
 .fz-15 {
     font-size: 15px;
 }
-
+.fz-16 {
+    font-size: 16px;
+}
 .icon-wrapper {
     display: flex;
     align-items: center;
@@ -31411,10 +31414,18 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    user-select: none;
     transition: all 0.25s linear;
 }
 .reaction-content:hover {
     background: #F4F5F7;
+}
+.reaction-content.disable {
+    cursor: not-allowed;
+    pointer-events: none; 
+}
+.reaction-content.disable:hover {
+    background: var(--color-white);
 }
 .reaction-content:last-child {
     border-right: none;
@@ -31623,6 +31634,7 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     width: 120px;
     height: 120px;
     object-fit: cover;
+    border: none;
 }
 .cursor-pointer {
     cursor: pointer;
@@ -31636,4 +31648,82 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 .info-act__btn + .info-act__btn  {
     margin-left: 15px;
 }
+.height-200 {
+    height: 200px;
+}
+.rbt-default-sidebar-wrapper .rbt-default-sidebar-list li {
+    transition: all 0.25s linear;
+}
+.rbt-default-sidebar-wrapper .rbt-default-sidebar-list li,
+.rbt-default-sidebar-wrapper .rbt-default-sidebar-list li + li {
+    border-top: none;
+    margin: 0;
+    padding-top: 0;
+}
+.rbt-default-sidebar-wrapper .rbt-default-sidebar-list li a {
+    padding: 8px 0 8px 8px;
+    flex: 1;
+}
+.plr-25 {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.progress-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+}
+.progress-ring {
+    transform: rotate(0deg);
+}
+.progress-ring-circle {
+    transition: stroke-dashoffset 0.35s;
+}
+.progress-ring-indicator {
+    stroke-dasharray: 126;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset 0.35s;
+}
+.progress-text {
+    font-size: 12px;
+    font-weight: 500;
+}
+.rating > i {
+    color: #FFBD13;
+}
+.rating-course > i {
+    font-size: 22px;
+    color: #FFBD13;
+    cursor: pointer;
+    transition: transform .1s ease-in-out;
+}
+.rating-course > i + i {
+    margin-left: 10px;
+}
+.rating-course > i:hover {
+    transform: scale(1.2);
+}
+.rating-course i.active {
+    animation: animate-star 1s ease-in-out forwards;
+}
+@keyframes animate-star {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+
 /*# sourceMappingURL=../maps/style.css.map */

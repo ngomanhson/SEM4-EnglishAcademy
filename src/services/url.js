@@ -12,6 +12,8 @@ const url = {
         RESULT_TEST: "test-online/result",
         COMPLETE_ITEM: "item-online",
         BUY_COURSE: "course-online-student",
+        CHECK_REGISTER: "course-online-student/check",
+        REVIEW: "/review",
     },
 
     ENTRANCE_TEST: {
@@ -29,6 +31,7 @@ const url = {
         SUBJECT: "subject/detail",
         ITEM_SLOT: "item-slot",
         ITEM_SLOT_ANSWER: "answer-student-item-slot",
+        ITEM_SLOT_VOTE_ANSWER: "answer-student-item-slot/score",
         SUBJECT_TEST: "test-offline/detail",
     },
 

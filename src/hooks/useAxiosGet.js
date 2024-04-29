@@ -6,6 +6,7 @@ function useAxiosGet({ method, path, body = null, headers = null }) {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [status, setStatus] = useState(null);
+    const [errorStatus, setErrorStatus] = useState(null);
 
     const headersRef = useRef(headers);
 
@@ -19,7 +20,11 @@ function useAxiosGet({ method, path, body = null, headers = null }) {
                 setStatus(responseData.status);
             } catch (error) {
                 setError(true);
-                setStatus(error.response.status);
+                if (error.response) {
+                    setErrorStatus(error.response.status);
+                } else {
+                    setErrorStatus(null);
+                }
             } finally {
                 setTimeout(() => {
                     setLoading(false);
@@ -34,9 +39,7 @@ function useAxiosGet({ method, path, body = null, headers = null }) {
         headersRef.current = headers;
     }, [headers]);
 
-    console.log(status);
-
-    return { response, setResponse, error, loading, status };
+    return { response, setResponse, error, loading, status, errorStatus };
 }
 
 export default useAxiosGet;

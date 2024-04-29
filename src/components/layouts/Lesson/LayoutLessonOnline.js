@@ -11,7 +11,7 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
     const { courseSlug } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-    const decodedToken = getDecodedToken();
+    const decodeToken = getDecodedToken();
 
     const [closeSidebar, setCloseSidebar] = useState(false);
     const itemSlug = new URLSearchParams(location.search).get("lesson");
@@ -33,18 +33,15 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
         setCloseSidebar((prev) => !prev);
     };
 
-    const studentId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+    const studentId = decodeToken.Id;
 
     const loadData = useCallback(async () => {
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${getAccessToken()}`,
-            },
-        };
-
         try {
-            const topicResponse = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`, config);
+            const topicResponse = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`, {
+                headers: {
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            });
             setTopicByStudent(topicResponse.data.data);
         } catch (error) {
             console.log(error);
@@ -150,16 +147,12 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
                 }
             }
 
-            // if (topics !== true) {
             try {
-                const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}`, {
+                const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}`, null, {
                     headers: {
-                        "Content-Type": "application/json",
                         Authorization: `Bearer ${getAccessToken()}`,
                     },
                 });
-
-                console.log(completeItem);
 
                 if (completeItem.status === 200) {
                     await loadData();
@@ -167,7 +160,6 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
             } catch (error) {
                 console.log(error);
             }
-            // }
 
             if (nextSlug) {
                 navigate(`/learning-online/${courseSlug}?lesson=${nextSlug}`);
@@ -188,10 +180,39 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
                     <div className="rbt-lesson-content-wrapper">
                         <div className="rbt-lesson-leftsidebar">
                             <div className="rbt-course-feature-inner rbt-search-activation">
-                                <div className="section-title mt-3">
-                                    <Link to="/">
-                                        <img src="assets/images/logo/logo.png" alt="English Academy" style={{ maxWidth: 150, objectFit: "cover" }} />
-                                    </Link>
+                                <div className="d-flex align-items-center justify-content-between">
+                                    <div className="section-title mt-3">
+                                        <Link to="/">
+                                            <img src="assets/images/logo/logo.png" alt="English Academy" style={{ maxWidth: 150, objectFit: "cover" }} />
+                                        </Link>
+                                    </div>
+
+                                    <div className="progress-circle mr--15">
+                                        <svg className="progress-ring" width="50" height="50">
+                                            <defs>
+                                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <stop offset="0%" stopColor="#5ebbff" />
+                                                    <stop offset="100%" stopColor="#a174ff" />
+                                                </linearGradient>
+                                            </defs>
+                                            <circle className="progress-ring-circle" stroke="#f1f1f1" strokeWidth="4" fill="transparent" r="20" cx="25" cy="25" />
+                                            <circle
+                                                className="progress-ring-circle progress-ring-indicator"
+                                                stroke="url(#gradient)"
+                                                strokeWidth="4"
+                                                fill="transparent"
+                                                r="20"
+                                                cx="25"
+                                                cy="25"
+                                                style={{ strokeDashoffset: `${((100 - topicByStudent.progress) * 125) / 100}px` }}
+                                            />
+                                            <text x="50%" y="50%" dy="4px" textAnchor="middle">
+                                                <tspan className="progress-text" fill="url(#gradient)">
+                                                    {topicByStudent.progress}%
+                                                </tspan>
+                                            </text>
+                                        </svg>
+                                    </div>
                                 </div>
 
                                 <div className="lesson-search-wrapper d-flex">

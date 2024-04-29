@@ -13,10 +13,10 @@ import BlogDetail from "../components/pages/Blog/BlogDetail";
 import AboutUs from "../components/pages/AboutUs/index";
 import Dictionary from "../components/pages/Dictionary/index";
 import Profile from "../components/pages/Profile/index";
-import EnrolledCourses from "../components/views/Profile/EnrolledCourses";
-import Wishlist from "../components/views/Profile/Wishlist";
-import Reviews from "../components/views/Profile/Reviews";
-import MyQuiz from "../components/views/Profile/MyQuiz";
+import EnrolledCourses from "../components/pages/Profile/EnrolledCourses";
+import Wishlist from "../components/pages/Profile/Wishlist";
+import Reviews from "../components/pages/Profile/Reviews";
+import MyQuiz from "../components/pages/Profile/MyQuiz";
 import Login from "../components/pages/Auth/Login";
 import Register from "../components/pages/Auth/Register";
 import ForgotPassword from "../components/pages/Auth/ForgotPassword";
@@ -36,7 +36,7 @@ import SubjectLearning from "../components/pages/Learning/Offline/index";
 import SubjectOffline from "../components/pages/Learning/Offline/Subject";
 import SlotOffline from "../components/pages/Learning/Offline/Slot";
 import TestOffline from "../components/pages/Learning/Offline/TestOffline";
-import ChangePassword from "../components/views/Profile/ChangePassword";
+import ChangePassword from "../components/pages/Profile/ChangePassword";
 
 const publicRoutes = [
     // Home routes

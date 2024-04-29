@@ -1,10 +1,10 @@
 import { useState } from "react";
-import LayoutProfile from "../../layouts/LayoutProfile";
 import { useNavigate } from "react-router-dom";
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken, removeAccessToken } from "../../../utils/auth";
 import { toast } from "react-toastify";
+import LayoutProfile from "./LayoutProfile";
 
 function ChangePassword() {
     const [incorrectPassword, setIncorrectPassword] = useState(false);

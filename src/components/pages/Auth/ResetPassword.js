@@ -104,8 +104,8 @@ function ResetPassword() {
                                 </Link>
                             </div>
                             <form className="max-width-auto mt-3" onSubmit={submitResponse}>
-                                <div class="rbt-form-group mb-3">
-                                    <label for="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
+                                <div className="rbt-form-group mb-3">
+                                    <label htmlFor="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
                                         Email Address <span className="text-danger">*</span>
                                     </label>
                                     <input
@@ -120,8 +120,8 @@ function ResetPassword() {
                                     {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
                                 </div>
 
-                                <div class="rbt-form-group">
-                                    <label for="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
+                                <div className="rbt-form-group">
+                                    <label htmlFor="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
                                         New Password <span className="text-danger">*</span>
                                     </label>
                                     <div className="form-group__custom mb-3">

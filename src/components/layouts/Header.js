@@ -202,7 +202,7 @@ function Header() {
                                 {isLoggedIn() ? (
                                     <li className="account-access rbt-user-wrapper d-none d-xl-block">
                                         <Link to={config.routes.profile}>
-                                            <i className="feather-user"></i> {decodedToken.Fullname}
+                                            <i className="feather-user"></i> {decodedToken.Fullname || ""}
                                         </Link>
                                         <div className="rbt-user-menu-list-wrapper">
                                             <div className="inner">
@@ -211,7 +211,7 @@ function Header() {
                                                         <img src="assets/images/team/avatar.jpg" alt="User Images" />
                                                     </div>
                                                     <div className="admin-info">
-                                                        <span className="name">{decodedToken.Fullname}</span>
+                                                        <span className="name">{decodedToken.Fullname || ""}</span>
                                                         <Link to={config.routes.profile} className="rbt-btn-link color-primary">
                                                             View Profile
                                                         </Link>
