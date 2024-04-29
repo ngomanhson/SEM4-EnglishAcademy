@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
-import Layout from ".";
-import { getDecodedToken, removeAccessToken } from "../../utils/auth";
-import config from "../../config";
+import Layout from "../../layouts";
+import { getDecodedToken, removeAccessToken } from "../../../utils/auth";
+import config from "../../../config";
 
 function LayoutProfile({ children }) {
     const decodeToken = getDecodedToken();
@@ -20,19 +20,21 @@ function LayoutProfile({ children }) {
                         <div className="col-lg-12">
                             <div className="row g-5">
                                 <div className="col-lg-3">
-                                    <div className="rbt-default-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
+                                    <div className="rbt-default-sidebar sticky-top rbt-shadow-box plr-25">
                                         <div className="inner">
                                             <div className="content-item-content">
                                                 <div className="rbt-default-sidebar-wrapper">
                                                     <div className="section-title mb--20">
-                                                        <h6 className="rbt-title-style-2">Welcome, {decodeToken.Fullname}</h6>
+                                                        <h6 className="rbt-title-style-2" style={{ paddingLeft: 5 }}>
+                                                            Welcome, {decodeToken.Fullname || ""}
+                                                        </h6>
                                                     </div>
                                                     <nav className="mainmenu-nav">
                                                         <ul className="dashboard-mainmenu rbt-default-sidebar-list">
                                                             <li>
                                                                 <NavLink to={config.routes.profile}>
                                                                     <i className="feather-user"></i>
-                                                                    <span>Personal information</span>
+                                                                    <span>Personal Information</span>
                                                                 </NavLink>
                                                             </li>
                                                             <li>

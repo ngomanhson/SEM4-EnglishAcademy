@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { useAxiosGet } from "../../../hooks";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
-import LayoutProfile from "../../layouts/LayoutProfile";
+import LayoutProfile from "./LayoutProfile";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -96,7 +96,7 @@ function Profile() {
             <div className="col-lg-9">
                 <div className="widget">
                     <div className="rbt-dashboard-content-wrapper">
-                        <div className="tutor-bg-photo bg_image bg_image--23 height-245"></div>
+                        <div className="tutor-bg-photo bg_image bg_image--23 height-200"></div>
 
                         <div className="rbt-tutor-information">
                             <div className="rbt-tutor-information-left">
@@ -114,7 +114,7 @@ function Profile() {
                                                 </div>
                                             ) : (
                                                 <div className="avatar-inner">
-                                                    <img src="assets/images/client/avatar-04.jpeg" alt={info.fullname} className="profile-user__avatar" />
+                                                    <img src="assets/images/client/avatar-04.jpeg" alt={studentInfo.fullname} className="profile-user__avatar" />
                                                     <div className="rbt-edit-photo-inner">
                                                         <label htmlFor="avatarInput" className="rbt-edit-photo d-flex align-items-center justify-content-center cursor-pointer">
                                                             <i className="feather-camera"></i>
@@ -123,7 +123,7 @@ function Profile() {
                                                 </div>
                                             )
                                         ) : (
-                                            <img src="assets/images/client/avatar-04.jpeg" alt={info.fullname} className="profile-user__avatar cursor-default" />
+                                            <img src="assets/images/client/avatar-04.jpeg" alt={studentInfo.fullname} className="profile-user__avatar cursor-default" />
                                         )}
                                     </label>
                                     {isEditing && <input id="avatarInput" type="file" accept="image/*" style={{ display: "none" }} onChange={handleAvatarChange} />}
@@ -225,7 +225,7 @@ function Profile() {
                         </div>
 
                         {isEditing && (
-                            <div className="d-flex justify-content-end">
+                            <div className="d-flex justify-content-end mt-5">
                                 <button className="info-act__btn btn-light" onClick={handleCancelClick}>
                                     Cancel
                                 </button>

@@ -1,28 +1,55 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "../../../layouts";
-import url from "../../../../services/url";
 import { format } from "date-fns";
 import ReactPlayer from "react-player";
 import Review from "../../../views/Course/CourseDetail/Review";
-import Rating from "../../../views/Course/CourseDetail/Rating";
 import Loading from "../../../layouts/Loading";
 import config from "../../../../config/index";
 import NotFound from "../../Other/NotFound";
-import { useAxiosGet } from "../../../../hooks";
-import { isLoggedIn } from "../../../../utils/auth";
+import { getAccessToken, isLoggedIn } from "../../../../utils/auth";
+import { useCallback, useEffect, useState } from "react";
+import api from "../../../../services/api";
+import url from "../../../../services/url";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
     const navigate = useNavigate();
 
-    const { response, loading, status } = useAxiosGet({
-        path: url.ONLINE_COURSE.DETAIL + `/${slug}`,
-    });
+    const [course, setCourse] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState(null);
 
-    const course = response || [];
+    const loadCourse = useCallback(async () => {
+        try {
+            setLoading(true);
+            const courseResponse = await api.get(url.ONLINE_COURSE.DETAIL + `/${slug}`);
+            setCourse(courseResponse.data.data);
+        } catch (error) {
+            console.log(error);
+            setStatus(error.response.status);
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+            }, 1500);
+        }
+    }, [slug]);
+
+    useEffect(() => {
+        loadCourse();
+    }, [loadCourse]);
 
     const topics = course.topicOnlineDetailList || [];
     const reviews = course.reviewList || [];
+    const [statusCourse, setStatusCourse] = useState({});
+    const [rating, setRating] = useState(0);
+    const [validationStar, setValidationStar] = useState(false);
+    const [formData, setFormData] = useState({
+        message: "",
+    });
+
+    const [formErrors, setFormErrors] = useState({
+        message: "",
+    });
 
     const stars = [];
     const roundedScore = Math.round(course.star * 2) / 2;
@@ -67,6 +94,72 @@ function CourseDetailOnline() {
         } else {
             navigate(`/checkout/${slug}`);
         }
+    };
+
+    useEffect(() => {
+        const checkByCourse = async () => {
+            try {
+                const courseResponse = await api.get(url.ONLINE_COURSE.CHECK_REGISTER + `/${slug}`, {
+                    headers: {
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    },
+                });
+                setStatusCourse(courseResponse.data.data);
+            } catch (error) {}
+        };
+        checkByCourse();
+    });
+
+    const handleStarClick = (starIndex) => {
+        setRating(starIndex + 1);
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+        setFormErrors({ ...formErrors, [name]: "" });
+    };
+
+    const validateForm = () => {
+        let valid = true;
+        const newErrors = {};
+
+        if (!formData.message) {
+            newErrors.message = "Please share your thoughts about this course.";
+            valid = false;
+        }
+
+        setFormErrors(newErrors);
+        return valid;
+    };
+
+    const handleCreateReview = async (e) => {
+        e.preventDefault();
+
+        try {
+            const reviewData = {
+                courseOnlineId: course.id,
+                score: rating,
+                message: formData.message,
+            };
+
+            console.log(reviewData);
+
+            if (validateForm()) {
+                if (rating >= 1) {
+                    const reviewRequest = await api.post(url.ONLINE_COURSE.REVIEW, reviewData, {
+                        headers: {
+                            Authorization: `Bearer ${getAccessToken()}`,
+                        },
+                    });
+                    if (reviewRequest.status === 200) {
+                        await loadCourse();
+                    }
+                } else {
+                    setValidationStar(true);
+                }
+            }
+        } catch (error) {}
     };
 
     return (
@@ -268,7 +361,7 @@ function CourseDetailOnline() {
                                             </div>
                                         </div>
 
-                                        <Rating />
+                                        {/* <Rating /> */}
 
                                         {reviews.length === 0 ? (
                                             ""
@@ -285,6 +378,39 @@ function CourseDetailOnline() {
                                             </div>
                                         )}
                                     </div>
+
+                                    {statusCourse && (
+                                        <div className="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
+                                            <div className="section-title">
+                                                <div className="section-title">
+                                                    <h4 className="rbt-title-style-3 font-system">Write a review</h4>
+                                                </div>
+                                                <div className="has-show-more-inner-content rbt-featured-review-list-wrapper">
+                                                    <div className="rating-course mb-5">
+                                                        {[...Array(5)].map((_, index) => (
+                                                            <i key={index} className={index < rating ? "fas fa-star active" : "far fa-star"} onClick={() => handleStarClick(index)} />
+                                                        ))}
+                                                    </div>
+                                                    <textarea
+                                                        className={`form-control fz-15 p-3 pl--20 ${formErrors.message ? "is-invalid" : ""}`}
+                                                        rows="3"
+                                                        style={{ borderRadius: 8 }}
+                                                        name="message"
+                                                        placeholder="Please share your thoughts about this course"
+                                                        value={formData.message}
+                                                        onChange={handleChange}
+                                                    ></textarea>
+                                                    {formErrors.message && <div className="invalid-feedback">{formErrors.message}</div>}
+                                                    {validationStar && <div className="text-danger fz-14">Please choose a star!</div>}
+                                                    <div className="text-end mt-4">
+                                                        <button className="rbt-btn btn-gradient btn-gradient-2 btn-not__hover" style={{ height: 45, lineHeight: "45px" }} onClick={handleCreateReview}>
+                                                            Submit review
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <div className="related-course mt--60">
                                         <div className="row g-5 align-items-end mb--40">
@@ -431,146 +557,108 @@ function CourseDetailOnline() {
                                                 </div>
                                             </Link>
 
-                                            <div className="content-item-content">
-                                                <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
-                                                    <div className="rbt-price">
-                                                        <span className="current-price">${course.price && course.price.toFixed(2)}</span>
-                                                        {/* <span className="off-price">$84.99</span> */}
+                                            {statusCourse === true ? (
+                                                <div className="content-item-content">
+                                                    <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+                                                        <div className="rbt-price">
+                                                            <span className="current-price">${course.price && course.price.toFixed(2)}</span>
+                                                            {/* <span className="off-price">$84.99</span> */}
+                                                        </div>
+                                                        <div className="discount-time">
+                                                            <span className="rbt-badge color-danger bg-color-danger-opacity">
+                                                                <i className="fab fa-gripfire"></i> Top Course!
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <div className="discount-time">
-                                                        <span className="rbt-badge color-danger bg-color-danger-opacity">
-                                                            <i className="fab fa-gripfire"></i> Top Course!
-                                                        </span>
+                                                    <div className="add-to-card-button mt--15">
+                                                        <Link to={`/learning-online/${slug}`} className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover">
+                                                            <span className="btn-text">Continue Study</span>
+                                                            <span className="btn-icon">
+                                                                <i className="feather-arrow-right"></i>
+                                                            </span>
+                                                        </Link>
                                                     </div>
                                                 </div>
+                                            ) : (
+                                                <div className="content-item-content">
+                                                    <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+                                                        <div className="rbt-price">
+                                                            <span className="current-price">${course.price && course.price.toFixed(2)}</span>
+                                                            {/* <span className="off-price">$84.99</span> */}
+                                                        </div>
+                                                        <div className="discount-time">
+                                                            <span className="rbt-badge color-danger bg-color-danger-opacity">
+                                                                <i className="fab fa-gripfire"></i> Top Course!
+                                                            </span>
+                                                        </div>
+                                                    </div>
 
-                                                <div className="add-to-card-button mt--15">
-                                                    <button className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover" onClick={handleEnroll}>
-                                                        <span className="btn-text">Enroll Course</span>
-                                                        <span className="btn-icon">
-                                                            <i className="feather-arrow-right"></i>
-                                                        </span>
-                                                    </button>
-                                                </div>
+                                                    <div className="add-to-card-button mt--15">
+                                                        <button className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover" onClick={handleEnroll}>
+                                                            <span className="btn-text">Enroll Course</span>
+                                                            <span className="btn-icon">
+                                                                <i className="feather-arrow-right"></i>
+                                                            </span>
+                                                        </button>
+                                                    </div>
 
-                                                <div className="rbt-widget-details has-show-more m-5">
-                                                    <ul className="has-show-more-inner-content rbt-course-details-list-wrapper">
-                                                        <li>
-                                                            <span>Enrolled</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">2</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Skill Level</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">{formatLevel}</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Language</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">{course.language}</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Lesson</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">{totalItems}</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Test</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">{totalTest}</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Certificate</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">Yes</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Duration</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">{course.duration}</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Pass Percentage</span>
-                                                            <span className="rbt-feature-value rbt-badge-5">95%</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                    <div className="rbt-widget-details has-show-more m-5">
+                                                        <ul className="has-show-more-inner-content rbt-course-details-list-wrapper">
+                                                            <li>
+                                                                <span>Enrolled</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">2</span>
+                                                            </li>
+                                                            <li>
+                                                                <span>Skill Level</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">{formatLevel}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span>Language</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">{course.language}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span>Lesson</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">{totalItems}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span>Test</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">{totalTest}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span>Certificate</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">Yes</span>
+                                                            </li>
+                                                            <li>
+                                                                <span>Duration</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">{course.duration}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span>Pass Percentage</span>
+                                                                <span className="rbt-feature-value rbt-badge-5">95%</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
 
-                                                <div className="social-share-wrapper text-center pt-0">
-                                                    <hr className="mt--20" />
-                                                    <div className="contact-with-us text-center">
-                                                        <p>For details about the course</p>
-                                                        <div className="rbt-badge-2 mt--10 justify-content-center w-100">
-                                                            <i className="feather-phone mr--5"></i> Call Us:{" "}
-                                                            <a href="tel:0123456789">
-                                                                <strong>0123 456 789</strong>
-                                                            </a>
+                                                    <div className="social-share-wrapper text-center pt-0">
+                                                        <hr className="mt--20" />
+                                                        <div className="contact-with-us text-center">
+                                                            <p>For details about the course</p>
+                                                            <div className="rbt-badge-2 mt--10 justify-content-center w-100">
+                                                                <i className="feather-phone mr--5"></i> Call Us:{" "}
+                                                                <a href="tel:0123456789">
+                                                                    <strong>0123 456 789</strong>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    {/* <div className="modal fade" id="paymentModal" tabIndex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header p-5 pb-2" style={{ alignItems: "start", border: "none" }}>
-                                <div className="rbt-feature">
-                                    <div>
-                                        <div class="icon bg-pink-opacity">
-                                            <i className="fas fa-wallet"></i>
-                                        </div>
-                                        <h5 className="modal-title fw-500" id="paymentModalLabel">
-                                            Payment Methods
-                                        </h5>
-                                        <p className="fw-300" style={{ fontSize: 12 }}>
-                                            Choose the payment method that's right for you!
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="modal-body p-5 pt-0">
-                                <div className="form-checkout mt-4">
-                                    <input
-                                        type="radio"
-                                        className="form-checkout__input"
-                                        name="paymentMethod"
-                                        id="credit"
-                                        value="credit"
-                                        checked={selectedPaymentMethod === "credit"}
-                                        onChange={handlePaymentMethodChange}
-                                    />
-                                    <label htmlFor="credit" className="form-checkout__label">
-                                        <p className="m-0 form-checkout__title">Credit or Debit Card</p>
-                                        <span className="form-checkout__desc">Use a credit or debit card to pay with automatic payments</span>
-                                    </label>
-                                </div>
-                                <div className="form-checkout">
-                                    <input
-                                        type="radio"
-                                        className="form-checkout__input"
-                                        name="paymentMethod"
-                                        id="paypal"
-                                        value="paypal"
-                                        checked={selectedPaymentMethod === "paypal"}
-                                        onChange={handlePaymentMethodChange}
-                                    />
-                                    <label htmlFor="paypal" className="form-checkout__label">
-                                        <p className="m-0 form-checkout__title">PayPal</p>
-                                        <span className="form-checkout__desc">Use your Paypal account to make payments</span>
-                                    </label>
-                                </div>
-                                <hr className="mt-5" />
-
-                                {selectedPaymentMethod === "credit" && (
-                                    <Elements stripe={stripePromise}>
-                                        <StripePaymentForm onSuccess={handleStripePaymentSuccess} />
-                                    </Elements>
-                                )}
-                                {selectedPaymentMethod === "paypal" && <PayPal amount={course.price} />}
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
                 </Layout>
             )}
         </>

@@ -1,21 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { publicRoutes, privateRoutes, authenticationRoutes } from "./routes/routes";
-import authMiddleware from "./context/authMiddleware";
-import { getAccessToken } from "./utils/auth";
-import { useJwt } from "react-jwt";
+import { isLoggedIn } from "./utils/auth";
 
 function App() {
-    const ProtectedRoute = authMiddleware(({ element }) => element);
+    const ProtectedRoute = ({ element }) => {
+        const isAuthenticated = isLoggedIn();
+        return isAuthenticated ? element : <Navigate to="/login" replace />;
+    };
 
     const ProtectedAuthRoute = ({ element }) => {
-        const token = getAccessToken();
-        const { isExpired, isInvalid } = useJwt(token);
-
-        if (token && !isExpired && !isInvalid) {
-            return <Navigate to="/" />;
-        }
-
-        return element;
+        const isAuthenticated = isLoggedIn();
+        return isAuthenticated ? <Navigate to="/" replace /> : element;
     };
 
     return (

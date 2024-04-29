@@ -100,8 +100,8 @@ function ForgotPassword() {
                                 </Link>
                             </div>
                             <form className="max-width-auto mt-3" onSubmit={submitResponse}>
-                                <div class="rbt-form-group">
-                                    <label for="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
+                                <div className="rbt-form-group">
+                                    <label htmlFor="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
                                         Email Address <span className="text-danger">*</span>
                                     </label>
                                     <input
