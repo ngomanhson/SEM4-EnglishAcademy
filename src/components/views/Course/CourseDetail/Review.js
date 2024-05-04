@@ -25,7 +25,7 @@ function Review(props) {
             <div className="media">
                 <div className="thumbnail">
                     <Link to="">
-                        <img src="assets/images/testimonial/user-placeholder.png" alt="User Images" />
+                        <img src="assets/images/client/avatar-04.jpeg" alt="User Images" />
                     </Link>
                 </div>
                 <div className="media-body">

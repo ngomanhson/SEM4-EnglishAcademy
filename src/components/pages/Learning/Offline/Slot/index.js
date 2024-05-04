@@ -95,7 +95,9 @@ function SlotOffline() {
                                                                             <ul className="rbt-course-main-content liststyle">
                                                                                 {slot.itemSlotResponseList ? (
                                                                                     slot.itemSlotResponseList.length === 0 ? (
-                                                                                        <p style={{ padding: "20px 5px" }}>This slot has no content.</p>
+                                                                                        <p className="fw-300" style={{ padding: "20px 5px" }}>
+                                                                                            This slot has no content.
+                                                                                        </p>
                                                                                     ) : (
                                                                                         slot.itemSlotResponseList.map((slotItem) => (
                                                                                             <li className="item-subject" key={slotItem.id}>
@@ -103,26 +105,23 @@ function SlotOffline() {
                                                                                                     <div className="wrap" style={{ flex: 1 }}>
                                                                                                         <div className="course-content-left">
                                                                                                             <div className="d-flex align-content-center" style={{ flex: 1 }}>
-                                                                                                                {slotItem.itemType === 0 && <i className="feather-clipboard mt-1"></i>}
-                                                                                                                {slotItem.itemType === 1 && <i className="feather-help-circle mt-1"></i>}
+                                                                                                                {slotItem.itemType === 0 && <i className="feather-help-circle mt-1"></i>}
+                                                                                                                {slotItem.itemType === 1 && <i className="feather-clipboard mt-1"></i>}
                                                                                                                 {slotItem.itemType === 2 && <i className="feather-hash mt-1"></i>}
                                                                                                                 <div className="d-flex flex-column">
                                                                                                                     <span className="text">{slotItem.title}</span>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
-                                                                                                        {/* <div className="course-content-right">
-                                                                                                            <span className="rbt-check">
-                                                                                                                <i className="feather-unlock"></i>
-                                                                                                            </span>
-                                                                                                        </div> */}
                                                                                                     </div>
                                                                                                 </Link>
                                                                                             </li>
                                                                                         ))
                                                                                     )
                                                                                 ) : (
-                                                                                    <p style={{ padding: "20px 5px" }}>This slot has no content.</p>
+                                                                                    <p className="fw-300" style={{ padding: "20px 5px" }}>
+                                                                                        This slot has no content.
+                                                                                    </p>
                                                                                 )}
                                                                             </ul>
                                                                         </div>

@@ -13,7 +13,6 @@ function AnswerDetail() {
     const { response, loading, status } = useAxiosGet({
         path: url.ENTRANCE_TEST.RESULT_DETAIL + `/${testCode}`,
         headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${getAccessToken()}`,
         },
     });

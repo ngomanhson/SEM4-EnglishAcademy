@@ -13,7 +13,6 @@ function EntranceTest() {
     const { response, loading } = useAxiosGet({
         path: url.ENTRANCE_TEST.LIST,
         headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${getAccessToken()}`,
         },
     });

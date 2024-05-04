@@ -80,7 +80,6 @@ function Profile() {
         } catch (error) {}
     };
 
-    // =================================================
     const { response } = useAxiosGet({
         path: url.PROFILE.DETAIL,
         headers: {
