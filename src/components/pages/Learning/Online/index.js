@@ -28,7 +28,6 @@ function LearningOnline() {
     const { response, loading, error } = useAxiosGet({
         path: url.ONLINE_COURSE.ITEM_ONLINE + `/${itemSlug}`,
         headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${getAccessToken()}`,
         },
     });
@@ -110,6 +109,10 @@ function LearningOnline() {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     const formattedDate = "Last updated " + months[modifiedDate.getMonth()] + " " + modifiedDate.getFullYear();
+
+    useEffect(() => {
+        localStorage.setItem("redirect_course", itemSlug);
+    });
     return (
         <>
             {loading && <Loading />}

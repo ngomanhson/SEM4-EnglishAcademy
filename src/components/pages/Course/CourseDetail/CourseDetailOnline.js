@@ -10,6 +10,7 @@ import { getAccessToken, isLoggedIn } from "../../../../utils/auth";
 import { useCallback, useEffect, useState } from "react";
 import api from "../../../../services/api";
 import url from "../../../../services/url";
+import { useAxiosGet } from "../../../../hooks";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
@@ -40,7 +41,6 @@ function CourseDetailOnline() {
 
     const topics = course.topicOnlineDetailList || [];
     const reviews = course.reviewList || [];
-    const [statusCourse, setStatusCourse] = useState({});
     const [rating, setRating] = useState(0);
     const [validationStar, setValidationStar] = useState(false);
     const [formData, setFormData] = useState({
@@ -89,26 +89,28 @@ function CourseDetailOnline() {
 
     const handleEnroll = () => {
         if (!isLoggedIn()) {
-            localStorage.setItem("redirect_path", window.location.pathname);
+            localStorage.setItem("redirect_path", slug);
             navigate(`${config.routes.login}`);
         } else {
             navigate(`/checkout/${slug}`);
         }
     };
 
-    useEffect(() => {
-        const checkByCourse = async () => {
-            try {
-                const courseResponse = await api.get(url.ONLINE_COURSE.CHECK_REGISTER + `/${slug}`, {
-                    headers: {
-                        Authorization: `Bearer ${getAccessToken()}`,
-                    },
-                });
-                setStatusCourse(courseResponse.data.data);
-            } catch (error) {}
-        };
-        checkByCourse();
+    const checkByCourse = useAxiosGet({
+        path: url.ONLINE_COURSE.CHECK_REGISTER + `/${slug}`,
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
+
+    const statusCourse = checkByCourse.response || {};
+
+    useEffect(() => {
+        const statusCourse = checkByCourse.response || {};
+        if (statusCourse === true) {
+            navigate(`/learning-online/${slug}`);
+        }
+    }, [checkByCourse.response, navigate, slug]);
 
     const handleStarClick = (starIndex) => {
         setRating(starIndex + 1);
@@ -143,8 +145,6 @@ function CourseDetailOnline() {
                 message: formData.message,
             };
 
-            console.log(reviewData);
-
             if (validateForm()) {
                 if (rating >= 1) {
                     const reviewRequest = await api.post(url.ONLINE_COURSE.REVIEW, reviewData, {
@@ -153,6 +153,9 @@ function CourseDetailOnline() {
                         },
                     });
                     if (reviewRequest.status === 200) {
+                        setRating(0);
+                        setFormData({ message: "" });
+
                         await loadCourse();
                     }
                 } else {

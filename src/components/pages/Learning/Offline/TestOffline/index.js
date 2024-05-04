@@ -249,65 +249,6 @@ function TestOffline() {
                                                     </div>
                                                 </div>
                                             ))}
-
-                                            <div className="widget mt-5">
-                                                <h5 className="font-system">Content</h5>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-lg-9">
-                                                        <div className="content pr--0">
-                                                            <div className="data-texteditor">
-                                                                <h1>How to logout user when token expires in react app</h1>
-                                                                <p>I am working on a app where I am using React as my front-end and React-apollo-graphql for my API calling.</p>
-                                                                <h4>What I am doing</h4>
-                                                                <p>
-                                                                    I have crated a auth.js file where I am storing my values when user is loging in and also checking the token is it valid or not,
-                                                                    (expiry I am checking), but that file is only loading my I am refreshing or reloading the page, That is not how it should work
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mt-5">
-                                                            <p className="fw-300 fz-16">
-                                                                <span className="text-danger">*</span>Due date: 00:00:00 01-01-2024
-                                                            </p>
-                                                        </div>
-                                                        <div className="mt-5">
-                                                            <button className="rbt-btn bg-secondary-opacity btn-not__hover" style={{ height: 50, lineHeight: "50px" }}>
-                                                                Submit test
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="row mt-5">
-                                                    <div className="col-lg-4 col-12">
-                                                        <div className="td-sidebar">
-                                                            <div className="widget border-lft-darker">
-                                                                <h5>Submission Status</h5>
-                                                                <p className="text-danger"> Not submitted.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-4 col-12">
-                                                        <div className="td-sidebar">
-                                                            <div className="widget border-lft-darker">
-                                                                <h5>Submission Time</h5>
-
-                                                                <p>No data.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-4 col-12">
-                                                        <div className="td-sidebar">
-                                                            <div className="widget border-lft-darker">
-                                                                <h5>Submission Link</h5>
-
-                                                                <p>No data.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div className="col-lg-3">
                                             <div className="answers__inner">

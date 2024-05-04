@@ -233,234 +233,373 @@ function SubjectLearning() {
             }
         } catch (error) {}
     };
+
+    const [formData, setFormData] = useState({
+        link: "",
+    });
+
+    const [formErrors, setFormErrors] = useState({
+        link: "",
+    });
+
+    const isURLValid = (url) => {
+        const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        return urlRegex.test(url);
+    };
+
+    const validateForm = () => {
+        let valid = true;
+        const newErrors = {};
+
+        if (!formData.link) {
+            newErrors.link = "Please enter a link in this field.";
+            valid = false;
+        } else if (!isURLValid(formData.link)) {
+            newErrors.link = "Please enter a valid link.";
+            valid = false;
+        }
+
+        setFormErrors(newErrors);
+        return valid;
+    };
+
+    const handleSubmitTest = async (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+        }
+    };
+
     return (
         <>
             <Layout title="Learning">
                 <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3" style={{ minHeight: 280 }}>
                     <div className="container">
-                        <div className="widget border-lft-prm-opacity">
-                            <h5 className="font-system">Content</h5>
-                            <hr />
-                            <div className="row">
-                                <div className="col-lg-6">
-                                    <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
-                                    <div className="mt-5">
-                                        <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
-                                            <span className="text-danger">*</span>Time remaining: {timeRemaining}
-                                        </p>
+                        {item.itemType === 0 && (
+                            <>
+                                <div className="widget border-lft-prm-opacity">
+                                    <h5 className="font-system">Content</h5>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-lg-6">
+                                            <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                            <div className="mt-5">
+                                                <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
+                                                    <span className="text-danger">*</span>Time remaining: {timeRemaining}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
                                     </div>
                                 </div>
 
-                                <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
-                            </div>
-                        </div>
+                                {timeRemaining === "Expired" ? (
+                                    ""
+                                ) : (
+                                    <div className="widget border-lft-prm-opacity mt-5">
+                                        <div className="row">
+                                            <div className="col-lg-6">
+                                                <h5 className="font-system">Your answer</h5>
+                                                <hr />
+                                                <ReactQuill
+                                                    value={content}
+                                                    onChange={handleEditorChange}
+                                                    theme="snow"
+                                                    modules={{
+                                                        toolbar: toolbarOptions,
+                                                    }}
+                                                    style={{
+                                                        height: "auto",
+                                                    }}
+                                                />
+                                                {editorError && <p className="text-danger shake mt-3">{editorError}</p>}
+                                            </div>
+                                            <div className="col-lg-6">
+                                                <h5 className="font-system">Preview</h5>
+                                                <hr />
+                                                {content && (
+                                                    <div className="wrapper-content">
+                                                        <div className="content p-0">
+                                                            <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: content }} />
+                                                        </div>
+                                                    </div>
+                                                )}
 
-                        {timeRemaining === "Expired" ? (
-                            ""
-                        ) : (
-                            <div className="widget border-lft-prm-opacity mt-5">
-                                <div className="row">
-                                    <div className="col-lg-6">
-                                        <h5 className="font-system">Your answer</h5>
-                                        <hr />
-                                        <ReactQuill
-                                            value={content}
-                                            onChange={handleEditorChange}
-                                            theme="snow"
-                                            modules={{
-                                                toolbar: toolbarOptions,
-                                            }}
-                                            style={{
-                                                height: "auto",
-                                            }}
-                                        />
-                                        {editorError && <p className="text-danger shake mt-3">{editorError}</p>}
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <h5 className="font-system">Preview</h5>
-                                        <hr />
-                                        {content && (
-                                            <div className="wrapper-content">
-                                                <div className="content p-0">
-                                                    <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: content }} />
+                                                <div className="text-end">
+                                                    {content.length > 3 ? (
+                                                        <button onClick={handleSubmit} className="rbt-btn btn-gradient btn-gradient-3 btn-not__hover mt-5" style={{ height: 42, lineHeight: "42px" }}>
+                                                            Submit answer
+                                                        </button>
+                                                    ) : (
+                                                        ""
+                                                    )}
                                                 </div>
                                             </div>
-                                        )}
+                                        </div>
+                                    </div>
+                                )}
 
-                                        <div className="text-end">
-                                            {content.length > 3 ? (
-                                                <button onClick={handleSubmit} className="rbt-btn btn-gradient btn-gradient-3 btn-not__hover mt-5" style={{ height: 42, lineHeight: "42px" }}>
-                                                    Submit answer
-                                                </button>
-                                            ) : (
-                                                ""
-                                            )}
+                                <div className="row mt-5">
+                                    <div className="col-lg-8">
+                                        <div className="widget border-lft-prm-opacity">
+                                            <div className="rbt-comment-area">
+                                                <h4 className="heading-discuss" style={{ fontSize: 25 }}>
+                                                    Discuss
+                                                </h4>
+                                                <ul className="comment-list">
+                                                    {answerStudents.map((answer) => (
+                                                        <li className="comment" key={answer.id}>
+                                                            <div className="comment-body">
+                                                                <div className="single-comment">
+                                                                    <div className="comment-img">
+                                                                        <img src="assets/images/others/default-avatar.png" alt="Author Images" />
+                                                                    </div>
+                                                                    <div className="comment-inner">
+                                                                        <h6 className="commenter">
+                                                                            <Link to="" className="font-system">
+                                                                                {answer.createdBy}
+                                                                            </Link>
+                                                                        </h6>
+                                                                        <div className="comment-meta">
+                                                                            <div className="time-spent">{answer.modifiedDate && formatDate(answer.modifiedDate)}</div>
+                                                                            {timeRemaining === "Expired" ? (
+                                                                                ""
+                                                                            ) : (
+                                                                                <div className="reply-edit">
+                                                                                    <div className="reply">
+                                                                                        <div className="vote-container">
+                                                                                            <Link to="" onClick={() => handleToggleVote(answer.id)} className="comment-reply-link vote-hv" href="#!">
+                                                                                                {activeReactions[answer.id] ? "Hidden" : "Vote"}
+                                                                                            </Link>
+                                                                                            <div className={`reaction-star ${activeReactions[answer.id] ? "active" : ""}`}>
+                                                                                                <div
+                                                                                                    className={`reaction-content ${answer.star1Count === 0 ? "disable" : ""}`}
+                                                                                                    onClick={answer.star1Count !== 0 ? () => handleVoteClick(answer.id, "1") : null}
+                                                                                                >
+                                                                                                    <div className="text-danger fz-12">
+                                                                                                        <i className="fa fa-star text-warning"></i> = 1
+                                                                                                    </div>
+                                                                                                    <span>Remain {answer.star1Count}</span>
+                                                                                                </div>
+                                                                                                <div className="reaction-content" onClick={() => handleVoteClick(answer.id, "2")}>
+                                                                                                    <div className="text-success fz-12">
+                                                                                                        <i className="fa fa-star text-warning"></i> = 2
+                                                                                                    </div>
+                                                                                                    <span>Remain {answer.star2Count}</span>
+                                                                                                </div>
+                                                                                                <div className="reaction-content" onClick={() => handleVoteClick(answer.id, "3")}>
+                                                                                                    <div className="text-primary fz-12">
+                                                                                                        <i className="fa fa-star text-warning"></i> = 3
+                                                                                                    </div>
+                                                                                                    <span>Remain {answer.star3Count}</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            )}
+                                                                        </div>
+                                                                        <div className="comment-text">
+                                                                            <div className="wrapper-content">
+                                                                                <div className="content p-0">
+                                                                                    <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: answer.content }} />
+                                                                                </div>
+                                                                                <span className="answer-star shadow">
+                                                                                    <i className="fa fa-star text-warning"></i> {answer.star}
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-4">
+                                        <div className="chat-box">
+                                            <div className="chat-box__header">
+                                                <div className="d-flex align-items-center justify-content-between">
+                                                    <h5 className="chat-box__heading fw-500">Group chat</h5>
+
+                                                    <button className="chat-box__close-btn">
+                                                        <i className="feather-x"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div className="chat-box__content">
+                                                <div className="chat-box__content-container">
+                                                    <div className="content-container__avatar">
+                                                        <img src="./assets/images/testimonial/client-01.png" alt="" />
+                                                    </div>
+                                                    <div className="message-container">
+                                                        <span className="message-container__name">Phung Vu</span>
+                                                        <p className="message-container__presentation">hello</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="chat-box__content-container">
+                                                    <div className="content-container__avatar">
+                                                        <img src="./assets/images/testimonial/client-05.png" alt="" />
+                                                    </div>
+                                                    <div className="message-container">
+                                                        <span className="message-container__name">Trinh Van Trung</span>
+                                                        <p className="message-container__presentation">Lo con cac =))</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="chat-box__content-container">
+                                                    <div className="content-container__avatar">
+                                                        <img src="./assets/images/testimonial/client-03.png" alt="" />
+                                                    </div>
+                                                    <div className="message-container">
+                                                        <span className="message-container__name">Chu Duc Hoang</span>
+                                                        <p className="message-container__presentation">Bla Bla</p>
+                                                        <p className="message-container__presentation">iPhone bạn đang dùng so với iPhone 15 Pro Max. Hãy xem bạn đang bỏ lỡ điều gì.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="chat-box__content-container reversed">
+                                                    <div className="message-container">
+                                                        <span className="message-container__name">Ngo Manh Son (You)</span>
+                                                        <p className="message-container__presentation">Trà đá đeeeee</p>
+                                                        <p className="message-container__presentation">MacBook Air 13” và 15” mới với chip M3 mạnh mẽ.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="chat-box__content-container">
+                                                    <div className="content-container__avatar">
+                                                        <img src="./assets/images/testimonial/client-03.png" alt="" />
+                                                    </div>
+                                                    <div className="message-container">
+                                                        <span className="message-container__name">Sai Tien Duc</span>
+                                                        <p className="message-container__presentation">Okeee</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="chat-box__bottom">
+                                                <form>
+                                                    <div className="d-flex align-items-center chat-box__wrapper">
+                                                        <button type="button" className="chat-box__action-btn p-0">
+                                                            <i className="feather-plus"></i>
+                                                        </button>
+
+                                                        <div className="chat-box__bottom-inner">
+                                                            <input type="text" name="message" placeholder="Type a message..." className="chat-box__bottom-input" />
+
+                                                            <button type="submit" className="chat-box__send-btn">
+                                                                <i className="fas fa-paper-plane"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        {item.itemType === 1 && (
+                            <div className="widget mt-5">
+                                <h5 className="font-system">Content</h5>
+                                <hr />
+                                <div className="row">
+                                    <div className="col-lg-9">
+                                        <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                        <div className="mt-5">
+                                            <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
+                                                <span className="text-danger">*</span>Time remaining: {timeRemaining}
+                                            </p>
+                                        </div>
+                                        <div className="mt-5">
+                                            <button
+                                                className="rbt-btn bg-secondary-opacity btn-not__hover"
+                                                style={{ height: 50, lineHeight: "50px" }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Submit test
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row mt-5">
+                                    <div className="col-lg-4 col-12">
+                                        <div className="td-sidebar">
+                                            <div className="widget border-lft-darker">
+                                                <h5>Submission Status</h5>
+                                                <p className="text-danger"> Not submitted.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-4 col-12">
+                                        <div className="td-sidebar">
+                                            <div className="widget border-lft-darker">
+                                                <h5>Submission Time</h5>
+
+                                                <p>No data.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-4 col-12">
+                                        <div className="td-sidebar">
+                                            <div className="widget border-lft-darker">
+                                                <h5>Submission Link</h5>
+
+                                                <p>No data.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         )}
+                    </div>
+                </div>
 
-                        <div className="row mt-5">
-                            <div className="col-lg-8">
-                                <div className="widget border-lft-prm-opacity">
-                                    <div className="rbt-comment-area">
-                                        <h4 className="heading-discuss" style={{ fontSize: 25 }}>
-                                            Discuss
-                                        </h4>
-                                        <ul className="comment-list">
-                                            {answerStudents.map((answer) => (
-                                                <li className="comment" key={answer.id}>
-                                                    <div className="comment-body">
-                                                        <div className="single-comment">
-                                                            <div className="comment-img">
-                                                                <img src="assets/images/others/default-avatar.png" alt="Author Images" />
-                                                            </div>
-                                                            <div className="comment-inner">
-                                                                <h6 className="commenter">
-                                                                    <Link to="" className="font-system">
-                                                                        {answer.createdBy}
-                                                                    </Link>
-                                                                </h6>
-                                                                <div className="comment-meta">
-                                                                    <div className="time-spent">{answer.modifiedDate && formatDate(answer.modifiedDate)}</div>
-                                                                    {timeRemaining === "Expired" ? (
-                                                                        ""
-                                                                    ) : (
-                                                                        <div className="reply-edit">
-                                                                            <div className="reply">
-                                                                                <div className="vote-container">
-                                                                                    <Link to="" onClick={() => handleToggleVote(answer.id)} className="comment-reply-link vote-hv" href="#!">
-                                                                                        {activeReactions[answer.id] ? "Hidden" : "Vote"}
-                                                                                    </Link>
-                                                                                    <div className={`reaction-star ${activeReactions[answer.id] ? "active" : ""}`}>
-                                                                                        <div
-                                                                                            className={`reaction-content ${answer.star1Count === 0 ? "disable" : ""}`}
-                                                                                            onClick={answer.star1Count !== 0 ? () => handleVoteClick(answer.id, "1") : null}
-                                                                                        >
-                                                                                            <div className="text-danger fz-12">
-                                                                                                <i className="fa fa-star text-warning"></i> = 1
-                                                                                            </div>
-                                                                                            <span>Remain {answer.star1Count}</span>
-                                                                                        </div>
-                                                                                        <div className="reaction-content" onClick={() => handleVoteClick(answer.id, "2")}>
-                                                                                            <div className="text-success fz-12">
-                                                                                                <i className="fa fa-star text-warning"></i> = 2
-                                                                                            </div>
-                                                                                            <span>Remain {answer.star2Count}</span>
-                                                                                        </div>
-                                                                                        <div className="reaction-content" onClick={() => handleVoteClick(answer.id, "3")}>
-                                                                                            <div className="text-primary fz-12">
-                                                                                                <i className="fa fa-star text-warning"></i> = 3
-                                                                                            </div>
-                                                                                            <span>Remain {answer.star3Count}</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                                <div className="comment-text">
-                                                                    <div className="wrapper-content">
-                                                                        <div className="content p-0">
-                                                                            <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: answer.content }} />
-                                                                        </div>
-                                                                        <span className="answer-star shadow">
-                                                                            <i className="fa fa-star text-warning"></i> {answer.star}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header p-5 pb-0" style={{ alignItems: "start", border: "none" }}>
+                                <div>
+                                    <h5 className="modal-title fw-500" id="exampleModalLabel">
+                                        Enter link:
+                                    </h5>
                                 </div>
+
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div className="col-lg-4">
-                                <div className="chat-box">
-                                    <div className="chat-box__header">
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <h5 className="chat-box__heading fw-500">Group chat</h5>
-
-                                            <button className="chat-box__close-btn">
-                                                <i className="feather-x"></i>
-                                            </button>
-                                        </div>
+                            <div className="modal-body p-5 pt-0">
+                                <form className="max-width-auto mt-3" onSubmit={handleSubmitTest}>
+                                    <div className="rbt-form-group">
+                                        <input
+                                            type="text"
+                                            name="link"
+                                            className={`form-control ${formErrors.link ? "is-invalid" : ""}`}
+                                            value={formData.link}
+                                            onChange={(e) => {
+                                                const { name, value } = e.target;
+                                                setFormData({ ...formData, [name]: value });
+                                            }}
+                                        />
+                                        {formErrors.link && <div className="invalid-feedback">{formErrors.link}</div>}
                                     </div>
+                                    <p className="fw-300 fz-14 mt-3 mb-0">
+                                        <span className="text-danger">*</span>Note: Submit your test using the link.
+                                    </p>
 
-                                    <div className="chat-box__content">
-                                        <div className="chat-box__content-container">
-                                            <div className="content-container__avatar">
-                                                <img src="./assets/images/testimonial/client-01.png" alt="" />
-                                            </div>
-                                            <div className="message-container">
-                                                <span className="message-container__name">Phung Vu</span>
-                                                <p className="message-container__presentation">hello</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="chat-box__content-container">
-                                            <div className="content-container__avatar">
-                                                <img src="./assets/images/testimonial/client-05.png" alt="" />
-                                            </div>
-                                            <div className="message-container">
-                                                <span className="message-container__name">Trinh Van Trung</span>
-                                                <p className="message-container__presentation">Lo con cac =))</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="chat-box__content-container">
-                                            <div className="content-container__avatar">
-                                                <img src="./assets/images/testimonial/client-03.png" alt="" />
-                                            </div>
-                                            <div className="message-container">
-                                                <span className="message-container__name">Chu Duc Hoang</span>
-                                                <p className="message-container__presentation">Bla Bla</p>
-                                                <p className="message-container__presentation">iPhone bạn đang dùng so với iPhone 15 Pro Max. Hãy xem bạn đang bỏ lỡ điều gì.</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="chat-box__content-container reversed">
-                                            <div className="message-container">
-                                                <span className="message-container__name">Ngo Manh Son (You)</span>
-                                                <p className="message-container__presentation">Trà đá đeeeee</p>
-                                                <p className="message-container__presentation">MacBook Air 13” và 15” mới với chip M3 mạnh mẽ.</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="chat-box__content-container">
-                                            <div className="content-container__avatar">
-                                                <img src="./assets/images/testimonial/client-03.png" alt="" />
-                                            </div>
-                                            <div className="message-container">
-                                                <span className="message-container__name">Sai Tien Duc</span>
-                                                <p className="message-container__presentation">Okeee</p>
-                                            </div>
-                                        </div>
+                                    <div className="rbt-form-group mt-3">
+                                        <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
+                                            Submit
+                                        </button>
                                     </div>
-
-                                    <div className="chat-box__bottom">
-                                        <form>
-                                            <div className="d-flex align-items-center chat-box__wrapper">
-                                                <button type="button" className="chat-box__action-btn p-0">
-                                                    <i className="feather-plus"></i>
-                                                </button>
-
-                                                <div className="chat-box__bottom-inner">
-                                                    <input type="text" name="message" placeholder="Type a message..." className="chat-box__bottom-input" />
-
-                                                    <button type="submit" className="chat-box__send-btn">
-                                                        <i className="fas fa-paper-plane"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
