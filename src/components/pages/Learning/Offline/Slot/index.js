@@ -105,9 +105,9 @@ function SlotOffline() {
                                                                                                     <div className="wrap" style={{ flex: 1 }}>
                                                                                                         <div className="course-content-left">
                                                                                                             <div className="d-flex align-content-center" style={{ flex: 1 }}>
-                                                                                                                {slotItem.itemType === 0 && <i className="feather-help-circle mt-1"></i>}
+                                                                                                                {slotItem.itemType === 0 && <i className="feather-hash mt-1"></i>}
                                                                                                                 {slotItem.itemType === 1 && <i className="feather-clipboard mt-1"></i>}
-                                                                                                                {slotItem.itemType === 2 && <i className="feather-hash mt-1"></i>}
+                                                                                                                {slotItem.itemType === 2 && <i className="feather-help-circle mt-1"></i>}
                                                                                                                 <div className="d-flex flex-column">
                                                                                                                     <span className="text">{slotItem.title}</span>
                                                                                                                 </div>

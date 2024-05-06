@@ -38,9 +38,13 @@ function SubjectLearning() {
     const [content, setContent] = useState("");
     const [editorError, setEditorError] = useState("");
     const [activeReactions, setActiveReactions] = useState({});
+    const [modalOpen, setModalOpen] = useState(true);
 
     const { response, setResponse } = useAxiosGet({
         path: url.OFFLINE_COURSE.ITEM_SLOT + `/${slug}`,
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const item = response || {};
@@ -95,7 +99,9 @@ function SubjectLearning() {
                 itemSlotId: item.id,
                 content: content,
             };
+
             try {
+                console.log(answerData);
                 const answerResponse = await api.post(url.OFFLINE_COURSE.ITEM_SLOT_ANSWER, answerData, {
                     headers: {
                         Authorization: `Bearer ${getAccessToken()}`,
@@ -199,11 +205,6 @@ function SubjectLearning() {
     const decodeToken = getDecodedToken();
 
     const handleVoteClick = async (answerId, star) => {
-        // const voteData = {
-        //     answerStudentItemSlotId: answerId,
-        //     star: star,
-        //     studentId: decodeToken.Id,
-        // };
         let voteData = {};
         const studentId = decodeToken ? decodeToken.Id : null;
         if (studentId) {
@@ -267,8 +268,67 @@ function SubjectLearning() {
         e.preventDefault();
 
         if (validateForm()) {
+            const answerData = {
+                itemSlotId: item.id,
+                content: formData.link,
+            };
+            try {
+                const answerResponse = await api.post(url.OFFLINE_COURSE.ITEM_SLOT_ANSWER, answerData, {
+                    headers: {
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    },
+                });
+
+                if (answerResponse.status === 200) {
+                    toast.success("Submitted successfully!", {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 400) {
+                    const errorMessage = error.response.data.message;
+                    toast.error(errorMessage, {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+            }
+            setModalOpen(false);
         }
     };
+
+    // useEffect(() => {
+    // if (!modalOpen) {
+    //     const backdrop = document.querySelector(".modal-backdrop");
+    //     backdrop.remove();
+    //     document.body.classList.remove("modal-open");
+    // }
+    // }, [modalOpen]);
+
+    try {
+        if (!modalOpen) {
+            const backdrop = document.querySelector(".modal-backdrop");
+            backdrop.remove();
+            document.body.classList.remove("modal-open");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    const answerPracticalTest = item.answerStudentItemSlotResponseListList;
 
     return (
         <>
@@ -276,6 +336,22 @@ function SubjectLearning() {
                 <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3" style={{ minHeight: 280 }}>
                     <div className="container">
                         {item.itemType === 0 && (
+                            <>
+                                <div className="widget border-lft-prm-opacity">
+                                    <h5 className="font-system">Document</h5>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-lg-6">
+                                            <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                        </div>
+
+                                        <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        {item.itemType === 1 && (
                             <>
                                 <div className="widget border-lft-prm-opacity">
                                     <h5 className="font-system">Content</h5>
@@ -505,7 +581,7 @@ function SubjectLearning() {
                             </>
                         )}
 
-                        {item.itemType === 1 && (
+                        {item.itemType === 2 && (
                             <div className="widget mt-5">
                                 <h5 className="font-system">Content</h5>
                                 <hr />
@@ -518,92 +594,112 @@ function SubjectLearning() {
                                             </p>
                                         </div>
                                         <div className="mt-5">
-                                            <button
-                                                className="rbt-btn bg-secondary-opacity btn-not__hover"
-                                                style={{ height: 50, lineHeight: "50px" }}
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal"
-                                            >
-                                                Submit test
-                                            </button>
+                                            {answerPracticalTest.length === 0 && timeRemaining !== "Expired" ? (
+                                                <button
+                                                    className="rbt-btn bg-secondary-opacity btn-not__hover"
+                                                    style={{ height: 50, lineHeight: "50px" }}
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal"
+                                                >
+                                                    Submit test
+                                                </button>
+                                            ) : (
+                                                <div className="text-success">You have submitted the test.</div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="row mt-5">
-                                    <div className="col-lg-4 col-12">
-                                        <div className="td-sidebar">
-                                            <div className="widget border-lft-darker">
-                                                <h5>Submission Status</h5>
-                                                <p className="text-danger"> Not submitted.</p>
+                                {answerPracticalTest.length === 0 ? (
+                                    ""
+                                ) : (
+                                    <div className="row mt-5">
+                                        <div className="col-lg-4 col-12">
+                                            <div className="td-sidebar">
+                                                <div className="widget border-lft-darker">
+                                                    <h5>Submission Status</h5>
+                                                    {answerPracticalTest.length === 0 ? <p className="fz-16 text-danger"> Not submitted.</p> : <p className="fz-16 text-success">Submitted.</p>}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="col-lg-4 col-12">
-                                        <div className="td-sidebar">
-                                            <div className="widget border-lft-darker">
-                                                <h5>Submission Time</h5>
+                                        <div className="col-lg-4 col-12">
+                                            <div className="td-sidebar">
+                                                <div className="widget border-lft-darker">
+                                                    <h5>Submission Time</h5>
 
-                                                <p>No data.</p>
+                                                    {answerPracticalTest.length === 0 ? (
+                                                        <p className="fz-16">No data.</p>
+                                                    ) : (
+                                                        <p className="fz-16">{format(new Date(answerPracticalTest[0].createdDate), "HH:ss:mm dd-mm-yyyy")}</p>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="col-lg-4 col-12">
-                                        <div className="td-sidebar">
-                                            <div className="widget border-lft-darker">
-                                                <h5>Submission Link</h5>
+                                        <div className="col-lg-4 col-12">
+                                            <div className="td-sidebar">
+                                                <div className="widget border-lft-darker overflow-hidden">
+                                                    <h5>Submission Link</h5>
 
-                                                <p>No data.</p>
+                                                    {answerPracticalTest.length === 0 ? (
+                                                        <p>No data.</p>
+                                                    ) : (
+                                                        <a href={answerPracticalTest[0].content} className="text-primary">
+                                                            {answerPracticalTest[0].content}
+                                                        </a>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header p-5 pb-0" style={{ alignItems: "start", border: "none" }}>
-                                <div>
-                                    <h5 className="modal-title fw-500" id="exampleModalLabel">
-                                        Enter link:
-                                    </h5>
+                {modalOpen && (
+                    <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header p-5 pb-0" style={{ alignItems: "start", border: "none" }}>
+                                    <div>
+                                        <h5 className="modal-title fw-500" id="exampleModalLabel">
+                                            Enter link:
+                                        </h5>
+                                    </div>
+
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setModalOpen(false)}></button>
                                 </div>
+                                <div className="modal-body p-5 pt-0">
+                                    <form className="max-width-auto mt-3" onSubmit={handleSubmitTest}>
+                                        <div className="rbt-form-group">
+                                            <input
+                                                type="text"
+                                                name="link"
+                                                className={`form-control ${formErrors.link ? "is-invalid" : ""}`}
+                                                value={formData.link}
+                                                onChange={(e) => {
+                                                    const { name, value } = e.target;
+                                                    setFormData({ ...formData, [name]: value });
+                                                }}
+                                            />
+                                            {formErrors.link && <div className="invalid-feedback">{formErrors.link}</div>}
+                                        </div>
+                                        <p className="fw-300 fz-14 mt-3 mb-0">
+                                            <span className="text-danger">*</span>Note: Submit your test using the link.
+                                        </p>
 
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body p-5 pt-0">
-                                <form className="max-width-auto mt-3" onSubmit={handleSubmitTest}>
-                                    <div className="rbt-form-group">
-                                        <input
-                                            type="text"
-                                            name="link"
-                                            className={`form-control ${formErrors.link ? "is-invalid" : ""}`}
-                                            value={formData.link}
-                                            onChange={(e) => {
-                                                const { name, value } = e.target;
-                                                setFormData({ ...formData, [name]: value });
-                                            }}
-                                        />
-                                        {formErrors.link && <div className="invalid-feedback">{formErrors.link}</div>}
-                                    </div>
-                                    <p className="fw-300 fz-14 mt-3 mb-0">
-                                        <span className="text-danger">*</span>Note: Submit your test using the link.
-                                    </p>
-
-                                    <div className="rbt-form-group mt-3">
-                                        <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
-                                            Submit
-                                        </button>
-                                    </div>
-                                </form>
+                                        <div className="rbt-form-group mt-3">
+                                            <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )}
             </Layout>
         </>
     );

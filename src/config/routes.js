@@ -45,6 +45,7 @@ const routes = {
     wishlist: "/wishlist",
     reviews: "/reviews",
     my_quiz: "/my-quiz",
+    timetable: "/timetable",
 
     // Auth routes
     login: "/login",
