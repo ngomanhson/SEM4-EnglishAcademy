@@ -44,6 +44,12 @@ function LayoutProfile({ children }) {
                                                                 </NavLink>
                                                             </li>
                                                             <li>
+                                                                <NavLink to={config.routes.timetable}>
+                                                                    <i className="feather-calendar"></i>
+                                                                    <span>Timetable</span>
+                                                                </NavLink>
+                                                            </li>
+                                                            <li>
                                                                 <NavLink to={config.routes.wishlist}>
                                                                     <i className="feather-heart"></i>
                                                                     <span>Wishlist</span>

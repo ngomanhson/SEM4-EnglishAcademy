@@ -37,6 +37,7 @@ import SubjectOffline from "../components/pages/Learning/Offline/Subject";
 import SlotOffline from "../components/pages/Learning/Offline/Slot";
 import TestOffline from "../components/pages/Learning/Offline/TestOffline";
 import ChangePassword from "../components/pages/Profile/ChangePassword";
+import Timetable from "../components/pages/Profile/Timetable";
 
 const publicRoutes = [
     // Home routes
@@ -93,6 +94,7 @@ const privateRoutes = [
     { path: config.routes.reviews, component: Reviews },
     { path: config.routes.my_quiz, component: MyQuiz },
     { path: config.routes.change_password, component: ChangePassword },
+    { path: config.routes.timetable, component: Timetable },
 ];
 
 const authenticationRoutes = [

@@ -618,7 +618,7 @@ body {
     font-weight: 400;
     scroll-behavior: auto;
     position: relative;
-    overflow-y: scroll;
+    overflow-y: scroll !important;
     scrollbar-width: thin;
 }
 @media only screen and (max-width: 767px) {
