@@ -35,6 +35,7 @@ const url = {
         ITEM_SLOT_VOTE_ANSWER: "answer-student-item-slot/score",
         SUBJECT_TEST: "test-offline/detail",
         TABLE_TIME: "schedule/student",
+        TEST_OFFLINE_FILE: "test-offline/file",
     },
 
     DICTIONARY: {

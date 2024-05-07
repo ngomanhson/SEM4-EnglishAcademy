@@ -11,6 +11,8 @@ import ComingSoon from "../../../../../lottie/ComingSoon.json";
 import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
 import { useAxiosGet } from "../../../../../hooks";
 import { getAccessToken } from "../../../../../utils/auth";
+import { AudioRecorder } from "react-audio-voice-recorder";
+import { toast } from "react-toastify";
 
 function TestOffline() {
     const { slug } = useParams();
@@ -112,6 +114,82 @@ function TestOffline() {
 
     const handlePrevSession = () => {
         setCurrentSessionIndex((prevIndex) => prevIndex - 1);
+    };
+
+    const addAudioElement = (blob, parentElement) => {
+        const url = URL.createObjectURL(blob);
+        const audio = document.createElement("audio");
+        audio.src = url;
+        audio.controls = true;
+        parentElement.appendChild(audio);
+    };
+
+    const parentElement = document.getElementById("parentElementAudio");
+
+    const [file, setFile] = useState(null);
+    const [fileSubmit, setFileSubmit] = useState(false);
+
+    const validationFile = ["mp3", "webm,", "flac"];
+
+    const handleFileSelect = (e) => {
+        const selectedFile = e.target.files[0];
+
+        if (selectedFile) {
+            const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
+            if (!validationFile.includes(fileExtension)) {
+                toast.error("Only .mp3, .webm, .flac files are allowed.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 2000,
+                    theme: "colored",
+                });
+                // You can also reset the input field if needed
+                e.target.value = "";
+                return;
+            }
+        }
+
+        setFile(selectedFile);
+    };
+
+    const handPostAudio = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            setFileSubmit(true);
+
+            const response = await api.post(url.OFFLINE_COURSE.TEST_OFFLINE_FILE, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            if (response.status === 200) {
+                toast.success("Added voice successfully!", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                setFileSubmit(false);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error("Error! An error occurred. Please try again later.", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            setFileSubmit(false);
+        }
     };
 
     return (
@@ -231,19 +309,90 @@ function TestOffline() {
                                                                     ))}
                                                                 </div>
 
-                                                                <div className="d-flex flex-column justify-content-center align-items-center background-secondary p-5">
-                                                                    <button type="button" className="btn btn-circle-2">
+                                                                {question.type === 1 && (
+                                                                    <div className="d-flex flex-column justify-content-center align-items-center background-secondary p-5" id="parentElementAudio">
+                                                                        {/* <button type="button" className="btn btn-circle-2">
                                                                         <i className="fas fa-microphone"></i>
-                                                                    </button>
-                                                                    <div className="mt-3 text-center">
-                                                                        <p className="fw-light mb-0" style={{ fontSize: 15 }}>
-                                                                            Click to start recording
-                                                                        </p>
-                                                                        <p className="fw-light" style={{ fontSize: 16 }}>
-                                                                            The system will automatically process your speech
-                                                                        </p>
+                                                                    </button> */}
+                                                                        <div className="mt-3 text-center">
+                                                                            <div className="d-flex justify-content-center align-items-center">
+                                                                                <AudioRecorder
+                                                                                    onRecordingComplete={(blob) => addAudioElement(blob, parentElement)}
+                                                                                    audioTrackConstraints={{
+                                                                                        noiseSuppression: true,
+                                                                                        echoCancellation: true,
+                                                                                    }}
+                                                                                    downloadOnSavePress={true}
+                                                                                    downloadFileExtension="webm"
+                                                                                />
+                                                                            </div>
+                                                                            <p className="fw-light mt-3 mb-0" style={{ fontSize: 15 }}>
+                                                                                Click to start recording
+                                                                            </p>
+                                                                            <p className="fw-light mb-4" style={{ fontSize: 16 }}>
+                                                                                Then select the recording file and press "Confirm" to complete.
+                                                                            </p>
+
+                                                                            {/* <label className="rbt-splash-service no-translate support h-100 not-hover mt-3 text-center" htmlFor="audio">
+                                                                                        <div style={{ flex: 1 }} className="d-flex align-items-center justify-content-center">
+                                                                                            <i className="feather-file-plus mr--10" style={{ fontSize: 35 }}></i> Choose File
+                                                                                        </div>
+                                                                                    </label>
+                                                                                    <input
+                                                                                        type="file"
+                                                                                        name="file"
+                                                                                        className="d-none"
+                                                                                        onChange={handleFileSelect}
+                                                                                        accept=".mp3, .webm, .flac"
+                                                                                        id="audio"
+                                                                                    /> */}
+                                                                            <div className="d-flex justify-content-center align-items-center mb-5">
+                                                                                <input
+                                                                                    class="form-control form-control-lg"
+                                                                                    name="file"
+                                                                                    style={{ height: "inherit" }}
+                                                                                    onChange={handleFileSelect}
+                                                                                    accept=".mp3, .webm, .flac"
+                                                                                    type="file"
+                                                                                />
+
+                                                                                {!fileSubmit && (
+                                                                                    <button
+                                                                                        className="rbt-btn bg-primary-opacity btn-not__hover fz-14 ml--10"
+                                                                                        style={{ height: 30, lineHeight: "30px" }}
+                                                                                        onClick={handPostAudio}
+                                                                                    >
+                                                                                        Confirm
+                                                                                    </button>
+                                                                                )}
+                                                                            </div>
+
+                                                                            {fileSubmit && (
+                                                                                <button type="button" className="rbt-btn bg-primary-opacity btn-not__hover btn-not__hover w-100 mt-4" disabled>
+                                                                                    <i className="fa fa-spinner fa-spin p-0"></i> Processing in progress...
+                                                                                </button>
+                                                                            )}
+
+                                                                            {/* <div className="mb-3">
+                                                                                <input
+                                                                                    className="form-control"
+                                                                                    type="file"
+                                                                                    style={{ height: 50 }}
+                                                                                    onChange={handleFileSelect}
+                                                                                    accept=".mp3, .webm, .flac"
+                                                                                    id="audio"
+                                                                                />
+                                                                                <button
+                                                                                    className="rbt-btn btn-gradient btn-gradient-2 btn-not__hover w-100 mt-4"
+                                                                                    style={{ height: 45, lineHeight: "45px" }}
+                                                                                    onClick={handPostAudio}
+                                                                                >
+                                                                                    Submit voice
+                                                                                </button>
+                                                                            </div> */}
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                )}
                                                             </div>
                                                         ))}
                                                     </div>
