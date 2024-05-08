@@ -4,10 +4,14 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import LayoutProfile from "./LayoutProfile";
 import useAxiosGet from "../../../hooks/useAxiosGet";
 import url from "../../../services/url";
+import { getAccessToken } from "../../../utils/auth";
 
 function Timetable() {
     const { response } = useAxiosGet({
         path: url.OFFLINE_COURSE.TABLE_TIME,
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
     });
 
     const timetable = response || [];

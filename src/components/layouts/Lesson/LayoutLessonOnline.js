@@ -7,7 +7,7 @@ import api from "../../../services/api";
 import NotFound from "../../pages/Other/NotFound";
 import { getAccessToken, getDecodedToken } from "../../../utils/auth";
 
-function LayoutLessonOnline({ children, title, nextLesson }) {
+function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
     const { courseSlug } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -28,6 +28,20 @@ function LayoutLessonOnline({ children, title, nextLesson }) {
         const slug = queryParams.get("lesson") || queryParams.get("test");
         setActiveLink(slug || "");
     }, [location.search]);
+
+    useEffect(() => {
+        const sidebar = document.getElementsByClassName("rbt-lesson-leftsidebar");
+
+        const sidebarArray = Array.from(sidebar);
+
+        sidebarArray.forEach((element) => {
+            if (closeSidebar) {
+                element.classList.add("sibebar-none");
+            } else {
+                element.classList.remove("sibebar-none");
+            }
+        });
+    }, [closeSidebar]);
 
     const handleClose = () => {
         setCloseSidebar((prev) => !prev);
