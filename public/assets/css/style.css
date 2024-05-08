@@ -30869,7 +30869,7 @@ button.btn-circle[disabled]:hover {
 .choice-wrapper {
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(8, 1fr);
 }
 
 .choice-wrapper__btn {
@@ -31724,6 +31724,20 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
       transform: scale(1);
     }
   }
-  
 
+.dot-loader {
+  width: 5px;
+  height: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 15px;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 10px 0 #2f57ef, -10px 0 #2f57ef21;background: #2f57ef }
+    33% {box-shadow: 10px 0 #2f57ef, -10px 0 #2f57ef21;background: #2f57ef21}
+    66% {box-shadow: 10px 0 #2f57ef21,-10px 0 #2f57ef; background: #2f57ef21}
+    100%{box-shadow: 10px 0 #2f57ef21,-10px 0 #2f57ef; background: #2f57ef }
+}
 /*# sourceMappingURL=../maps/style.css.map */

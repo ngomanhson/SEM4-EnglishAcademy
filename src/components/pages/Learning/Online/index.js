@@ -120,7 +120,7 @@ function LearningOnline() {
                 <Confetti width={windowSize.with} height={windowSize.height} mode="boom" y={1} particleCount={100} launchSpeed={5} colors={["#8000ff", "#ff00fb", "#29f500", "#e1ff00", "#ff0000"]} />
             )}
 
-            <LayoutLessonOnline title="Lesson" nextLesson={error ? false : true}>
+            <LayoutLessonOnline title="Lesson" nextLesson={error ? false : true} currentTime={currentTime}>
                 {error ? (
                     <div className="col-lg-4 mx-auto">
                         <div className="d-flex flex-column align-item-center justify-content-center" style={{ height: "100vh" }}>
@@ -150,23 +150,10 @@ function LearningOnline() {
 
                                     <div className="row">
                                         <div className="col-lg-8 mx-auto">
-                                            <div className="content-body mt--50">
-                                                <h5 className="font-system mb-4 fw-500">{lessonData.title}</h5>
-                                                <p className="lesson-description mt-0 mb-5 font-system fw-300">{lessonData.content}</p>
-
-                                                <p className="m-0 resource-title font-system">Resources in the lesson:</p>
-
-                                                <ol className="resource-list">
-                                                    <li>
-                                                        <a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/">https://getbootstrap.com/docs/5.3/getting-started/introduction/</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://github.com/feathericons/feather#feather">https://github.com/feathericons/feather#feather</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://cssgradient.io/blog/css-gradient-text/">https://cssgradient.io/blog/css-gradient-text/</a>
-                                                    </li>
-                                                </ol>
+                                            <div className="content-body">
+                                                <div className="lesson-description">
+                                                    {lessonData && lessonData.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: lessonData.content }} />}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
