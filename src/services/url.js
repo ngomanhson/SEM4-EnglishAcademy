@@ -36,6 +36,7 @@ const url = {
         SUBJECT_TEST: "test-offline/detail",
         TABLE_TIME: "schedule/student",
         TEST_OFFLINE_FILE: "test-offline/file",
+        TEST_OFFLINE_SUBMIT: "test-offline/detail",
     },
 
     DICTIONARY: {
