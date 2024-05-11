@@ -212,8 +212,10 @@ function EntranceTestSuccess() {
 
                                     <div className="rbt-form-group mt-5">
                                         {submitting && (
-                                            <button type="button" className="rbt-btn btn-md fw-normal btn-block w-100" disabled>
-                                                Processing <i className="fa fa-spinner fa-spin p-0"></i>
+                                            <button type="button" className="rbt-btn bg-primary-opacity btn-not__hover w-100" disabled>
+                                                <div className="d-flex align-items-center justify-content-center">
+                                                    Processing<div className="dot-loader"></div>
+                                                </div>
                                             </button>
                                         )}
 
