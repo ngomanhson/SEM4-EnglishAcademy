@@ -3,7 +3,7 @@ import url from "../../../../services/url";
 import Layout from "../../../layouts";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { format } from "date-fns";
 import api from "../../../../services/api";
 import { toast } from "react-toastify";
@@ -101,7 +101,6 @@ function SubjectLearning() {
             };
 
             try {
-                console.log(answerData);
                 const answerResponse = await api.post(url.OFFLINE_COURSE.ITEM_SLOT_ANSWER, answerData, {
                     headers: {
                         Authorization: `Bearer ${getAccessToken()}`,
@@ -110,6 +109,8 @@ function SubjectLearning() {
 
                 if (answerResponse.status === 200) {
                     setContent("");
+                    setNotAnswered(null);
+                    await listStar();
                     toast.success("Submitted successfully!", {
                         position: "top-right",
                         autoClose: 2000,
@@ -221,6 +222,7 @@ function SubjectLearning() {
             const voteRequest = await api.put(url.OFFLINE_COURSE.ITEM_SLOT_VOTE_ANSWER, voteData, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
             if (voteRequest.status === 200) {
                 setActiveReactions({});
+                await listStar();
                 toast.success("Vote successfully!", {
                     position: "top-right",
                     autoClose: 2000,
@@ -276,6 +278,7 @@ function SubjectLearning() {
         return valid;
     };
 
+    // Practical test
     const handleSubmitTest = async (e) => {
         e.preventDefault();
 
@@ -322,14 +325,6 @@ function SubjectLearning() {
         }
     };
 
-    // useEffect(() => {
-    // if (!modalOpen) {
-    //     const backdrop = document.querySelector(".modal-backdrop");
-    //     backdrop.remove();
-    //     document.body.classList.remove("modal-open");
-    // }
-    // }, [modalOpen]);
-
     try {
         if (!modalOpen) {
             const backdrop = document.querySelector(".modal-backdrop");
@@ -341,6 +336,27 @@ function SubjectLearning() {
     }
 
     const answerPracticalTest = item.answerStudentItemSlotResponseListList;
+
+    const [startCount, setStartCount] = useState({});
+    const [notAnswered, setNotAnswered] = useState(null);
+
+    const listStar = useCallback(async () => {
+        try {
+            const startResponse = await api.get(url.OFFLINE_COURSE.LIST_STAR + `/${slug}`, {
+                headers: {
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            });
+
+            setStartCount(startResponse.data.data);
+        } catch (error) {
+            setNotAnswered(true);
+        }
+    }, [slug]);
+
+    useEffect(() => {
+        listStar();
+    }, [listStar]);
 
     return (
         <>
@@ -446,7 +462,7 @@ function SubjectLearning() {
                                                                     <div className="comment-inner">
                                                                         <h6 className="commenter">
                                                                             <Link to="" className="font-system">
-                                                                                {answer.createdBy}
+                                                                                {answer.createdBy} {answer.studentId === decodeToken.Id ? "(You)" : ""}
                                                                             </Link>
                                                                         </h6>
                                                                         <div className="comment-meta">
@@ -455,42 +471,59 @@ function SubjectLearning() {
                                                                                 ""
                                                                             ) : (
                                                                                 <div className="reply-edit">
-                                                                                    <div className="reply">
-                                                                                        <div className="vote-container">
-                                                                                            <Link to="" onClick={() => handleToggleVote(answer.id)} className="comment-reply-link vote-hv" href="#!">
-                                                                                                {activeReactions[answer.id] ? "Hidden" : "Vote"}
-                                                                                            </Link>
-                                                                                            <div className={`reaction-star ${activeReactions[answer.id] ? "active" : ""}`}>
-                                                                                                <div
-                                                                                                    className={`reaction-content ${answer.star1Count === 0 ? "disable" : ""}`}
-                                                                                                    onClick={answer.star1Count !== 0 ? () => handleVoteClick(answer.id, "1") : null}
-                                                                                                >
-                                                                                                    <div className="text-danger fz-12">
-                                                                                                        <i className="fa fa-star text-warning"></i> = 1
+                                                                                    {answer.studentId === decodeToken.Id ? (
+                                                                                        ""
+                                                                                    ) : (
+                                                                                        <div className="reply">
+                                                                                            {!notAnswered ? (
+                                                                                                <div className="vote-container">
+                                                                                                    <Link to="" onClick={() => handleToggleVote(answer.id)} className="comment-reply-link vote-hv">
+                                                                                                        {activeReactions[answer.id] ? "Hidden" : "Vote"}
+                                                                                                    </Link>
+                                                                                                    <div className={`reaction-star ${activeReactions[answer.id] ? "active" : ""}`}>
+                                                                                                        <div
+                                                                                                            className={`reaction-content ${startCount.star1Count === 0 ? "disable" : ""}`}
+                                                                                                            onClick={answer.star1Count !== 0 ? () => handleVoteClick(answer.id, "1") : null}
+                                                                                                        >
+                                                                                                            <div className="text-danger fz-12">
+                                                                                                                <i className="fa fa-star text-warning"></i> = 1
+                                                                                                            </div>
+                                                                                                            <span>Remain {startCount.star1Count}</span>
+                                                                                                        </div>
+                                                                                                        <div
+                                                                                                            className={`reaction-content ${startCount.star2Count === 0 ? "disable" : ""}`}
+                                                                                                            onClick={() => handleVoteClick(answer.id, "2")}
+                                                                                                        >
+                                                                                                            <div className="text-success fz-12">
+                                                                                                                <i className="fa fa-star text-warning"></i> = 2
+                                                                                                            </div>
+                                                                                                            <span>Remain {startCount.star2Count}</span>
+                                                                                                        </div>
+                                                                                                        <div
+                                                                                                            className={`reaction-content ${startCount.star3Count === 0 ? "disable" : ""}`}
+                                                                                                            onClick={() => handleVoteClick(answer.id, "3")}
+                                                                                                        >
+                                                                                                            <div className="text-primary fz-12">
+                                                                                                                <i className="fa fa-star text-warning"></i> = 3
+                                                                                                            </div>
+                                                                                                            <span>Remain {startCount.star3Count}</span>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                    <span>Remain {answer.star1Count}</span>
                                                                                                 </div>
-                                                                                                <div
-                                                                                                    className={`reaction-content ${answer.star2Count === 0 ? "disable" : ""}`}
-                                                                                                    onClick={() => handleVoteClick(answer.id, "2")}
-                                                                                                >
-                                                                                                    <div className="text-success fz-12">
-                                                                                                        <i className="fa fa-star text-warning"></i> = 2
+                                                                                            ) : (
+                                                                                                <div className="vote-container">
+                                                                                                    <Link to="" onClick={() => handleToggleVote(answer.id)} className="comment-reply-link vote-hv">
+                                                                                                        {activeReactions[answer.id] ? "Hidden" : "Vote"}
+                                                                                                    </Link>
+                                                                                                    <div className={`reaction-star ${activeReactions[answer.id] ? "active" : ""}`}>
+                                                                                                        <p className="fw-300 fz-15">
+                                                                                                            <span className="text-danger">*</span>Answer questions before rating!
+                                                                                                        </p>
                                                                                                     </div>
-                                                                                                    <span>Remain {answer.star2Count}</span>
                                                                                                 </div>
-                                                                                                <div
-                                                                                                    className={`reaction-content ${answer.star3Count === 0 ? "disable" : ""}`}
-                                                                                                    onClick={() => handleVoteClick(answer.id, "3")}
-                                                                                                >
-                                                                                                    <div className="text-primary fz-12">
-                                                                                                        <i className="fa fa-star text-warning"></i> = 3
-                                                                                                    </div>
-                                                                                                    <span>Remain {answer.star3Count}</span>
-                                                                                                </div>
-                                                                                            </div>
+                                                                                            )}
                                                                                         </div>
-                                                                                    </div>
+                                                                                    )}
                                                                                 </div>
                                                                             )}
                                                                         </div>
