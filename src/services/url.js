@@ -37,6 +37,7 @@ const url = {
         TABLE_TIME: "schedule/student",
         TEST_OFFLINE_FILE: "test-offline/file",
         TEST_OFFLINE_SUBMIT: "test-offline/detail",
+        LIST_STAR: "answer-student-item-slot/list-score",
     },
 
     DICTIONARY: {
