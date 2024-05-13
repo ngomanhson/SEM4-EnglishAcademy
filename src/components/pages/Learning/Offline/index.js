@@ -38,7 +38,6 @@ function SubjectLearning() {
     const [content, setContent] = useState("");
     const [editorError, setEditorError] = useState("");
     const [activeReactions, setActiveReactions] = useState({});
-    const [modalOpen, setModalOpen] = useState(true);
 
     const { response, setResponse } = useAxiosGet({
         path: url.OFFLINE_COURSE.ITEM_SLOT + `/${slug}`,
@@ -321,19 +320,8 @@ function SubjectLearning() {
                     });
                 }
             }
-            setModalOpen(false);
         }
     };
-
-    try {
-        if (!modalOpen) {
-            const backdrop = document.querySelector(".modal-backdrop");
-            backdrop.remove();
-            document.body.classList.remove("modal-open");
-        }
-    } catch (error) {
-        console.log(error);
-    }
 
     const answerPracticalTest = item.answerStudentItemSlotResponseListList;
 
@@ -451,6 +439,7 @@ function SubjectLearning() {
                                                 <h4 className="heading-discuss" style={{ fontSize: 25 }}>
                                                     Discuss
                                                 </h4>
+
                                                 <ul className="comment-list">
                                                     {answerStudents.map((answer) => (
                                                         <li className="comment" key={answer.id}>
@@ -575,7 +564,7 @@ function SubjectLearning() {
                                                     </div>
                                                     <div className="message-container">
                                                         <span className="message-container__name">Trinh Van Trung</span>
-                                                        <p className="message-container__presentation">Lo con cac =))</p>
+                                                        <p className="message-container__presentation">=))</p>
                                                     </div>
                                                 </div>
 
@@ -694,7 +683,7 @@ function SubjectLearning() {
                                                     {answerPracticalTest.length === 0 ? (
                                                         <p>No data.</p>
                                                     ) : (
-                                                        <a href={answerPracticalTest[0].content} className="text-primary">
+                                                        <a href={answerPracticalTest[0].content} rel="noreferrer" target="_blank" className="text-primary">
                                                             {answerPracticalTest[0].content}
                                                         </a>
                                                     )}
@@ -708,49 +697,47 @@ function SubjectLearning() {
                     </div>
                 </div>
 
-                {modalOpen && (
-                    <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog modal-dialog-centered">
-                            <div className="modal-content">
-                                <div className="modal-header p-5 pb-0" style={{ alignItems: "start", border: "none" }}>
-                                    <div>
-                                        <h5 className="modal-title fw-500" id="exampleModalLabel">
-                                            Enter link:
-                                        </h5>
+                <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header p-5 pb-0" style={{ alignItems: "start", border: "none" }}>
+                                <div>
+                                    <h5 className="modal-title fw-500" id="exampleModalLabel">
+                                        Enter link:
+                                    </h5>
+                                </div>
+
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body p-5 pt-0">
+                                <form className="max-width-auto mt-3" onSubmit={handleSubmitTest}>
+                                    <div className="rbt-form-group">
+                                        <input
+                                            type="text"
+                                            name="link"
+                                            className={`form-control ${formErrors.link ? "is-invalid" : ""}`}
+                                            value={formData.link}
+                                            onChange={(e) => {
+                                                const { name, value } = e.target;
+                                                setFormData({ ...formData, [name]: value });
+                                            }}
+                                        />
+                                        {formErrors.link && <div className="invalid-feedback">{formErrors.link}</div>}
                                     </div>
+                                    <p className="fw-300 fz-14 mt-3 mb-0">
+                                        <span className="text-danger">*</span>Note: Submit your test using the link.
+                                    </p>
 
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setModalOpen(false)}></button>
-                                </div>
-                                <div className="modal-body p-5 pt-0">
-                                    <form className="max-width-auto mt-3" onSubmit={handleSubmitTest}>
-                                        <div className="rbt-form-group">
-                                            <input
-                                                type="text"
-                                                name="link"
-                                                className={`form-control ${formErrors.link ? "is-invalid" : ""}`}
-                                                value={formData.link}
-                                                onChange={(e) => {
-                                                    const { name, value } = e.target;
-                                                    setFormData({ ...formData, [name]: value });
-                                                }}
-                                            />
-                                            {formErrors.link && <div className="invalid-feedback">{formErrors.link}</div>}
-                                        </div>
-                                        <p className="fw-300 fz-14 mt-3 mb-0">
-                                            <span className="text-danger">*</span>Note: Submit your test using the link.
-                                        </p>
-
-                                        <div className="rbt-form-group mt-3">
-                                            <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
-                                                Submit
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    <div className="rbt-form-group mt-3">
+                                        <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
             </Layout>
         </>
     );

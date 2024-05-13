@@ -92,7 +92,7 @@ function CourseDetailOnline() {
             localStorage.setItem("redirect_path", slug);
             navigate(`${config.routes.login}`);
         } else {
-            navigate(`/checkout/${slug}`);
+            navigate(`/course-online/${slug}`);
         }
     };
 
