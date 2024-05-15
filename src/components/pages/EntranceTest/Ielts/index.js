@@ -7,7 +7,7 @@ import url from "../../../../services/url";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../layouts/Loading";
 import NotFound from "../../Other/NotFound";
-import { formatMinute } from "../../../../utils/FormatTime/index";
+import { formatMinute } from "../../../../utils/formatTime";
 import { useAxiosGet } from "../../../../hooks";
 import { getAccessToken } from "../../../../utils/auth";
 

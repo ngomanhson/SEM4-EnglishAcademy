@@ -5,7 +5,7 @@ import url from "../../../../../services/url";
 import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
-import { formatHour } from "../../../../../utils/FormatTime";
+import { formatHour } from "../../../../../utils/formatTime";
 import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
 import LayoutLessonOnline from "../../../../layouts/Lesson/LayoutLessonOnline";
 import Lottie from "lottie-react";

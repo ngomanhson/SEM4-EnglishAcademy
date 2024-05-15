@@ -7,7 +7,7 @@ import Loading from "../../../../layouts/Loading";
 import { format } from "date-fns";
 import config from "../../../../../config";
 import NotFound from "../../../Other/NotFound";
-import { formatHour } from "../../../../../utils/FormatTime";
+import { formatHour } from "../../../../../utils/formatTime";
 import { useAxiosGet } from "../../../../../hooks";
 import { getAccessToken } from "../../../../../utils/auth";
 
