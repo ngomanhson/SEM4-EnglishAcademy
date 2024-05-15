@@ -6,6 +6,7 @@ import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
 import { useAxiosGet } from "../../../../../hooks";
 import { getAccessToken } from "../../../../../utils/auth";
+import { format } from "date-fns";
 
 function SlotOffline() {
     const { slug } = useParams();
@@ -20,6 +21,7 @@ function SlotOffline() {
 
     const subject = response || {};
     const slotList = subject.slotResponseDetailList || [];
+    const finalTest = subject.testOfflineResponseList || [];
 
     return (
         <>
@@ -61,7 +63,6 @@ function SlotOffline() {
                                             <div className="section-title">
                                                 <h4 className="rbt-title-style-3 font-system">Slot Content</h4>
                                             </div>
-
                                             {slotList && slotList.length === 0 ? (
                                                 <p>This subject has no slot.</p>
                                             ) : (
@@ -83,7 +84,15 @@ function SlotOffline() {
                                                                         >
                                                                             {slot.name}
                                                                         </button>
-                                                                        <span className="fz-12 fw-300">{slot.time}</span>
+                                                                        <span
+                                                                            className="fz-12 fw-300 cursor-pointer"
+                                                                            data-bs-toggle="collapse"
+                                                                            data-bs-target={`#${collapseId}`}
+                                                                            aria-expanded="false"
+                                                                            aria-controls={collapseId}
+                                                                        >
+                                                                            {slot.time}
+                                                                        </span>
                                                                     </h2>
                                                                     <div
                                                                         id={collapseId}
@@ -108,6 +117,83 @@ function SlotOffline() {
                                                                                                                 {slotItem.itemType === 0 && <i className="feather-hash mt-1"></i>}
                                                                                                                 {slotItem.itemType === 1 && <i className="feather-clipboard mt-1"></i>}
                                                                                                                 {slotItem.itemType === 2 && <i className="feather-help-circle mt-1"></i>}
+                                                                                                                <div className="d-flex flex-column">
+                                                                                                                    <span className="text">{slotItem.title}</span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </Link>
+                                                                                            </li>
+                                                                                        ))
+                                                                                    )
+                                                                                ) : (
+                                                                                    <p className="fw-300" style={{ padding: "20px 5px" }}>
+                                                                                        This slot has no content.
+                                                                                    </p>
+                                                                                )}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {finalTest && finalTest.length === 0 ? (
+                                                <p>This subject has no slot.</p>
+                                            ) : (
+                                                <div className="rbt-accordion-style rbt-accordion-02 accordion">
+                                                    <div className="accordion" id="accordionExampleb2">
+                                                        {finalTest.map((slot, index) => {
+                                                            const accordionId = `accordion-${slot.id}-${index}`;
+                                                            const collapseId = `collapse-${slot.id}-${index}`;
+                                                            return (
+                                                                <div className="accordion-item card" key={index}>
+                                                                    <h2 className="accordion-header card-header" style={{ fontSize: 18 }} id={`heading-${accordionId}`}>
+                                                                        <button
+                                                                            className="accordion-button collapsed font-system"
+                                                                            type="button"
+                                                                            data-bs-toggle="collapse"
+                                                                            data-bs-target={`#${collapseId}`}
+                                                                            aria-expanded="false"
+                                                                            aria-controls={collapseId}
+                                                                        >
+                                                                            Final exam
+                                                                        </button>
+                                                                        <span
+                                                                            className="fz-12 fw-300 cursor-pointer"
+                                                                            data-bs-toggle="collapse"
+                                                                            data-bs-target={`#${collapseId}`}
+                                                                            aria-expanded="false"
+                                                                            aria-controls={collapseId}
+                                                                        >
+                                                                            Start Date: {slot && format(new Date(slot.startDate), "HH:mm:ss dd-MM-yyyy")}
+                                                                        </span>
+                                                                    </h2>
+                                                                    <div
+                                                                        id={collapseId}
+                                                                        className="accordion-collapse collapse"
+                                                                        aria-labelledby={`heading-${accordionId}`}
+                                                                        data-bs-parent="#accordionExampleb2"
+                                                                    >
+                                                                        <div className="accordion-body card-body pr--0 p-0">
+                                                                            <ul className="rbt-course-main-content liststyle">
+                                                                                {finalTest ? (
+                                                                                    finalTest.length === 0 ? (
+                                                                                        <p className="fw-300" style={{ padding: "20px 5px" }}>
+                                                                                            This slot has no content.
+                                                                                        </p>
+                                                                                    ) : (
+                                                                                        finalTest.map((slotItem) => (
+                                                                                            <li className="item-subject" key={slotItem.id}>
+                                                                                                <Link to={`/subject-test/${slotItem.slug}`}>
+                                                                                                    <div className="wrap" style={{ flex: 1 }}>
+                                                                                                        <div className="course-content-left">
+                                                                                                            <div className="d-flex align-content-center" style={{ flex: 1 }}>
+                                                                                                                <i className="fas fa-file-signature"></i>
                                                                                                                 <div className="d-flex flex-column">
                                                                                                                     <span className="text">{slotItem.title}</span>
                                                                                                                 </div>

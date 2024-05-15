@@ -1,0 +1,15 @@
+export const toolbarOptions = [
+    { header: [1, 2, 3, 4, 5, 6, false] },
+    { font: [] },
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "code-block",
+    "link",
+    "image",
+    { color: [] },
+    { align: [] },
+    "clean",
+];

@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import url from "../../../../services/url";
 import Loading from "../../../layouts/Loading";
-import { formatMinute } from "../../../../utils/FormatTime";
+import { formatMinute } from "../../../../utils/formatTime";
 import { format } from "date-fns";
 import NotFound from "../../Other/NotFound";
 import { useAxiosGet } from "../../../../hooks";

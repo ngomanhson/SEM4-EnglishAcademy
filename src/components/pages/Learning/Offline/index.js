@@ -14,22 +14,7 @@ import SockJS from "sockjs-client";
 import { getAccessToken, getDecodedToken } from "../../../../utils/auth";
 import useAxiosGet from "../../../../hooks/useAxiosGet";
 import config from "../../../../config";
-
-const toolbarOptions = [
-    { header: [1, 2, 3, 4, 5, 6, false] },
-    { font: [] },
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "code-block",
-    "link",
-    "image",
-    { color: [] },
-    { align: [] },
-    "clean",
-];
+import { toolbarOptions } from "../../../../utils/toolbaroptions";
 
 function SubjectLearning() {
     const { slug } = useParams();
@@ -203,10 +188,17 @@ function SubjectLearning() {
     }, [endDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const decodeToken = getDecodedToken();
+    let studentIdFromToken;
+
+    if (decodeToken && decodeToken.Id) {
+        studentIdFromToken = decodeToken.Id;
+    } else {
+        studentIdFromToken = null;
+    }
 
     const handleVoteClick = async (answerId, star) => {
         let voteData = {};
-        const studentId = decodeToken ? decodeToken.Id : null;
+        const studentId = studentIdFromToken;
         if (studentId) {
             voteData = {
                 answerStudentItemSlotId: answerId,
@@ -451,7 +443,7 @@ function SubjectLearning() {
                                                                     <div className="comment-inner">
                                                                         <h6 className="commenter">
                                                                             <Link to="" className="font-system">
-                                                                                {answer.createdBy} {answer.studentId === decodeToken.Id ? "(You)" : ""}
+                                                                                {answer.createdBy} {answer.studentId === studentIdFromToken ? "(You)" : ""}
                                                                             </Link>
                                                                         </h6>
                                                                         <div className="comment-meta">
@@ -460,7 +452,7 @@ function SubjectLearning() {
                                                                                 ""
                                                                             ) : (
                                                                                 <div className="reply-edit">
-                                                                                    {answer.studentId === decodeToken.Id ? (
+                                                                                    {answer.studentId === studentIdFromToken ? (
                                                                                         ""
                                                                                     ) : (
                                                                                         <div className="reply">
