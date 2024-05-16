@@ -56,5 +56,7 @@ const routes = {
 
     // Other routes
     not_found: "*",
+
+    room_online: "room-online",
 };
 export default routes;
