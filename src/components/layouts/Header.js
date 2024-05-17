@@ -179,8 +179,12 @@ function Header() {
                                     </li>
 
                                     <li className="with-megamenu has-menu-child-item position-static">
-                                        <NavLink to={config.routes.blog}>Blog</NavLink>
+                                        <NavLink to={config.routes.meeting}>Meeting</NavLink>
                                     </li>
+
+                                    {/* <li className="with-megamenu has-menu-child-item position-static">
+                                        <NavLink to={config.routes.blog}>Blog</NavLink>
+                                    </li> */}
                                 </ul>
                             </nav>
                         </div>
