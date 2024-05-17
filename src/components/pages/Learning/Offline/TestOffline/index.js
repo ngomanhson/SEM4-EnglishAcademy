@@ -612,6 +612,7 @@ function TestOffline() {
             const response = await api.post(url.OFFLINE_COURSE.TEST_OFFLINE_FILE, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${getAccessToken()}`,
                 },
             });
 
