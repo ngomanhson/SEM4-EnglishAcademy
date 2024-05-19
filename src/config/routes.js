@@ -57,6 +57,6 @@ const routes = {
     // Other routes
     not_found: "*",
 
-    meeting: "meeting",
+    meeting: "/meeting",
 };
 export default routes;
