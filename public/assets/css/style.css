@@ -31760,13 +31760,14 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     top: 0;
     left: 0; 
     z-index: 1;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 300;
-    padding: 10px 20px;
+    padding: 5px 10px;
     background: #9a9a9ab5;
     color: var(--color-white);
     border-radius: 99px;
     margin: 10px;
+    user-select: none;
 }
 .video-actions {
     padding: 20px 30px;
@@ -31778,7 +31779,8 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     margin: 0 auto;
     gap: 20px;
 }
-.btn-video__call {
+.btn-video__call,
+.action-btn__video {
     width: 45px;
     height: 45px;
     background: #9a9a9ab5;
@@ -31793,7 +31795,9 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     align-items: center;
     justify-content: center;
 }
-.btn-video__call:hover {
+
+.btn-video__call:hover,
+.action-btn__video:hover {
     background: #d0d0d0b5;
 }
 .btn-video__call.missed {
@@ -31810,5 +31814,16 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 .large-video {
     height: calc(100vh - 320px);
 }
+.cast-animation {
+    transition: linear;
+    animation: cast 1s linear infinite;
+}
 
+@keyframes cast {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
 /*# sourceMappingURL=../maps/style.css.map */

@@ -15,6 +15,7 @@
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
         "agora-rtc-react": "^2.1.0",
+        "agora-rtc-sdk-ng": "^4.20.2",
         "apexcharts": "^3.48.0",
         "axios": "^1.6.8",
         "date-fns": "^3.6.0",
