@@ -55,10 +55,6 @@ const url = {
     PROFILE: {
         DETAIL: "student/profile",
     },
-
-    AGORA: {
-        GENERATE_TOKEN: "http://localhost:8888/generate-token",
-    },
 };
 
 export default url;
