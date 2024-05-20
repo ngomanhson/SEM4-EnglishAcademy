@@ -38,7 +38,8 @@ import SlotOffline from "../components/pages/Learning/Offline/Slot";
 import TestOffline from "../components/pages/Learning/Offline/TestOffline";
 import ChangePassword from "../components/pages/Profile/ChangePassword";
 import Timetable from "../components/pages/Profile/Timetable";
-import Meeting from "../components/pages/Meeting";
+import Room from "../components/pages/Room";
+import Meeting from "../components/pages/Room/Meeting";
 
 const publicRoutes = [
     // Home routes
@@ -60,6 +61,7 @@ const publicRoutes = [
 
     // Other routes
     { path: config.routes.not_found, component: NotFound },
+    { path: config.routes.room, component: Room },
     { path: config.routes.meeting, component: Meeting },
 ];
 
