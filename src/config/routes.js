@@ -57,7 +57,9 @@ const routes = {
     // Other routes
     not_found: "*",
 
+    // Meetings routes
     room: "/room",
     meeting: "/room/:roomId",
+    meeting_personal: "room-personal/:roomId",
 };
 export default routes;
