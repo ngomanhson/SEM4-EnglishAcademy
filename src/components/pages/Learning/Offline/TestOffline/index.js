@@ -784,7 +784,7 @@ function TestOffline() {
                                                                                         echoCancellation: true,
                                                                                     }}
                                                                                     downloadOnSavePress={true}
-                                                                                    downloadFileExtension="webm"
+                                                                                    downloadFileExtension="mp3"
                                                                                 />
                                                                             </div>
                                                                             <p className="fw-light mt-3 mb-0" style={{ fontSize: 15 }}>

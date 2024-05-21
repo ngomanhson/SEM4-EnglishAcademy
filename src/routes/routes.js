@@ -40,6 +40,7 @@ import ChangePassword from "../components/pages/Profile/ChangePassword";
 import Timetable from "../components/pages/Profile/Timetable";
 import Room from "../components/pages/Room";
 import Meeting from "../components/pages/Room/Meeting";
+import MeetingPersonal from "../components/pages/Room/MeetingPersonal";
 
 const publicRoutes = [
     // Home routes
@@ -61,8 +62,7 @@ const publicRoutes = [
 
     // Other routes
     { path: config.routes.not_found, component: NotFound },
-    { path: config.routes.room, component: Room },
-    { path: config.routes.meeting, component: Meeting },
+    { path: config.routes.meeting_personal, component: MeetingPersonal },
 ];
 
 const privateRoutes = [
@@ -99,6 +99,10 @@ const privateRoutes = [
     { path: config.routes.my_quiz, component: MyQuiz },
     { path: config.routes.change_password, component: ChangePassword },
     { path: config.routes.timetable, component: Timetable },
+
+    // Meeting routes
+    { path: config.routes.room, component: Room },
+    { path: config.routes.meeting, component: Meeting },
 ];
 
 const authenticationRoutes = [
