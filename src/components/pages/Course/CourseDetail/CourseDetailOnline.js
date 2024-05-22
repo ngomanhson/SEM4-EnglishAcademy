@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "../../../layouts";
 import { format } from "date-fns";
 import ReactPlayer from "react-player";
-import Review from "../../../views/Course/CourseDetail/Review";
+import Review from "../../../views/CourseDetail/Review";
 import Loading from "../../../layouts/Loading";
 import config from "../../../../config/index";
 import NotFound from "../../Other/NotFound";
@@ -11,6 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 import api from "../../../../services/api";
 import url from "../../../../services/url";
 import { useAxiosGet } from "../../../../hooks";
+import { formatLevelCourse } from "../../../../utils/formatLevelCourse";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
@@ -67,16 +68,7 @@ function CourseDetailOnline() {
         stars.push(<i key={`empty-${i}`} className="far fa-star"></i>);
     }
 
-    let formatLevel;
-    if (course.level === 0) {
-        formatLevel = "Basic";
-    } else if (course.level === 1) {
-        formatLevel = "Intermediate";
-    } else if (course.level === 2) {
-        formatLevel = "Advanced";
-    } else if (course.level === 3) {
-        formatLevel = "Expert";
-    }
+    const formatLevel = formatLevelCourse(course.level);
 
     let totalItems = 0;
     let totalTest = 0;

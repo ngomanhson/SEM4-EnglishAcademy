@@ -12,6 +12,7 @@ import { useState } from "react";
 import Loading from "../../layouts/Loading";
 import ChooseCourse from "../Other/ChooseCourse";
 import { getAccessToken, getDecodedToken } from "../../../utils/auth";
+import { formatLevelCourse } from "../../../utils/formatLevelCourse";
 
 const stripePromise = (async () => {
     try {
@@ -32,16 +33,7 @@ function Checkout() {
 
     const course = response || {};
 
-    let formatLevel;
-    if (course.level === 0) {
-        formatLevel = "Basic";
-    } else if (course.level === 1) {
-        formatLevel = "Intermediate";
-    } else if (course.level === 2) {
-        formatLevel = "Advanced";
-    } else if (course.level === 3) {
-        formatLevel = "Expert";
-    }
+    const formatLevel = formatLevelCourse(course.level);
 
     let totalItems = 0;
     let totalTest = 0;
