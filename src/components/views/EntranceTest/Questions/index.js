@@ -4,7 +4,7 @@ import "react-h5-audio-player/lib/styles.css";
 
 const Questions = ({ question, questionIndex, selectedAnswers, handleAnswerSelect }) => {
     return (
-        <div key={questionIndex}>
+        <>
             <h5 className="exam__inner-desc fw-500">
                 Question {questionIndex + 1}: {question.title}
             </h5>
@@ -27,7 +27,7 @@ const Questions = ({ question, questionIndex, selectedAnswers, handleAnswerSelec
                     </label>
                 </div>
             ))}
-        </div>
+        </>
     );
 };
 

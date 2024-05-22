@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import VideoLesson from "./VideoLesson";
 import LayoutLessonOnline from "../../../layouts/Lesson/LayoutLessonOnline";
 import { useLocation } from "react-router-dom";
 import url from "../../../../services/url";
@@ -9,6 +8,9 @@ import Lottie from "lottie-react";
 import Learn from "../../../../lottie/Learn.json";
 import { useAxiosGet } from "../../../../hooks";
 import { getAccessToken } from "../../../../utils/auth";
+import Quiz from "../../../views/Learing/Online/Quiz";
+import Document from "../../../views/Learing/Online/Document";
+import LearnVideos from "../../../views/Learing/Online/LearnVideos";
 
 function LearningOnline() {
     const location = useLocation();
@@ -130,119 +132,24 @@ function LearningOnline() {
                 ) : (
                     <div className="rbt-lesson-rightsidebar overflow-hidden lesson-video scrollbar-screen">
                         {lessonData.itemType === 0 && (
-                            <div className="inner">
-                                <VideoLesson onCurrentTimeChange={handleCurrentTimeChange} src={lessonData.pathUrl} />
-
-                                <div className="content">
-                                    <div className="content-top__lesson">
-                                        <div>
-                                            <h4 className="lesson-title mb-2">
-                                                {lessonData.title} <i className="far fa-bookmark ml--10"></i>
-                                            </h4>
-                                            {lessonData.modifiedDate && <span className="lesson-date">{formattedDate}</span>}
-                                        </div>
-
-                                        <button className="add-note">
-                                            <i className="feather-plus-circle"></i>
-                                            <span>Added note at {formatTime(currentTime)}</span>
-                                        </button>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-lg-8 mx-auto">
-                                            <div className="content-body">
-                                                <div className="lesson-description">
-                                                    {lessonData && lessonData.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: lessonData.content }} />}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <div className="d-flex align-content-center justify-content-center gap-3">
-                                            <button className="btn btn-primary__custom">
-                                                <span>
-                                                    <i className="feather-thumbs-up"></i>
-                                                </span>
-                                            </button>
-                                            <button className="btn btn-primary__custom">
-                                                <span>
-                                                    <i className="feather-thumbs-down"></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <p className="mt-3 lesson-question">How do you see this lesson?</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <LearnVideos lesson={lessonData} handleCurrentTimeChange={handleCurrentTimeChange} formattedDate={formattedDate} formatTime={formatTime} currentTime={currentTime} />
                         )}
 
                         {lessonData.itemType === 1 && (
-                            <div className="inner mt-5">
-                                <div className="row">
-                                    <div className="col-lg-9 mx-auto">
-                                        <div className="content">
-                                            <div>
-                                                <h4 className="lesson-title">
-                                                    {lessonData.title} <i className="far fa-bookmark"></i>
-                                                </h4>
-                                                {lessonData.modifiedDate && <span className="lesson-date">{formattedDate}</span>}
-                                            </div>
-
-                                            <div className="content-body mb-5">
-                                                {questionItem.map((question, index) => (
-                                                    <div className="mt-5" key={index}>
-                                                        <p className="font-system fw-300 text-dark">
-                                                            Question {index + 1}: {question.title}
-                                                        </p>
-
-                                                        {[question.answer1, question.answer2, question.answer3, question.answer4].map((answer, answerIndex) => (
-                                                            <div className="answer-group" key={answerIndex}>
-                                                                <label
-                                                                    className={`answers-group__label answers-group__label-2 ${selectedAnswers[index] === answer ? "checked" : ""} ${
-                                                                        answered && selectedAnswers[index] === answer ? (answerResults[index] ? "correct" : "incorrect") : ""
-                                                                    }`}
-                                                                >
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="answers-group__input"
-                                                                        name={`answer${index}`}
-                                                                        id={`answer${index}-${answerIndex}`}
-                                                                        onChange={() => handleAnswerChange(index, answerIndex, answer)}
-                                                                    />
-                                                                    <div className="d-flex align-content-center">
-                                                                        <div className="btn-choose">{String.fromCharCode(65 + answerIndex)}</div> <span className="fw-300">{answer}</span>
-                                                                    </div>
-                                                                </label>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            {allQuestionsAnswered() && (
-                                                <div className="d-flex align-items-center justify-content-between">
-                                                    <div>{answered && answerResults.includes(false) && <p className="text-danger shake">The answer is not correct!</p>}</div>
-
-                                                    <div className="text-end lesson-btn__wrapper">
-                                                        <button className="rbt-btn btn-gradient btn-gradient-3 fw-light" style={{ height: 40, lineHeight: "40px" }} onClick={handleCheckAnswers}>
-                                                            Answer the question
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Quiz
+                                lesson={lessonData}
+                                formattedDate={formattedDate}
+                                questionItem={questionItem}
+                                selectedAnswers={selectedAnswers}
+                                answered={answered}
+                                answerResults={answerResults}
+                                handleAnswerChange={handleAnswerChange}
+                                allQuestionsAnswered={allQuestionsAnswered}
+                                handleCheckAnswers={handleCheckAnswers}
+                            />
                         )}
 
-                        {lessonData.itemType === 2 && (
-                            <div className="rbt-lesson-rightsidebar overflow-hidden">
-                                <div className="inner">
-                                    <div className="content">{lessonData && lessonData.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: lessonData.content }} />}</div>
-                                </div>
-                            </div>
-                        )}
+                        {lessonData.itemType === 2 && <Document lesson={lessonData} />}
                     </div>
                 )}
             </LayoutLessonOnline>
