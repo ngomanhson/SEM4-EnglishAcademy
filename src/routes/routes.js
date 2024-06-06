@@ -6,8 +6,8 @@ import EntranceTest from "../components/pages/EntranceTest/index";
 import Ielts from "../components/pages/EntranceTest/Ielts/index";
 import Toeic from "../components/pages/EntranceTest/Toeic/index";
 import AnswerDetail from "../components/pages/EntranceTest/AnswerDetail/index";
-import Tutor from "../components/pages/Tutor/index";
-import TutorDetail from "../components/pages/Tutor/TutorDetail/index";
+import Tutors from "../components/pages/Tutors/index";
+import TutorDetail from "../components/pages/Tutors/TutorDetail/index";
 import Blog from "../components/pages/Blog/index";
 import BlogDetail from "../components/pages/Blog/BlogDetail";
 import AboutUs from "../components/pages/AboutUs/index";
@@ -41,6 +41,7 @@ import Timetable from "../components/pages/Profile/Timetable";
 import Room from "../components/pages/Room";
 import Meeting from "../components/pages/Room/Meeting";
 import MeetingPersonal from "../components/pages/Room/MeetingPersonal";
+import HireTutor from "../components/pages/Tutors/HireTutor";
 
 const publicRoutes = [
     // Home routes
@@ -51,7 +52,7 @@ const publicRoutes = [
     { path: config.routes.course_detail_online, component: CourseDetailOnline },
 
     // Tutor routes
-    { path: config.routes.tutor, component: Tutor },
+    { path: config.routes.tutor, component: Tutors },
     { path: config.routes.tutor_detail, component: TutorDetail },
 
     // Blog routes
@@ -103,6 +104,9 @@ const privateRoutes = [
     // Meeting routes
     { path: config.routes.room, component: Room },
     { path: config.routes.meeting, component: Meeting },
+
+    // Hire Tutor routes
+    { path: config.routes.hire_tutor, component: HireTutor },
 ];
 
 const authenticationRoutes = [

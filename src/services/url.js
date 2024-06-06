@@ -1,6 +1,8 @@
 const url = {
     BASE_URL: "http://localhost:8080/api/v1/",
 
+    // BASE_URL: "https://simple-chamois-suddenly.ngrok-free.app/api/v1/",
+
     ONLINE_COURSE: {
         GET_ALL: "any/course-online",
         GET_ALL_BY_STUDENT: "course-online/by-student",
@@ -54,6 +56,13 @@ const url = {
 
     PROFILE: {
         DETAIL: "student/profile",
+    },
+
+    TUTOR: {
+        LIST: "any/tutor",
+        DETAIL: "any/tutor-detail",
+        BOOKING: "booking",
+        AVAILABILITY: "any/availability",
     },
 };
 

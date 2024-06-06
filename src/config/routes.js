@@ -31,7 +31,8 @@ const routes = {
 
     // Tutor routes
     tutor: "/tutor",
-    tutor_detail: "/tutor/:slug",
+    tutor_detail: "/tutor/:tutorCode",
+    hire_tutor: "/tutor/hire/:tutorCode",
 
     // Blog routes
     blog: "/blog",

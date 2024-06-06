@@ -73,7 +73,7 @@ function Login() {
 
                     const redirectPath = localStorage.getItem("redirect_path");
                     if (redirectPath) {
-                        navigate(`/checkout/${redirectPath}`);
+                        navigate(`${redirectPath}`);
                         localStorage.removeItem("redirect_path");
                     } else {
                         navigate("/");
@@ -102,7 +102,9 @@ function Login() {
                         <div className="col-lg-5 mx-auto">
                             <div className="rbt-contact-form contact-form-style-1 max-width-auto">
                                 <div className="text-center mb-4">
-                                    <img src="assets/images/logo/logo.png" alt="English Academy" width={170} />
+                                    <Link to={config.routes.home}>
+                                        <img src="assets/images/logo/logo.png" alt="English Academy" width={170} />
+                                    </Link>
                                     <h5 className="title mb-0 fw-normal">Login with your email</h5>
                                 </div>
 
@@ -148,7 +150,7 @@ function Login() {
                                         </div>
                                         <div className="col-lg-6">
                                             <div className="rbt-lost-password text-end">
-                                                <Link to="/forgot-password" className="rbt-btn-link">
+                                                <Link to={config.routes.forgot_password} className="rbt-btn-link">
                                                     Forgot Password?
                                                 </Link>
                                             </div>
@@ -175,24 +177,24 @@ function Login() {
 
                                 <ul className="social-icon social-default">
                                     <li>
-                                        <a href="https://www.facebook.com/">
+                                        <Link to="">
                                             <i className="feather-facebook"></i>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="https://www.twitter.com">
+                                        <Link to="">
                                             <i className="feather-twitter"></i>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="https://www.instagram.com/">
+                                        <Link to="">
                                             <i className="feather-instagram"></i>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="https://www.linkdin.com/">
+                                        <Link to="">
                                             <i className="feather-linkedin"></i>
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
