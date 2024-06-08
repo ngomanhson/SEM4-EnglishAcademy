@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import api from "../services/api";
 
-function useAxiosGet({ method, path, body = null, headers = null }) {
+function useAxiosGet({ path, body = null, headers = null }) {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -33,7 +33,7 @@ function useAxiosGet({ method, path, body = null, headers = null }) {
         };
 
         loadData();
-    }, [method, path, body]);
+    }, [path, body]);
 
     useEffect(() => {
         headersRef.current = headers;

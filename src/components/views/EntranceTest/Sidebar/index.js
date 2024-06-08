@@ -7,13 +7,13 @@ function Sidebar({ timeRemaining, testData, setCurrentSessionIndex, selectedAnsw
                 <div className="widget">
                     <h5 className="text-center">Time remaining: {formatMinute(timeRemaining)}</h5>
 
-                    {testData.testInputSessionDetails?.map((session, index) => (
+                    {testData?.testInputSessionDetails?.map((session, index) => (
                         <div key={session.id}>
                             <p className="m-0 fz-16 label-session" onClick={() => setCurrentSessionIndex(index)}>
                                 Part {index + 1}: {session.sessionName}
                             </p>
                             <div className="mt-3 choice-wrapper mb-3">
-                                {session.questionTestInputs.map((question, questionIndex) => (
+                                {session?.questionTestInputs?.map((question, questionIndex) => (
                                     <button
                                         type="button"
                                         key={question.id}

@@ -31,7 +31,8 @@ const routes = {
 
     // Tutor routes
     tutor: "/tutor",
-    tutor_detail: "/tutor/:slug",
+    tutor_detail: "/tutor/:tutorCode",
+    hire_tutor: "/tutor/hire/:tutorCode",
 
     // Blog routes
     blog: "/blog",
@@ -42,10 +43,10 @@ const routes = {
     // Profile routes
     profile: "/profile",
     enrolled_courses: "/enrolled-courses",
-    wishlist: "/wishlist",
     reviews: "/reviews",
     my_quiz: "/my-quiz",
     timetable: "/timetable",
+    booking_waiting: "/booking-waiting",
 
     // Auth routes
     login: "/login",

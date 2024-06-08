@@ -81,7 +81,7 @@ function CourseDetailOnline() {
 
     const handleEnroll = () => {
         if (!isLoggedIn()) {
-            localStorage.setItem("redirect_path", slug);
+            localStorage.setItem("redirect_path", window.location.pathname);
             navigate(`${config.routes.login}`);
         } else {
             navigate(`/checkout/${slug}`);
@@ -358,9 +358,7 @@ function CourseDetailOnline() {
 
                                         {/* <Rating /> */}
 
-                                        {reviews.length === 0 ? (
-                                            ""
-                                        ) : (
+                                        {reviews.length === 0 || (
                                             <div className="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
                                                 <div className="section-title">
                                                     <h4 className="rbt-title-style-3 font-system">Featured review</h4>

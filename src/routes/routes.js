@@ -6,15 +6,14 @@ import EntranceTest from "../components/pages/EntranceTest/index";
 import Ielts from "../components/pages/EntranceTest/Ielts/index";
 import Toeic from "../components/pages/EntranceTest/Toeic/index";
 import AnswerDetail from "../components/pages/EntranceTest/AnswerDetail/index";
-import Tutor from "../components/pages/Tutor/index";
-import TutorDetail from "../components/pages/Tutor/TutorDetail/index";
+import Tutors from "../components/pages/Tutors/index";
+import TutorDetail from "../components/pages/Tutors/TutorDetail/index";
 import Blog from "../components/pages/Blog/index";
 import BlogDetail from "../components/pages/Blog/BlogDetail";
 import AboutUs from "../components/pages/AboutUs/index";
 import Dictionary from "../components/pages/Dictionary/index";
 import Profile from "../components/pages/Profile/index";
 import EnrolledCourses from "../components/pages/Profile/EnrolledCourses";
-import Wishlist from "../components/pages/Profile/Wishlist";
 import Reviews from "../components/pages/Profile/Reviews";
 import MyQuiz from "../components/pages/Profile/MyQuiz";
 import Login from "../components/pages/Auth/Login";
@@ -41,6 +40,8 @@ import Timetable from "../components/pages/Profile/Timetable";
 import Room from "../components/pages/Room";
 import Meeting from "../components/pages/Room/Meeting";
 import MeetingPersonal from "../components/pages/Room/MeetingPersonal";
+import HireTutor from "../components/pages/Tutors/HireTutor";
+import BookingWaiting from "../components/pages/Profile/BookingWaiting";
 
 const publicRoutes = [
     // Home routes
@@ -51,7 +52,7 @@ const publicRoutes = [
     { path: config.routes.course_detail_online, component: CourseDetailOnline },
 
     // Tutor routes
-    { path: config.routes.tutor, component: Tutor },
+    { path: config.routes.tutor, component: Tutors },
     { path: config.routes.tutor_detail, component: TutorDetail },
 
     // Blog routes
@@ -94,15 +95,18 @@ const privateRoutes = [
     // Profile routes
     { path: config.routes.profile, component: Profile },
     { path: config.routes.enrolled_courses, component: EnrolledCourses },
-    { path: config.routes.wishlist, component: Wishlist },
     { path: config.routes.reviews, component: Reviews },
     { path: config.routes.my_quiz, component: MyQuiz },
     { path: config.routes.change_password, component: ChangePassword },
     { path: config.routes.timetable, component: Timetable },
+    { path: config.routes.booking_waiting, component: BookingWaiting },
 
     // Meeting routes
     { path: config.routes.room, component: Room },
     { path: config.routes.meeting, component: Meeting },
+
+    // Hire Tutor routes
+    { path: config.routes.hire_tutor, component: HireTutor },
 ];
 
 const authenticationRoutes = [

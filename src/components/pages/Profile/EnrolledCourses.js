@@ -66,7 +66,7 @@ function EnrolledCourses() {
                                             <div className="row g-5">
                                                 {offlineCourses.response?.map((course) => {
                                                     const formatLevel = formatLevelCourse(course.level);
-                                                    return <OfflineCourses course={course} formatLevel={formatLevel} />;
+                                                    return <OfflineCourses key={course.id} course={course} formatLevel={formatLevel} />;
                                                 })}
                                             </div>
                                         )}

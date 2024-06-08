@@ -5,6 +5,7 @@ import Loading from "../../layouts/Loading";
 import { useState } from "react";
 import { useAxiosGet } from "../../../hooks";
 import Courses from "../../views/Course";
+import Pagination from "../../layouts/Pagination";
 
 function Course() {
     const { response, loading } = useAxiosGet({
@@ -303,27 +304,7 @@ function Course() {
                                 })}
                             </div>
                             <div className="row">
-                                <div className="col-lg-12 mt--60">
-                                    <nav>
-                                        <ul className="rbt-pagination">
-                                            <li className={`${currentPage === 1 ? "disabled" : ""}`}>
-                                                <button onClick={() => handlePageChange(currentPage - 1)}>
-                                                    <i className="feather-chevron-left"></i>
-                                                </button>
-                                            </li>
-                                            {Array.from({ length: totalPages }, (_, index) => (
-                                                <li key={index} className={`${currentPage === index + 1 ? "active" : ""}`}>
-                                                    <button onClick={() => handlePageChange(index + 1)}>{index + 1}</button>
-                                                </li>
-                                            ))}
-                                            <li className={`${currentPage === totalPages ? "disabled" : ""}`}>
-                                                <button onClick={() => handlePageChange(currentPage + 1)}>
-                                                    <i className="feather-chevron-right"></i>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
+                                <div className="col-lg-12 mt--60">{totalPages === 1 || <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />}</div>
                             </div>
                         </div>
                     </div>

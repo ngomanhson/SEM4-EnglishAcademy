@@ -50,9 +50,9 @@ function LayoutProfile({ children }) {
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to={config.routes.wishlist}>
-                                                                    <i className="feather-heart"></i>
-                                                                    <span>Wishlist</span>
+                                                                <NavLink to={config.routes.booking_waiting}>
+                                                                    <i className="feather-user-check"></i>
+                                                                    <span>Booking Waiting</span>
                                                                 </NavLink>
                                                             </li>
                                                             <li>
