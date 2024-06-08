@@ -11,7 +11,6 @@ function useAxiosGet({ path, body = null, headers = null }) {
     const headersRef = useRef(headers);
 
     useEffect(() => {
-        console.log("Path: ", path);
         const loadData = async () => {
             try {
                 const responseData = await api.get(path, { headers: headersRef.current });

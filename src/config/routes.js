@@ -43,10 +43,10 @@ const routes = {
     // Profile routes
     profile: "/profile",
     enrolled_courses: "/enrolled-courses",
-    wishlist: "/wishlist",
     reviews: "/reviews",
     my_quiz: "/my-quiz",
     timetable: "/timetable",
+    booking_waiting: "/booking-waiting",
 
     // Auth routes
     login: "/login",

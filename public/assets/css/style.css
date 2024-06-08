@@ -31887,8 +31887,16 @@ input[type="checkbox"] ~ label.chs-cal {
     position: initial;
     user-select: none;
 }
-input[type="checkbox"]:checked ~ label.chs-cal {
+input[type="checkbox"]:checked ~ label.chs-cal,
+input[type="radio"]:checked ~ label.chs-cal  {
     background: #bdceff;
+    color: var(--color-white);
+}
+input[type="radio"].input-package ~.chs-cal{
+    position: initial;
+    width: 100%;
+}
+input[type="radio"].input-package:checked ~ .chs-cal ul li{
     color: var(--color-white);
 }
 .chs-cal {
@@ -31896,6 +31904,10 @@ input[type="checkbox"]:checked ~ label.chs-cal {
     border: 1px solid var(--primary-opacity);
     border-radius: 15px;
     padding: 20px 40px !important;
+}
+.rbt-table thead tr th {
+    font-size: 13px;
+    text-wrap: nowrap;
 }
 input[type="checkbox"][disabled] ~ label.chs-cal {
     background: #cccccc;
@@ -31921,4 +31933,6 @@ input[type="checkbox"][disabled] ~ label.chs-cal {
         text-align: center;
     }
 }
+
+
 /*# sourceMappingURL=../maps/style.css.map */

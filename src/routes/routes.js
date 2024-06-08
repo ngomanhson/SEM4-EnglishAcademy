@@ -14,7 +14,6 @@ import AboutUs from "../components/pages/AboutUs/index";
 import Dictionary from "../components/pages/Dictionary/index";
 import Profile from "../components/pages/Profile/index";
 import EnrolledCourses from "../components/pages/Profile/EnrolledCourses";
-import Wishlist from "../components/pages/Profile/Wishlist";
 import Reviews from "../components/pages/Profile/Reviews";
 import MyQuiz from "../components/pages/Profile/MyQuiz";
 import Login from "../components/pages/Auth/Login";
@@ -42,6 +41,7 @@ import Room from "../components/pages/Room";
 import Meeting from "../components/pages/Room/Meeting";
 import MeetingPersonal from "../components/pages/Room/MeetingPersonal";
 import HireTutor from "../components/pages/Tutors/HireTutor";
+import BookingWaiting from "../components/pages/Profile/BookingWaiting";
 
 const publicRoutes = [
     // Home routes
@@ -95,11 +95,11 @@ const privateRoutes = [
     // Profile routes
     { path: config.routes.profile, component: Profile },
     { path: config.routes.enrolled_courses, component: EnrolledCourses },
-    { path: config.routes.wishlist, component: Wishlist },
     { path: config.routes.reviews, component: Reviews },
     { path: config.routes.my_quiz, component: MyQuiz },
     { path: config.routes.change_password, component: ChangePassword },
     { path: config.routes.timetable, component: Timetable },
+    { path: config.routes.booking_waiting, component: BookingWaiting },
 
     // Meeting routes
     { path: config.routes.room, component: Room },

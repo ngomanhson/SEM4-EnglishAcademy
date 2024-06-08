@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAxiosGet } from "../../../../hooks";
 import url from "../../../../services/url";
 import Layout from "../../../layouts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../../../services/api";
 import { getAccessToken } from "../../../../utils/auth";
 import Swal from "sweetalert2";
@@ -18,19 +18,41 @@ function HireTutor() {
         path: url.TUTOR.DETAIL + `/${tutorCode}`,
     });
 
+    // Call API Availability by Tutor
     const availabilityData = useAxiosGet({
         path: url.TUTOR.AVAILABILITY + `/${tutorCode}`,
     });
 
+    // Call API Package by Tutor
+    const packageData = useAxiosGet({
+        path: url.TUTOR.PACKAGE + `/${tutorCode}`,
+    });
+
     const tutor = tutorData.response || {};
     const availability = availabilityData.response || [];
+    const packageHire = packageData.response || [];
 
     const [selectedLessons, setSelectedLessons] = useState([]);
+    const [selectPackage, setSelectedPackage] = useState(0);
     const [message, setMessage] = useState("");
 
     const [submitting, setSubmitting] = useState(false);
+    const [selection, setSelection] = useState("package");
+    const [typeBooking, setTypeBooking] = useState(1);
+
+    useEffect(() => {
+        if (selectPackage === 0) {
+            setTypeBooking(2);
+        } else {
+            setTypeBooking(1);
+        }
+    }, [selectPackage]);
 
     const formatTime = (time) => time.substring(0, 5);
+
+    const handleChangePackage = (packageId) => {
+        setSelectedPackage(packageId);
+    };
 
     const handleCheckboxChange = (id, isChecked) => {
         if (isChecked) {
@@ -55,9 +77,9 @@ function HireTutor() {
     const handleBooking = async () => {
         setSubmitting(true);
         const data = {
-            typeBooking: 2,
+            typeBooking: typeBooking,
             tutorId: tutor.id,
-            packageId: 1,
+            packageId: selectPackage,
             description: message,
             lessonDays: selectedLessons,
         };
@@ -76,7 +98,7 @@ function HireTutor() {
                     icon: "success",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate(config.routes.home);
+                        navigate(config.routes.booking_waiting);
                     }
                 });
             }
@@ -123,78 +145,186 @@ function HireTutor() {
                                     <div className="col-lg-12 mt-5 mx-auto">
                                         <div className="content">
                                             <label className="mb-4 fz-14">
+                                                Select options <span className="text-danger">*</span>
+                                            </label>
+
+                                            <select value={selection} onChange={(e) => setSelection(e.target.value)} className="mb-5 fw-300 fz-15 d-block">
+                                                <option value="package">Package</option>
+                                                <option value="week">Week</option>
+                                            </select>
+
+                                            <label className="mb-4 fz-14">
                                                 Choose a time when you can study <span className="text-danger">*</span>
                                             </label>
 
-                                            <div className="advance-tab-button advance-tab-button-1 advance-tab-button__custom right-top">
-                                                <ul className="nav nav-tabs tab-button-list tab-button-list__custom" id="myTab-3" role="tablist" style={{ justifyContent: "space-around" }}>
-                                                    {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, index) => (
-                                                        <li className="nav-item" role="presentation" key={day}>
-                                                            <a
-                                                                href={`#${day.toLowerCase()}`}
-                                                                className={`nav-link tab-button nav-link_custom ${index === 0 ? "active" : ""}`}
-                                                                id={`${day.toLowerCase()}-tab`}
-                                                                data-bs-toggle="tab"
-                                                                data-bs-target={`#${day.toLowerCase()}`}
-                                                                role="tab"
-                                                                aria-controls={day.toLowerCase()}
-                                                                aria-selected={index === 0 ? "true" : "false"}
-                                                            >
-                                                                <div className="tab">
-                                                                    <h5 className="title tab-custom__title mb-0">{day}</h5>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            {selection === "package" ? (
+                                                <>
+                                                    <div className="col-lg-12">
+                                                        {packageHire.map((packageHr, packageIndex) => (
+                                                            <div className="choose-wrapper" key={packageIndex}>
+                                                                <input
+                                                                    type="radio"
+                                                                    className="d-none input-package"
+                                                                    name="package"
+                                                                    id={`package-${packageHr.id}`}
+                                                                    onChange={() => handleChangePackage(packageHr.id)}
+                                                                    hidden
+                                                                />
+                                                                <label className="chs-cal" htmlFor={`package-${packageHr.id}`}>
+                                                                    <p className="mb-0">{packageHr.name}</p>
 
-                                    <div className="col-lg-12 mt-5">
-                                        <div className="tab-content">
-                                            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, dayIndex) => (
-                                                <div
-                                                    className={`tab-pane fade advance-tab-content-1 ${dayIndex === 0 ? "show active" : ""}`}
-                                                    id={day.toLowerCase()}
-                                                    role="tabpanel"
-                                                    aria-labelledby={`${day.toLowerCase()}-tab`}
-                                                    key={day}
-                                                >
-                                                    <div className="row">
-                                                        {availability.length === 0 ? (
-                                                            <div className="p-3">
-                                                                <p className="alert alert-warning mb-5 fz-15">There is currently no data available. Please choose another session!</p>
+                                                                    <ul className="mb-3">
+                                                                        <li className="mb-0">Number Session: {packageHr.numSessions}</li>
+                                                                        <li className="mb-0">Hourly Rate: {packageHr.hourlyRate}</li>
+                                                                    </ul>
+
+                                                                    <p className="fz-12">Description: {packageHr.description}</p>
+                                                                </label>
                                                             </div>
-                                                        ) : availability.filter((timeSlot) => timeSlot.dayOfWeek.toLowerCase() === day.toLowerCase()).length === 0 ? (
-                                                            <div className="p-3">
-                                                                <p className="alert alert-warning mb-5 fz-15">There is currently no data available. Please choose another session!</p>
-                                                            </div>
-                                                        ) : (
-                                                            availability
-                                                                .filter((timeSlot) => timeSlot.dayOfWeek.toLowerCase() === day.toLowerCase())
-                                                                .map((timeSlot, timeIndex) => (
-                                                                    <div className="col-lg-4" key={timeIndex}>
-                                                                        <div className="choose-wrapper">
-                                                                            <input
-                                                                                type="checkbox"
-                                                                                id={`xs-${day}-${timeSlot.id}`}
-                                                                                className="d-none"
-                                                                                checked={isLessonSelected(timeSlot.id)}
-                                                                                onChange={(e) => handleCheckboxChange(timeSlot.id, e.target.checked)}
-                                                                                // disabled={selectedLessons.length >= 2 && !isLessonSelected(day, timeSlot.startTime, timeSlot.endTime)}
-                                                                                disabled={timeSlot.status === true}
-                                                                            />
-                                                                            <label htmlFor={`xs-${day}-${timeSlot.id}`} className="chs-cal">
-                                                                                {`${formatTime(timeSlot.startTime)} - ${formatTime(timeSlot.endTime)}`}
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                ))
-                                                        )}
+                                                        ))}
                                                     </div>
-                                                </div>
-                                            ))}
+
+                                                    <div className="advance-tab-button advance-tab-button-1 advance-tab-button__custom right-top mt-5">
+                                                        <ul className="nav nav-tabs tab-button-list tab-button-list__custom" id="myTab-3" role="tablist" style={{ justifyContent: "space-around" }}>
+                                                            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, index) => (
+                                                                <li className="nav-item" role="presentation" key={day}>
+                                                                    <a
+                                                                        href={`#${day.toLowerCase()}`}
+                                                                        className={`nav-link tab-button nav-link_custom ${index === 0 ? "active" : ""}`}
+                                                                        id={`${day.toLowerCase()}-tab`}
+                                                                        data-bs-toggle="tab"
+                                                                        data-bs-target={`#${day.toLowerCase()}`}
+                                                                        role="tab"
+                                                                        aria-controls={day.toLowerCase()}
+                                                                        aria-selected={index === 0 ? "true" : "false"}
+                                                                    >
+                                                                        <div className="tab">
+                                                                            <h5 className="title tab-custom__title mb-0">{day}</h5>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+
+                                                    <div className="col-lg-12 mt-5">
+                                                        <div className="tab-content">
+                                                            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, dayIndex) => (
+                                                                <div
+                                                                    className={`tab-pane fade advance-tab-content-1 ${dayIndex === 0 ? "show active" : ""}`}
+                                                                    id={day.toLowerCase()}
+                                                                    role="tabpanel"
+                                                                    aria-labelledby={`${day.toLowerCase()}-tab`}
+                                                                    key={day}
+                                                                >
+                                                                    <div className="row">
+                                                                        {availability.length === 0 ? (
+                                                                            <div className="p-3">
+                                                                                <p className="alert alert-warning mb-5 fz-15">There is currently no data available. Please choose another session!</p>
+                                                                            </div>
+                                                                        ) : availability.filter((timeSlot) => timeSlot.dayOfWeek.toLowerCase() === day.toLowerCase()).length === 0 ? (
+                                                                            <div className="p-3">
+                                                                                <p className="alert alert-warning mb-5 fz-15">There is currently no data available. Please choose another session!</p>
+                                                                            </div>
+                                                                        ) : (
+                                                                            availability
+                                                                                .filter((timeSlot) => timeSlot.dayOfWeek.toLowerCase() === day.toLowerCase())
+                                                                                .map((timeSlot, timeIndex) => (
+                                                                                    <div className="col-lg-4" key={timeIndex}>
+                                                                                        <div className="choose-wrapper">
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                id={`xs-${day}-${timeSlot.id}`}
+                                                                                                className="d-none"
+                                                                                                checked={isLessonSelected(timeSlot.id)}
+                                                                                                onChange={(e) => handleCheckboxChange(timeSlot.id, e.target.checked)}
+                                                                                                disabled={timeSlot.status === true}
+                                                                                            />
+                                                                                            <label htmlFor={`xs-${day}-${timeSlot.id}`} className="chs-cal">
+                                                                                                {`${formatTime(timeSlot.startTime)} - ${formatTime(timeSlot.endTime)}`}
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                ))
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className="advance-tab-button advance-tab-button-1 advance-tab-button__custom right-top">
+                                                        <ul className="nav nav-tabs tab-button-list tab-button-list__custom" id="myTab-3" role="tablist" style={{ justifyContent: "space-around" }}>
+                                                            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, index) => (
+                                                                <li className="nav-item" role="presentation" key={day}>
+                                                                    <a
+                                                                        href={`#${day.toLowerCase()}`}
+                                                                        className={`nav-link tab-button nav-link_custom ${index === 0 ? "active" : ""}`}
+                                                                        id={`${day.toLowerCase()}-tab`}
+                                                                        data-bs-toggle="tab"
+                                                                        data-bs-target={`#${day.toLowerCase()}`}
+                                                                        role="tab"
+                                                                        aria-controls={day.toLowerCase()}
+                                                                        aria-selected={index === 0 ? "true" : "false"}
+                                                                    >
+                                                                        <div className="tab">
+                                                                            <h5 className="title tab-custom__title mb-0">{day}</h5>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+
+                                                    <div className="col-lg-12 mt-5">
+                                                        <div className="tab-content">
+                                                            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, dayIndex) => (
+                                                                <div
+                                                                    className={`tab-pane fade advance-tab-content-1 ${dayIndex === 0 ? "show active" : ""}`}
+                                                                    id={day.toLowerCase()}
+                                                                    role="tabpanel"
+                                                                    aria-labelledby={`${day.toLowerCase()}-tab`}
+                                                                    key={day}
+                                                                >
+                                                                    <div className="row">
+                                                                        {availability.length === 0 ? (
+                                                                            <div className="p-3">
+                                                                                <p className="alert alert-warning mb-5 fz-15">There is currently no data available. Please choose another session!</p>
+                                                                            </div>
+                                                                        ) : availability.filter((timeSlot) => timeSlot.dayOfWeek.toLowerCase() === day.toLowerCase()).length === 0 ? (
+                                                                            <div className="p-3">
+                                                                                <p className="alert alert-warning mb-5 fz-15">There is currently no data available. Please choose another session!</p>
+                                                                            </div>
+                                                                        ) : (
+                                                                            availability
+                                                                                .filter((timeSlot) => timeSlot.dayOfWeek.toLowerCase() === day.toLowerCase())
+                                                                                .map((timeSlot, timeIndex) => (
+                                                                                    <div className="col-lg-4" key={timeIndex}>
+                                                                                        <div className="choose-wrapper">
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                id={`xs-${day}-${timeSlot.id}`}
+                                                                                                className="d-none"
+                                                                                                checked={isLessonSelected(timeSlot.id)}
+                                                                                                onChange={(e) => handleCheckboxChange(timeSlot.id, e.target.checked)}
+                                                                                                disabled={timeSlot.status === true}
+                                                                                            />
+                                                                                            <label htmlFor={`xs-${day}-${timeSlot.id}`} className="chs-cal">
+                                                                                                {`${formatTime(timeSlot.startTime)} - ${formatTime(timeSlot.endTime)}`}
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                ))
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
 
