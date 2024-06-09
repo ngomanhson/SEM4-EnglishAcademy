@@ -1,14 +1,18 @@
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import config from "../../../../config";
 
 function MeetingPersonal() {
     const { roomId } = useParams();
 
+    const serverSecretKey = config.key.SERVER_SECRET;
+    const zegoAppId = config.key.ZEGO_APP_ID;
+
     const myMeeting = async (element) => {
         try {
-            const appID = 2088572050;
-            const serverSecret = "05251e3aafc278b6348e3267794b521e";
+            const appID = zegoAppId;
+            const serverSecret = serverSecretKey;
             const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId, Date.now().toString(), "Ngo Manh Son");
             const zp = ZegoUIKitPrebuilt.create(kitToken);
             zp.joinRoom({

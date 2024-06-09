@@ -4,6 +4,7 @@ import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutProfile from "./LayoutProfile";
 import { format } from "date-fns";
+import LoadingSpinner from "../../layouts/LoadingSpinner";
 
 function BookingWaiting() {
     const bookingData = useAxiosGet({
@@ -45,90 +46,119 @@ function BookingWaiting() {
                             <h4 className="rbt-title-style-3">Booking List</h4>
                         </div>
 
-                        <div className="advance-tab-button mb--30">
-                            <ul className="nav nav-tabs tab-button-style-2 justify-content-start" id="myTab-4" role="tablist">
-                                <li role="presentation">
-                                    <Link to="" className="tab-button active" id="home-tab-4" data-bs-toggle="tab" data-bs-target="#home-4" role="tab" aria-controls="home-4" aria-selected="false">
-                                        <span className="title">Booking by Package</span>
-                                    </Link>
-                                </li>
-                                <li role="presentation">
-                                    <Link to="" className="tab-button" id="profile-tab-4" data-bs-toggle="tab" data-bs-target="#profile-4" role="tab" aria-controls="profile-4" aria-selected="true">
-                                        <span className="title"> Booking by Week</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                        {bookingData.loading ? (
+                            <LoadingSpinner />
+                        ) : (
+                            <>
+                                <div className="advance-tab-button mb--30">
+                                    <ul className="nav nav-tabs tab-button-style-2 justify-content-start" id="myTab-4" role="tablist">
+                                        <li role="presentation">
+                                            <Link
+                                                to=""
+                                                className="tab-button active"
+                                                id="home-tab-4"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#home-4"
+                                                role="tab"
+                                                aria-controls="home-4"
+                                                aria-selected="false"
+                                            >
+                                                <span className="title">Booking by Package</span>
+                                            </Link>
+                                        </li>
+                                        <li role="presentation">
+                                            <Link
+                                                to=""
+                                                className="tab-button"
+                                                id="profile-tab-4"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#profile-4"
+                                                role="tab"
+                                                aria-controls="profile-4"
+                                                aria-selected="true"
+                                            >
+                                                <span className="title"> Booking by Week</span>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                        <div className="tab-content">
-                            <div className="tab-pane fade active show" id="home-4" role="tabpanel" aria-labelledby="home-tab-4">
-                                <div className="row g-5">
-                                    <div className="rbt-dashboard-table table-responsive mobile-table-750">
-                                        <table className="rbt-table table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Package</th>
-                                                    <th>Sessions</th>
-                                                    <th>Student Name</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {bookings?.studentPackageDTOS.map((booking, bookingIndex) => (
-                                                    <tr key={bookingIndex}>
-                                                        <th>{bookingIndex + 1}</th>
-                                                        <td>{booking.package_Id}</td>
-                                                        <td>{booking.remainingSessions}</td>
-                                                        <td>{booking.student_Id}</td>
-                                                        <td className={`fz-12 mt-3 ${setColorStatus(booking.status)}`}>{booking.status}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
+                                <div className="tab-content">
+                                    <div className="tab-pane fade active show" id="home-4" role="tabpanel" aria-labelledby="home-tab-4">
+                                        <div className="row g-5">
+                                            <div className="rbt-dashboard-table table-responsive mobile-table-750">
+                                                <table className="rbt-table table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No.</th>
+                                                            <th>Student</th>
+                                                            <th>Sessions</th>
+                                                            <th>Status</th>
+                                                            <th className="text-center">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {bookings?.studentPackageDTOS.map((booking, bookingIndex) => (
+                                                            <tr key={bookingIndex}>
+                                                                <th>{bookingIndex + 1}</th>
+                                                                <td>
+                                                                    <Link to={`/booking-package/${booking.id}`}>{booking.studentName}</Link>
+                                                                </td>
+                                                                <td>{booking.remainingSessions}</td>
+                                                                <td className={`fz-12 mt-3 ${setColorStatus(booking.status)}`}>{booking.status}</td>
+                                                                <td className="text-center">
+                                                                    <Link to={`/booking-package/${booking.id}`} className="bg-color-success-opacity color-success">
+                                                                        <i className="feather-eye"></i>
+                                                                    </Link>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
+                                        <div className="row g-5">
+                                            <div className="rbt-dashboard-table table-responsive mobile-table-750">
+                                                <table className="rbt-table table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No.</th>
+                                                            <th>Student</th>
+                                                            <th>Total</th>
+                                                            <th>Next Payment Date</th>
+                                                            <th>Status</th>
+                                                            <th className="text-center">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {bookings?.subscriptionDTOS.map((booking, bookingIndex) => (
+                                                            <tr key={bookingIndex}>
+                                                                <th>{bookingIndex + 1}</th>
+                                                                <td>
+                                                                    <Link to={`/booking-weeks/${booking.id}`}>{booking.studentName}</Link>
+                                                                </td>
+
+                                                                <td>${booking.price.toFixed(2)}</td>
+                                                                <td>{format(new Date(booking.nextPaymentDate), "dd-MM-yyyy")}</td>
+                                                                <td className={`fz-12 mt-3 ${setColorStatus(booking.status)}`}>{booking.status}</td>
+                                                                <td className="text-center">
+                                                                    <Link to={`/booking-weeks/${booking.id}`} className="bg-color-success-opacity color-success">
+                                                                        <i className="feather-eye"></i>
+                                                                    </Link>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
-                                <div className="row g-5">
-                                    <div className="rbt-dashboard-table table-responsive mobile-table-750">
-                                        <table className="rbt-table table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Tutor Name</th>
-                                                    <th>Student Name</th>
-                                                    <th>Lesson Day</th>
-                                                    <th>Total</th>
-                                                    <th>Next Payment Date</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {bookings?.subscriptionDTOS.map((booking, bookingIndex) => (
-                                                    <tr key={bookingIndex}>
-                                                        <th>{bookingIndex + 1}</th>
-                                                        <td>{booking.tutor_Id}</td>
-                                                        <td>{booking.student_Id}</td>
-                                                        <td>{booking.lessonDays}</td>
-                                                        <td>${booking.price.toFixed(2)}</td>
-                                                        <td>{format(new Date(booking.nextPaymentDate), "dd-MM-yyyy")}</td>
-                                                        <td className={`fz-12 mt-3 ${setColorStatus(booking.status)}`}>{booking.status}</td>
-                                                        <td>
-                                                            <Link to="" className="rbt-btn btn-xs bg-primary-opacity radius-round btn-not__hover" title="View">
-                                                                <i className="feather-eye pl--0"></i>
-                                                            </Link>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

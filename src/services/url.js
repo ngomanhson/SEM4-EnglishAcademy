@@ -1,7 +1,7 @@
-const url = {
-    BASE_URL: "http://localhost:8080/api/v1/",
+import config from "../config";
 
-    // BASE_URL: "https://simple-chamois-suddenly.ngrok-free.app/api/v1/",
+const url = {
+    BASE_URL: config.key.BASE_API_URL,
 
     ONLINE_COURSE: {
         GET_ALL: "any/course-online",
@@ -65,6 +65,9 @@ const url = {
         AVAILABILITY: "any/availability",
         PACKAGE: "any/package/by-tutor",
         BOOKING_WAITING: "student/booking-waiting",
+        BOOKING_DETAIL_PACKAGE: "package-student/student",
+        BOOKING_DETAIL_WEEKS: "subscription/student",
+        PAYMENT: "payment",
     },
 };
 

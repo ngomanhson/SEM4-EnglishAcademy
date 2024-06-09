@@ -5,6 +5,7 @@ import { getAccessToken } from "../../../utils/auth";
 import LayoutProfile from "./LayoutProfile";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import LoadingSpinner from "../../layouts/LoadingSpinner";
 
 function Profile() {
     const [info, setInfo] = useState("");
@@ -80,7 +81,7 @@ function Profile() {
         } catch (error) {}
     };
 
-    const { response } = useAxiosGet({
+    const { response, loading } = useAxiosGet({
         path: url.PROFILE.DETAIL,
         headers: {
             "Content-Type": "application/json",
@@ -94,146 +95,159 @@ function Profile() {
         <LayoutProfile>
             <div className="col-lg-9">
                 <div className="widget">
-                    <div className="rbt-dashboard-content-wrapper">
-                        <div className="tutor-bg-photo bg_image bg_image--23 height-200"></div>
+                    {loading ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <>
+                            <div className="rbt-dashboard-content-wrapper">
+                                <div className="tutor-bg-photo bg_image bg_image--23 height-200"></div>
 
-                        <div className="rbt-tutor-information">
-                            <div className="rbt-tutor-information-left">
-                                <div className="thumbnail rbt-avatars size-lg position-relative">
-                                    <label htmlFor="avatarInput">
-                                        {isEditing ? (
-                                            avatarPreview ? (
-                                                <div className="avatar-inner">
-                                                    <img src={avatarPreview} alt="Avatar Preview" className="profile-user__avatar" />
-                                                    <div className="rbt-edit-photo-inner">
-                                                        <label htmlFor="avatarInput" className="rbt-edit-photo d-flex align-items-center justify-content-center cursor-pointer">
-                                                            <i className="feather-camera"></i>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                <div className="rbt-tutor-information">
+                                    <div className="rbt-tutor-information-left">
+                                        <div className="thumbnail rbt-avatars size-lg position-relative">
+                                            <label htmlFor="avatarInput">
+                                                {isEditing ? (
+                                                    avatarPreview ? (
+                                                        <div className="avatar-inner">
+                                                            <img src={avatarPreview} alt="Avatar Preview" className="profile-user__avatar" />
+                                                            <div className="rbt-edit-photo-inner">
+                                                                <label htmlFor="avatarInput" className="rbt-edit-photo d-flex align-items-center justify-content-center cursor-pointer">
+                                                                    <i className="feather-camera"></i>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="avatar-inner">
+                                                            <img src="assets/images/client/avatar-04.jpeg" alt={studentInfo.fullname} className="profile-user__avatar" />
+                                                            <div className="rbt-edit-photo-inner">
+                                                                <label htmlFor="avatarInput" className="rbt-edit-photo d-flex align-items-center justify-content-center cursor-pointer">
+                                                                    <i className="feather-camera"></i>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                ) : (
+                                                    <img src="assets/images/client/avatar-04.jpeg" alt={studentInfo.fullname} className="profile-user__avatar cursor-default" />
+                                                )}
+                                            </label>
+                                            {isEditing && <input id="avatarInput" type="file" accept="image/*" style={{ display: "none" }} onChange={handleAvatarChange} />}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="content">
+                                <div className="d-flex align-items-center justify-content-between mb-5 pb-4 border-bt-secondary">
+                                    <h4 className="rbt-title-style-3 rbt-border-none m-0 p-0">Personal information</h4>
+                                    <button className="btn-edit" onClick={handleEditClick} style={{ display: isEditButtonVisible ? "block" : "none" }}>
+                                        <i className="feather-edit"></i>
+                                    </button>
+                                </div>
+
+                                <div className="rbt-profile-row row row--15 mt--15">
+                                    <div className="col-lg-3 col-md-3">
+                                        <div className="rbt-profile-content fw-300 info-content">Student Code</div>
+                                    </div>
+                                    <div className="col-lg-5 col-md-5">
+                                        <div className="rbt-profile-content fw-300 info-content">{studentInfo.code}</div>
+                                    </div>
+                                </div>
+
+                                <div className="rbt-profile-row row row--15 mt--15">
+                                    <div className="col-lg-3 col-md-3">
+                                        <div className="rbt-profile-content fw-300 info-content">Full Name</div>
+                                    </div>
+                                    <div className="col-lg-5 col-md-5">
+                                        <div className="rbt-profile-content fw-300 info-content">{studentInfo.fullName || "unavailable"}</div>
+                                    </div>
+                                </div>
+
+                                <div className="rbt-profile-row row row--15 mt--15">
+                                    <div className="col-lg-3 col-md-3">
+                                        <div className="rbt-profile-content fw-300 info-content">Email</div>
+                                    </div>
+                                    <div className="col-lg-5 col-md-5">
+                                        <div className="rbt-profile-content fw-300 info-content">{studentInfo.email}</div>
+                                    </div>
+                                </div>
+
+                                <div className="rbt-profile-row row row--15 mt--15">
+                                    <div className="col-lg-3 col-md-3">
+                                        <div className="rbt-profile-content fw-300 info-content">Birthday</div>
+                                    </div>
+                                    <div className="col-lg-5 col-md-5">
+                                        <div className="rbt-profile-content fw-300 info-content">
+                                            {(studentInfo.dayOfBirth && format(new Date(studentInfo.dayOfBirth), "dd-MM-yyyy")) || "unavailable"}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="rbt-profile-row row row--15 mt--15">
+                                    <div className="col-lg-3 col-md-3">
+                                        <div className="rbt-profile-content fw-300 info-content">Gender</div>
+                                    </div>
+                                    <div className="col-lg-5 col-md-5">
+                                        <div className="rbt-profile-content fw-300 info-content">
+                                            {isEditing ? (
+                                                <select className="input-change" style={{ paddingTop: 0, paddingBottom: 0, border: "1px solid #e6e3f1" }}>
+                                                    <option value="0">Male</option>
+                                                    <option value="1">Female</option>
+                                                    <option value="2">Other</option>
+                                                </select>
                                             ) : (
-                                                <div className="avatar-inner">
-                                                    <img src="assets/images/client/avatar-04.jpeg" alt={studentInfo.fullname} className="profile-user__avatar" />
-                                                    <div className="rbt-edit-photo-inner">
-                                                        <label htmlFor="avatarInput" className="rbt-edit-photo d-flex align-items-center justify-content-center cursor-pointer">
-                                                            <i className="feather-camera"></i>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            )
-                                        ) : (
-                                            <img src="assets/images/client/avatar-04.jpeg" alt={studentInfo.fullname} className="profile-user__avatar cursor-default" />
-                                        )}
-                                    </label>
-                                    {isEditing && <input id="avatarInput" type="file" accept="image/*" style={{ display: "none" }} onChange={handleAvatarChange} />}
+                                                studentInfo.gender || "unavailable"
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="content">
-                        <div className="d-flex align-items-center justify-content-between mb-5 pb-4 border-bt-secondary">
-                            <h4 className="rbt-title-style-3 rbt-border-none m-0 p-0">Personal information</h4>
-                            <button className="btn-edit" onClick={handleEditClick} style={{ display: isEditButtonVisible ? "block" : "none" }}>
-                                <i className="feather-edit"></i>
-                            </button>
-                        </div>
 
-                        <div className="rbt-profile-row row row--15 mt--15">
-                            <div className="col-lg-3 col-md-3">
-                                <div className="rbt-profile-content fw-300 info-content">Student Code</div>
-                            </div>
-                            <div className="col-lg-5 col-md-5">
-                                <div className="rbt-profile-content fw-300 info-content">{studentInfo.code}</div>
-                            </div>
-                        </div>
-
-                        <div className="rbt-profile-row row row--15 mt--15">
-                            <div className="col-lg-3 col-md-3">
-                                <div className="rbt-profile-content fw-300 info-content">Full Name</div>
-                            </div>
-                            <div className="col-lg-5 col-md-5">
-                                <div className="rbt-profile-content fw-300 info-content">{studentInfo.fullName || "unavailable"}</div>
-                            </div>
-                        </div>
-
-                        <div className="rbt-profile-row row row--15 mt--15">
-                            <div className="col-lg-3 col-md-3">
-                                <div className="rbt-profile-content fw-300 info-content">Email</div>
-                            </div>
-                            <div className="col-lg-5 col-md-5">
-                                <div className="rbt-profile-content fw-300 info-content">{studentInfo.email}</div>
-                            </div>
-                        </div>
-
-                        <div className="rbt-profile-row row row--15 mt--15">
-                            <div className="col-lg-3 col-md-3">
-                                <div className="rbt-profile-content fw-300 info-content">Birthday</div>
-                            </div>
-                            <div className="col-lg-5 col-md-5">
-                                <div className="rbt-profile-content fw-300 info-content">{(studentInfo.dayOfBirth && format(new Date(studentInfo.dayOfBirth), "dd-MM-yyyy")) || "unavailable"}</div>
-                            </div>
-                        </div>
-
-                        <div className="rbt-profile-row row row--15 mt--15">
-                            <div className="col-lg-3 col-md-3">
-                                <div className="rbt-profile-content fw-300 info-content">Gender</div>
-                            </div>
-                            <div className="col-lg-5 col-md-5">
-                                <div className="rbt-profile-content fw-300 info-content">
-                                    {isEditing ? (
-                                        <select className="input-change" style={{ paddingTop: 0, paddingBottom: 0, border: "1px solid #e6e3f1" }}>
-                                            <option value="0">Male</option>
-                                            <option value="1">Female</option>
-                                            <option value="2">Other</option>
-                                        </select>
-                                    ) : (
-                                        studentInfo.gender || "unavailable"
-                                    )}
+                                <div className="rbt-profile-row row row--15 mt--15">
+                                    <div className="col-lg-3 col-md-3">
+                                        <div className="rbt-profile-content fw-300 info-content">Phone Number</div>
+                                    </div>
+                                    <div className="col-lg-5 col-md-5">
+                                        <div className="rbt-profile-content fw-300 info-content">
+                                            {isEditing ? (
+                                                <input type="tel" className="input-change" value={editedInfo.phone || ""} onChange={(e) => setEditedInfo({ ...editedInfo, phone: e.target.value })} />
+                                            ) : (
+                                                studentInfo.phone || "unavailable"
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div className="rbt-profile-row row row--15 mt--15">
-                            <div className="col-lg-3 col-md-3">
-                                <div className="rbt-profile-content fw-300 info-content">Phone Number</div>
-                            </div>
-                            <div className="col-lg-5 col-md-5">
-                                <div className="rbt-profile-content fw-300 info-content">
-                                    {isEditing ? (
-                                        <input type="tel" className="input-change" value={editedInfo.phone || ""} onChange={(e) => setEditedInfo({ ...editedInfo, phone: e.target.value })} />
-                                    ) : (
-                                        studentInfo.phone || "unavailable"
-                                    )}
+                                <div className="rbt-profile-row row row--15 mt--15">
+                                    <div className="col-lg-3 col-md-3">
+                                        <div className="rbt-profile-content fw-300 info-content">Address</div>
+                                    </div>
+                                    <div className="col-lg-5 col-md-5">
+                                        <div className="rbt-profile-content fw-300 info-content">
+                                            {isEditing ? (
+                                                <input
+                                                    type="text"
+                                                    className="input-change"
+                                                    value={editedInfo.address || ""}
+                                                    onChange={(e) => setEditedInfo({ ...editedInfo, address: e.target.value })}
+                                                />
+                                            ) : (
+                                                studentInfo.address || "unavailable"
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div className="rbt-profile-row row row--15 mt--15">
-                            <div className="col-lg-3 col-md-3">
-                                <div className="rbt-profile-content fw-300 info-content">Address</div>
+                                {isEditing && (
+                                    <div className="d-flex justify-content-end mt-5">
+                                        <button className="info-act__btn btn-light" onClick={handleCancelClick}>
+                                            Cancel
+                                        </button>
+                                        <button className="info-act__btn btn-primary" onClick={handleSaveClick}>
+                                            Save Change
+                                        </button>
+                                    </div>
+                                )}
                             </div>
-                            <div className="col-lg-5 col-md-5">
-                                <div className="rbt-profile-content fw-300 info-content">
-                                    {isEditing ? (
-                                        <input type="text" className="input-change" value={editedInfo.address || ""} onChange={(e) => setEditedInfo({ ...editedInfo, address: e.target.value })} />
-                                    ) : (
-                                        studentInfo.address || "unavailable"
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {isEditing && (
-                            <div className="d-flex justify-content-end mt-5">
-                                <button className="info-act__btn btn-light" onClick={handleCancelClick}>
-                                    Cancel
-                                </button>
-                                <button className="info-act__btn btn-primary" onClick={handleSaveClick}>
-                                    Save Change
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                        </>
+                    )}
                 </div>
             </div>
         </LayoutProfile>

@@ -175,7 +175,7 @@ function HireTutor() {
 
                                                                     <ul className="mb-3">
                                                                         <li className="mb-0">Number Session: {packageHr.numSessions}</li>
-                                                                        <li className="mb-0">Hourly Rate: {packageHr.hourlyRate}</li>
+                                                                        <li className="mb-0">Price: ${packageHr.hourlyRate.toFixed(2)}</li>
                                                                     </ul>
 
                                                                     <p className="fz-12">Description: {packageHr.description}</p>

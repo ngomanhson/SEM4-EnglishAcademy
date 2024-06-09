@@ -2,6 +2,7 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { getDecodedToken } from "../../../../utils/auth";
+import config from "../../../../config";
 
 function Meeting() {
     const { roomId } = useParams();
@@ -9,6 +10,9 @@ function Meeting() {
     const decodeToken = getDecodedToken();
     let userIdFromToken;
     let userNameFromToken;
+
+    const serverSecretKey = config.key.SERVER_SECRET;
+    const zegoAppId = config.key.ZEGOCLOUD_APP_ID;
 
     if (decodeToken && decodeToken.Id && decodeToken.Fullname) {
         userIdFromToken = decodeToken.Id.toString();
@@ -20,8 +24,8 @@ function Meeting() {
 
     const myMeeting = async (element) => {
         try {
-            const appID = 2088572050;
-            const serverSecret = "05251e3aafc278b6348e3267794b521e";
+            const appID = zegoAppId;
+            const serverSecret = serverSecretKey;
             const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId, userIdFromToken, userNameFromToken);
             const zp = ZegoUIKitPrebuilt.create(kitToken);
             zp.joinRoom({

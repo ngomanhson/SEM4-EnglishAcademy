@@ -42,6 +42,8 @@ import Meeting from "../components/pages/Room/Meeting";
 import MeetingPersonal from "../components/pages/Room/MeetingPersonal";
 import HireTutor from "../components/pages/Tutors/HireTutor";
 import BookingWaiting from "../components/pages/Profile/BookingWaiting";
+import ByPackage from "../components/pages/Booking/BookingDetail/ByPackage";
+import ByWeeks from "../components/pages/Booking/BookingDetail/ByWeeks";
 
 const publicRoutes = [
     // Home routes
@@ -107,6 +109,10 @@ const privateRoutes = [
 
     // Hire Tutor routes
     { path: config.routes.hire_tutor, component: HireTutor },
+
+    // Booking routes
+    { path: config.routes.booking_package, component: ByPackage },
+    { path: config.routes.booking_weeks, component: ByWeeks },
 ];
 
 const authenticationRoutes = [
