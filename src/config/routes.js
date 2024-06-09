@@ -34,6 +34,11 @@ const routes = {
     tutor_detail: "/tutor/:tutorCode",
     hire_tutor: "/tutor/hire/:tutorCode",
 
+    // Booking
+    booking_waiting: "/booking-waiting",
+    booking_package: "/booking-package/:bookingId",
+    booking_weeks: "/booking-weeks/:bookingId",
+
     // Blog routes
     blog: "/blog",
     blog_detail: "/blog-detail",
@@ -46,7 +51,6 @@ const routes = {
     reviews: "/reviews",
     my_quiz: "/my-quiz",
     timetable: "/timetable",
-    booking_waiting: "/booking-waiting",
 
     // Auth routes
     login: "/login",

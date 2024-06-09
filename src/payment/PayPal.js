@@ -1,8 +1,11 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import config from "../config";
 
 export default function PayPalComponent({ amount, onSuccess, onCancel, onError }) {
+    const paypalClientId = config.key.PAYPAY_CLIENT_ID;
+
     const initialOptions = {
-        clientId: "AV_yQ7dzOz9FzysULcVpOwtN8d0Wob10pkR7hrzgx5mGcTzqhCLHZHYRWn4nMuTi4fJowBSlIbd-wKBU",
+        clientId: paypalClientId,
         currency: "USD",
     };
 
