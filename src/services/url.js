@@ -56,17 +56,23 @@ const url = {
 
     PROFILE: {
         DETAIL: "student/profile",
+        UPDATE_PROFILE: "student/update-profile",
     },
 
     TUTOR: {
         LIST: "any/tutor",
         DETAIL: "any/tutor-detail",
-        BOOKING: "booking",
+        BOOKING: "student/booking",
+        CREATE_BOOKING: "/booking",
+        BOOKING_DETAIL: "",
+
         AVAILABILITY: "any/availability",
         PACKAGE: "any/package/by-tutor",
+
         BOOKING_WAITING: "student/booking-waiting",
         BOOKING_DETAIL_PACKAGE: "package-student/student",
         BOOKING_DETAIL_WEEKS: "subscription/student",
+
         PAYMENT: "payment",
     },
 };

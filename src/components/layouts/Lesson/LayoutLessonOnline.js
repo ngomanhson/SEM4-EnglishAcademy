@@ -5,13 +5,12 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import url from "../../../services/url";
 import api from "../../../services/api";
 import NotFound from "../../pages/Other/NotFound";
-import { getAccessToken, getDecodedToken } from "../../../utils/auth";
+import { getAccessToken } from "../../../utils/auth";
 
 function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
     const { courseSlug } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-    const decodeToken = getDecodedToken();
 
     const [closeSidebar, setCloseSidebar] = useState(false);
     const itemSlug = new URLSearchParams(location.search).get("lesson");
@@ -47,11 +46,9 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
         setCloseSidebar((prev) => !prev);
     };
 
-    const studentId = decodeToken.Id;
-
     const loadData = useCallback(async () => {
         try {
-            const topicResponse = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}/${studentId}`, {
+            const topicResponse = await api.get(url.ONLINE_COURSE.TOPIC_ONLINE + `/${courseSlug}`, {
                 headers: {
                     Authorization: `Bearer ${getAccessToken()}`,
                 },
@@ -64,7 +61,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                 setDataNotFound(true);
             }
         }
-    }, [courseSlug, studentId]);
+    }, [courseSlug]);
 
     useEffect(() => {
         loadData();

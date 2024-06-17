@@ -5,6 +5,7 @@ import { getAccessToken } from "../../../utils/auth";
 import LayoutProfile from "./LayoutProfile";
 import { format } from "date-fns";
 import LoadingSpinner from "../../layouts/LoadingSpinner";
+import { statusColor } from "../../../utils/statusColor";
 
 function BookingWaiting() {
     const bookingData = useAxiosGet({
@@ -16,34 +17,13 @@ function BookingWaiting() {
 
     const bookings = bookingData.response;
 
-    function setColorStatus(status) {
-        let color;
-        switch (status) {
-            case "pending":
-                color = "color-secondary";
-                break;
-            case "confirmed":
-                color = "color-primary";
-                break;
-            case "completed":
-                color = "color-success";
-                break;
-            case "canceled":
-                color = "color-danger";
-                break;
-            default:
-                break;
-        }
-        return color;
-    }
-
     return (
         <LayoutProfile>
             <div className="col-lg-9">
                 <div className="rbt-dashboard-content bg-color-white rbt-shadow-box">
                     <div className="content">
                         <div className="section-title">
-                            <h4 className="rbt-title-style-3">Booking List</h4>
+                            <h4 className="rbt-title-style-3">Booking Waiting List</h4>
                         </div>
 
                         {bookingData.loading ? (
@@ -102,12 +82,12 @@ function BookingWaiting() {
                                                             <tr key={bookingIndex}>
                                                                 <th>{bookingIndex + 1}</th>
                                                                 <td>
-                                                                    <Link to={`/booking-package/${booking.id}`}>{booking.studentName}</Link>
+                                                                    <Link to={`/booking-waiting/package/${booking.id}`}>{booking.studentName}</Link>
                                                                 </td>
                                                                 <td>{booking.remainingSessions}</td>
-                                                                <td className={`fz-12 mt-3 ${setColorStatus(booking.status)}`}>{booking.status}</td>
+                                                                <td className={`fz-12 mt-3 ${statusColor(booking.status)}`}>{booking.status}</td>
                                                                 <td className="text-center">
-                                                                    <Link to={`/booking-package/${booking.id}`} className="bg-color-success-opacity color-success">
+                                                                    <Link to={`/booking-waiting/package/${booking.id}`} className="bg-color-success-opacity color-success">
                                                                         <i className="feather-eye"></i>
                                                                     </Link>
                                                                 </td>
@@ -138,14 +118,14 @@ function BookingWaiting() {
                                                             <tr key={bookingIndex}>
                                                                 <th>{bookingIndex + 1}</th>
                                                                 <td>
-                                                                    <Link to={`/booking-weeks/${booking.id}`}>{booking.studentName}</Link>
+                                                                    <Link to={`/booking-waiting/weeks/${booking.id}`}>{booking.studentName}</Link>
                                                                 </td>
 
                                                                 <td>${booking.price.toFixed(2)}</td>
                                                                 <td>{format(new Date(booking.nextPaymentDate), "dd-MM-yyyy")}</td>
-                                                                <td className={`fz-12 mt-3 ${setColorStatus(booking.status)}`}>{booking.status}</td>
+                                                                <td className={`fz-12 mt-3 ${statusColor(booking.status)}`}>{booking.status}</td>
                                                                 <td className="text-center">
-                                                                    <Link to={`/booking-weeks/${booking.id}`} className="bg-color-success-opacity color-success">
+                                                                    <Link to={`/booking-waiting/weeks/${booking.id}`} className="bg-color-success-opacity color-success">
                                                                         <i className="feather-eye"></i>
                                                                     </Link>
                                                                 </td>

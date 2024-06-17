@@ -35,9 +35,12 @@ const routes = {
     hire_tutor: "/tutor/hire/:tutorCode",
 
     // Booking
+    booking: "/booking",
+    booking_detail: "/booking/:lessonId",
+
     booking_waiting: "/booking-waiting",
-    booking_package: "/booking-package/:bookingId",
-    booking_weeks: "/booking-weeks/:bookingId",
+    booking_waiting_package: "/booking-waiting/package/:bookingId",
+    booking_waiting_weeks: "/booking-waiting/weeks/:bookingId",
 
     // Blog routes
     blog: "/blog",
