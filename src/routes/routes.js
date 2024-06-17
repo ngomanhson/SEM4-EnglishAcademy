@@ -42,8 +42,10 @@ import Meeting from "../components/pages/Room/Meeting";
 import MeetingPersonal from "../components/pages/Room/MeetingPersonal";
 import HireTutor from "../components/pages/Tutors/HireTutor";
 import BookingWaiting from "../components/pages/Profile/BookingWaiting";
-import ByPackage from "../components/pages/Booking/BookingDetail/ByPackage";
-import ByWeeks from "../components/pages/Booking/BookingDetail/ByWeeks";
+import ByPackage from "../components/pages/Booking/BookingWaitingDetail/ByPackage";
+import ByWeeks from "../components/pages/Booking/BookingWaitingDetail/ByWeeks";
+import BookingList from "../components/pages/Booking/BookingList";
+import BookingDetail from "../components/pages/Booking/BookingDetail";
 
 const publicRoutes = [
     // Home routes
@@ -111,8 +113,11 @@ const privateRoutes = [
     { path: config.routes.hire_tutor, component: HireTutor },
 
     // Booking routes
-    { path: config.routes.booking_package, component: ByPackage },
-    { path: config.routes.booking_weeks, component: ByWeeks },
+    { path: config.routes.booking, component: BookingList },
+    { path: config.routes.booking_detail, component: BookingDetail },
+
+    { path: config.routes.booking_waiting_package, component: ByPackage },
+    { path: config.routes.booking_waiting_weeks, component: ByWeeks },
 ];
 
 const authenticationRoutes = [

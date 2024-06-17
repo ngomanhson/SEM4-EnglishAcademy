@@ -24,8 +24,7 @@ function Ielts() {
     const [startTime, setStartTime] = useState(null);
 
     const { response, loading, error } = useAxiosGet({
-        // path: url.ENTRANCE_TEST.IELTS + `/${slug}`,
-        path: "http://localhost:8080/api/v1/test-input/detail/ielts-2",
+        path: url.ENTRANCE_TEST.IELTS + `/${slug}`,
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${getAccessToken()}`,

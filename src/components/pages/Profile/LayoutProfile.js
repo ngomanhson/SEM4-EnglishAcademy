@@ -50,11 +50,17 @@ function LayoutProfile({ children }) {
                                                                 </NavLink>
                                                             </li>
                                                             <li>
+                                                                <NavLink to={config.routes.booking}>
+                                                                    <i className="feather-user-check"></i>
+                                                                    <span>Booking</span>
+                                                                </NavLink>
+                                                            </li>
+                                                            {/* <li>
                                                                 <NavLink to={config.routes.booking_waiting}>
                                                                     <i className="feather-user-check"></i>
                                                                     <span>Booking Waiting</span>
                                                                 </NavLink>
-                                                            </li>
+                                                            </li> */}
                                                             <li>
                                                                 <NavLink to={config.routes.reviews}>
                                                                     <i className="feather-star"></i>

@@ -75,41 +75,52 @@ function HireTutor() {
     };
 
     const handleBooking = async () => {
-        setSubmitting(true);
-        const data = {
-            typeBooking: typeBooking,
-            tutorId: tutor.id,
-            packageId: selectPackage,
-            description: message,
-            lessonDays: selectedLessons,
-        };
+        const isConfirmed = await Swal.fire({
+            title: "Are you sure?",
+            text: "You want to delete selected data?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "I'm sure",
+        });
+        if (isConfirmed.isConfirmed) {
+            try {
+                setSubmitting(true);
+                const data = {
+                    typeBooking: typeBooking,
+                    tutorId: tutor.id,
+                    packageId: selectPackage,
+                    description: message,
+                    lessonDays: selectedLessons,
+                };
 
-        try {
-            const bookingRequest = await api.post(url.TUTOR.BOOKING, data, {
-                headers: {
-                    Authorization: `Bearer ${getAccessToken()}`,
-                },
-            });
-
-            if (bookingRequest.status === 200) {
-                Swal.fire({
-                    title: "Successfully!",
-                    text: "Request sent successfully!",
-                    icon: "success",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        navigate(config.routes.booking_waiting);
-                    }
+                const bookingRequest = await api.post(url.TUTOR.CREATE_BOOKING, data, {
+                    headers: {
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    },
                 });
+
+                if (bookingRequest.status === 200) {
+                    Swal.fire({
+                        title: "Successfully!",
+                        text: "Request sent successfully!",
+                        icon: "success",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigate(config.routes.booking_waiting);
+                        }
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Error! An error occurred. Please try again later!",
+                    icon: "error",
+                });
+            } finally {
+                setSubmitting(false);
             }
-        } catch (error) {
-            Swal.fire({
-                title: "Error!",
-                text: "Error! An error occurred. Please try again later!",
-                icon: "error",
-            });
-        } finally {
-            setSubmitting(false);
         }
     };
 
