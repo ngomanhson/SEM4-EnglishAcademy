@@ -48,7 +48,7 @@ function MenuMobile() {
                         </li>
 
                         <li className="with-megamenu">
-                            <NavLink to={config.routes.tutor}>Mentor</NavLink>
+                            <NavLink to={config.routes.tutor}>Tutor</NavLink>
                         </li>
 
                         <li className="with-megamenu">

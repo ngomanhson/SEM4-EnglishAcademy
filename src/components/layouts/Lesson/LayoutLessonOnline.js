@@ -6,6 +6,7 @@ import url from "../../../services/url";
 import api from "../../../services/api";
 import NotFound from "../../pages/Other/NotFound";
 import { getAccessToken } from "../../../utils/auth";
+import { formatMinute } from "../../../utils/formatTime";
 
 function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
     const { courseSlug } = useParams();
@@ -104,77 +105,81 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
     }, [openAccordion]);
 
     const handleNextLessonClick = async () => {
-        const currentTopicIndex = topics.findIndex(
-            (topic) => topic.itemOnlineDetailList.some((item) => item.slug === activeLink) || topic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)
-        );
+        try {
+            const currentTopicIndex = topics.findIndex(
+                (topic) => topic.itemOnlineDetailList.some((item) => item.slug === activeLink) || topic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)
+            );
 
-        if (currentTopicIndex !== -1) {
-            let nextTopicIndex = currentTopicIndex;
-            let nextItemIndex = 0;
-            let isTest = false;
+            if (currentTopicIndex !== -1) {
+                let nextTopicIndex = currentTopicIndex;
+                let nextItemIndex = 0;
+                let isTest = false;
 
-            const currentTopic = topics[currentTopicIndex];
+                const currentTopic = topics[currentTopicIndex];
 
-            if (currentTopic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)) {
-                isTest = true;
-            }
+                if (currentTopic.testOnlineResponseDTOList.some((test) => test.slug === activeLink)) {
+                    isTest = true;
+                }
 
-            const currentItemIndex = currentTopic.itemOnlineDetailList.findIndex((item) => item.slug === activeLink);
+                const currentItemIndex = currentTopic.itemOnlineDetailList.findIndex((item) => item.slug === activeLink);
 
-            if (!isTest) {
-                if (currentItemIndex !== -1 && currentItemIndex < currentTopic.itemOnlineDetailList.length - 1) {
-                    nextItemIndex = currentItemIndex + 1;
+                if (!isTest) {
+                    if (currentItemIndex !== -1 && currentItemIndex < currentTopic.itemOnlineDetailList.length - 1) {
+                        nextItemIndex = currentItemIndex + 1;
+                    } else {
+                        nextTopicIndex++;
+                        nextItemIndex = 0;
+
+                        if (nextTopicIndex >= topics.length) {
+                            nextTopicIndex = 0;
+                        }
+                    }
+                    setOpenAccordion((prevOpenAccordion) => ({
+                        ...prevOpenAccordion,
+                        [nextItemIndex + 1]: !prevOpenAccordion[nextTopicIndex],
+                    }));
                 } else {
-                    nextTopicIndex++;
-                    nextItemIndex = 0;
-
-                    if (nextTopicIndex >= topics.length) {
-                        nextTopicIndex = 0;
+                    if (currentItemIndex !== -1 && currentItemIndex < currentTopic.itemOnlineDetailList.length - 1) {
+                        nextItemIndex = currentItemIndex + 1;
+                    } else {
+                        nextTopicIndex++;
+                        nextItemIndex = 0;
                     }
                 }
-                setOpenAccordion((prevOpenAccordion) => ({
-                    ...prevOpenAccordion,
-                    [nextItemIndex + 1]: !prevOpenAccordion[nextTopicIndex],
-                }));
-            } else {
-                if (currentItemIndex !== -1 && currentItemIndex < currentTopic.itemOnlineDetailList.length - 1) {
-                    nextItemIndex = currentItemIndex + 1;
+
+                const nextTopic = topics[nextTopicIndex];
+                let nextSlug = null;
+
+                if (!isTest) {
+                    nextSlug = nextTopic.itemOnlineDetailList[nextItemIndex].slug;
                 } else {
-                    nextTopicIndex++;
-                    nextItemIndex = 0;
+                    if (nextTopic.itemOnlineDetailList.length > 0) {
+                        nextSlug = nextTopic.itemOnlineDetailList[0].slug;
+                    } else if (nextTopic.testOnlineResponseDTOList.length > 0) {
+                        nextSlug = nextTopic.testOnlineResponseDTOList[0].slug;
+                    }
+                }
+
+                try {
+                    const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}`, null, {
+                        headers: {
+                            Authorization: `Bearer ${getAccessToken()}`,
+                        },
+                    });
+
+                    if (completeItem.status === 200) {
+                        await loadData();
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+
+                if (nextSlug) {
+                    navigate(`/learning-online/${courseSlug}?lesson=${nextSlug}`);
                 }
             }
-
-            const nextTopic = topics[nextTopicIndex];
-            let nextSlug = null;
-
-            if (!isTest) {
-                nextSlug = nextTopic.itemOnlineDetailList[nextItemIndex].slug;
-            } else {
-                if (nextTopic.itemOnlineDetailList.length > 0) {
-                    nextSlug = nextTopic.itemOnlineDetailList[0].slug;
-                } else if (nextTopic.testOnlineResponseDTOList.length > 0) {
-                    nextSlug = nextTopic.testOnlineResponseDTOList[0].slug;
-                }
-            }
-
-            try {
-                const completeItem = await api.put(url.ONLINE_COURSE.COMPLETE_ITEM + `/${itemSlug}`, null, {
-                    headers: {
-                        Authorization: `Bearer ${getAccessToken()}`,
-                    },
-                });
-
-                if (completeItem.status === 200) {
-                    await loadData();
-                }
-            } catch (error) {
-                console.log(error);
-            }
-
-            if (nextSlug) {
-                navigate(`/learning-online/${courseSlug}?lesson=${nextSlug}`);
-            }
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -246,7 +251,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                             const accordionId = `accordion-${topic.id}-${index}`;
                                             const collapseId = `collapse-${topic.id}-${index}`;
 
-                                            const totalItems = topic.itemOnlineDetailList.length + topic.testOnlineResponseDTOList.length;
+                                            // const totalItems = topic.itemOnlineDetailList.length + topic.testOnlineResponseDTOList.length;
                                             return (
                                                 <div className="accordion-item card" key={topic.id}>
                                                     <h2 className="accordion-header card-header" id={`heading-${accordionId}`}>
@@ -259,7 +264,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                                             aria-controls={collapseId}
                                                             onClick={() => handleAccordionClick(index)}
                                                         >
-                                                            {index + 1}. {topic.name} <span className="rbt-badge-5 ml--10">0/{totalItems}</span>
+                                                            {index + 1}. {topic.name}
                                                         </button>
                                                     </h2>
                                                     <div id={collapseId} className="accordion-collapse collapse" aria-labelledby={`heading-${accordionId}`}>
@@ -306,7 +311,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                                                                     <i className="far fa-file-alt mt-3"></i>
                                                                                     <div className="d-flex flex-column">
                                                                                         <span className="text">{topicItem.title}</span>
-                                                                                        <span className="time">04:00</span>
+                                                                                        <span className="time">{formatMinute(topicItem.time)}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
