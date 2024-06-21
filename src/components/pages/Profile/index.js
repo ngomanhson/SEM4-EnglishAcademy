@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import LoadingSpinner from "../../layouts/LoadingSpinner";
 import api from "../../../services/api";
 import { toast } from "react-toastify";
-import { format } from "date-fns";
+import { format, differenceInYears } from "date-fns";
 
 function Profile() {
     const [info, setInfo] = useState({});
@@ -18,6 +18,7 @@ function Profile() {
     const [avatarFile, setAvatarFile] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState(null);
     const [phoneError, setPhoneError] = useState("");
+    const [dobError, setDobError] = useState("");
 
     const allowedExtensions = ["png", "jpg", "jpeg", "heic"];
 
@@ -48,11 +49,25 @@ function Profile() {
         setEditedInfo({});
         setAvatarPreview(null);
         setPhoneError("");
+        setDobError("");
     };
 
     const validatePhoneNumber = (phone) => {
         const phoneRegex = /^[0-9]{10}$/;
         return phoneRegex.test(phone);
+    };
+
+    const validateDob = (dob) => {
+        const today = new Date();
+        const selectedDate = new Date(dob);
+        const age = differenceInYears(today, selectedDate);
+
+        if (selectedDate > today) {
+            return "Birthdate cannot be in the future.";
+        } else if (age < 10) {
+            return "You must be at least 10 years old.";
+        }
+        return "";
     };
 
     const handlePhoneChange = (e) => {
@@ -66,9 +81,16 @@ function Profile() {
         }
     };
 
+    const handleDobChange = (e) => {
+        const { value } = e.target;
+        const error = validateDob(value);
+        setEditedInfo({ ...editedInfo, dob: value });
+        setDobError(error);
+    };
+
     const handleSaveClick = async () => {
-        if (phoneError) {
-            toast.error(phoneError, {
+        if (phoneError || dobError) {
+            toast.error(phoneError || dobError, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -195,7 +217,6 @@ function Profile() {
                                         <i className="feather-edit"></i>
                                     </button>
                                 </div>
-
                                 <div className="rbt-profile-row row row--15 mt--15">
                                     <div className="col-lg-3 col-md-3">
                                         <div className="rbt-profile-content fw-300 info-content">Student Code</div>
@@ -204,7 +225,6 @@ function Profile() {
                                         <div className="rbt-profile-content fw-300 info-content">{studentInfo.code}</div>
                                     </div>
                                 </div>
-
                                 <div className="rbt-profile-row row row--15 mt--15">
                                     <div className="col-lg-3 col-md-3">
                                         <div className="rbt-profile-content fw-300 info-content">Full Name</div>
@@ -222,7 +242,6 @@ function Profile() {
                                         <div className="rbt-profile-content fw-300 info-content">{studentInfo.email}</div>
                                     </div>
                                 </div>
-
                                 <div className="rbt-profile-row row row--15 mt--15">
                                     <div className="col-lg-3 col-md-3">
                                         <div className="rbt-profile-content fw-300 info-content">Birthday</div>
@@ -230,19 +249,13 @@ function Profile() {
                                     <div className="col-lg-5 col-md-5">
                                         <div className="rbt-profile-content fw-300 info-content">
                                             {isEditing ? (
-                                                <input
-                                                    type="date"
-                                                    className="input-change"
-                                                    value={editedInfo.dob || editedInfo.dayOfBirth}
-                                                    onChange={(e) => setEditedInfo({ ...editedInfo, dob: e.target.value })}
-                                                />
+                                                <input type="date" className="input-change" value={editedInfo.dob || ""} onChange={handleDobChange} />
                                             ) : (
                                                 format(new Date(editedInfo.dayOfBirth), "dd-MM-yyy") || "N/A"
                                             )}
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="rbt-profile-row row row--15 mt--15">
                                     <div className="col-lg-3 col-md-3">
                                         <div className="rbt-profile-content fw-300 info-content">Gender</div>
@@ -266,7 +279,6 @@ function Profile() {
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="rbt-profile-row row row--15 mt--15">
                                     <div className="col-lg-3 col-md-3">
                                         <div className="rbt-profile-content fw-300 info-content">Phone Number</div>
@@ -284,7 +296,6 @@ function Profile() {
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="rbt-profile-row row row--15 mt--15">
                                     <div className="col-lg-3 col-md-3">
                                         <div className="rbt-profile-content fw-300 info-content">Address</div>
@@ -304,7 +315,6 @@ function Profile() {
                                         </div>
                                     </div>
                                 </div>
-
                                 {isEditing && (
                                     <div className="d-flex justify-content-end mt-5">
                                         <button className="info-act__btn btn-light" onClick={handleCancelClick}>

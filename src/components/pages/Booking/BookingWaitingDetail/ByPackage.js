@@ -4,7 +4,7 @@ import { useAxiosGet } from "../../../../hooks";
 import url from "../../../../services/url";
 import { getAccessToken } from "../../../../utils/auth";
 import NotFound from "../../Other/NotFound";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import LoadingSpinner from "../../../layouts/LoadingSpinner";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -24,7 +24,7 @@ function ByPackage() {
         },
     });
 
-    const bookingDetail = bookingData?.response;
+    const bookingDetail = bookingData?.response || {};
     const [togglePayment, setTogglePayment] = useState(false);
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("credit");
@@ -45,11 +45,12 @@ function ByPackage() {
                 bookingType: 1,
                 id: Number(bookingId),
                 paymentMethod: selectedPaymentMethod,
-                price: bookingDetail?.price,
+                price: bookingDetail?.packagePrice,
             };
 
             const paymentRequest = await api.post(url.TUTOR.PAYMENT, info, config);
             if (paymentRequest.status === 200) {
+                setTogglePayment(false);
                 Swal.fire({
                     title: "Successfully!",
                     text: "Payment success!",
@@ -89,13 +90,13 @@ function ByPackage() {
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="rbt-profile-content fw-500">
                                                     Student Name
-                                                    <p className="m-0 fz-12 fw-300">{bookingDetail?.studentName}</p>
+                                                    <p className="m-0 fz-12 fw-300">{bookingDetail.studentName}</p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="rbt-profile-content fw-500">
                                                     Package Name
-                                                    <p className="m-0 fz-12 fw-300">{bookingDetail?.packageName}</p>
+                                                    <p className="m-0 fz-12 fw-300">{bookingDetail.packageName}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,13 +105,17 @@ function ByPackage() {
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="rbt-profile-content fw-500">
                                                     Sessions
-                                                    <p className="m-0 fz-12 fw-300">{bookingDetail?.remainingSessions}</p>
+                                                    <p className="m-0 fz-12 fw-300">{bookingDetail.remainingSessions}</p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-6">
-                                                <div className="rbt-profile-content fw-500">
+                                                {/* <div className="rbt-profile-content fw-500">
                                                     Purchase Date
                                                     <p className="mb-0 fz-12 fw-300">{(bookingDetail && format(new Date(bookingDetail.purchaseDate), "dd-MM-yyyy")) || "N/A"}</p>
+                                                </div> */}
+                                                <div className="rbt-profile-content fw-500">
+                                                    Price
+                                                    <p className="mb-0 fz-12 fw-300">${bookingDetail.packagePrice.toFixed(2)}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,13 +124,13 @@ function ByPackage() {
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="rbt-profile-content fw-500">
                                                     Status
-                                                    <p className={`m-0 fz-12 fw-300 ${statusColor(bookingDetail?.status)}`}>{bookingDetail?.status}</p>
+                                                    <p className={`m-0 fz-12 fw-300 ${statusColor(bookingDetail.status)}`}>{bookingDetail.status}</p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="rbt-profile-content fw-500">
                                                     Created Date
-                                                    <p className="mb-0 fz-12 fw-300">{bookingDetail?.createdDate || "N/A"}</p>
+                                                    <p className="mb-0 fz-12 fw-300">{bookingDetail.createdDate || "N/A"}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +141,7 @@ function ByPackage() {
                                                     Lesson
                                                     {bookingDetail?.lessonDays.map((lesson, lessonIndex) => (
                                                         <p className="mt-3 mb-3 fz-13 fw-300" key={lessonIndex}>
-                                                            {lessonIndex + 1}. {lesson?.dayOfWeek}: {lesson?.startTime} - {lesson?.endTime}
+                                                            {lessonIndex + 1}. {lesson?.dayOfWeek}: {lesson.startTime} - {lesson.endTime}
                                                         </p>
                                                     ))}
                                                 </div>
@@ -200,7 +205,7 @@ function ByPackage() {
 
                                                 {selectedPaymentMethod === "credit" && (
                                                     <Elements stripe={stripePromise}>
-                                                        <StripePaymentForm onSuccess={handleStripePaymentSuccess} amount={bookingDetail?.price} />
+                                                        <StripePaymentForm onSuccess={handleStripePaymentSuccess} amount={bookingDetail?.packagePrice} />
                                                     </Elements>
                                                 )}
 
@@ -208,7 +213,7 @@ function ByPackage() {
                                             </div>
                                         )}
 
-                                        {bookingDetail?.status === "confirmed" && !togglePayment && (
+                                        {bookingDetail.status === "confirmed" && !togglePayment && bookingDetail.packagePrice > 0 && (
                                             <div className="rbt-profile-row row row--15 mt--15">
                                                 <div className="col-lg-6 col-md-6 mt-auto">
                                                     <p className="text-danger fz-14">Note: Please pay before the next payment date!</p>
