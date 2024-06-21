@@ -8,7 +8,7 @@ import LayoutLessonOnline from "../../../../layouts/Lesson/LayoutLessonOnline";
 import Lottie from "lottie-react";
 import ComingSoon from "../../../../../lottie/ComingSoon.json";
 import { useAxiosGet } from "../../../../../hooks";
-import { getAccessToken, getDecodedToken } from "../../../../../utils/auth";
+import { getAccessToken } from "../../../../../utils/auth";
 import Parts from "../../../../views/TestLesson/Parts";
 import Sidebar from "../../../../views/TestLesson/Sidebar";
 import Breadcrumb from "../../../../views/TestLesson/Breadcrumb";
@@ -38,9 +38,6 @@ function TestLessonOnline() {
     });
 
     const testData = useMemo(() => response || [], [response]);
-
-    const decodeToken = getDecodedToken();
-    const studentId = decodeToken.Id;
 
     useEffect(() => {
         if (response && response.time) {
@@ -89,7 +86,7 @@ function TestLessonOnline() {
                 createAnswerStudentList: answersToSubmit,
             };
 
-            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${testSlug}/${studentId}`, dataSubmit, {
+            const response = await api.post(url.ONLINE_COURSE.SUBMIT_TEST + `/${testSlug}`, dataSubmit, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${getAccessToken()}`,
@@ -102,7 +99,7 @@ function TestLessonOnline() {
         } catch (error) {
             console.log(error);
         }
-    }, [navigate, selectedAnswers, startTime, testSlug, studentId, testData]);
+    }, [navigate, selectedAnswers, startTime, testSlug, testData]);
 
     useEffect(() => {
         if (confirmed) {

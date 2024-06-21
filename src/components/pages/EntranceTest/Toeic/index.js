@@ -21,7 +21,7 @@ function Toeic() {
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
-    const [timeRemaining, setTimeRemaining] = useState(1800);
+    const [timeRemaining, setTimeRemaining] = useState(0);
 
     const [startTime, setStartTime] = useState(null);
 
