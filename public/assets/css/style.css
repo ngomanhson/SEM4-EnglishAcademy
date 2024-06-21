@@ -16090,7 +16090,7 @@ span.transparent-button:hover i {
     padding: 0;
     background-color: transparent;
     position: relative;
-    font-weight: 500;
+    font-weight: 400;
 }
 @media only screen and (max-width: 575px) {
     .rbt-accordion-style .card .card-header button {
