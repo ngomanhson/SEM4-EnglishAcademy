@@ -136,10 +136,10 @@ function HireTutor() {
                                     <h5>
                                         <i className="feather-edit-3"></i> Hire a Tutor
                                     </h5>
-                                    <div className="d-flex align-items-start">
-                                        <img src={tutor.avatar} alt={tutor.fullname} className="hire-avatar" width={200} height={200} />
-                                        <div className="content ml--10">
-                                            <h5 className="d-flex align-items-center m-0">
+                                    <div className="d-flex align-items-center">
+                                        <img src={tutor.avatar} alt={tutor.fullname} className="hire-avatar" />
+                                        <div className="content ml--20">
+                                            <h5 className="d-flex align-items-center mb-2">
                                                 {tutor.fullname}
                                                 <svg aria-label="Verified" className="ml--5" fill="rgb(0, 149, 246)" height="13" role="img" viewBox="0 0 40 40" width="13">
                                                     <path
@@ -149,7 +149,7 @@ function HireTutor() {
                                                 </svg>
                                             </h5>
                                             <p className="fz-15 mb-0">{tutor.teachingSubject}</p>
-                                            {/* <p className="mt-2 fz-15 text-danger">Note: You can only choose 2 lessons/week</p> */}
+                                            <p className="mt-2 fz-15 text-danger">Note: You can only choose 2 lessons/week</p>
                                         </div>
                                     </div>
 
@@ -170,27 +170,43 @@ function HireTutor() {
 
                                             {selection === "package" ? (
                                                 <>
-                                                    <div className="col-lg-12">
+                                                    <div className="row">
                                                         {packageHire.map((packageHr, packageIndex) => (
-                                                            <div className="choose-wrapper" key={packageIndex}>
-                                                                <input
-                                                                    type="radio"
-                                                                    className="d-none input-package"
-                                                                    name="package"
-                                                                    id={`package-${packageHr.id}`}
-                                                                    onChange={() => handleChangePackage(packageHr.id)}
-                                                                    hidden
-                                                                />
-                                                                <label className="chs-cal" htmlFor={`package-${packageHr.id}`}>
-                                                                    <p className="mb-0">{packageHr.name}</p>
+                                                            <div className="col-lg-4" key={packageIndex}>
+                                                                <div className="choose-wrapper">
+                                                                    <label htmlFor={`package-${packageHr.id}`} className="w-100">
+                                                                        <div
+                                                                            class="card mb-3"
+                                                                            style={{ borderRadius: 10, overflow: "hidden", border: "none", boxShadow: "rgba(17, 12, 46, 0.15) 0px 48px 300px 0px" }}
+                                                                        >
+                                                                            <div class="card-header p-3 px-4" style={{ background: "#829cff21", border: "none" }}>
+                                                                                <div className="d-flex align-items-start justify-content-between">
+                                                                                    <div>
+                                                                                        <span className="rbt-badge-6 bg-secondary-opacity fz-12" style={{ padding: "5px 15px" }}>
+                                                                                            {packageHr.name}
+                                                                                        </span>
+                                                                                        <h5 class="card-title">${packageHr.hourlyRate.toFixed(2)}</h5>
+                                                                                        <p className="fz-12 line-clamp-1">{packageHr.description}</p>
+                                                                                    </div>
 
-                                                                    <ul className="mb-3">
-                                                                        <li className="mb-0">Number Session: {packageHr.numSessions}</li>
-                                                                        <li className="mb-0">Price: ${packageHr.hourlyRate.toFixed(2)}</li>
-                                                                    </ul>
-
-                                                                    <p className="fz-12">Description: {packageHr.description}</p>
-                                                                </label>
+                                                                                    <input
+                                                                                        type="radio"
+                                                                                        className="input-tab__option position-absolute"
+                                                                                        style={{ top: "2px", right: "15px" }}
+                                                                                        name="package"
+                                                                                        id={`package-${packageHr.id}`}
+                                                                                        onChange={() => handleChangePackage(packageHr.id)}
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="card-body p-3 px-4" style={{ background: "#fff" }}>
+                                                                                <div className="d-flex align-items-center justify-content-between">
+                                                                                    <span className="fz-12">Number Session: {packageHr.numSessions < 10 ? `0${packageHr.numSessions}` : packageHr.numSessions}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         ))}
                                                     </div>
@@ -217,7 +233,6 @@ function HireTutor() {
                                                             ))}
                                                         </ul>
                                                     </div>
-
                                                     <div className="col-lg-12 mt-5">
                                                         <div className="tab-content">
                                                             {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, dayIndex) => (

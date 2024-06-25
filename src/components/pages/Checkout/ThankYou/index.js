@@ -2,7 +2,6 @@ import Layout from "../../../layouts";
 import Lottie from "lottie-react";
 import Success from "../../../../lottie/Success.json";
 import { Link, useParams } from "react-router-dom";
-import config from "../../../../config";
 
 function ThankYou() {
     const { courseSlug } = useParams();
@@ -24,18 +23,10 @@ function ThankYou() {
                                         We're excited to have you on board! Start your learning journey now by exploring our course content.
                                     </p>
 
-                                    <div className="d-flex align-items-center justify-content-evenly">
-                                        <Link to={config.routes.home} className="rbt-btn bg-primary-opacity btn-not__hover">
-                                            Go to Home
-                                        </Link>
-
-                                        <Link to={`/learning-online/${courseSlug}`} className="rbt-btn icon-hover btn-not__hover">
-                                            <span className="btn-text">Learning Now</span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                        </Link>
-                                    </div>
+                                    <Link to={`/learning-online/${courseSlug}`} className="rbt-moderbt-btn">
+                                        <span class="moderbt-btn-text">Learning Now</span>
+                                        <i class="feather-arrow-right"></i>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

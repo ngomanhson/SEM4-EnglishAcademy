@@ -284,7 +284,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                                                                     {topicItem.itemType === 2 && <i className="feather-hash mt-3"></i>}
                                                                                     <div className="d-flex flex-column">
                                                                                         <span className="text">{topicItem.title}</span>
-                                                                                        <span className="time">04:00</span>
+                                                                                        <span className="time">{formatMinute(topicItem.duration)}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

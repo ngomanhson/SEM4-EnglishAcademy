@@ -31401,8 +31401,8 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
 }
 .wrapper-content {
     position: relative;
-    background: #F5F7FA;
-    padding: 5px 15px;
+    background: #fff;
+    padding: 8px 10px;
     border-radius: 8px;
 }
 .answer-star {
@@ -31843,12 +31843,12 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
     object-fit: cover;
 }
 .hire-avatar {
-    width: 120px;
-    height: 120px;
-    padding: .25rem;
+    width: 135px;
+    height: 135px;
+    padding: 4px;
     background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: .25rem;
+    border: 2px solid var(--primary-opacity);
+    border-radius: 50%;
     object-fit: cover;
 }
 input[disabled]{
@@ -32051,5 +32051,29 @@ input[type="checkbox"][disabled] ~ label.chs-cal {
     }
 }
 
-
+.rbt-table thead tr th, .rbt-table thead tr td, .rbt-table tfoot tr th, .rbt-table tfoot tr td {
+    font-weight: 400;
+    font-size: 15px;
+}
+h4, .h4, h5, .h5 {
+    font-weight: 500;
+}
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.dropdown-menu {
+    padding: 0;
+}
+.bootstrap-select .dropdown-menu li {
+    margin: 0;
+}
+.bootstrap-select .dropdown-menu li a {
+    padding: 8px 20px;
+}
+.bootstrap-select>.dropdown-toggle {
+    padding: 10px 20px;
+}
 /*# sourceMappingURL=../maps/style.css.map */

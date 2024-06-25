@@ -63,8 +63,8 @@ const url = {
         LIST: "any/tutor",
         DETAIL: "any/tutor-detail",
         BOOKING: "student/booking",
-        CREATE_BOOKING: "/booking",
-        BOOKING_DETAIL: "",
+        CREATE_BOOKING: "booking",
+        BOOKING_DETAIL: "student/booking",
 
         AVAILABILITY: "any/availability",
         PACKAGE: "any/package/by-tutor",
