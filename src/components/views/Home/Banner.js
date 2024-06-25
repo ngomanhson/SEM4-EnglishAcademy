@@ -1,4 +1,47 @@
+import { Link } from "react-router-dom";
+import config from "../../../config";
+
 function Banner() {
+    const services = [
+        {
+            path: config.routes.course,
+            image: "assets/images/icons/counter-02.png",
+            title: "Online Course",
+            description: "Participate in online courses with rich and diverse topics, helping you learn anytime, anywhere and easily manage your study time.",
+        },
+        {
+            path: config.routes.enrolled_courses,
+            image: "assets/images/icons/counter-04.png",
+            title: "Offline Course",
+            description: "Live courses in the classroom give you the opportunity to interact directly with instructors and classmates, creating a dynamic and effective learning environment.",
+        },
+        {
+            path: config.routes.entrance_test,
+            image: "assets/images/icons/counter-03.png",
+            title: "Rated Capacity",
+            description:
+                "The competency assessment includes a full range of Listening - Reading - Writing - Speaking skills. Thereby, students will know their abilities and have a suitable learning path.",
+        },
+        {
+            path: config.routes.tutor,
+            image: "assets/images/icons/counter-01.png",
+            title: "Tutoring",
+            description: "English Academy has a team of tutors who are good teachers and students, specialize in subjects, and provide flexible and convenient online tutoring services.",
+        },
+    ];
+
+    const headlines = [
+        {
+            title: "Offline Learning.",
+        },
+        {
+            title: "Rated Capacity.",
+        },
+        {
+            title: "Tutoring.",
+        },
+    ];
+
     return (
         <div className="rbt-splash-slider d-flex align-items-center">
             <div className="wrapper">
@@ -10,21 +53,15 @@ function Banner() {
                                     <div className="banner-badge-top">
                                         <div className="icon">
                                             <div className="rating">
-                                                <a href="#!">
-                                                    <i className="fa fa-star"></i>
-                                                </a>
-                                                <a href="#!">
-                                                    <i className="fa fa-star"></i>
-                                                </a>
-                                                <a href="#!">
-                                                    <i className="fa fa-star"></i>
-                                                </a>
-                                                <a href="#!">
-                                                    <i className="fa fa-star"></i>
-                                                </a>
-                                                <a href="#!">
-                                                    <i className="fa fa-star"></i>
-                                                </a>
+                                                <i className="fa fa-star"></i>
+
+                                                <i className="fa fa-star"></i>
+
+                                                <i className="fa fa-star"></i>
+
+                                                <i className="fa fa-star"></i>
+
+                                                <i className="fa fa-star"></i>
                                             </div>
                                         </div>
                                         <span className="subtitle">12500+ Trust Customer</span>
@@ -38,22 +75,21 @@ function Banner() {
                                     </div>
                                 </div>
                                 <h1 className="title">
-                                    Have your dream site in minutes <br />
-                                    for
+                                    Learning platform with{" "}
                                     <span className="cd-headline slide">
-                                        <span className="cd-words-wrapper" style={{ width: 512 }}>
-                                            <b className="theme-gradient is-hidden">Online Course.</b>
-                                            <b className="theme-gradient is-hidden">Like Udemy.</b>
-                                            <b className="theme-gradient is-hidden">School.</b>
-                                            <b className="theme-gradient is-hidden">University.</b>
-                                            <b className="theme-gradient is-visible">High School.</b>
-                                            <b className="theme-gradient is-hidden">Kindergarden.</b>
+                                        <span className="cd-words-wrapper">
+                                            <b className="theme-gradient is-visible">Online Courses.</b>
+                                            {headlines.map((headline, index) => (
+                                                <b className="theme-gradient is-hidden" key={index}>
+                                                    {headline.title}
+                                                </b>
+                                            ))}
                                         </span>
                                     </span>
                                 </h1>
-                                <p className="description">
+                                {/* <p className="description">
                                     The most <strong>powerful</strong> yet the <strong>easiest</strong> template ever.
-                                </p>
+                                </p> */}
                             </div>
                         </div>
                         <div className="col-lg-12 col-xl-6 order-1 order-xl-2">
@@ -169,53 +205,21 @@ function Banner() {
                             <div className="splash-service-main position-relative">
                                 <div className="service-wrapper service-white">
                                     <div className="row g-0">
-                                        <div className="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12 service__style--column">
-                                            <div className="service service__style--1">
-                                                <div className="icon">
-                                                    <img src="assets/images/icons/icons-01.png" alt="Icon Images" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">Fast Performance</h4>
-                                                    <p>Optimized for a smaller build size, faster dev compilation and dozens of other improvements.</p>
-                                                </div>
+                                        {services.map((service, index) => (
+                                            <div className="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12 service__style--column" key={index}>
+                                                <Link to={service.path}>
+                                                    <div className="service service__style--1">
+                                                        <div className="icon">
+                                                            <img src={service.image} alt="Icon Images" />
+                                                        </div>
+                                                        <div className="content">
+                                                            <h4 className="title">{service.title}</h4>
+                                                            <p>{service.description}</p>
+                                                        </div>
+                                                    </div>
+                                                </Link>
                                             </div>
-                                        </div>
-
-                                        <div className="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12 service__style--column">
-                                            <div className="service service__style--1">
-                                                <div className="icon">
-                                                    <img src="assets/images/icons/icons-02.png" alt="Icon Images" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">Perfect Responsive</h4>
-                                                    <p>Our template is full perfect for all device. You can visit our template all device easily.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12 service__style--column">
-                                            <div className="service service__style--1">
-                                                <div className="icon">
-                                                    <img src="assets/images/icons/icons-03.png" alt="Icon Images" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">Fast &amp; Friendly Support</h4>
-                                                    <p>We are provide 24 hours support for all clients.You can purchase without hesitation.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12 service__style--column">
-                                            <div className="service service__style--1">
-                                                <div className="icon">
-                                                    <img src="assets/images/icons/icons-04.png" alt="Icon Images" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">Easy to Use</h4>
-                                                    <p>Create your own custom template or section by copying, pasting, and assembling.</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>

@@ -15,6 +15,7 @@ import { getAccessToken, getDecodedToken } from "../../../../utils/auth";
 import useAxiosGet from "../../../../hooks/useAxiosGet";
 import config from "../../../../config";
 import { toolbarOptions } from "../../../../utils/toolbaroptions";
+import key from "../../../../config/key";
 
 function SubjectLearning() {
     const { slug } = useParams();
@@ -36,7 +37,7 @@ function SubjectLearning() {
     const answerStudents = item.answerStudentItemSlotResponseListList || [];
 
     useEffect(() => {
-        const socket = new SockJS("http://localhost:8080/ws", {
+        const socket = new SockJS(key.WEBSOCKET_URL, {
             headers: {
                 Authorization: `Bearer ${getAccessToken()}`,
             },
@@ -425,20 +426,16 @@ function SubjectLearning() {
                                 )}
 
                                 <div className="row mt-5">
-                                    <div className="col-lg-8">
+                                    <div className="col-lg-12">
                                         <div className="widget border-lft-prm-opacity">
                                             <div className="rbt-comment-area">
-                                                <h4 className="heading-discuss" style={{ fontSize: 25 }}>
-                                                    Discuss
-                                                </h4>
-
                                                 <ul className="comment-list">
                                                     {answerStudents.map((answer) => (
-                                                        <li className="comment" key={answer.id}>
+                                                        <li className="comment border-top-0" key={answer.id}>
                                                             <div className="comment-body">
-                                                                <div className="single-comment">
+                                                                <div className="single-comment bg-color-black-opacity p-5 mb-4" style={{ borderRadius: 8 }}>
                                                                     <div className="comment-img">
-                                                                        <img src="assets/images/others/default-avatar.png" alt="Author Images" />
+                                                                        <img src="assets/images/others/user-placeholder.png" alt={answer.createdBy} />
                                                                     </div>
                                                                     <div className="comment-inner">
                                                                         <h6 className="commenter">
@@ -527,7 +524,7 @@ function SubjectLearning() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-4">
+                                    {/* <div className="col-lg-4">
                                         <div className="chat-box">
                                             <div className="chat-box__header">
                                                 <div className="d-flex align-items-center justify-content-between">
@@ -608,7 +605,7 @@ function SubjectLearning() {
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </>
                         )}

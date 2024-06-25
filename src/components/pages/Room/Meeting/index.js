@@ -14,8 +14,8 @@ function Meeting() {
     const serverSecretKey = config.key.SERVER_SECRET;
     const zegoAppId = config.key.ZEGOCLOUD_APP_ID;
 
-    if (decodeToken && decodeToken.Id && decodeToken.Fullname) {
-        userIdFromToken = decodeToken.Id.toString();
+    if (decodeToken && decodeToken.Id && decodeToken.Fullname && decodeToken.iat) {
+        userIdFromToken = decodeToken.Id.toString() + decodeToken.iat.toString();
         userNameFromToken = decodeToken.Fullname.toString();
     } else {
         userIdFromToken = null;

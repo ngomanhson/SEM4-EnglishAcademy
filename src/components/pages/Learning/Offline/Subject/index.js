@@ -77,7 +77,7 @@ function SubjectOffline() {
                                 <div className="col-lg-8">
                                     <div className="row">
                                         {currentSubject.map((subject) => (
-                                            <div className="col-lg-6" key={subject.id}>
+                                            <div className="col-lg-6 mb-4" key={subject.id}>
                                                 <div className="widget border-a-secondary p-4">
                                                     <Link to={`/subject-slot/${subject.slug}`}>
                                                         <h5 className="border-bt-secondary mb-4 pb-3">{subject.name}</h5>

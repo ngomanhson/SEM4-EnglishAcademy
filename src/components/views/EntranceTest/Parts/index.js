@@ -10,7 +10,7 @@ function Parts({ session, currentSessionIndex, index, selectedAnswers, handleAns
                     </h4>
                     <p className="fw-300">The total number of questions: {session.totalQuestion}</p>
                 </div>
-                <div className="d-flex justify-content-end align-items-center mt-3">
+                {/* <div className="d-flex justify-content-end align-items-center mt-3">
                     <button type="button" className="btn-circle" onClick={handlePrevSession} disabled={currentSessionIndex === 0}>
                         <i className="feather-arrow-left"></i>
                     </button>
@@ -18,12 +18,27 @@ function Parts({ session, currentSessionIndex, index, selectedAnswers, handleAns
                     <button type="button" className="btn-circle ml-2" onClick={handleNextSession} disabled={currentSessionIndex === entranceTest.testInputSessionDetails.length - 1}>
                         <i className="feather-arrow-right"></i>
                     </button>
-                </div>
+                </div> */}
             </div>
 
             {session.questionTestInputs?.map((question, questionIndex) => (
                 <Questions key={question.id} question={question} questionIndex={questionIndex} selectedAnswers={selectedAnswers} handleAnswerSelect={handleAnswerSelect} />
             ))}
+
+            <div className="d-flex justify-content-end align-items-center mt-5">
+                <button type="button" className="rbt-btn btn-sm rbt-btn bg-primary-opacity btn-not__hover" onClick={handlePrevSession} disabled={currentSessionIndex === 0}>
+                    Previous
+                </button>
+
+                <button
+                    type="button"
+                    className="rbt-btn btn-sm rbt-btn bg-primary-opacity btn-not__hover ml--20"
+                    onClick={handleNextSession}
+                    disabled={currentSessionIndex === entranceTest.testInputSessionDetails.length - 1}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 }
