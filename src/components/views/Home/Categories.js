@@ -13,12 +13,12 @@ function Categories() {
             image: "assets/images/course/offline-learning.png",
             icon: "assets/images/icons/counter-04.png",
             title: "Learning Platform",
-            path: config.routes.my_courses,
+            path: config.routes.my_course,
         },
         {
             image: "assets/images/course/rated-capacity.jpg",
             icon: "assets/images/icons/counter-03.png",
-            title: "Rated Capacity",
+            title: "Competency Assessment",
             path: config.routes.entrance_test,
         },
         {
@@ -61,9 +61,9 @@ function Categories() {
                                             <Link to={category.path}>{category.title}</Link>
                                         </h5>
                                         <div className="read-more-btn">
-                                            <a className="rbt-btn-link" href="course-filter-one-toggle.html">
-                                                35 Courses<i className="feather-arrow-right"></i>
-                                            </a>
+                                            <Link to={category.path} className="rbt-btn-link">
+                                                Lean more<i className="feather-arrow-right"></i>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

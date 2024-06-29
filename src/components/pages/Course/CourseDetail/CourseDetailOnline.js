@@ -12,6 +12,7 @@ import api from "../../../../services/api";
 import url from "../../../../services/url";
 import { useAxiosGet } from "../../../../hooks";
 import { formatLevelCourse } from "../../../../utils/formatLevelCourse";
+import { toast } from "react-toastify";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
@@ -154,7 +155,20 @@ function CourseDetailOnline() {
                     setValidationStar(true);
                 }
             }
-        } catch (error) {}
+        } catch (error) {
+            console.log(error);
+
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
     };
 
     return (
@@ -587,12 +601,18 @@ function CourseDetailOnline() {
                                                     </div>
 
                                                     <div className="add-to-card-button mt--15">
-                                                        <button className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover" onClick={handleEnroll}>
-                                                            <span className="btn-text">Enroll Course</span>
-                                                            <span className="btn-icon">
-                                                                <i className="feather-arrow-right"></i>
-                                                            </span>
-                                                        </button>
+                                                        {topics.length === 0 ? (
+                                                            <button className="rbt-btn btn-secondary w-100 d-block text-center btn-not__hover" disabled>
+                                                                Coming soon...
+                                                            </button>
+                                                        ) : (
+                                                            <button className="rbt-btn btn-gradient icon-hover w-100 d-block text-center btn-not__hover" onClick={handleEnroll}>
+                                                                <span className="btn-text">Enroll Course</span>
+                                                                <span className="btn-icon">
+                                                                    <i className="feather-arrow-right"></i>
+                                                                </span>
+                                                            </button>
+                                                        )}
                                                     </div>
 
                                                     <div className="rbt-widget-details has-show-more m-5">
