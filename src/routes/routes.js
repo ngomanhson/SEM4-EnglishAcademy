@@ -13,7 +13,6 @@ import BlogDetail from "../components/pages/Blog/BlogDetail";
 import AboutUs from "../components/pages/AboutUs/index";
 import Dictionary from "../components/pages/Dictionary/index";
 import Profile from "../components/pages/Profile/index";
-import EnrolledCourses from "../components/pages/Profile/EnrolledCourses";
 import Reviews from "../components/pages/Profile/Reviews";
 import MyQuiz from "../components/pages/Profile/MyQuiz";
 import Login from "../components/pages/Auth/Login";
@@ -46,6 +45,7 @@ import ByPackage from "../components/pages/Booking/BookingWaitingDetail/ByPackag
 import ByWeeks from "../components/pages/Booking/BookingWaitingDetail/ByWeeks";
 import BookingList from "../components/pages/Booking/BookingList";
 import BookingDetail from "../components/pages/Booking/BookingDetail";
+import MyCourse from "../components/pages/MyCourse/MyCourse";
 
 const publicRoutes = [
     // Home routes
@@ -98,7 +98,7 @@ const privateRoutes = [
 
     // Profile routes
     { path: config.routes.profile, component: Profile },
-    { path: config.routes.enrolled_courses, component: EnrolledCourses },
+    { path: config.routes.my_course, component: MyCourse },
     { path: config.routes.reviews, component: Reviews },
     { path: config.routes.my_quiz, component: MyQuiz },
     { path: config.routes.change_password, component: ChangePassword },

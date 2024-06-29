@@ -7,7 +7,7 @@ function Course() {
                         <div className="section-title text-center">
                             <span className="subtitle bg-secondary-opacity">Top Popular Course</span>
                             <h2 className="title">
-                                Histudy Course student <br /> can join with us.
+                                English Academy student <br /> can join with us.
                             </h2>
                         </div>
                     </div>

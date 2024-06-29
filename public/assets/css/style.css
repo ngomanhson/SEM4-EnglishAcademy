@@ -30866,11 +30866,11 @@ button.btn-circle[disabled]:hover {
 }
 
 .fw-300 {
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 
 .fw-500 {
-    font-weight: 500;
+    font-weight: 500 !important;
 }
 
 .choice-wrapper {
@@ -32075,5 +32075,19 @@ h4, .h4, h5, .h5 {
 }
 .bootstrap-select>.dropdown-toggle {
     padding: 10px 20px;
+}
+
+.card-package {
+    border-radius: 10px;
+    overflow: hidden; 
+    border: none;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 300px 0px;
+    cursor: pointer;
+}
+.rbt-splash-slider .inner .title {
+    font-size: 45px;
+}
+.rbt-card-cs {
+    padding: 20px;
 }
 /*# sourceMappingURL=../maps/style.css.map */

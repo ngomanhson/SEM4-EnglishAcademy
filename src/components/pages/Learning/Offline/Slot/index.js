@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Layout from "../../../../layouts";
 import url from "../../../../../services/url";
 import { Link, useParams } from "react-router-dom";
@@ -23,6 +24,16 @@ function SlotOffline() {
     const slotList = subject.slotResponseDetailList || [];
     const finalTest = subject.testOfflineResponseList || [];
 
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const filteredSlotList = slotList.filter(
+        (slot) => slot.name.toLowerCase().includes(searchQuery.toLowerCase()) || slot.itemSlotResponseList.some((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+
     return (
         <>
             {loading && <Loading />}
@@ -38,7 +49,7 @@ function SlotOffline() {
                                         <div className="content text-start">
                                             <ul className="page-list">
                                                 <li className="rbt-breadcrumb-item">
-                                                    <Link to={config.routes.enrolled_courses}>Enrolled Courses</Link>
+                                                    <Link to={config.routes.my_courses}>Enrolled Courses</Link>
                                                 </li>
                                                 <li>
                                                     <div className="icon-right">
@@ -63,12 +74,12 @@ function SlotOffline() {
                                             <div className="section-title">
                                                 <h4 className="rbt-title-style-3 font-system">Slot Content</h4>
                                             </div>
-                                            {slotList && slotList.length === 0 ? (
+                                            {filteredSlotList && filteredSlotList.length === 0 ? (
                                                 <p>This subject has no slot.</p>
                                             ) : (
                                                 <div className="rbt-accordion-style rbt-accordion-02 accordion">
                                                     <div className="accordion" id="accordionExampleb2">
-                                                        {slotList.map((slot, index) => {
+                                                        {filteredSlotList.map((slot, index) => {
                                                             const accordionId = `accordion-${slot.id}-${index}`;
                                                             const collapseId = `collapse-${slot.id}-${index}`;
                                                             return (
@@ -225,7 +236,7 @@ function SlotOffline() {
                                     <div className="widget">
                                         <h4 className="rbt-title-style-3 font-system">Search</h4>
                                         <form action="#" className="rbt-search-style-1">
-                                            <input type="text" placeholder="Search Slot" required />
+                                            <input type="text" placeholder="Search Slot" value={searchQuery} onChange={handleSearchChange} required />
                                             <button type="submit" className="rbt-btn bg-color-darker btn-not__hover w-100 mt-4" style={{ height: 50, lineHeight: "50px" }}>
                                                 <i className="feather-search"></i> Search
                                             </button>

@@ -176,16 +176,15 @@ function HireTutor() {
                                                                 <div className="choose-wrapper">
                                                                     <label htmlFor={`package-${packageHr.id}`} className="w-100">
                                                                         <div
-                                                                            class="card mb-3"
-                                                                            style={{ borderRadius: 10, overflow: "hidden", border: "none", boxShadow: "rgba(17, 12, 46, 0.15) 0px 48px 300px 0px" }}
+                                                                            className="card card-package mb-3"
                                                                         >
-                                                                            <div class="card-header p-3 px-4" style={{ background: "#829cff21", border: "none" }}>
+                                                                            <div className="card-header p-3 px-4" style={{ background: "#829cff21", border: "none" }}>
                                                                                 <div className="d-flex align-items-start justify-content-between">
                                                                                     <div>
                                                                                         <span className="rbt-badge-6 bg-secondary-opacity fz-12" style={{ padding: "5px 15px" }}>
                                                                                             {packageHr.name}
                                                                                         </span>
-                                                                                        <h5 class="card-title">${packageHr.hourlyRate.toFixed(2)}</h5>
+                                                                                        <h5 className="card-title">${packageHr.hourlyRate.toFixed(2)}</h5>
                                                                                         <p className="fz-12 line-clamp-1">{packageHr.description}</p>
                                                                                     </div>
 
@@ -199,9 +198,11 @@ function HireTutor() {
                                                                                     />
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="card-body p-3 px-4" style={{ background: "#fff" }}>
+                                                                            <div className="card-body p-3 px-4" style={{ background: "#fff" }}>
                                                                                 <div className="d-flex align-items-center justify-content-between">
-                                                                                    <span className="fz-12">Number Session: {packageHr.numSessions < 10 ? `0${packageHr.numSessions}` : packageHr.numSessions}</span>
+                                                                                    <span className="fz-12">
+                                                                                        Number Session: {packageHr.numSessions < 10 ? `0${packageHr.numSessions}` : packageHr.numSessions}
+                                                                                    </span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
