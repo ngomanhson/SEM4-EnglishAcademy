@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { format } from "date-fns";
 import { useState } from "react";
 import Layout from "../../../../layouts";
 import url from "../../../../../services/url";
@@ -8,6 +7,9 @@ import NotFound from "../../../Other/NotFound";
 import config from "../../../../../config";
 import { useAxiosGet } from "../../../../../hooks";
 import { getAccessToken } from "../../../../../utils/auth";
+import Subject from "../../../../views/Learing/Offline/Subject";
+import Lottie from "lottie-react";
+import Learn from "../../../../../lottie/Learn.json";
 
 function SubjectOffline() {
     const { slug } = useParams();
@@ -23,14 +25,22 @@ function SubjectOffline() {
     const course = response || [];
     const subjectList = course.subjectList || [];
 
+    const [searchQuery, setSearchQuery] = useState("");
     const itemsPerPage = 6;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const totalPages = Math.ceil(subjectList.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, subjectList.length);
+    const filteredSubject = subjectList.filter((subject) => subject.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    const currentSubject = subjectList.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(filteredSubject.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredSubject.length);
+
+    const currentSubject = filteredSubject.slice(startIndex, endIndex);
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(1);
+    };
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -54,7 +64,7 @@ function SubjectOffline() {
                                         <div className="content text-start">
                                             <ul className="page-list">
                                                 <li className="rbt-breadcrumb-item">
-                                                    <Link to={config.routes.enrolled_courses}>Enrolled Courses</Link>
+                                                    <Link to={config.routes.my_course}>My Course</Link>
                                                 </li>
                                                 <li>
                                                     <div className="icon-right">
@@ -75,68 +85,46 @@ function SubjectOffline() {
                         <div className="container">
                             <div className="row g-5">
                                 <div className="col-lg-8">
-                                    <div className="row">
-                                        {currentSubject.map((subject) => (
-                                            <div className="col-lg-6 mb-4" key={subject.id}>
-                                                <div className="widget border-a-secondary p-4">
-                                                    <Link to={`/subject-slot/${subject.slug}`}>
-                                                        <h5 className="border-bt-secondary mb-4 pb-3">{subject.name}</h5>
-                                                    </Link>
-
-                                                    <p className="d-flex align-items-center mb-4 fz-16 fw-300">
-                                                        <i className="fab fa-leanpub pr--5"></i> Slot: 0{subject.totalSlot}
-                                                    </p>
-
-                                                    <p className="d-flex align-items-center mb-4 fz-16 fw-300">
-                                                        <i className="fas fa-calendar-alt pr--5"></i> {subject.createdDate && format(new Date(subject.createdDate), "dd-MM-yyyy")}
-                                                    </p>
-
-                                                    <div className="d-flex align-items-center justify-content-between border-t-secondary pt-3">
-                                                        <p className="d-flex align-items-center m-0 fw-300 fz-16">
-                                                            <i className="fas fa-user-graduate pr--5"></i> {subject.totalSlot} students
-                                                        </p>
-
-                                                        <Link to={`/subject-slot/${subject.slug}`} className="transparent-button fw-300" href="#!">
-                                                            Learn More
-                                                            <i>
-                                                                <svg width="17" height="12" xmlns="http://www.w3.org/2000/svg">
-                                                                    <g stroke="#27374D" fill="none" fillRule="evenodd">
-                                                                        <path d="M10.614 0l5.629 5.629-5.63 5.629"></path>
-                                                                        <path strokeLinecap="square" d="M.663 5.572h14.594"></path>
-                                                                    </g>
-                                                                </svg>
-                                                            </i>
-                                                        </Link>
-                                                    </div>
-                                                </div>
+                                    {currentSubject.length === 0 ? (
+                                        <div className="row ">
+                                            <div className="col-5 mx-auto">
+                                                <Lottie animationData={Learn} loop={true} />
+                                                <p className="m-0 text-center">This slot has no content.</p>
                                             </div>
-                                        ))}
-                                    </div>
-                                    {currentSubject.length <= 6 ? (
-                                        ""
+                                        </div>
                                     ) : (
                                         <div className="row">
-                                            <div className="col-lg-12 mt--60">
-                                                <nav>
-                                                    <ul className="rbt-pagination">
-                                                        <li className={`${currentPage === 1 ? "disabled" : ""}`}>
-                                                            <button onClick={() => handlePageChange(currentPage - 1)}>
-                                                                <i className="feather-chevron-left"></i>
-                                                            </button>
-                                                        </li>
-                                                        {Array.from({ length: totalPages }, (_, index) => (
-                                                            <li key={index} className={`${currentPage === index + 1 ? "active" : ""}`}>
-                                                                <button onClick={() => handlePageChange(index + 1)}>{index + 1}</button>
-                                                            </li>
-                                                        ))}
-                                                        <li className={`${currentPage === totalPages ? "disabled" : ""}`}>
-                                                            <button onClick={() => handlePageChange(currentPage + 1)}>
-                                                                <i className="feather-chevron-right"></i>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
-                                            </div>
+                                            {currentSubject.map((subject) => (
+                                                <Subject subject={subject} key={subject.id} />
+                                            ))}
+
+                                            {currentSubject.length <= 6 ? (
+                                                ""
+                                            ) : (
+                                                <div className="row">
+                                                    <div className="col-lg-12 mt--60">
+                                                        <nav>
+                                                            <ul className="rbt-pagination">
+                                                                <li className={`${currentPage === 1 ? "disabled" : ""}`}>
+                                                                    <button onClick={() => handlePageChange(currentPage - 1)}>
+                                                                        <i className="feather-chevron-left"></i>
+                                                                    </button>
+                                                                </li>
+                                                                {Array.from({ length: totalPages }, (_, index) => (
+                                                                    <li key={index} className={`${currentPage === index + 1 ? "active" : ""}`}>
+                                                                        <button onClick={() => handlePageChange(index + 1)}>{index + 1}</button>
+                                                                    </li>
+                                                                ))}
+                                                                <li className={`${currentPage === totalPages ? "disabled" : ""}`}>
+                                                                    <button onClick={() => handlePageChange(currentPage + 1)}>
+                                                                        <i className="feather-chevron-right"></i>
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
@@ -144,10 +132,8 @@ function SubjectOffline() {
                                     <div className="widget">
                                         <h4 className="rbt-title-style-3 font-system">Search</h4>
                                         <form action="#" className="rbt-search-style-1">
-                                            <input type="text" placeholder="Search Subject" required />
-                                            {/* <button className="search-btn mb-3">
-                                                <i className="feather-search"></i>
-                                            </button> */}
+                                            <input type="text" placeholder="Search Subject" required value={searchQuery} onChange={handleSearch} />
+
                                             <button type="submit" className="rbt-btn bg-color-darker btn-not__hover w-100 mt-4" style={{ height: 50, lineHeight: "50px" }}>
                                                 <i className="feather-search"></i> Search
                                             </button>

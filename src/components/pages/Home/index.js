@@ -1,13 +1,10 @@
 import Layout from "../../layouts";
-import AboutUs from "../../views/Home/AboutUs";
 import Banner from "../../views/Home/Banner";
 import Blog from "../../views/Home/Blog";
 import Categories from "../../views/Home/Categories";
 import Course from "../../views/Home/Course";
-import Event from "../../views/Home/Event";
 import Newsletter from "../../views/Home/Newsletter";
 import Teacher from "../../views/Home/Teacher";
-import Presentation from "../../views/Home/Presentation";
 
 function Home() {
     return (
@@ -19,12 +16,6 @@ function Home() {
                     <Categories />
 
                     <Course />
-
-                    <AboutUs />
-
-                    <Presentation />
-
-                    <Event />
 
                     <Teacher />
 

@@ -226,9 +226,9 @@ function Header() {
                                                     </li>
 
                                                     <li>
-                                                        <Link to={config.routes.enrolled_courses}>
+                                                        <Link to={config.routes.my_courses}>
                                                             <i className="feather-book-open"></i>
-                                                            <span>Enrolled Courses</span>
+                                                            <span>My Courses</span>
                                                         </Link>
                                                     </li>
                                                     <li>

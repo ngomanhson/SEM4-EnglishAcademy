@@ -10,6 +10,34 @@ function LayoutProfile({ children }) {
         removeAccessToken();
     };
 
+    const sidebars = [
+        {
+            path: config.routes.profile,
+            title: "Personal Information",
+            icon: "feather-user",
+        },
+        {
+            path: config.routes.timetable,
+            title: "Timetable",
+            icon: "feather-calendar",
+        },
+        {
+            path: config.routes.booking,
+            title: "Booking",
+            icon: "feather-user-check",
+        },
+        {
+            path: config.routes.reviews,
+            title: "Reviews",
+            icon: "feather-star",
+        },
+        {
+            path: config.routes.my_quiz,
+            title: "My Quiz Attempts",
+            icon: "feather-list",
+        },
+    ];
+
     return (
         <Layout title="Profile">
             <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3 bg-color-darker p-0" style={{ minHeight: 240 }}></div>
@@ -31,48 +59,14 @@ function LayoutProfile({ children }) {
                                                     </div>
                                                     <nav className="mainmenu-nav">
                                                         <ul className="dashboard-mainmenu rbt-default-sidebar-list">
-                                                            <li>
-                                                                <NavLink to={config.routes.profile}>
-                                                                    <i className="feather-user"></i>
-                                                                    <span>Personal Information</span>
-                                                                </NavLink>
-                                                            </li>
-                                                            <li>
-                                                                <NavLink to={config.routes.enrolled_courses}>
-                                                                    <i className="feather-book-open"></i>
-                                                                    <span>Enrolled Courses</span>
-                                                                </NavLink>
-                                                            </li>
-                                                            <li>
-                                                                <NavLink to={config.routes.timetable}>
-                                                                    <i className="feather-calendar"></i>
-                                                                    <span>Timetable</span>
-                                                                </NavLink>
-                                                            </li>
-                                                            <li>
-                                                                <NavLink to={config.routes.booking}>
-                                                                    <i className="feather-user-check"></i>
-                                                                    <span>Booking</span>
-                                                                </NavLink>
-                                                            </li>
-                                                            {/* <li>
-                                                                <NavLink to={config.routes.booking_waiting}>
-                                                                    <i className="feather-user-check"></i>
-                                                                    <span>Booking Waiting</span>
-                                                                </NavLink>
-                                                            </li> */}
-                                                            <li>
-                                                                <NavLink to={config.routes.reviews}>
-                                                                    <i className="feather-star"></i>
-                                                                    <span>Reviews</span>
-                                                                </NavLink>
-                                                            </li>
-                                                            <li>
-                                                                <NavLink to={config.routes.my_quiz}>
-                                                                    <i className="feather-list"></i>
-                                                                    <span>My Quiz Attempts</span>
-                                                                </NavLink>
-                                                            </li>
+                                                            {sidebars.map((sidebar, index) => (
+                                                                <li key={index}>
+                                                                    <NavLink to={sidebar.path}>
+                                                                        <i className={sidebar.icon}></i>
+                                                                        <span>{sidebar.title}</span>
+                                                                    </NavLink>
+                                                                </li>
+                                                            ))}
                                                         </ul>
                                                     </nav>
 

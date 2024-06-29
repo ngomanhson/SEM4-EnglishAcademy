@@ -94,7 +94,7 @@ function BookingDetail() {
                                                             <tr key={index}>
                                                                 <td>{index + 1}</td>
                                                                 <td>
-                                                                    <Link to={`${lesson.path === null ? "" : `/room/${lesson.path}`}`} target="_blank" className="text-primary">
+                                                                    <Link to={`${lesson.path === null ? "" : `/room/${lesson.path}`}`} className="text-primary">
                                                                         {getLastSegment(lesson.path) || "N/A"}
                                                                     </Link>
                                                                 </td>

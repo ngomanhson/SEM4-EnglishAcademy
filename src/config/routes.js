@@ -50,7 +50,7 @@ const routes = {
 
     // Profile routes
     profile: "/profile",
-    enrolled_courses: "/enrolled-courses",
+    my_course: "/my-course",
     reviews: "/reviews",
     my_quiz: "/my-quiz",
     timetable: "/timetable",
