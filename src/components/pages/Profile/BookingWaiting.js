@@ -3,7 +3,7 @@ import { useAxiosGet } from "../../../hooks";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutProfile from "./LayoutProfile";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import LoadingSpinner from "../../layouts/LoadingSpinner";
 import { statusColor } from "../../../utils/statusColor";
 
@@ -23,14 +23,14 @@ function BookingWaiting() {
                 <div className="rbt-dashboard-content bg-color-white rbt-shadow-box">
                     <div className="content">
                         <div className="section-title">
-                            <h4 className="rbt-title-style-3">Booking Waiting List</h4>
+                            <h4 className="rbt-title-style-3">Booking Waiting</h4>
                         </div>
 
                         {bookingData.loading ? (
                             <LoadingSpinner />
                         ) : (
                             <>
-                                <div className="advance-tab-button mb--30">
+                                {/* <div className="advance-tab-button mb--30">
                                     <ul className="nav nav-tabs tab-button-style-2 justify-content-start" id="myTab-4" role="tablist">
                                         <li role="presentation">
                                             <Link
@@ -61,45 +61,45 @@ function BookingWaiting() {
                                             </Link>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> */}
 
                                 <div className="tab-content">
-                                    <div className="tab-pane fade active show" id="home-4" role="tabpanel" aria-labelledby="home-tab-4">
-                                        <div className="row g-5">
-                                            <div className="rbt-dashboard-table table-responsive mobile-table-750">
-                                                <table className="rbt-table table table-borderless">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>No.</th>
-                                                            <th>Student</th>
-                                                            <th>Sessions</th>
-                                                            <th>Status</th>
-                                                            <th className="text-center">Actions</th>
+                                    {/* <div className="tab-pane fade active show" id="home-4" role="tabpanel" aria-labelledby="home-tab-4"> */}
+                                    <div className="row g-5">
+                                        <div className="rbt-dashboard-table table-responsive mobile-table-750">
+                                            <table className="rbt-table table table-borderless">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Student</th>
+                                                        <th>Sessions</th>
+                                                        <th>Status</th>
+                                                        <th className="text-center">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {bookings?.studentPackageDTOS.map((booking, bookingIndex) => (
+                                                        <tr key={bookingIndex}>
+                                                            <th>{bookingIndex + 1}</th>
+                                                            <td>
+                                                                <Link to={`/booking-waiting/package/${booking.id}`}>{booking.studentName}</Link>
+                                                            </td>
+                                                            <td>{booking.remainingSessions}</td>
+                                                            <td className={`fz-12 mt-3 ${statusColor(booking.status)}`}>{booking.status}</td>
+                                                            <td className="text-center">
+                                                                <Link to={`/booking-waiting/package/${booking.id}`} className="bg-color-success-opacity color-success">
+                                                                    <i className="feather-eye"></i>
+                                                                </Link>
+                                                            </td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {bookings?.studentPackageDTOS.map((booking, bookingIndex) => (
-                                                            <tr key={bookingIndex}>
-                                                                <th>{bookingIndex + 1}</th>
-                                                                <td>
-                                                                    <Link to={`/booking-waiting/package/${booking.id}`}>{booking.studentName}</Link>
-                                                                </td>
-                                                                <td>{booking.remainingSessions}</td>
-                                                                <td className={`fz-12 mt-3 ${statusColor(booking.status)}`}>{booking.status}</td>
-                                                                <td className="text-center">
-                                                                    <Link to={`/booking-waiting/package/${booking.id}`} className="bg-color-success-opacity color-success">
-                                                                        <i className="feather-eye"></i>
-                                                                    </Link>
-                                                                </td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    ))}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
+                                    {/* </div> */}
 
-                                    <div className="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
+                                    {/* <div className="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
                                         <div className="row g-5">
                                             <div className="rbt-dashboard-table table-responsive mobile-table-750">
                                                 <table className="rbt-table table table-borderless">
@@ -135,7 +135,7 @@ function BookingWaiting() {
                                                 </table>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </>
                         )}

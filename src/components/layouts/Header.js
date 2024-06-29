@@ -8,6 +8,29 @@ function Header() {
         removeAccessToken();
     };
 
+    const headerItem = [
+        {
+            title: "Home",
+            path: config.routes.home,
+        },
+        {
+            title: "Courses",
+            path: config.routes.course,
+        },
+        {
+            title: "Entrance Test",
+            path: config.routes.entrance_test,
+        },
+        {
+            title: "Tutor",
+            path: config.routes.tutor,
+        },
+        {
+            title: "Blog",
+            path: config.routes.blog,
+        },
+    ];
+
     return (
         <header className="rbt-header rbt-header-10">
             <div className="rbt-sticky-placeholder"></div>
@@ -152,7 +175,7 @@ function Header() {
                         <div className="header-left rbt-header-content">
                             <div className="header-info">
                                 <div className="logo">
-                                    <Link to="/">
+                                    <Link to={config.routes.home}>
                                         <img src="assets/images/logo/logo.png" alt="English Academy" />
                                     </Link>
                                 </div>
@@ -162,25 +185,11 @@ function Header() {
                         <div className="rbt-main-navigation d-none d-xl-block">
                             <nav className="mainmenu-nav">
                                 <ul className="mainmenu">
-                                    <li className="with-megamenu has-menu-child-item position-static menu-item-open">
-                                        <NavLink to={config.routes.home}>Home</NavLink>
-                                    </li>
-
-                                    <li className="with-megamenu has-menu-child-item">
-                                        <NavLink to={config.routes.course}>Courses</NavLink>
-                                    </li>
-
-                                    <li className="has-dropdown has-menu-child-item">
-                                        <NavLink to={config.routes.entrance_test}>Entrance Test</NavLink>
-                                    </li>
-
-                                    <li className="with-megamenu has-menu-child-item">
-                                        <NavLink to={config.routes.tutor}>Tutor</NavLink>
-                                    </li>
-
-                                    <li className="with-megamenu has-menu-child-item position-static">
-                                        <NavLink to={config.routes.blog}>Blog</NavLink>
-                                    </li>
+                                    {headerItem.map((item, index) => (
+                                        <li className="with-megamenu has-menu-child-item" key={index}>
+                                            <NavLink to={item.path}>{item.title}</NavLink>
+                                        </li>
+                                    ))}
                                 </ul>
                             </nav>
                         </div>
@@ -226,7 +235,7 @@ function Header() {
                                                     </li>
 
                                                     <li>
-                                                        <Link to={config.routes.my_courses}>
+                                                        <Link to={config.routes.my_course}>
                                                             <i className="feather-book-open"></i>
                                                             <span>My Courses</span>
                                                         </Link>

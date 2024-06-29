@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import LayoutLessonOnline from "../../../layouts/Lesson/LayoutLessonOnline";
 import { useLocation } from "react-router-dom";
 import url from "../../../../services/url";
-import Loading from "../../../layouts/Loading";
 import Confetti from "react-confetti-boom";
 import Lottie from "lottie-react";
 import Learn from "../../../../lottie/Learn.json";
@@ -117,7 +116,6 @@ function LearningOnline() {
     });
     return (
         <>
-            {loading && <Loading />}
             {showConfetti && (
                 <Confetti width={windowSize.with} height={windowSize.height} mode="boom" y={1} particleCount={100} launchSpeed={5} colors={["#8000ff", "#ff00fb", "#29f500", "#e1ff00", "#ff0000"]} />
             )}

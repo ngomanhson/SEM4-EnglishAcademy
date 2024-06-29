@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
+import config from "../../../config";
 
 function Banner() {
     const headlines = [
         {
-            title: "Offline Learning",
+            title: "Offline Learning.",
         },
         {
-            title: "Rated Capacity",
+            title: "Competency Assessment.",
         },
         {
-            title: "Tutoring",
+            title: "Tutoring.",
         },
     ];
 
@@ -25,7 +26,8 @@ function Banner() {
                                 </div>
 
                                 <h1 className="title">
-                                    The Largest{" "}
+                                    The largest online platform
+                                    <br />
                                     <span className="header-caption">
                                         <span className="cd-headline clip is-full-width">
                                             <span className="cd-words-wrapper" style={{ width: "5.50067px", overflow: "hidden" }}>
@@ -38,30 +40,31 @@ function Banner() {
                                                 <b className="theme-gradient is-visible">Online Courses.</b>
                                             </span>
                                         </span>
-                                    </span>{" "}
-                                    <br /> Platform for Drive Your Career.
+                                    </span>
                                 </h1>
 
-                                <p className="description fw-300">We are experienced in educationl platform and skilled strategies for the success of our online learning.</p>
+                                <p className="description fw-300">
+                                    We have extensive experience in educational platforms and employ skilled strategies to ensure the success of our online learning initiatives.
+                                </p>
 
-                                <div className="rating mb--20">
-                                    <Link to="">
-                                        <i className="fa fa-star"></i>
-                                    </Link>
-                                    <Link to="">
-                                        <i className="fa fa-star"></i>
-                                    </Link>
-                                    <Link to="">
-                                        <i className="fa fa-star"></i>
-                                    </Link>
-                                    <Link to="">
-                                        <i className="fa fa-star"></i>
-                                    </Link>
-                                    <Link to="">
-                                        <i className="fa fa-star"></i>
-                                    </Link>
-                                </div>
-                                <div className="rbt-like-total">
+                                <div className="rbt-like-total pb-5">
+                                    <div className="rating mb--20">
+                                        <Link to="">
+                                            <i className="fa fa-star"></i>
+                                        </Link>
+                                        <Link to="">
+                                            <i className="fa fa-star"></i>
+                                        </Link>
+                                        <Link to="">
+                                            <i className="fa fa-star"></i>
+                                        </Link>
+                                        <Link to="">
+                                            <i className="fa fa-star"></i>
+                                        </Link>
+                                        <Link to="">
+                                            <i className="fa fa-star"></i>
+                                        </Link>
+                                    </div>
                                     <div className="profile-share">
                                         <a href="!#" className="avatar" data-tooltip="Mark JOrdan" tabIndex="0">
                                             <img src="assets/images/testimonial/client-03.png" alt="education" />
@@ -77,6 +80,15 @@ function Banner() {
                                             <p className="subtitle">Have a new ideas every week.</p>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div className="rbt-button-group justify-content-start mt--30">
+                                    <Link to={config.routes.register} className="rbt-btn btn-gradient rbt-switch-btn">
+                                        <span data-text="Sign Up Now">Sign Up Now</span>
+                                    </Link>
+                                    <Link to={config.routes.course} className="rbt-btn btn-border rbt-switch-btn">
+                                        <span data-text="Find Courses">Find Courses</span>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -187,6 +199,9 @@ function Banner() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="splash-service-main position-relative">
+                        <div className="service-wrapper service-white"></div>
                     </div>
                 </div>
             </div>
