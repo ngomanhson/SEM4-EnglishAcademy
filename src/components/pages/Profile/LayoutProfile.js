@@ -12,29 +12,51 @@ function LayoutProfile({ children }) {
 
     const sidebars = [
         {
-            path: config.routes.profile,
-            title: "Personal Information",
-            icon: "feather-user",
+            label: `Welcome, ${decodeToken.Fullname || ""}`,
+            item: [
+                {
+                    path: config.routes.profile,
+                    title: "Personal Information",
+                    icon: "feather-user",
+                },
+                {
+                    path: config.routes.timetable,
+                    title: "Timetable",
+                    icon: "feather-calendar",
+                },
+                {
+                    path: config.routes.booking,
+                    title: "Booking",
+                    icon: "feather-user-check",
+                },
+                {
+                    path: config.routes.reviews,
+                    title: "Reviews",
+                    icon: "feather-star",
+                },
+                {
+                    path: config.routes.my_quiz,
+                    title: "My Quiz Attempts",
+                    icon: "feather-list",
+                },
+            ],
         },
         {
-            path: config.routes.timetable,
-            title: "Timetable",
-            icon: "feather-calendar",
-        },
-        {
-            path: config.routes.booking,
-            title: "Booking",
-            icon: "feather-user-check",
-        },
-        {
-            path: config.routes.reviews,
-            title: "Reviews",
-            icon: "feather-star",
-        },
-        {
-            path: config.routes.my_quiz,
-            title: "My Quiz Attempts",
-            icon: "feather-list",
+            label: "Account",
+            item: [
+                {
+                    path: config.routes.change_password,
+                    title: "Change Password",
+                    icon: "feather-settings",
+                },
+
+                {
+                    path: config.routes.login,
+                    title: "Logout",
+                    icon: "feather-log-out",
+                    onclick: handleLogout,
+                },
+            ],
         },
     ];
 
@@ -52,44 +74,34 @@ function LayoutProfile({ children }) {
                                         <div className="inner">
                                             <div className="content-item-content">
                                                 <div className="rbt-default-sidebar-wrapper">
-                                                    <div className="section-title mb--20">
-                                                        <h6 className="rbt-title-style-2" style={{ paddingLeft: 5 }}>
-                                                            Welcome, {decodeToken.Fullname || ""}
-                                                        </h6>
-                                                    </div>
-                                                    <nav className="mainmenu-nav">
-                                                        <ul className="dashboard-mainmenu rbt-default-sidebar-list">
-                                                            {sidebars.map((sidebar, index) => (
-                                                                <li key={index}>
-                                                                    <NavLink to={sidebar.path}>
-                                                                        <i className={sidebar.icon}></i>
-                                                                        <span>{sidebar.title}</span>
-                                                                    </NavLink>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </nav>
-
-                                                    <div className="section-title mt--40 mb--20">
-                                                        <h6 className="rbt-title-style-2">Account</h6>
-                                                    </div>
-
-                                                    <nav className="mainmenu-nav">
-                                                        <ul className="dashboard-mainmenu rbt-default-sidebar-list">
-                                                            <li>
-                                                                <NavLink to={config.routes.change_password}>
-                                                                    <i className="feather-settings"></i>
-                                                                    <span>Change Password</span>
-                                                                </NavLink>
-                                                            </li>
-                                                            <li>
-                                                                <Link to={config.routes.login} onClick={handleLogout}>
-                                                                    <i className="feather-log-out"></i>
-                                                                    <span>Logout</span>
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    </nav>
+                                                    {sidebars.map((sidebar, sidebarIndex) => (
+                                                        <div className="mb-5" key={sidebarIndex}>
+                                                            <div className="section-title mb-3">
+                                                                <h6 className="rbt-title-style-2" style={{ paddingLeft: 5 }}>
+                                                                    {sidebar.label}
+                                                                </h6>
+                                                            </div>
+                                                            <nav className="mainmenu-nav">
+                                                                <ul className="dashboard-mainmenu rbt-default-sidebar-list">
+                                                                    {sidebar.item.map((sidebar, index) => (
+                                                                        <li key={index}>
+                                                                            {sidebar.title === "Logout" ? (
+                                                                                <Link to={sidebar.path} onClick={sidebar.onclick}>
+                                                                                    <i className={sidebar.icon}></i>
+                                                                                    <span>{sidebar.title}</span>
+                                                                                </Link>
+                                                                            ) : (
+                                                                                <NavLink to={sidebar.path}>
+                                                                                    <i className={sidebar.icon}></i>
+                                                                                    <span>{sidebar.title}</span>
+                                                                                </NavLink>
+                                                                            )}
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>

@@ -22,12 +22,61 @@ function Header() {
             path: config.routes.entrance_test,
         },
         {
-            title: "Tutor",
+            title: "Tutoring",
             path: config.routes.tutor,
         },
         {
             title: "Blog",
             path: config.routes.blog,
+        },
+    ];
+
+    const menuItem = [
+        {
+            breakLine: true,
+            items: [
+                {
+                    title: "Personal Information",
+                    path: config.routes.profile,
+                    icon: "feather-user",
+                },
+                {
+                    title: "My Courses",
+                    path: config.routes.my_course,
+                    icon: "feather-book-open",
+                },
+                {
+                    title: "Reviews",
+                    path: config.routes.reviews,
+                    icon: "feather-star",
+                },
+                {
+                    title: "My Quiz Attempts",
+                    path: config.routes.my_quiz,
+                    icon: "feather-list",
+                },
+            ],
+        },
+        {
+            breakLine: true,
+            items: [
+                {
+                    title: "Change Password",
+                    path: config.routes.change_password,
+                    icon: "feather-settings",
+                },
+            ],
+        },
+        {
+            breakLine: false,
+            items: [
+                {
+                    title: "Logout",
+                    path: config.routes.login,
+                    icon: "feather-log-out",
+                    onClick: handleLogout,
+                },
+            ],
         },
     ];
 
@@ -226,57 +275,28 @@ function Header() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <ul className="user-list-wrapper">
-                                                    <li>
-                                                        <Link to={config.routes.profile}>
-                                                            <i className="feather-user"></i>
-                                                            <span>Personal Information</span>
-                                                        </Link>
-                                                    </li>
-
-                                                    <li>
-                                                        <Link to={config.routes.my_course}>
-                                                            <i className="feather-book-open"></i>
-                                                            <span>My Courses</span>
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to={config.routes.wishlist}>
-                                                            <i className="feather-heart"></i>
-                                                            <span>Wishlist</span>
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to={config.routes.reviews}>
-                                                            <i className="feather-star"></i>
-                                                            <span>Reviews</span>
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to={config.routes.my_quiz}>
-                                                            <i className="feather-list"></i>
-                                                            <span>My Quiz Attempts</span>
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                                <hr className="mt--10 mb--10" />
-                                                <ul className="user-list-wrapper">
-                                                    <li>
-                                                        <a href="#!">
-                                                            <i className="feather-settings"></i>
-                                                            <span>Change Password</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <hr className="mt--10 mb--10" />
-                                                <ul className="user-list-wrapper">
-                                                    <li>
-                                                        <Link to={config.routes.login} onClick={handleLogout}>
-                                                            <i className="feather-log-out"></i>
-                                                            <span>Logout</span>
-                                                        </Link>
-                                                    </li>
-                                                </ul>
+                                                {menuItem.map((menu, menuIndex) => (
+                                                    <div key={menuIndex}>
+                                                        <ul className="user-list-wrapper">
+                                                            {menu.items.map((item, index) => (
+                                                                <li key={index}>
+                                                                    {item.title === "Logout" ? (
+                                                                        <Link to={item.path} onClick={item.onClick}>
+                                                                            <i className={item.icon}></i>
+                                                                            <span>{item.title}</span>
+                                                                        </Link>
+                                                                    ) : (
+                                                                        <Link to={item.path}>
+                                                                            <i className={item.icon}></i>
+                                                                            <span>{item.title}</span>
+                                                                        </Link>
+                                                                    )}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                        {menu.breakLine && <hr className="mt--10 mb--10" />}
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </li>

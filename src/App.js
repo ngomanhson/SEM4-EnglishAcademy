@@ -1,43 +1,15 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { publicRoutes, privateRoutes, authenticationRoutes } from "./routes/routes";
-import { isLoggedIn, removeAccessToken } from "./utils/auth";
-import { useEffect } from "react";
-import { useState } from "react";
+import { isLoggedIn } from "./utils/auth";
 
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn());
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        let isMounted = true;
-
-        const checkAuthStatus = () => {
-            if (!isMounted) return;
-
-            const loggedIn = isLoggedIn();
-            if (!loggedIn) {
-                removeAccessToken();
-                navigate("/login");
-            }
-            setIsAuthenticated(loggedIn);
-
-            if (isMounted) {
-                setTimeout(checkAuthStatus, 60000);
-            }
-        };
-
-        checkAuthStatus();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [navigate]);
-
     const ProtectedRoute = ({ element }) => {
+        const isAuthenticated = isLoggedIn();
         return isAuthenticated ? element : <Navigate to="/login" replace />;
     };
 
     const ProtectedAuthRoute = ({ element }) => {
+        const isAuthenticated = isLoggedIn();
         return isAuthenticated ? <Navigate to="/" replace /> : element;
     };
 

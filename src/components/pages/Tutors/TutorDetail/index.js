@@ -5,6 +5,7 @@ import url from "../../../../services/url";
 import Loading from "../../../layouts/Loading";
 import config from "../../../../config";
 import { isLoggedIn } from "../../../../utils/auth";
+import { formatLevelCourse } from "../../../../utils/formatLevelCourse";
 
 function TutorDetail() {
     const { tutorCode } = useParams();
@@ -54,8 +55,12 @@ function TutorDetail() {
                                             <i className="fas fa-graduation-cap"></i> {tutor.teachingSubject}
                                         </span>
 
-                                        <span className="rbt-label-style description d-block">
+                                        {/* <span className="rbt-label-style description d-block">
                                             <i className="fas fa-map-marker-alt"></i> {tutor.address}
+                                        </span> */}
+
+                                        <span class="rbt-badge-6 bg-primary-opacity fz-12 m-0 ml--10" style={{ padding: "5px 15px" }}>
+                                            {formatLevelCourse(tutor.level)}
                                         </span>
 
                                         <div className="rbt-review justify-content-start mt--10">
