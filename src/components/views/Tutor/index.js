@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { formatLevelCourse } from "../../../utils/formatLevelCourse";
 
 function Tutor({ tutor }) {
     return (
@@ -38,12 +39,14 @@ function Tutor({ tutor }) {
                         </svg>
                     </h4>
                     <p className="designation m-0">
-                        <i className="fas fa-chalkboard-teacher mr--10"></i>
-                        {tutor.teachingSubject}
+                        <span class="rbt-badge-6 bg-secondary-opacity fz-12 m-0" style={{ padding: "5px 15px" }}>
+                            {formatLevelCourse(tutor.level)}
+                        </span>
                     </p>
-                    <p className="designation d-flex align-items-center gap-2 m-0">
-                        <i className="fas fa-map-marker-alt mr--10"></i>
-                        <span className="location">{tutor.address}</span>
+                    <p className="designation m-0">
+                        <span class="rbt-badge-6 bg-primary-opacity fz-12 m-0" style={{ padding: "5px 15px" }}>
+                            {tutor.teachingSubject}
+                        </span>
                     </p>
                 </div>
             </Link>
