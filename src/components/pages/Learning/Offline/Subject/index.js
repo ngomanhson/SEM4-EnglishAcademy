@@ -7,7 +7,7 @@ import NotFound from "../../../Other/NotFound";
 import config from "../../../../../config";
 import { useAxiosGet } from "../../../../../hooks";
 import { getAccessToken } from "../../../../../utils/auth";
-import Subject from "../../../../views/Learing/Offline/Subject";
+import Subject from "../../../../views/Learning/Offline/Subject";
 import Lottie from "lottie-react";
 import Learn from "../../../../../lottie/Learn.json";
 

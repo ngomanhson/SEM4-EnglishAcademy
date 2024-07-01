@@ -22,7 +22,7 @@ function Banner() {
                         <div className="col-lg-12 col-xl-6 order-2 order-xl-1">
                             <div className="inner">
                                 <div className="rbt-new-badge rbt-new-badge-one mb-5">
-                                    <span className="rbt-new-badge-icon">🏆</span> The Leader in Online Learning
+                                    <span className="rbt-new-badge-icon">🏆</span> Leading Platform in Online Learning
                                 </div>
 
                                 <h1 className="title">

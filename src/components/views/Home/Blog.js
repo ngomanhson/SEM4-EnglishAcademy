@@ -1,6 +1,6 @@
 function Blog() {
     return (
-        <div className="rbt-rbt-blog-area rbt-section-gap bg-color-extra2">
+        <div className="rbt-rbt-blog-area rbt-section-gap">
             <div className="container">
                 <div className="row g-5 align-items-center mb--30">
                     <div className="col-lg-6 col-md-6 col-12">

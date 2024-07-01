@@ -4,24 +4,14 @@ import config from "../../../config";
 import useAxiosGet from "../../../hooks/useAxiosGet";
 import url from "../../../services/url";
 
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import StripePaymentForm from "../../../payment/Stripe";
 import api from "../../../services/api";
 import { useState } from "react";
 import Loading from "../../layouts/Loading";
 import ChooseCourse from "../Other/ChooseCourse";
 import { getAccessToken, getDecodedToken } from "../../../utils/auth";
 import { formatLevelCourse } from "../../../utils/formatLevelCourse";
-
-const stripePromise = (async () => {
-    try {
-        return await loadStripe("pk_test_51OVqT0DQZzhwaulm9QNS20I55bgkpOt6eQa1gHTm113njc8xGE3A3YoiJ5WEweMhQizzHnQGtFH0zEw8mXCYFbcB00s9xR5vEC");
-    } catch (err) {
-        console.error(err);
-        window.location.reload();
-    }
-})();
+import Payment from "../../../payment/index";
+import { stripePromise } from "../../../payment/stripePromise";
 
 function Checkout() {
     const { courseSlug } = useParams();
@@ -46,8 +36,8 @@ function Checkout() {
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("credit");
 
-    const handlePaymentMethodChange = (event) => {
-        setSelectedPaymentMethod(event.target.value);
+    const handlePaymentMethodChange = (method) => {
+        setSelectedPaymentMethod(method);
     };
 
     const decodeToken = getDecodedToken();
@@ -79,6 +69,23 @@ function Checkout() {
         await createPayment();
     };
 
+    // Paypal
+    const handlePaymentSuccess = async (details, data) => {
+        await createPayment();
+    };
+
+    const handlePaymentCancel = (data) => {
+        console.log("Payment canceled:", data);
+
+        navigate(`/checkout/${courseSlug}/failed`);
+    };
+
+    const handlePaymentError = (err) => {
+        console.error("Payment error:", err);
+
+        navigate(`/checkout/${courseSlug}/failed`);
+    };
+
     const checkByCourse = useAxiosGet({
         path: url.ONLINE_COURSE.CHECK_REGISTER + `/${courseSlug}`,
         headers: {
@@ -87,7 +94,6 @@ function Checkout() {
     });
 
     const statusCourse = checkByCourse.response || {};
-    console.log(statusCourse);
     if (statusCourse === true) {
         navigate(`/learning-online/${courseSlug}`);
     }
@@ -176,74 +182,31 @@ function Checkout() {
                                             </div>
                                         </div>
 
-                                        {/* <hr className="mt-5" />
-
-                                        <div className="bg-primary-opacity radius-6 p-5 d-flex align-items-center justify-content-between">
-                                            <h6 className="font-system m-0">Total</h6>
-                                            <h6 className="font-system m-0">${course.price}</h6>
-                                        </div> */}
                                         <hr className="mt-5" />
 
-                                        <div className="rbt-feature mt-5">
-                                            <div>
-                                                <h5 className=" font-system fw-500 m-0" id="paymentModalLabel">
-                                                    Payment Methods
-                                                </h5>
-                                                <p className="fw-300" style={{ fontSize: 12 }}>
-                                                    Choose the payment method that's right for you!
-                                                </p>
+                                        <h5 className="font-system fw-500 mb-3">Order summary</h5>
+                                        <div className="background-secondary px-3">
+                                            <div className="d-flex align-items-center justify-content-between p-3">
+                                                <p className="font-system fz-16 fw-300 m-0">Discount</p>
+                                                <p className="font-system fz-16 fw-300 m-0">0%</p>
+                                            </div>
+                                            <div className="d-flex align-items-center justify-content-between p-3">
+                                                <p className="font-system fz-16 fw-300 m-0">Total</p>
+                                                <p className="font-system fz-16 fw-300 m-0">${course.price && course.price.toFixed(2)}</p>
                                             </div>
                                         </div>
-                                        <div className="form-checkout mt-4">
-                                            <input
-                                                type="radio"
-                                                className="form-checkout__input"
-                                                name="paymentMethod"
-                                                id="credit"
-                                                value="credit"
-                                                checked={selectedPaymentMethod === "credit"}
-                                                onChange={handlePaymentMethodChange}
-                                            />
-                                            <label htmlFor="credit" className="form-checkout__label">
-                                                <div className="d-flex align-items-center">
-                                                    <img src="./assets/images/payment/visa.png" className="form-checkout__image" alt="" />
-                                                    <div>
-                                                        <p className="m-0 form-checkout__title">Credit or Debit Card</p>
-                                                        <span className="form-checkout__desc">Use a credit or debit card to pay with automatic payments</span>
-                                                    </div>
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div className="form-checkout">
-                                            <input
-                                                type="radio"
-                                                className="form-checkout__input"
-                                                name="paymentMethod"
-                                                id="paypal"
-                                                value="paypal"
-                                                checked={selectedPaymentMethod === "paypal"}
-                                                onChange={handlePaymentMethodChange}
-                                            />
-
-                                            <label htmlFor="paypal" className="form-checkout__label">
-                                                <div className="d-flex align-items-center">
-                                                    <img src="./assets/images/payment/paypal.png" className="form-checkout__image" alt="" />
-                                                    <div>
-                                                        <p className="m-0 form-checkout__title">PayPal</p>
-                                                        <span className="form-checkout__desc">Use your Paypal account to make payments</span>
-                                                    </div>
-                                                </div>
-                                            </label>
-                                        </div>
                                         <hr className="mt-5" />
 
-                                        {selectedPaymentMethod === "credit" && (
-                                            <Elements stripe={stripePromise}>
-                                                <StripePaymentForm onSuccess={handleStripePaymentSuccess} amount={course.price} />
-                                            </Elements>
-                                        )}
-
-                                        {/* {selectedPaymentMethod === "paypal" && <PayPalComponent />} */}
+                                        <Payment
+                                            selectedPaymentMethod={selectedPaymentMethod}
+                                            onPaymentMethodChange={handlePaymentMethodChange}
+                                            handleEventStripe={handleStripePaymentSuccess}
+                                            handleEventPayPal={handlePaymentSuccess}
+                                            price={course.price}
+                                            handlePaymentCancel={handlePaymentCancel}
+                                            handlePaymentError={handlePaymentError}
+                                            stripePromise={stripePromise}
+                                        />
                                     </div>
                                 </div>
                             </div>
