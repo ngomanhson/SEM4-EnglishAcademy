@@ -7,9 +7,9 @@ import Lottie from "lottie-react";
 import Learn from "../../../../lottie/Learn.json";
 import { useAxiosGet } from "../../../../hooks";
 import { getAccessToken } from "../../../../utils/auth";
-import Quiz from "../../../views/Learing/Online/Quiz";
-import Document from "../../../views/Learing/Online/Document";
-import LearnVideos from "../../../views/Learing/Online/LearnVideos";
+import Quiz from "../../../views/Learning/Online/Quiz";
+import Document from "../../../views/Learning/Online/Document";
+import LearnVideos from "../../../views/Learning/Online/LearnVideos";
 
 function LearningOnline() {
     const location = useLocation();

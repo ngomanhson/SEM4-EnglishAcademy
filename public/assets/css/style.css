@@ -31369,7 +31369,8 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label {
     font-size: 16px;
 }
 .form-checkout__desc {
-    font-size: 11px;
+    margin-top: 5px;
+    font-size: 13px;
     font-weight: 300;
 }
 input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .form-checkout__title,

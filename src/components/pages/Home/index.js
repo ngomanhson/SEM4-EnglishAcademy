@@ -7,6 +7,7 @@ import Newsletter from "../../views/Home/Newsletter";
 import OurApp from "../../views/Home/OurApp";
 import Teacher from "../../views/Home/Teacher";
 import TopReview from "../../views/Home/TopReview";
+import Blog from "../../views/Home/Blog";
 
 function Home() {
     return (
@@ -26,6 +27,8 @@ function Home() {
                     <AboutUs />
 
                     <OurApp />
+
+                    <Blog />
 
                     <Newsletter />
                 </main>

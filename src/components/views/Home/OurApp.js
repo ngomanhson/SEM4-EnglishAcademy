@@ -21,10 +21,10 @@ function OurApp() {
                             <p className="fw-300 fz-16">Take classes on the go with the educrat app. Stream or download to watch on the plane, the subway, or wherever you learn best.</p>
 
                             <div className="d-flex align-items-center gap-5">
-                                <Link to="">
+                                <Link to="https://apps.apple.com/app/apple-store-link" target="_blank" rel="noopener noreferrer">
                                     <img src="./assets/images/others/appstore.png" alt="" />
                                 </Link>
-                                <Link to="">
+                                <Link to="https://play.google.com/store/apps/google-play-link" target="_blank" rel="noopener noreferrer">
                                     <img src="./assets/images/others/googleplay.png" alt="" />
                                 </Link>
                             </div>

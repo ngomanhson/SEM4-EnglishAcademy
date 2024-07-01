@@ -4,15 +4,14 @@ import { useAxiosGet } from "../../../../hooks";
 import url from "../../../../services/url";
 import { getAccessToken } from "../../../../utils/auth";
 import NotFound from "../../Other/NotFound";
-// import { format } from "date-fns";
 import LoadingSpinner from "../../../layouts/LoadingSpinner";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import api from "../../../../services/api";
-import { Elements } from "@stripe/react-stripe-js";
-import StripePaymentForm from "../../../../payment/Stripe";
+
 import { stripePromise } from "../../../../payment/stripePromise";
 import { statusColor } from "../../../../utils/statusColor";
+import Payment from "../../../../payment";
 
 function ByPackage() {
     const { bookingId } = useParams();
@@ -29,8 +28,8 @@ function ByPackage() {
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("credit");
 
-    const handlePaymentMethodChange = (event) => {
-        setSelectedPaymentMethod(event.target.value);
+    const handlePaymentMethodChange = (method) => {
+        setSelectedPaymentMethod(method);
     };
 
     const createPayment = async () => {
@@ -70,13 +69,36 @@ function ByPackage() {
         await createPayment();
     };
 
+    const handlePaymentSuccess = async (details, data) => {
+        await createPayment();
+    };
+
+    const handlePaymentCancel = (data) => {
+        console.log("Payment canceled:", data);
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You have canceled your payment!",
+        });
+    };
+
+    const handlePaymentError = (err) => {
+        console.error("Payment error:", err);
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "An error occurred during payment.",
+        });
+    };
+
     return (
         <>
             {bookingData.errorStatus === 404 ? (
                 <NotFound />
             ) : (
                 <LayoutProfile>
-                    <div className="col-lg-9">
+                    <div className="col-lg-6">
                         <div className="rbt-dashboard-content bg-color-white rbt-shadow-box">
                             <div className="content">
                                 <div className="section-title">
@@ -149,68 +171,16 @@ function ByPackage() {
                                         </div>
 
                                         {togglePayment && (
-                                            <div className="rbt-profile-row row row--15 mt--15">
-                                                <div className="rbt-feature">
-                                                    <div>
-                                                        <h5 className=" font-system fw-500 m-0" id="paymentModalLabel">
-                                                            Payment Methods
-                                                        </h5>
-                                                        <p className="fw-300" style={{ fontSize: 12 }}>
-                                                            Choose the payment method that's right for you!
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="form-checkout mt-4">
-                                                    <input
-                                                        type="radio"
-                                                        className="form-checkout__input"
-                                                        name="paymentMethod"
-                                                        id="credit"
-                                                        value="credit"
-                                                        checked={selectedPaymentMethod === "credit"}
-                                                        onChange={handlePaymentMethodChange}
-                                                    />
-                                                    <label htmlFor="credit" className="form-checkout__label">
-                                                        <div className="d-flex align-items-center">
-                                                            <img src="./assets/images/payment/visa.png" className="form-checkout__image" alt="" />
-                                                            <div>
-                                                                <p className="m-0 form-checkout__title">Credit or Debit Card</p>
-                                                                <span className="form-checkout__desc">Use a credit or debit card to pay with automatic payments</span>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div className="form-checkout">
-                                                    <input
-                                                        type="radio"
-                                                        className="form-checkout__input"
-                                                        name="paymentMethod"
-                                                        id="paypal"
-                                                        value="paypal"
-                                                        checked={selectedPaymentMethod === "paypal"}
-                                                        onChange={handlePaymentMethodChange}
-                                                    />
-
-                                                    <label htmlFor="paypal" className="form-checkout__label">
-                                                        <div className="d-flex align-items-center">
-                                                            <img src="./assets/images/payment/paypal.png" className="form-checkout__image" alt="" />
-                                                            <div>
-                                                                <p className="m-0 form-checkout__title">PayPal</p>
-                                                                <span className="form-checkout__desc">Use your Paypal account to make payments</span>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <hr className="mt-5" />
-
-                                                {selectedPaymentMethod === "credit" && (
-                                                    <Elements stripe={stripePromise}>
-                                                        <StripePaymentForm onSuccess={handleStripePaymentSuccess} amount={bookingDetail?.packagePrice} />
-                                                    </Elements>
-                                                )}
-
-                                                {/* {selectedPaymentMethod === "paypal" && <PayPalComponent />} */}
-                                            </div>
+                                            <Payment
+                                                selectedPaymentMethod={selectedPaymentMethod}
+                                                onPaymentMethodChange={handlePaymentMethodChange}
+                                                handleEventStripe={handleStripePaymentSuccess}
+                                                handleEventPayPal={handlePaymentSuccess}
+                                                price={bookingDetail?.packagePrice}
+                                                handlePaymentCancel={handlePaymentCancel}
+                                                handlePaymentError={handlePaymentError}
+                                                stripePromise={stripePromise}
+                                            />
                                         )}
 
                                         {bookingDetail.status === "confirmed" && !togglePayment && bookingDetail.packagePrice > 0 && (

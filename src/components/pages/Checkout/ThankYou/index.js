@@ -13,7 +13,7 @@ function ThankYou() {
                         <div className="col-lg-5 mx-auto">
                             <div className="widget contact-form-style-1 max-width-auto">
                                 <div className="d-flex align-items-center justify-content-center">
-                                    <Lottie animationData={Success} loop={true} style={{ width: 150 }} />
+                                    <Lottie animationData={Success} loop={true} style={{ width: 200 }} />
                                 </div>
                                 <div className="text-center mt-5">
                                     <h4 className="font-system fw-500" style={{ fontSize: 25 }}>
