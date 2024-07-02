@@ -31740,8 +31740,8 @@ input[type="radio"].form-checkout__input:checked ~ label.form-checkout__label .f
   height: 5px;
   aspect-ratio: 1;
   border-radius: 50%;
-  margin-top: 5px;
-  margin-left: 15px;
+  /* margin-top: 5px;
+  margin-left: 15px; */
   animation: l5 1s infinite linear alternate;
 }
 @keyframes l5 {
@@ -32093,5 +32093,9 @@ h4, .h4, h5, .h5 {
 }
 .slick-list {
     border-radius: 10px;
+}
+.parent-audio audio {
+    width: 100% !important;
+    height: 60px !important;
 }
 /*# sourceMappingURL=../maps/style.css.map */
