@@ -110,15 +110,25 @@ function TestOffline() {
         setCurrentSessionIndex((prevIndex) => prevIndex - 1);
     };
 
-    const addAudioElement = (blob, parentElement) => {
+    const addAudioElement = (blob, questionId) => {
+        const parentElement = document.getElementById(`parent-audio_${questionId}`);
+
         const url = URL.createObjectURL(blob);
         const audio = document.createElement("audio");
         audio.src = url;
         audio.controls = true;
         parentElement.appendChild(audio);
-    };
 
-    const parentElement = document.getElementById("parentElementAudio");
+        console.log(parentElement);
+
+        const file = new File([blob], "recording.mp3", { type: blob.type });
+        const fileInput = document.getElementById(`answer_${questionId}`);
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInput.files = dataTransfer.files;
+
+        handleFileSelect({ target: fileInput }, questionId);
+    };
 
     const [fileSubmit, setFileSubmit] = useState(false);
 
@@ -137,7 +147,6 @@ function TestOffline() {
                     autoClose: 2000,
                     theme: "colored",
                 });
-                // You can also reset the input field if needed
                 e.target.value = "";
                 return;
             }
@@ -170,6 +179,7 @@ function TestOffline() {
             const formData = new FormData();
             formData.append("file", selectedFile);
             setFileSubmit((prevFileSubmit) => ({ ...prevFileSubmit, [questionId]: true }));
+
             const response = await api.post(url.OFFLINE_COURSE.TEST_OFFLINE_FILE, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -195,10 +205,11 @@ function TestOffline() {
                     progress: undefined,
                     theme: "colored",
                 });
+
                 setFileSubmit((prevFileSubmit) => ({ ...prevFileSubmit, [questionId]: false }));
                 setSelectedFiles((prevSelectedFiles) => ({
                     ...prevSelectedFiles,
-                    [questionId]: null, // Reset selected file after successful submission
+                    [questionId]: null,
                 }));
             }
         } catch (error) {
@@ -313,7 +324,7 @@ function TestOffline() {
                                                                 <div className="row">
                                                                     {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
                                                                         <div className="col-lg-6" key={optionIndex}>
-                                                                            {question[option] !== null && (
+                                                                            {question[option] !== null && question[option] !== "" && (
                                                                                 <div className="answer-group">
                                                                                     <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
                                                                                         <input
@@ -335,17 +346,15 @@ function TestOffline() {
                                                                 </div>
 
                                                                 {question.type === 1 && (
-                                                                    <div className="d-flex flex-column justify-content-center align-items-center background-secondary p-5" id="parentElementAudio">
+                                                                    <div className="d-flex flex-column justify-content-center align-items-center background-secondary  p-5">
                                                                         <div className="mt-3 text-center">
                                                                             <div className="d-flex justify-content-center align-items-center">
                                                                                 <AudioRecorder
-                                                                                    onRecordingComplete={(blob) => addAudioElement(blob, parentElement)}
+                                                                                    onRecordingComplete={(blob) => addAudioElement(blob, question.id)}
                                                                                     audioTrackConstraints={{
                                                                                         noiseSuppression: true,
                                                                                         echoCancellation: true,
                                                                                     }}
-                                                                                    downloadOnSavePress={true}
-                                                                                    downloadFileExtension="mp3"
                                                                                 />
                                                                             </div>
                                                                             <p className="fw-light mt-3 mb-0" style={{ fontSize: 15 }}>
@@ -365,26 +374,30 @@ function TestOffline() {
                                                                                         type="file"
                                                                                         id={`answer_${question.id}`}
                                                                                         onChange={(e) => handleFileSelect(e, question.id)}
+                                                                                        hidden
                                                                                     />
+                                                                                    <div className="parent-audio" id={`parent-audio_${question.id}`}></div>
                                                                                 </div>
 
-                                                                                <div className="col-lg-3">
+                                                                                <div className="col-lg-3 my-auto">
                                                                                     {fileSubmit[question.id] ? (
                                                                                         <button
                                                                                             style={{ height: 30, lineHeight: "30px" }}
-                                                                                            className="rbt-btn bg-primary-opacity btn-not__hover fz-14 w-100 p-0"
+                                                                                            className="d-flex align-items-center justify-content-center rbt-btn bg-primary-opacity btn-not__hover fz-14 w-100 p-0"
                                                                                             disabled
                                                                                         >
-                                                                                            <div className="dot-loader mt-0 ml--50"></div>
+                                                                                            <div className="dot-loader mt-0"></div>
                                                                                         </button>
                                                                                     ) : (
-                                                                                        <button
-                                                                                            className="rbt-btn bg-primary-opacity btn-not__hover fz-14 w-100"
-                                                                                            style={{ height: 30, lineHeight: "30px" }}
-                                                                                            onClick={() => handPostAudio(question.id)}
-                                                                                        >
-                                                                                            Confirm
-                                                                                        </button>
+                                                                                        selectedFiles[question.id] && (
+                                                                                            <button
+                                                                                                className="rbt-btn bg-primary-opacity btn-not__hover fz-14 w-100"
+                                                                                                style={{ height: 30, lineHeight: "30px" }}
+                                                                                                onClick={() => handPostAudio(question.id)}
+                                                                                            >
+                                                                                                Confirm
+                                                                                            </button>
+                                                                                        )
                                                                                     )}
                                                                                 </div>
                                                                             </div>
