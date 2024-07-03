@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../../../services/api";
 import url from "../../../../../services/url";
-import AudioPlayer from "react-h5-audio-player";
 import Loading from "../../../../layouts/Loading";
 import NotFound from "../../../Other/NotFound";
 import { formatHour } from "../../../../../utils/formatTime";
@@ -11,21 +10,28 @@ import ComingSoon from "../../../../../lottie/ComingSoon.json";
 import BreadcrumbTest from "../../../../layouts/BreadcrumbTest";
 import { useAxiosGet } from "../../../../../hooks";
 import { getAccessToken } from "../../../../../utils/auth";
-import { AudioRecorder } from "react-audio-voice-recorder";
 import { toast } from "react-toastify";
 import config from "../../../../../config";
 import Swal from "sweetalert2";
+import Speaking from "../../../../views/Learning/Offline/TestOffline/Speaking";
+import Questions from "../../../../views/EntranceTest/Questions";
+import { formatNumber } from "../../../../../utils/formatNumber";
 
 function TestOffline() {
     const { slug } = useParams();
 
     const navigate = useNavigate();
+    const audioRefs = useRef({});
+    const fileInputRefs = useRef({});
 
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
     const [confirmed, setConfirmed] = useState(false);
     const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
     const [fileUrl, setFileUrl] = useState("");
+    const [fileSubmit, setFileSubmit] = useState(false);
+    const validationFile = ["mp3", "wav", "flac"];
+    const [selectedFiles, setSelectedFiles] = useState({});
 
     const [timeRemaining, setTimeRemaining] = useState(1800);
 
@@ -111,30 +117,24 @@ function TestOffline() {
     };
 
     const addAudioElement = (blob, questionId) => {
-        const parentElement = document.getElementById(`parent-audio_${questionId}`);
+        const parentElement = audioRefs.current[questionId];
 
         const url = URL.createObjectURL(blob);
         const audio = document.createElement("audio");
         audio.src = url;
         audio.controls = true;
+        audio.autoplay = true;
+        audio.setAttribute("id", `audio-${questionId}`);
         parentElement.appendChild(audio);
 
-        console.log(parentElement);
-
         const file = new File([blob], "recording.mp3", { type: blob.type });
-        const fileInput = document.getElementById(`answer_${questionId}`);
+        const fileInput = fileInputRefs.current[questionId];
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(file);
         fileInput.files = dataTransfer.files;
 
         handleFileSelect({ target: fileInput }, questionId);
     };
-
-    const [fileSubmit, setFileSubmit] = useState(false);
-
-    const validationFile = ["mp3", "wav", "flac"];
-
-    const [selectedFiles, setSelectedFiles] = useState({});
 
     const handleFileSelect = (e, questionId) => {
         const selectedFile = e.target.files[0];
@@ -156,6 +156,13 @@ function TestOffline() {
             ...prevSelectedFiles,
             [questionId]: selectedFile,
         }));
+    };
+
+    const removeAudioElement = (questionId) => {
+        const audioElement = document.getElementById(`audio-${questionId}`);
+        if (audioElement) {
+            audioElement.parentNode.removeChild(audioElement);
+        }
     };
 
     const handPostAudio = async (questionId) => {
@@ -211,6 +218,8 @@ function TestOffline() {
                     ...prevSelectedFiles,
                     [questionId]: null,
                 }));
+
+                removeAudioElement(questionId);
             }
         } catch (error) {
             console.error("Error:", error);
@@ -296,7 +305,7 @@ function TestOffline() {
                                                                 <h4 className="mb-2">
                                                                     Part {sessionIndex + 1}: {session.sessionName}
                                                                 </h4>
-                                                                <p className="fw-300">The total number of questions: {session.totalQuestion}</p>
+                                                                <p className="fw-300">The total number of questions: {formatNumber(session.totalQuestion)}</p>
                                                             </div>
                                                             <div className="d-flex justify-content-end align-items-center">
                                                                 <button type="button" className="btn-circle" onClick={handlePrevSession} disabled={currentSessionIndex === 0}>
@@ -315,94 +324,25 @@ function TestOffline() {
                                                         </div>
                                                         {session.questionTestOfflineDTOS?.map((question, questionIndex) => (
                                                             <div className="rbt-single-quiz mb-5" key={questionIndex}>
-                                                                <h5 className="exam__inner-desc fw-500 font-system" style={{ fontSize: 18 }}>
-                                                                    Questions {questionIndex + 1}: {question.title}
-                                                                </h5>
-                                                                {question.image && <img src={question.image} className="w-100 mb-5" alt="" />}
-                                                                {question.audiomp3 && <AudioPlayer src={question.audiomp3} autoPlay={false} className="mb-5 w-100" />}
-
-                                                                <div className="row">
-                                                                    {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
-                                                                        <div className="col-lg-6" key={optionIndex}>
-                                                                            {question[option] !== null && question[option] !== "" && (
-                                                                                <div className="answer-group">
-                                                                                    <label className={`answers-group__label ${selectedAnswers[question.id] === question[option] ? "checked" : ""}`}>
-                                                                                        <input
-                                                                                            type="radio"
-                                                                                            className="answers-group__input"
-                                                                                            name={`answer_${question.id}`}
-                                                                                            id={`answer_${question.id}_${option}`}
-                                                                                            checked={selectedAnswers[question.id] === question[option]}
-                                                                                            onChange={() => handleAnswerSelect(question.id, question[option])}
-                                                                                        />
-                                                                                        <div className="d-flex align-items-center font-system">
-                                                                                            <div className="btn-choose">{String.fromCharCode(65 + optionIndex)}</div> {question[option]}
-                                                                                        </div>
-                                                                                    </label>
-                                                                                </div>
-                                                                            )}
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
+                                                                <Questions
+                                                                    key={questionIndex}
+                                                                    question={question}
+                                                                    questionIndex={questionIndex}
+                                                                    selectedAnswers={selectedAnswers}
+                                                                    handleAnswerSelect={handleAnswerSelect}
+                                                                />
 
                                                                 {question.type === 1 && (
-                                                                    <div className="d-flex flex-column justify-content-center align-items-center background-secondary  p-5">
-                                                                        <div className="mt-3 text-center">
-                                                                            <div className="d-flex justify-content-center align-items-center">
-                                                                                <AudioRecorder
-                                                                                    onRecordingComplete={(blob) => addAudioElement(blob, question.id)}
-                                                                                    audioTrackConstraints={{
-                                                                                        noiseSuppression: true,
-                                                                                        echoCancellation: true,
-                                                                                    }}
-                                                                                />
-                                                                            </div>
-                                                                            <p className="fw-light mt-3 mb-0" style={{ fontSize: 15 }}>
-                                                                                Click to start recording
-                                                                            </p>
-                                                                            <p className="fw-light mb-4" style={{ fontSize: 16 }}>
-                                                                                Then select the recording file and press "Confirm" to complete.
-                                                                            </p>
-
-                                                                            <div className="row">
-                                                                                <div className="col-lg-9">
-                                                                                    <input
-                                                                                        className="form-control form-control-lg"
-                                                                                        name="file"
-                                                                                        style={{ height: "inherit" }}
-                                                                                        accept=".mp3, .webm, .flac"
-                                                                                        type="file"
-                                                                                        id={`answer_${question.id}`}
-                                                                                        onChange={(e) => handleFileSelect(e, question.id)}
-                                                                                        hidden
-                                                                                    />
-                                                                                    <div className="parent-audio" id={`parent-audio_${question.id}`}></div>
-                                                                                </div>
-
-                                                                                <div className="col-lg-3 my-auto">
-                                                                                    {fileSubmit[question.id] ? (
-                                                                                        <button
-                                                                                            style={{ height: 30, lineHeight: "30px" }}
-                                                                                            className="d-flex align-items-center justify-content-center rbt-btn bg-primary-opacity btn-not__hover fz-14 w-100 p-0"
-                                                                                            disabled
-                                                                                        >
-                                                                                            <div className="dot-loader mt-0"></div>
-                                                                                        </button>
-                                                                                    ) : (
-                                                                                        selectedFiles[question.id] && (
-                                                                                            <button
-                                                                                                className="rbt-btn bg-primary-opacity btn-not__hover fz-14 w-100"
-                                                                                                style={{ height: 30, lineHeight: "30px" }}
-                                                                                                onClick={() => handPostAudio(question.id)}
-                                                                                            >
-                                                                                                Confirm
-                                                                                            </button>
-                                                                                        )
-                                                                                    )}
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                    <Speaking
+                                                                        question={question}
+                                                                        audioRefs={audioRefs}
+                                                                        fileInputRefs={fileInputRefs}
+                                                                        addAudioElement={addAudioElement}
+                                                                        handleFileSelect={handleFileSelect}
+                                                                        selectedFiles={selectedFiles}
+                                                                        handPostAudio={handPostAudio}
+                                                                        fileSubmit={fileSubmit}
+                                                                    />
                                                                 )}
                                                             </div>
                                                         ))}

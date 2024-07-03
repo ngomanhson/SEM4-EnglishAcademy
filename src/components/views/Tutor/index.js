@@ -39,12 +39,12 @@ function Tutor({ tutor }) {
                         </svg>
                     </h4>
                     <p className="designation m-0">
-                        <span class="rbt-badge-6 bg-secondary-opacity fz-12 m-0" style={{ padding: "5px 15px" }}>
+                        <span className="rbt-badge-6 bg-secondary-opacity fz-12 m-0" style={{ padding: "5px 15px" }}>
                             {formatLevelCourse(tutor.level)}
                         </span>
                     </p>
                     <p className="designation m-0">
-                        <span class="rbt-badge-6 bg-primary-opacity fz-12 m-0" style={{ padding: "5px 15px" }}>
+                        <span className="rbt-badge-6 bg-primary-opacity fz-12 m-0" style={{ padding: "5px 15px" }}>
                             {tutor.teachingSubject}
                         </span>
                     </p>

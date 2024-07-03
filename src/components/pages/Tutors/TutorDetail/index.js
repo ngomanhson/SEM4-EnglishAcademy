@@ -59,7 +59,7 @@ function TutorDetail() {
                                             <i className="fas fa-map-marker-alt"></i> {tutor.address}
                                         </span> */}
 
-                                        <span class="rbt-badge-6 bg-primary-opacity fz-12 m-0 ml--10" style={{ padding: "5px 15px" }}>
+                                        <span className="rbt-badge-6 bg-primary-opacity fz-12 m-0 ml--10" style={{ padding: "5px 15px" }}>
                                             {formatLevelCourse(tutor.level)}
                                         </span>
 
