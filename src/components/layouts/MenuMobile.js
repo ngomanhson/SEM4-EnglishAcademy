@@ -2,6 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import config from "../../config";
 
 function MenuMobile() {
+    const menus = [
+        { title: "Home", path: config.routes.home },
+        { title: "Course", path: config.routes.course },
+        { title: "Entrance Test", path: config.routes.entrance_test },
+        { title: "Tutoring", path: config.routes.tutor },
+        { title: "Blog", path: config.routes.blog },
+    ];
+
     return (
         <div className="popup-mobile-menu">
             <div className="inner-wrapper">
@@ -35,25 +43,11 @@ function MenuMobile() {
 
                 <nav className="mainmenu-nav">
                     <ul className="mainmenu">
-                        <li className="with-megamenu">
-                            <NavLink to={config.routes.home}>Home</NavLink>
-                        </li>
-
-                        <li className="with-megamenu">
-                            <NavLink to={config.routes.course}>Courses</NavLink>
-                        </li>
-
-                        <li className="with-megamenu">
-                            <NavLink to={config.routes.entrance_test}>Entrance Test</NavLink>
-                        </li>
-
-                        <li className="with-megamenu">
-                            <NavLink to={config.routes.tutor}>Tutor</NavLink>
-                        </li>
-
-                        <li className="with-megamenu">
-                            <NavLink to={config.routes.blog}>Blog</NavLink>
-                        </li>
+                        {menus.map((menu, index) => (
+                            <li className="with-megamenu" key={index}>
+                                <NavLink to={menu.path}>{menu.title}</NavLink>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
 
