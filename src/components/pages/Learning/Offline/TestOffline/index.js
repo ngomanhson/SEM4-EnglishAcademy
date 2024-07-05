@@ -117,6 +117,10 @@ function TestOffline() {
     };
 
     const addAudioElement = (blob, questionId) => {
+        if (questionId) {
+            removeAudioElement(questionId);
+        }
+
         const parentElement = audioRefs.current[questionId];
 
         const url = URL.createObjectURL(blob);

@@ -7,7 +7,7 @@ function MeetingPersonal() {
     const { roomId } = useParams();
 
     const serverSecretKey = config.key.SERVER_SECRET;
-    const zegoAppId = config.key.ZEGO_APP_ID;
+    const zegoAppId = config.key.ZEGOCLOUD_APP_ID;
 
     const myMeeting = async (element) => {
         try {
