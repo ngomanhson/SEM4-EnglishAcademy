@@ -127,7 +127,6 @@ function TestOffline() {
         const audio = document.createElement("audio");
         audio.src = url;
         audio.controls = true;
-        audio.autoplay = true;
         audio.setAttribute("id", `audio-${questionId}`);
         parentElement.appendChild(audio);
 
@@ -346,6 +345,7 @@ function TestOffline() {
                                                                         selectedFiles={selectedFiles}
                                                                         handPostAudio={handPostAudio}
                                                                         fileSubmit={fileSubmit}
+                                                                        selectedAnswers={selectedAnswers}
                                                                     />
                                                                 )}
                                                             </div>

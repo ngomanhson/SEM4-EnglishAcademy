@@ -25,10 +25,9 @@ function Banner() {
                                     <span className="rbt-new-badge-icon">🏆</span> Leading Platform in Online Learning
                                 </div>
 
-                                <h1 className="title">
+                                <h1 className="title f-sm-30">
                                     The largest online platform
-                                    <br />
-                                    <span className="header-caption">
+                                    <span className="header-caption d-block">
                                         <span className="cd-headline clip is-full-width">
                                             <span className="cd-words-wrapper" style={{ width: "5.50067px", overflow: "hidden" }}>
                                                 {headlines.map((headline, index) => (
