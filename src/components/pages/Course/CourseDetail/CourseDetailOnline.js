@@ -12,7 +12,6 @@ import api from "../../../../services/api";
 import url from "../../../../services/url";
 import { useAxiosGet } from "../../../../hooks";
 import { formatLevelCourse } from "../../../../utils/formatLevelCourse";
-import { toast } from "react-toastify";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
@@ -43,15 +42,6 @@ function CourseDetailOnline() {
 
     const topics = course.topicOnlineDetailList || [];
     const reviews = course.reviewList || [];
-    const [rating, setRating] = useState(0);
-    const [validationStar, setValidationStar] = useState(false);
-    const [formData, setFormData] = useState({
-        message: "",
-    });
-
-    const [formErrors, setFormErrors] = useState({
-        message: "",
-    });
 
     const stars = [];
     const roundedScore = Math.round(course.star * 2) / 2;
@@ -104,72 +94,6 @@ function CourseDetailOnline() {
             navigate(`/learning-online/${slug}`);
         }
     }, [checkByCourse.response, navigate, slug]);
-
-    const handleStarClick = (starIndex) => {
-        setRating(starIndex + 1);
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-        setFormErrors({ ...formErrors, [name]: "" });
-    };
-
-    const validateForm = () => {
-        let valid = true;
-        const newErrors = {};
-
-        if (!formData.message) {
-            newErrors.message = "Please share your thoughts about this course.";
-            valid = false;
-        }
-
-        setFormErrors(newErrors);
-        return valid;
-    };
-
-    const handleCreateReview = async (e) => {
-        e.preventDefault();
-
-        try {
-            const reviewData = {
-                courseOnlineId: course.id,
-                score: rating,
-                message: formData.message,
-            };
-
-            if (validateForm()) {
-                if (rating >= 1) {
-                    const reviewRequest = await api.post(url.ONLINE_COURSE.REVIEW, reviewData, {
-                        headers: {
-                            Authorization: `Bearer ${getAccessToken()}`,
-                        },
-                    });
-                    if (reviewRequest.status === 200) {
-                        setRating(0);
-                        setFormData({ message: "" });
-
-                        await loadCourse();
-                    }
-                } else {
-                    setValidationStar(true);
-                }
-            }
-        } catch (error) {
-            console.log(error);
-
-            toast.error(error.response.data.message, {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-        }
-    };
 
     return (
         <>
@@ -385,39 +309,6 @@ function CourseDetailOnline() {
                                             </div>
                                         )}
                                     </div>
-
-                                    {statusCourse && (
-                                        <div className="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
-                                            <div className="section-title">
-                                                <div className="section-title">
-                                                    <h4 className="rbt-title-style-3 font-system">Write a review</h4>
-                                                </div>
-                                                <div className="has-show-more-inner-content rbt-featured-review-list-wrapper">
-                                                    <div className="rating-course mb-5">
-                                                        {[...Array(5)].map((_, index) => (
-                                                            <i key={index} className={index < rating ? "fas fa-star active" : "far fa-star"} onClick={() => handleStarClick(index)} />
-                                                        ))}
-                                                    </div>
-                                                    <textarea
-                                                        className={`form-control fz-15 p-3 pl--20 ${formErrors.message ? "is-invalid" : ""}`}
-                                                        rows="3"
-                                                        style={{ borderRadius: 8 }}
-                                                        name="message"
-                                                        placeholder="Please share your thoughts about this course"
-                                                        value={formData.message}
-                                                        onChange={handleChange}
-                                                    ></textarea>
-                                                    {formErrors.message && <div className="invalid-feedback">{formErrors.message}</div>}
-                                                    {validationStar && <div className="text-danger fz-14">Please choose a star!</div>}
-                                                    <div className="text-end mt-4">
-                                                        <button className="rbt-btn btn-gradient btn-gradient-2 btn-not__hover" style={{ height: 45, lineHeight: "45px" }} onClick={handleCreateReview}>
-                                                            Submit review
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
 
                                     <div className="related-course mt--60">
                                         <div className="row g-5 align-items-end mb--40">
