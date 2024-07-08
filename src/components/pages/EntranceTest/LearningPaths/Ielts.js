@@ -65,6 +65,12 @@ function LearningPathIelts() {
     const totalQuestions = resultTest.totalQuestionReading + resultTest.totalQuestionListening + resultTest.totalQuestionVocabulary + resultTest.totalQuestionGrammar;
 
     const courseOnlineList = resultTest.courseOnlineList || [];
+
+    const storedData = sessionStorage.getItem("entrance_data");
+    if (storedData) {
+        sessionStorage.removeItem("entrance_data");
+    }
+
     return (
         <>
             {loading ? <Loading /> : ""}

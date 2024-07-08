@@ -1,20 +1,25 @@
 import { useState } from "react";
 import Layout from "../../../layouts/index";
 import Confetti from "react-confetti-boom";
+import { getAccessToken, getDecodedToken } from "../../../../utils/auth";
+import api from "../../../../services/api";
+import url from "../../../../services/url";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function EntranceTestSuccess() {
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    const navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
 
+    const decodeToken = getDecodedToken();
+
     const [formData, setFormData] = useState({
-        fullName: "",
-        email: "",
+        fullname: decodeToken.Fullname || "",
+        email: decodeToken.sub || "",
         phone: "",
     });
 
     const [formErrors, setFormErrors] = useState({
-        fullName: "",
-        email: "",
         phone: "",
     });
 
@@ -24,11 +29,6 @@ function EntranceTestSuccess() {
         setFormErrors({ ...formErrors, [name]: "" });
     };
 
-    const isEmailValid = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
     const isPhoneNumberValid = (phone) => {
         return /^\d+$/.test(phone) && phone.length === 10;
     };
@@ -36,19 +36,6 @@ function EntranceTestSuccess() {
     const validateForm = () => {
         let valid = true;
         const newErrors = {};
-
-        if (!formData.fullName.trim()) {
-            valid = false;
-            newErrors.fullName = "Please enter your full name.";
-        }
-
-        if (!formData.email.trim()) {
-            valid = false;
-            newErrors.email = "Please enter your email.";
-        } else if (!isEmailValid(formData.email)) {
-            valid = false;
-            newErrors.email = "Please enter a valid email address.";
-        }
 
         if (!formData.phone.trim()) {
             valid = false;
@@ -63,16 +50,53 @@ function EntranceTestSuccess() {
         return valid;
     };
 
+    // Get data from local storage
+    const storedData = sessionStorage.getItem("entrance_data");
+
     const submitResponse = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
             try {
+                const createRequest = await api.post(url.ENTRANCE_TEST.POTENTIAL_CUSTOMER, formData, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+
+                if (createRequest.status === 200) {
+                    toast.success("Successfully", {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+
+                    setFormData({ phone: "" });
+
+                    // Remove backdrop
+                    const backdrop = document.querySelector(".modal-backdrop");
+                    if (backdrop) {
+                        backdrop.parentNode.removeChild(backdrop);
+                    }
+
+                    if (storedData) {
+                        const testData = JSON.parse(storedData);
+
+                        if (testData.type === "ielts") {
+                            navigate(`/learning-paths/ielts/${testData.code}`);
+                        }
+
+                        if (testData.type === "toeic") {
+                            navigate(`/learning-paths/toeic/${testData.code}`);
+                        }
+                    }
+                }
                 setSubmitting(true);
-            } catch (error) {}
-            // finally {
-            //     setSubmitting(false);
-            // }
+            } catch (error) {
+            } finally {
+                setSubmitting(false);
+            }
         }
     };
     return (
@@ -165,36 +189,6 @@ function EntranceTestSuccess() {
                             </div>
                             <div className="modal-body p-5 pt-0">
                                 <form className="max-width-auto mt-3" onSubmit={submitResponse}>
-                                    <div className="rbt-form-group">
-                                        <label htmlFor="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
-                                            Full Name <span className="text-danger">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="fullName"
-                                            className={`form-control ${formErrors.fullName ? "is-invalid" : ""}`}
-                                            value={formData.fullName}
-                                            onChange={handleChange}
-                                            placeholder="Full name"
-                                        />
-                                        {formErrors.fullName && <div className="invalid-feedback">{formErrors.fullName}</div>}
-                                    </div>
-
-                                    <div className="rbt-form-group mt-3">
-                                        <label htmlFor="email" style={{ fontSize: 14, color: "#000" }} className="mb-2">
-                                            Email Address <span className="text-danger">*</span>
-                                        </label>
-                                        <input
-                                            type="email"
-                                            className={`form-control ${formErrors.email ? "is-invalid" : ""}`}
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            name="email"
-                                            placeholder="Email Address"
-                                        />
-                                        {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
-                                    </div>
-
                                     <div className="rbt-form-group mt-3">
                                         <label htmlFor="phone" style={{ fontSize: 14, color: "#000" }} className="mb-2">
                                             Phone Number <span className="text-danger">*</span>
@@ -214,23 +208,17 @@ function EntranceTestSuccess() {
                                         {submitting && (
                                             <button type="button" className="rbt-btn bg-primary-opacity btn-not__hover w-100" disabled>
                                                 <div className="d-flex align-items-center justify-content-center">
-                                                    Processing<div className="dot-loader"></div>
+                                                    Processing <div className="dot-loader ml--15 mt-1"></div>
                                                 </div>
                                             </button>
                                         )}
 
-                                        {!submitting && !formSubmitted && (
+                                        {!submitting && (
                                             <>
-                                                <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
+                                                <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100 fz-15">
                                                     Continue
                                                 </button>
                                             </>
-                                        )}
-
-                                        {formSubmitted && (
-                                            <div className="text-start mt-2">
-                                                <p className="text-success">Please check your email address.</p>
-                                            </div>
                                         )}
                                     </div>
                                 </form>

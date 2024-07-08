@@ -12,6 +12,7 @@ import api from "../../../../services/api";
 import url from "../../../../services/url";
 import { useAxiosGet } from "../../../../hooks";
 import { formatLevelCourse } from "../../../../utils/formatLevelCourse";
+import { formatNumber } from "../../../../utils/formatNumber";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
@@ -137,7 +138,7 @@ function CourseDetailOnline() {
                                             <div className="feature-sin rating">{stars}</div>
 
                                             <div className="feature-sin total-rating">
-                                                <p className="rbt-badge-4">{course.reviewList?.length} rating</p>
+                                                <p className="rbt-badge-4">{formatNumber(course.reviewList?.length)} rating</p>
                                             </div>
 
                                             <div className="feature-sin total-student">
@@ -225,7 +226,7 @@ function CourseDetailOnline() {
                                                                                 aria-expanded="false"
                                                                                 aria-controls={collapseId}
                                                                             >
-                                                                                {topic.name}
+                                                                                {index + 1}. {topic.name}
                                                                                 {/* <span className="rbt-badge-5 ml--10">1hr 30min</span> */}
                                                                             </button>
                                                                         </h2>
@@ -237,7 +238,7 @@ function CourseDetailOnline() {
                                                                         >
                                                                             <div className="accordion-body card-body pr--0">
                                                                                 <ul className="rbt-course-main-content liststyle">
-                                                                                    {topic.itemOnlineDTOList.map((topicItem) => {
+                                                                                    {topic.itemOnlineDTOList.map((topicItem, itemIndex) => {
                                                                                         return (
                                                                                             <li className="mb-4" key={topicItem.id}>
                                                                                                 <div className="wrap">
@@ -247,7 +248,10 @@ function CourseDetailOnline() {
                                                                                                             {topicItem.itemType === 1 && <i className="feather-help-circle mt-3"></i>}
                                                                                                             {topicItem.itemType === 2 && <i className="feather-hash mt-3"></i>}
                                                                                                             <div className="d-flex flex-column">
-                                                                                                                <span className="text">{topicItem.title}</span>
+                                                                                                                <span className="text">
+                                                                                                                    {" "}
+                                                                                                                    {index + 1}.{itemIndex + 1} {topicItem.title}
+                                                                                                                </span>
                                                                                                                 <span className="time">04:00</span>
                                                                                                             </div>
                                                                                                         </div>
