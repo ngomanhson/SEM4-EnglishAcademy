@@ -75,6 +75,12 @@ const url = {
 
         PAYMENT: "payment",
     },
+
+    CERTIFICATE: {
+        CHECK_COMPLETE_COURSE: "certificate-online/complete-course",
+        LIST: "generate-certificate/by-student",
+        DETAIL: "any/generate-certificate",
+    },
 };
 
 export default url;

@@ -18,6 +18,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
     const [topicByStudent, setTopicByStudent] = useState([]);
     const [activeLink, setActiveLink] = useState("");
     const [dataNotFound, setDataNotFound] = useState(false);
+    const [isActiveLink, setIsActiveLink] = useState(false);
 
     const handleLinkClick = (slug) => {
         setActiveLink(slug);
@@ -27,6 +28,12 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
         const queryParams = new URLSearchParams(location.search);
         const slug = queryParams.get("lesson") || queryParams.get("test");
         setActiveLink(slug || "");
+
+        if (location.search === "?certificate") {
+            setIsActiveLink(true);
+        } else {
+            setIsActiveLink(false);
+        }
     }, [location.search]);
 
     useEffect(() => {
@@ -183,6 +190,8 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
         }
     };
 
+    let indexTopic = 0;
+
     return (
         <>
             <Helmet>
@@ -250,6 +259,8 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                         {topics.map((topic, index) => {
                                             const accordionId = `accordion-${topic.id}-${index}`;
                                             const collapseId = `collapse-${topic.id}-${index}`;
+
+                                            indexTopic = index + 2;
 
                                             // const totalItems = topic.itemOnlineDetailList.length + topic.testOnlineResponseDTOList.length;
                                             return (
@@ -335,6 +346,45 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                                 </div>
                                             );
                                         })}
+
+                                        <div className="accordion-item card">
+                                            <h2 className="accordion-header card-header" id="heading-accordion-certificate">
+                                                <button
+                                                    className="accordion-button collapsed"
+                                                    type="button"
+                                                    data-bs-toggle="collapse"
+                                                    aria-expanded="false"
+                                                    data-bs-target="#collapse-certificate"
+                                                    aria-controls="collapse-certificate"
+                                                >
+                                                    {indexTopic}. Complete the course
+                                                </button>
+                                            </h2>
+                                            <div id="collapse-certificate" className="accordion-collapse collapse" aria-labelledby="heading-accordion-certificate">
+                                                <div className="accordion-body card-body">
+                                                    <ul className="rbt-course-main-content liststyle">
+                                                        <li className="m-0">
+                                                            <Link to={`/learning-online/${courseSlug}?certificate`} className={`${isActiveLink ? "active" : ""}`}>
+                                                                <div className="course-content-left">
+                                                                    <div className="d-flex align-content-center">
+                                                                        <i className="fas fa-award mt-3"></i>
+                                                                        <div className="d-flex flex-column">
+                                                                            <span className="text">Get a certificate</span>
+                                                                            <span className="time">05:00</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {/* <div className="course-content-right">
+                                                                    <span className="rbt-check">
+                                                                        <i className="feather-check"></i>
+                                                                    </span>
+                                                                </div> */}
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

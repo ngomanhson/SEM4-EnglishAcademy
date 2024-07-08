@@ -628,6 +628,16 @@ body {
     }
 }
 
+@font-face {
+    font-family: SVN-Graphitel;
+    src: url(../fonts/SVN-Graphitel.ttf);
+}
+
+@font-face {
+    font-family: DejaVuSerif;
+    src: url(../fonts/DejaVuSerif.ttf);
+}
+
 h1,
 h2,
 h3,
@@ -32104,4 +32114,119 @@ h4, .h4, h5, .h5 {
         font-size: 30px !important;
     }
 }
+
+/* Certificate */
+.certificate {
+    position: relative;
+    text-align: center;
+}
+
+.certificate-inner {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.certificate-inner > img {
+    width: 900px !important;
+}
+
+.certificate-name {
+    font-size: 5rem;
+    font-family: SVN-Graphitel;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+.certificate-name,
+.certificate-desc,
+.certificate-date {
+    user-select: none;
+}
+
+.certificate-desc,
+.certificate-date{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: DejaVuSerif;
+}
+
+.certificate-name, 
+.certificate-desc {
+    color: #865B34;
+}
+
+.certificate-desc {
+    bottom: 31%;
+    max-width: calc(900px - 430px);
+    text-wrap: wrap;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.certificate-date {
+    bottom: 17%;
+    left: 25.6%;
+    font-weight: 300;
+    font-size: 1.4rem;
+}
+
+@media screen and (max-width: 835px) {
+    .certificate-desc {
+        font-size: 1.8rem;
+    }
+
+    .certificate-date {
+        font-size: 1.2rem;
+        bottom: 16%;
+    }
+}
+
+@media screen and (max-width: 645px) {
+    .certificate-name {
+        font-size: 4rem;
+    }
+
+    .certificate-desc {
+        font-size: 1.5rem;
+    }
+
+    .certificate-date {
+        font-size: 1rem;
+        bottom: 15%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .certificate-name {
+        font-size: 2.8rem;
+    }
+
+    .certificate-desc {
+        font-size: 1.3rem;
+        margin-bottom: 0;
+    }
+
+    .certificate-date {
+        font-size: 0.8rem;
+        bottom: 14%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .certificate-desc {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+
+    .certificate-date {
+        font-size: 0.5rem;
+        bottom: 13%;
+    }
+}
+
 /*# sourceMappingURL=../maps/style.css.map */

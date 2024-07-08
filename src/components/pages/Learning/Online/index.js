@@ -10,6 +10,7 @@ import { getAccessToken } from "../../../../utils/auth";
 import Quiz from "../../../views/Learning/Online/Quiz";
 import Document from "../../../views/Learning/Online/Document";
 import LearnVideos from "../../../views/Learning/Online/LearnVideos";
+import Certificate from "../../../views/Certificate";
 
 function LearningOnline() {
     const location = useLocation();
@@ -114,6 +115,9 @@ function LearningOnline() {
     useEffect(() => {
         localStorage.setItem("redirect_course", itemSlug);
     });
+
+    const isCertificate = new URLSearchParams(location.search).has("certificate");
+
     return (
         <>
             {showConfetti && (
@@ -121,7 +125,9 @@ function LearningOnline() {
             )}
 
             <LayoutLessonOnline title="Lesson" nextLesson={error ? false : true} currentTime={currentTime}>
-                {error ? (
+                {isCertificate ? (
+                    <Certificate />
+                ) : error ? (
                     <div className="col-lg-4 mx-auto">
                         <div className="d-flex flex-column align-item-center justify-content-center" style={{ height: "100vh" }}>
                             {!loading && <Lottie animationData={Learn} loop={true} />}
