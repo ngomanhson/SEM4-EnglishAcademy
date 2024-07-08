@@ -281,7 +281,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                                     <div id={collapseId} className="accordion-collapse collapse" aria-labelledby={`heading-${accordionId}`}>
                                                         <div className="accordion-body card-body">
                                                             <ul className="rbt-course-main-content liststyle">
-                                                                {topic.itemOnlineDetailList.map((topicItem) => (
+                                                                {topic.itemOnlineDetailList.map((topicItem, itemIndex) => (
                                                                     <li className="m-0" key={topicItem.id}>
                                                                         <Link
                                                                             to={`/learning-online/${courseSlug}?lesson=${topicItem.slug}`}
@@ -294,7 +294,9 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                                                                                     {topicItem.itemType === 1 && <i className="feather-help-circle mt-3"></i>}
                                                                                     {topicItem.itemType === 2 && <i className="feather-hash mt-3"></i>}
                                                                                     <div className="d-flex flex-column">
-                                                                                        <span className="text">{topicItem.title}</span>
+                                                                                        <span className="text">
+                                                                                            {index + 1}.{itemIndex + 1} {topicItem.title}
+                                                                                        </span>
                                                                                         <span className="time">{formatMinute(topicItem.duration)}</span>
                                                                                     </div>
                                                                                 </div>

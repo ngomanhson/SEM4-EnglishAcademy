@@ -65,6 +65,12 @@ function LearningPathToeic() {
     const totalQuestions = resultTest.totalQuestionReading + resultTest.totalQuestionListening;
 
     const courseOnlineList = resultTest.courseOnlineList || [];
+
+    const storedData = sessionStorage.getItem("entrance_data");
+    if (storedData) {
+        sessionStorage.removeItem("entrance_data");
+    }
+
     return (
         <>
             {loading && <Loading />}

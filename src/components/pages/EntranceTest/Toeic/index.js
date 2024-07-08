@@ -89,6 +89,11 @@ function Toeic() {
             });
 
             if (response.status === 200) {
+                const testData = {
+                    type: "toeic",
+                    code: response.data.data,
+                };
+                sessionStorage.setItem("entrance_data", JSON.stringify(testData));
                 navigate("/entrance-test/success");
             }
         } catch (error) {
