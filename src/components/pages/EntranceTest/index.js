@@ -5,6 +5,7 @@ import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
 import { useAxiosGet } from "../../../hooks";
 import { getAccessToken } from "../../../utils/auth";
+import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
 
 function EntranceTest() {
     const [selectedTestSlug, setSelectedTestSlug] = useState("");
@@ -114,7 +115,7 @@ function EntranceTest() {
                                                     <div className="border-gradient">
                                                         <div className="text-start">
                                                             <div className="d-flex align-items-center mb-4">
-                                                                <h5 className="fw-bold tab-title mb-0">{test.title}</h5>
+                                                                <h5 className="font-system tab-title mb-0">{capitalizeFirstLetter(test.title)}</h5>
                                                                 <input type="radio" name="exam-option" className="input-tab__option" onChange={() => handleTestSelection(test.slug, test.type)} />
                                                             </div>
                                                             <p className="fw-light tab-time mb-0">Total number of questions: {test.totalQuestion}</p>
@@ -134,7 +135,7 @@ function EntranceTest() {
                                                 <label className="d-flex align-items-center position-relative content-label-tab mb-5">
                                                     <div className="text-start">
                                                         <div className="d-flex align-items-center mb-4">
-                                                            <h5 className="fw-bold tab-title mb-0">{test.title}</h5>
+                                                            <h5 className="font-system tab-title mb-0">{capitalizeFirstLetter(test.title)}</h5>
                                                             <input type="radio" name="exam-option" className="input-tab__option" onChange={() => handleTestSelection(test.slug, test.type)} />
                                                         </div>
                                                         <p className="fw-light tab-time mb-0">Total number of questions: {test.totalQuestion}</p>

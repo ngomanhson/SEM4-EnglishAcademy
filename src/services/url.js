@@ -78,7 +78,8 @@ const url = {
     },
 
     CERTIFICATE: {
-        CHECK_COMPLETE_COURSE: "certificate-online/complete-course",
+        CHECK_COMPLETE_COURSE_ONLINE: "certificate-online/complete-course",
+        CHECK_COMPLETE_COURSE_OFFLINE: "certificate-offline/complete-course",
         LIST: "generate-certificate/by-student",
         DETAIL: "any/generate-certificate",
     },

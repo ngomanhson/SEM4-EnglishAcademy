@@ -139,6 +139,15 @@ function SubjectOffline() {
                                             </button>
                                         </form>
                                     </div>
+
+                                    <div className="widget mt-5">
+                                        <h4 className="rbt-title-style-3 font-system">Complete the course.</h4>
+
+                                        <Link to={`/certificate/${slug}`} type="submit" className="rbt-btn btn-gradient text-center btn-not__hover w-100" style={{ height: 50, lineHeight: "50px" }}>
+                                            <img src="assets/images/icons/card-icon-1.png" style={{ maxWidth: 25 }} alt="" />
+                                            View Certificate
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
