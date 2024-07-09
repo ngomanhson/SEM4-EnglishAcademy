@@ -83,6 +83,11 @@ const url = {
         LIST: "generate-certificate/by-student",
         DETAIL: "any/generate-certificate",
     },
+
+    HOME: {
+        TOP_COURSE: "any/course-online/get-top",
+        TOP_TUTOR: "any/tutor/get-top",
+    },
 };
 
 export default url;
