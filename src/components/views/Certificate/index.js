@@ -106,7 +106,7 @@ function Certificate() {
 
     const checkCompletedCourse = useCallback(async () => {
         try {
-            const checkRequest = await api.post(url.CERTIFICATE.CHECK_COMPLETE_COURSE + `/${courseSlug}`, null, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+            const checkRequest = await api.post(url.CERTIFICATE.CHECK_COMPLETE_COURSE_ONLINE + `/${courseSlug}`, null, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
 
             setCheckCertificate(checkRequest.data.data);
             setCompletedCourse(true);

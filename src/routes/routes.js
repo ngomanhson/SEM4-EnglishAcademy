@@ -46,6 +46,7 @@ import ByWeeks from "../components/pages/Booking/BookingWaitingDetail/ByWeeks";
 import BookingList from "../components/pages/Booking/BookingList";
 import BookingDetail from "../components/pages/Booking/BookingDetail";
 import MyCourse from "../components/pages/MyCourse/MyCourse";
+import CourseOfflineCertificate from "../components/pages/CourseOffline/Certificate";
 
 const publicRoutes = [
     // Home routes
@@ -86,6 +87,7 @@ const privateRoutes = [
     { path: config.routes.slot_offline, component: SlotOffline },
     { path: config.routes.subject_learning_offline, component: SubjectLearning },
     { path: config.routes.subject_test_offline, component: TestOffline },
+    { path: config.routes.certificate_offline_course, component: CourseOfflineCertificate },
 
     // Entrance test routes
     { path: config.routes.entrance_test, component: EntranceTest },
