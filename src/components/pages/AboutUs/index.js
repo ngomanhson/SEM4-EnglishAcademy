@@ -85,10 +85,10 @@ function AboutUs() {
                         <div className="col-lg-6 sal-animate" data-sal="slide-up" data-sal-duration="700">
                             <div className="inner pl--50 pl_sm--5">
                                 <div className="content text-start">
-                                    <span className="rbt-badge-6 bg-primary-opacity">About Histudy</span>
-                                    <h3 className="title">Welcome to Histudy for your skills with best Online courses.</h3>
+                                    <span className="rbt-badge-6 bg-primary-opacity">About English Academy</span>
+                                    <h3 className="title">Welcome to English Academy for your skills with best Online courses.</h3>
                                     <p className="description mt--30">
-                                        <strong>Histudy educational platform</strong> ipsum dolor sit amet consectetur adipisicing elit.
+                                        <strong>English Academy educational platform</strong> ipsum dolor sit amet consectetur adipisicing elit.
                                     </p>
                                     <p className="description">
                                         Nam inventore praesentium alias incidunt! Veritatis, necessitatibus fuga dolore tenetur, beatae suscipit fugit est ea perspiciatis quo provident nisi dolor
@@ -129,7 +129,7 @@ function AboutUs() {
                                 <div className="call-to-btn text-start text-xl-end">
                                     <a className="rbt-btn btn-white hover-icon-reverse" href="#!">
                                         <span className="icon-reverse-wrapper">
-                                            <span className="btn-text">Histudy Financial Aid</span>
+                                            <span className="btn-text">English Academy Financial Aid</span>
                                             <span className="btn-icon">
                                                 <i className="feather-arrow-right"></i>
                                             </span>
@@ -152,7 +152,7 @@ function AboutUs() {
                             <div className="section-title text-center">
                                 <h2 className="title">Why learn with our courses?</h2>
                                 <p className="description mt--30">
-                                    <strong>Histudy educational platform</strong> ipsum dolor sit amet consectetur adipisicing elit.
+                                    <strong>English Academy educational platform</strong> ipsum dolor sit amet consectetur adipisicing elit.
                                 </p>
                             </div>
                         </div>

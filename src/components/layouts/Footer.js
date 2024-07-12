@@ -1,6 +1,45 @@
 import { Link } from "react-router-dom";
+import config from "../../config/index";
 
 function Footer() {
+    const useFulLinks = [
+        {
+            title: "Home",
+            path: config.routes.home,
+        },
+        {
+            title: "Tutor",
+            path: config.routes.tutor,
+        },
+        {
+            title: "Courses",
+            path: config.routes.course,
+        },
+        {
+            title: "Entrance Test",
+            path: config.routes.entrance_test,
+        },
+    ];
+
+    const importantLinks = [
+        {
+            title: "Profile",
+            path: config.routes.profile,
+        },
+        {
+            title: "Login",
+            path: config.routes.login,
+        },
+        {
+            title: "Register",
+            path: config.routes.register,
+        },
+        {
+            title: "Terms & Conditions",
+            path: "",
+        },
+    ];
+
     return (
         <footer className="rbt-footer footer-style-1 bg-color-white overflow-hidden">
             <div className="footer-top">
@@ -9,7 +48,7 @@ function Footer() {
                         <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                             <div className="footer-widget">
                                 <div className="logo">
-                                    <Link to="/">
+                                    <Link to={config.routes.home}>
                                         <img src="assets/images/logo/logo.png" alt="English Academy" />
                                     </Link>
                                 </div>
@@ -38,20 +77,6 @@ function Footer() {
                                         </a>
                                     </li>
                                 </ul>
-
-                                <div className="contact-btn mt--30">
-                                    <a className="rbt-btn hover-icon-reverse btn-border-gradient radius-round" href="#!">
-                                        <div className="icon-reverse-wrapper">
-                                            <span className="btn-text">Contact With Us</span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                            <span className="btn-icon">
-                                                <i className="feather-arrow-right"></i>
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
                             </div>
                         </div>
 
@@ -59,56 +84,24 @@ function Footer() {
                             <div className="footer-widget">
                                 <h5 className="ft-title">Useful Links</h5>
                                 <ul className="ft-link">
-                                    <li>
-                                        <Link to="">Marketplace</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Kindergarten</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">University</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">GYM Coaching</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">FAQ</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">About Us</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Privacy policy</Link>
-                                    </li>
+                                    {useFulLinks.map((link, index) => (
+                                        <li key={index}>
+                                            <Link to={link.path}>{link.title}</Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
 
                         <div className="col-lg-2 col-md-6 col-sm-6 col-12">
                             <div className="footer-widget">
-                                <h5 className="ft-title">Our Company</h5>
+                                <h5 className="ft-title">Important Link</h5>
                                 <ul className="ft-link">
-                                    <li>
-                                        <Link to="">Contact Us</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Become Teacher</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/blog">Blog</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Instructor</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Events</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/courses">Course</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Contact</Link>
-                                    </li>
+                                    {importantLinks.map((link, index) => (
+                                        <li key={index}>
+                                            <Link to={link.path}>{link.title}</Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
@@ -118,7 +111,7 @@ function Footer() {
                                 <h5 className="ft-title">Get Contact</h5>
                                 <ul className="ft-link">
                                     <li>
-                                        <span>Phone:</span> <a href="#!">0123 456 789</a>
+                                        <span>Phone:</span> <a href="tel:0123456789">0123 456 789</a>
                                     </li>
                                     <li>
                                         <span>E-mail:</span> <a href="mailto:englishacademy@edu.com">englishacademy@edu.com</a>

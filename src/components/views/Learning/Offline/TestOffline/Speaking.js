@@ -5,8 +5,11 @@ function Speaking({ question, audioRefs, fileInputRefs, addAudioElement, handleF
         <div className="d-flex flex-column justify-content-center align-items-center background-secondary  p-5">
             {selectedAnswers[question.id] ? (
                 <div className="text-center">
-                    <img src="assets/images/icons/card-icon-1.png" alt="" />
-                    <p className="mt-3">You have completed this question!</p>
+                    <ul className="plan-offer-list">
+                        <li>
+                            <i className="feather-check m-0"></i> You have completed this question!
+                        </li>
+                    </ul>
                 </div>
             ) : (
                 <div className="mt-3 text-center">
@@ -20,7 +23,6 @@ function Speaking({ question, audioRefs, fileInputRefs, addAudioElement, handleF
                         />
                     </div>
                     <p className="fw-light my-3 fz-16"> Click to start recording, press "Confirm" to finish. </p>
-                    {/* <p className="fw-light mb-0 fz-16">Select the recording file and press "Confirm" to finish.</p> */}
 
                     <p className="fw-light mb-4 fz-16 text-danger">Note: After pressing "Confirm," recording cannot be repeated.</p>
 
