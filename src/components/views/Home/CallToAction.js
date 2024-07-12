@@ -11,7 +11,7 @@ function CallToAction() {
                                         <div className="rbt-category mb--20">
                                             <a href="#!">New Collection</a>
                                         </div>
-                                        <h4 className="title mb--15">Online Courses from Histudy</h4>
+                                        <h4 className="title mb--15">Online Courses from English Academy</h4>
                                         <p className="mb--15">Top instructors from around the world</p>
                                     </div>
                                 </div>
@@ -34,7 +34,7 @@ function CallToAction() {
                                         <div className="rbt-category mb--20">
                                             <a href="#!">Top Teacher</a>
                                         </div>
-                                        <h4 className="title mb--10">Free Online Courses from Histudy School To Education</h4>
+                                        <h4 className="title mb--10">Free Online Courses from English Academy School To Education</h4>
                                         <p className="mb--15">Top instructors from around the world</p>
                                         <div className="read-more-btn">
                                             <a className="rbt-btn rbt-switch-btn btn-gradient btn-sm" href="#!">

@@ -126,7 +126,7 @@ function TopReview() {
                                     </div>
                                 </div>
                                 <div className="description">
-                                    <p className="subtitle-3">Like this histudy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
+                                    <p className="subtitle-3">Like this English Academy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
                                     <a className="rbt-btn-link" href="!#">
                                         Read Project Case Study<i className="feather-arrow-right"></i>
                                     </a>
@@ -346,7 +346,7 @@ function TopReview() {
                                     </div>
                                 </div>
                                 <div className="description">
-                                    <p className="subtitle-3">Like this histudy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
+                                    <p className="subtitle-3">Like this English Academy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
                                     <a className="rbt-btn-link" href="!#">
                                         Read Project Case Study<i className="feather-arrow-right"></i>
                                     </a>

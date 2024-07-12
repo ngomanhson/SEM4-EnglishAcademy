@@ -6,15 +6,12 @@ function Newsletter() {
                     <div className="col-lg-12">
                         <div className="inner text-center">
                             <div className="section-title text-center">
-                                <span className="subtitle bg-white-opacity">Get Latest Histudy Update</span>
+                                <span className="subtitle bg-white-opacity">Get Latest English Academy Update</span>
                                 <h2 className="title color-white">
                                     <strong>Subscribe</strong> Our Newsletter
                                 </h2>
-                                <p className="description color-white mt--20">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam explicabo sit est eos earum reprehenderit inventore nam autem corrupti rerum!
-                                </p>
                             </div>
-                            <form action="#" className="newsletter-form-1 mt--40">
+                            <form action="" className="newsletter-form-1 mt--40">
                                 <input type="email" placeholder="Enter Your E-Email" />
                                 <button type="submit" className="rbt-btn btn-md btn-gradient hover-icon-reverse">
                                     <span className="icon-reverse-wrapper">

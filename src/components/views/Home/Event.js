@@ -172,7 +172,7 @@ function Event() {
                                                     </li>
                                                 </ul>
                                                 <h4 className="rbt-card-title">
-                                                    <a href="event-details.html">Painting Art Contest 2020 for histudy Clud</a>
+                                                    <a href="event-details.html">Painting Art Contest 2020 for English Academy Clud</a>
                                                 </h4>
 
                                                 <div className="read-more-btn">
@@ -346,7 +346,7 @@ function Event() {
                                                     </li>
                                                 </ul>
                                                 <h4 className="rbt-card-title">
-                                                    <a href="event-details.html">Painting Art Contest 2020 for histudy Clud</a>
+                                                    <a href="event-details.html">Painting Art Contest 2020 for English Academy Clud</a>
                                                 </h4>
 
                                                 <div className="read-more-btn">

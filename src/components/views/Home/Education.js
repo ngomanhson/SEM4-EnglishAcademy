@@ -8,7 +8,7 @@ function Education() {
                             <div className="section-title text-center mb--10">
                                 <span className="subtitle bg-primary-opacity">EDUCATION FOR EVERYONE</span>
                                 <h2 className="title">
-                                    People like histudy education. <br /> No joking - here’s the proof!
+                                    People like English Academy education. <br /> No joking - here’s the proof!
                                 </h2>
                             </div>
                         </div>
@@ -47,7 +47,7 @@ function Education() {
                                     <img src="assets/images/icons/google.png" alt="Clint Images" />
                                 </div>
                                 <div className="description">
-                                    <p className="subtitle-3">Histudy education, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
+                                    <p className="subtitle-3">English Academy education, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
                                     <div className="clint-info-wrapper">
                                         <div className="thumb">
                                             <img src="assets/images/testimonial/client-02.png" alt="Clint Images" />
@@ -115,7 +115,7 @@ function Education() {
                                     <img src="assets/images/icons/bing.png" alt="Clint Images" />
                                 </div>
                                 <div className="description">
-                                    <p className="subtitle-3">Like this histudy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
+                                    <p className="subtitle-3">Like this English Academy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
                                     <div className="clint-info-wrapper">
                                         <div className="thumb">
                                             <img src="assets/images/testimonial/client-05.png" alt="Clint Images" />
@@ -252,7 +252,7 @@ function Education() {
                                     <img src="assets/images/icons/google.png" alt="Clint Images" />
                                 </div>
                                 <div className="description">
-                                    <p className="subtitle-3">Histudy education, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
+                                    <p className="subtitle-3">English Academy education, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
                                     <div className="clint-info-wrapper">
                                         <div className="thumb">
                                             <img src="assets/images/testimonial/client-02.png" alt="Clint Images" />
@@ -318,7 +318,7 @@ function Education() {
                                     <img src="assets/images/icons/hubs.png" alt="Clint Images" />
                                 </div>
                                 <div className="description">
-                                    <p className="subtitle-3">Like this histudy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
+                                    <p className="subtitle-3">Like this English Academy, vulputate at sapien sit amet, auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
                                     <div className="clint-info-wrapper">
                                         <div className="thumb">
                                             <img src="assets/images/testimonial/client-05.png" alt="Clint Images" />
