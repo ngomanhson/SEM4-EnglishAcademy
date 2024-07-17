@@ -12,6 +12,8 @@ import Parts from "../../../views/EntranceTest/Parts";
 // import Sidebar from "../../../views/EntranceTest/Sidebar";
 import Breadcrumb from "../../../views/EntranceTest/Breadcrumb";
 import { formatMinute } from "../../../../utils/formatTime";
+import { toast } from "react-toastify";
+import AuthModal from "../../Auth/AuthModal";
 
 function Ielts() {
     const { slug } = useParams();
@@ -25,10 +27,6 @@ function Ielts() {
 
     const { response, loading, error } = useAxiosGet({
         path: url.ENTRANCE_TEST.IELTS + `/${slug}`,
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${getAccessToken()}`,
-        },
     });
 
     const entranceTest = useMemo(() => response || {}, [response]);
@@ -61,10 +59,8 @@ function Ielts() {
         setCurrentSessionIndex((prevIndex) => prevIndex - 1);
     };
 
-    const handleSubmitTest = useCallback(async () => {
+    const submitTest = useCallback(async () => {
         try {
-            // const answersToSubmit = Object.entries(selectedAnswers).map(([questionId, selectedOption]) => ({ content: selectedOption, questionId }));
-
             const answersToSubmit = entranceTest.testInputSessionDetails.flatMap((session) =>
                 session.questionTestInputs.map((question) => ({
                     content: selectedAnswers[question.id] || "",
@@ -73,14 +69,12 @@ function Ielts() {
             );
 
             const endTime = Date.now();
-
             const elapsedTimeInSeconds = Math.floor((endTime - startTime) / 1000);
 
             const dataSubmit = {
                 time: elapsedTimeInSeconds,
                 createAnswerStudentList: answersToSubmit,
             };
-
             const response = await api.post(url.ENTRANCE_TEST.SUBMIT + `/${slug}`, dataSubmit, {
                 headers: {
                     "Content-Type": "application/json",
@@ -89,17 +83,32 @@ function Ielts() {
             });
 
             if (response.status === 200) {
-                const testData = {
-                    type: "ielts",
-                    code: response.data.data,
-                };
-                sessionStorage.setItem("entrance_data", JSON.stringify(testData));
-                navigate("/entrance-test/success");
+                const testData = response.data.data;
+                navigate(`/learning-paths/ielts/${testData}`);
             }
         } catch (error) {
-            console.error("Error submitting test:", error);
+            console.log(error);
+            toast.error("Error! An error occurred. Please try again later", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
-    }, [slug, navigate, selectedAnswers, startTime, entranceTest]);
+    }, [entranceTest.testInputSessionDetails, startTime, slug, selectedAnswers, navigate]);
+
+    const handleSubmitTest = useCallback(async () => {
+        if (getAccessToken()) {
+            await submitTest();
+        } else {
+            const myModal = new window.bootstrap.Modal(document.getElementById("login-modal"));
+            myModal.show();
+        }
+    }, [submitTest]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -199,6 +208,7 @@ function Ielts() {
                                 </div>
                             </div>
                         </div>
+                        <AuthModal handleEvent={submitTest} />
                     </div>
                 </div>
             )}

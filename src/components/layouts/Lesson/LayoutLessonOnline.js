@@ -7,6 +7,7 @@ import api from "../../../services/api";
 import NotFound from "../../pages/Other/NotFound";
 import { getAccessToken } from "../../../utils/auth";
 import { formatMinute } from "../../../utils/formatTime";
+import config from "../../../config";
 
 function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
     const { courseSlug } = useParams();
@@ -207,7 +208,7 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
                             <div className="rbt-course-feature-inner rbt-search-activation">
                                 <div className="d-flex align-items-center justify-content-between">
                                     <div className="section-title mt-3">
-                                        <Link to="/">
+                                        <Link to={config.routes.home}>
                                             <img src="assets/images/logo/logo.png" alt="English Academy" style={{ maxWidth: 150, objectFit: "cover" }} />
                                         </Link>
                                     </div>

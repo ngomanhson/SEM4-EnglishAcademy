@@ -82,12 +82,12 @@ function Banner() {
                                 </div>
 
                                 <div className="rbt-button-group justify-content-start mt--30">
-                                    <Link to={config.routes.register} className="rbt-btn btn-gradient rbt-switch-btn">
-                                        <span data-text="Sign Up Now">Sign Up Now</span>
+                                    <Link to={config.routes.entrance_test} className="rbt-btn btn-gradient rbt-switch-btn">
+                                        <span data-text="Free Competency Assessment Now!">Free Competency Assessment Now!</span>
                                     </Link>
-                                    <Link to={config.routes.course} className="rbt-btn btn-border rbt-switch-btn">
+                                    {/* <Link to={config.routes.course} className="rbt-btn btn-border rbt-switch-btn">
                                         <span data-text="Find Courses">Find Courses</span>
-                                    </Link>
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>
@@ -200,7 +200,7 @@ function Banner() {
                         </div>
                     </div>
                     <div className="splash-service-main position-relative">
-                        <div className="service-wrapper service-white"></div>
+                        <div className="service-wrapper service-white p-0"></div>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import api from "../../../services/api";
 import url from "../../../services/url";
 import { toast } from "react-toastify";
 import Loading from "../../layouts/Loading";
+import config from "../../../config";
 
 function Register() {
     const navigate = useNavigate();
@@ -182,7 +183,7 @@ function Register() {
 
                                     <div className="text-center mt-4" style={{ fontSize: 16, fontWeight: 300 }}>
                                         Do you already have an account?{" "}
-                                        <Link to="/login" href="register.html" className="text-primary">
+                                        <Link to={config.routes.login} href="register.html" className="text-primary">
                                             Login now.
                                         </Link>
                                     </div>

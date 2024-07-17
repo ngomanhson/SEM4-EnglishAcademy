@@ -20,13 +20,13 @@ const url = {
     },
 
     ENTRANCE_TEST: {
-        LIST: "test-input",
-        TOIEC: "test-input/detail",
-        IELTS: "test-input/detail",
-        SUBMIT: "test-input/detail",
-        RESULT: "test-input/result",
+        LIST: "any/test-input",
+        TOIEC: "any/detail",
+        IELTS: "any/detail",
+        SUBMIT: "detail",
+        RESULT: "result",
         POTENTIAL_CUSTOMER: "potential-customer",
-        RESULT_DETAIL: "test-input/result-detail",
+        RESULT_DETAIL: "result-detail",
     },
 
     OFFLINE_COURSE: {

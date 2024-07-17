@@ -4,8 +4,8 @@ import { useState } from "react";
 import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
 import { useAxiosGet } from "../../../hooks";
-import { getAccessToken } from "../../../utils/auth";
 import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
+import config from "../../../config";
 
 function EntranceTest() {
     const [selectedTestSlug, setSelectedTestSlug] = useState("");
@@ -13,9 +13,6 @@ function EntranceTest() {
 
     const { response, loading } = useAxiosGet({
         path: url.ENTRANCE_TEST.LIST,
-        headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-        },
     });
 
     const testList = response || [];
@@ -42,7 +39,7 @@ function EntranceTest() {
                                 <div className="breadcrumb-inner text-start">
                                     <ul className="page-list">
                                         <li className="rbt-breadcrumb-item">
-                                            <Link to="/">Home</Link>
+                                            <Link to={config.routes.home}>Home</Link>
                                         </li>
                                         <li>
                                             <div className="icon-right">

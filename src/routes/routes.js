@@ -56,6 +56,11 @@ const publicRoutes = [
     { path: config.routes.course, component: Course },
     { path: config.routes.course_detail_online, component: CourseDetailOnline },
 
+    // Entrance test routes
+    { path: config.routes.entrance_test, component: EntranceTest },
+    { path: config.routes.entrance_test_ielts, component: Ielts },
+    { path: config.routes.entrance_test_toiec, component: Toeic },
+
     // Tutor routes
     { path: config.routes.tutor, component: Tutors },
     { path: config.routes.tutor_detail, component: TutorDetail },
@@ -90,9 +95,6 @@ const privateRoutes = [
     { path: config.routes.certificate_offline_course, component: CourseOfflineCertificate },
 
     // Entrance test routes
-    { path: config.routes.entrance_test, component: EntranceTest },
-    { path: config.routes.entrance_test_ielts, component: Ielts },
-    { path: config.routes.entrance_test_toiec, component: Toeic },
     { path: config.routes.entrance_test_success, component: EntranceTestSuccess },
     { path: config.routes.learning_paths_ielts, component: LearningPathIelts },
     { path: config.routes.learning_paths_toeic, component: LearningPathToeic },
