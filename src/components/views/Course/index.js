@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { formatNumber } from "../../../utils/formatNumber";
 
 function Courses({ course, stars }) {
     const imgNotFound = "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg";
@@ -19,7 +20,7 @@ function Courses({ course, stars }) {
                                 alt=""
                                 style={{ width: 20 }}
                             />
-                            <span style={{ fontWeight: 500 }}>Online</span>
+                            <span style={{ fontWeight: 500 }}>{course.categoryName}</span>
                         </div>
                     </Link>
                 </div>
@@ -27,7 +28,7 @@ function Courses({ course, stars }) {
                     <div className="rbt-card-top">
                         <div className="rbt-review">
                             <div className="rating">{stars}</div>
-                            {/* <span className="rating-count"> (15 Reviews)</span> */}
+                            <span className="rating-count"> ({formatNumber(course.totalReview)} Reviews)</span>
                         </div>
                         <div className="rbt-bookmark-btn">
                             <button className="rbt-round-btn" title="Bookmark">

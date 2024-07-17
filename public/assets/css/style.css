@@ -30891,6 +30891,7 @@ button.btn-circle[disabled]:hover {
     outline: none;
     width: 25px;
     height: 25px;
+    padding: 0;
     border-radius: 50%;
     background: var(--color-white);
     color: #c4c4c4;

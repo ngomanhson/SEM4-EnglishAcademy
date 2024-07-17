@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAxiosGet } from "../../../../hooks";
 import url from "../../../../services/url";
 import Layout from "../../../layouts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import api from "../../../../services/api";
 import { getAccessToken } from "../../../../utils/auth";
 import Swal from "sweetalert2";
@@ -40,15 +40,15 @@ function HireTutor() {
 
     const [submitting, setSubmitting] = useState(false);
     // const [selection, setSelection] = useState("package");
-    const [typeBooking, setTypeBooking] = useState(1);
+    // const [typeBooking, setTypeBooking] = useState(1);
 
-    useEffect(() => {
-        if (selectPackage === 0) {
-            setTypeBooking(2);
-        } else {
-            setTypeBooking(1);
-        }
-    }, [selectPackage]);
+    // useEffect(() => {
+    //     if (selectPackage === 0) {
+    //         setTypeBooking(2);
+    //     } else {
+    //         setTypeBooking(1);
+    //     }
+    // }, [selectPackage]);
 
     const formatTime = (time) => time.substring(0, 5);
 
@@ -90,7 +90,7 @@ function HireTutor() {
             try {
                 setSubmitting(true);
                 const data = {
-                    typeBooking: typeBooking,
+                    typeBooking: 1,
                     tutorId: tutor.id,
                     packageId: selectPackage,
                     description: message,
