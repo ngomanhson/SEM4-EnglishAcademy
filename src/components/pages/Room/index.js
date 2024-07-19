@@ -16,7 +16,6 @@ function Room() {
 
         try {
             const checkRequest = await api.get(url.ROOM_MEETING.CHECK_STUDENT + `/${roomCode}`, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
-            console.log(checkRequest.data.status);
             if (checkRequest.data.status) {
                 navigate(`/room/${roomCode}`);
             }
@@ -55,16 +54,17 @@ function Room() {
                                 </div>
 
                                 <form onSubmit={handleFormSubmit} className="mt-3">
-                                    <div className="rbt-form-group mb-4">
-                                        <label htmlFor="room" className="mb-2 fz-14 text-dark">
-                                            Room Code <span className="text-danger">*</span>
-                                        </label>
-                                        <input type="text" id="room" value={roomCode} onChange={(e) => setRoomCode(e.target.value)} placeholder="Enter room code" />
+                                    <div className="rbt-form-group">
+                                        <div className="d-flex align-items-center justify-content-between gap-3">
+                                            <input type="text" id="room" value={roomCode} onChange={(e) => setRoomCode(e.target.value)} placeholder="Enter room code" />
+
+                                            <button type="submit" className={`rbt-btn btn-md fw-normal btn-not__hover ${!roomCode ? "disabled" : ""}`} disabled={!roomCode}>
+                                                <i className="feather-corner-down-right"></i>
+                                            </button>
+                                        </div>
                                     </div>
 
-                                    <button type="submit" className={`rbt-btn btn-md fw-normal btn-not__hover w-100 ${!roomCode ? "disabled" : ""}`} disabled={!roomCode}>
-                                        <span>Join Room</span>
-                                    </button>
+                                    <span className="fz-12 text-secondary">Online Room for students and tutors.</span>
                                 </form>
                             </div>
                         </div>
