@@ -20,6 +20,7 @@ const routes = {
     subject_learning_offline: "/subject-learning/:slug",
     subject_test_offline: "/subject-test/:slug",
     certificate_offline_course: "/certificate/:slug",
+    mark_report: "/mark-report",
 
     // Entrance test routes
     entrance_test: "/entrance-test",

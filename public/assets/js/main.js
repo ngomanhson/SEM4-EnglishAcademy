@@ -35,7 +35,7 @@
             eduJs.categoryMenuHover();
             eduJs.cartSidenav();
             eduJs.filterClickButton();
-            eduJs.selectPicker();
+            // eduJs.selectPicker();
             eduJs.headerTopActivation();
             eduJs.magnificPopupActivation();
             eduJs.showMoreBtn();
