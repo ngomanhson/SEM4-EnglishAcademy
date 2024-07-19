@@ -16,6 +16,20 @@ function Header() {
         {
             title: "Courses",
             path: config.routes.course,
+            megamenu: [
+                {
+                    title: "Online Courses",
+                    items: [{ title: "Online Courses", path: config.routes.course }],
+                },
+                {
+                    title: "Offline Course",
+                    items: [
+                        { title: "My Courses", path: config.routes.my_course },
+                        { title: "Time Table", path: config.routes.timetable },
+                        { title: "Academic Transcript", path: "s" },
+                    ],
+                },
+            ],
         },
         {
             title: "Entrance Test",
@@ -24,6 +38,20 @@ function Header() {
         {
             title: "Tutoring",
             path: config.routes.tutor,
+            megamenu: [
+                {
+                    title: "Tutors",
+                    items: [{ title: "Tutors", path: config.routes.tutor }],
+                },
+                {
+                    title: "Booking & Learn",
+                    items: [
+                        { title: "Room Online", path: config.routes.room },
+                        { title: "Booking Waiting", path: config.routes.booking_waiting },
+                        { title: "Session with tutors", path: config.routes.booking },
+                    ],
+                },
+            ],
         },
         {
             title: "Blog",
@@ -235,8 +263,33 @@ function Header() {
                             <nav className="mainmenu-nav">
                                 <ul className="mainmenu">
                                     {headerItem.map((item, index) => (
-                                        <li className="with-megamenu has-menu-child-item" key={index}>
-                                            <NavLink to={item.path}>{item.title}</NavLink>
+                                        <li className={`with-megamenu has-menu-child-item ${item.megamenu ? "has-megamenu" : ""}`} key={index}>
+                                            <NavLink to={item.path}>
+                                                {item.title} {item.megamenu && <i className="feather-chevron-down"></i>}
+                                            </NavLink>
+                                            {item.megamenu && (
+                                                <div className="rbt-megamenu grid-item-2" style={{ maxWidth: 300 }}>
+                                                    <div className="wrapper">
+                                                        <div className="row row--15">
+                                                            {item.megamenu.map((menu, idx) => (
+                                                                <div className="col-lg-12 single-mega-item mt-adjacent" key={idx}>
+                                                                    <h3 className="rbt-short-title">{menu.title}</h3>
+                                                                    <ul className="mega-menu-item">
+                                                                        {menu.items.map((subItem, subIdx) => (
+                                                                            <li key={subIdx} className="mt-2">
+                                                                                <NavLink to={subItem.path}>
+                                                                                    {subItem.title}
+                                                                                    {subItem.badge && <span className="rbt-badge-card">{subItem.badge}</span>}
+                                                                                </NavLink>
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </li>
                                     ))}
                                 </ul>
@@ -251,11 +304,11 @@ function Header() {
                                     </a>
                                 </li>
 
-                                <li className="access-icon">
+                                {/* <li className="access-icon">
                                     <Link to={config.routes.dictionary} className="rbt-round-btn">
                                         <i className="fas fa-language"></i>
                                     </Link>
-                                </li>
+                                </li> */}
 
                                 {isLoggedIn() ? (
                                     <li className="account-access rbt-user-wrapper d-none d-xl-block">
