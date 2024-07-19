@@ -98,11 +98,11 @@ function ByPackage() {
                 <NotFound />
             ) : (
                 <LayoutProfile>
-                    <div className="col-lg-6">
+                    <div className="col-lg-9">
                         <div className="rbt-dashboard-content bg-color-white rbt-shadow-box">
                             <div className="content">
                                 <div className="section-title">
-                                    <h4 className="rbt-title-style-3">Booking Detail by Package</h4>
+                                    <h4 className="rbt-title-style-3">Booking Waiting Detail</h4>
                                 </div>
                                 {bookingData.loading ? (
                                     <LoadingSpinner />

@@ -96,6 +96,10 @@ const url = {
     LESSON_BOOKING: {
         GET_ALL: "lession-booking",
     },
+
+    SUBJECT: {
+        GET_ALL_SCORE: "subject/get-all-score",
+    },
 };
 
 export default url;

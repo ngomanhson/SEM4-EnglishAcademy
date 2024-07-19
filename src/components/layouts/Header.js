@@ -26,7 +26,7 @@ function Header() {
                     items: [
                         { title: "My Courses", path: config.routes.my_course },
                         { title: "Time Table", path: config.routes.timetable },
-                        { title: "Academic Transcript", path: "s" },
+                        { title: "Mark Report", path: config.routes.mark_report },
                     ],
                 },
             ],
@@ -72,16 +72,6 @@ function Header() {
                     title: "My Courses",
                     path: config.routes.my_course,
                     icon: "feather-book-open",
-                },
-                {
-                    title: "Reviews",
-                    path: config.routes.reviews,
-                    icon: "feather-star",
-                },
-                {
-                    title: "My Quiz Attempts",
-                    path: config.routes.my_quiz,
-                    icon: "feather-list",
                 },
             ],
         },
