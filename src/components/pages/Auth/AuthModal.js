@@ -165,7 +165,7 @@ function AuthModal({ handleEvent }) {
     };
 
     return (
-        <div className="modal fade show" id="login-modal" tabIndex="-1" aria-labelledby="modal-label" aria-hidden="true">
+        <div className="modal fade" id="login-modal" tabIndex="-1" aria-labelledby="modal-label" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content border-0">
                     <div className="modal-header p-5 pb-2" style={{ alignItems: "start", border: "none" }}>
