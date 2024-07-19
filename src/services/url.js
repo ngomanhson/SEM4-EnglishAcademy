@@ -92,6 +92,10 @@ const url = {
     ROOM_MEETING: {
         CHECK_STUDENT: "lession-booking/detail/check",
     },
+
+    LESSON_BOOKING: {
+        GET_ALL: "lession-booking",
+    },
 };
 
 export default url;

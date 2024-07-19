@@ -68,7 +68,7 @@ function BookingDetail() {
 
                                                 <div className="col-lg-12 col-md-12 mt-3">
                                                     <div className="rbt-profile-content fw-500">
-                                                        Lesson
+                                                        Schedule
                                                         {lessons?.lessonDays?.map((lesson, lessonIndex) => (
                                                             <p className="mt-3 mb-3 fz-13 fw-300" key={lessonIndex}>
                                                                 {lessonIndex + 1}. {lesson?.dayOfWeek}: {lesson.startTime} - {lesson.endTime}

@@ -32683,4 +32683,22 @@ h5,
     font-size: 14px;
     font-weight: 300;
 }
+.mt-adjacent + .mt-adjacent {
+    margin-top: 25px;
+}
+.fc-h-event .fc-event-main {
+    white-space: wrap;
+}
+.avatar-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 14px;
+    border-radius: 12px;
+}
 /*# sourceMappingURL=../maps/style.css.map */
