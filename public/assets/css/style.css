@@ -32675,7 +32675,12 @@ h5,
     padding: 0;
     margin: 0 -15px;
 }
-.slick-prev, .slick-next {
+.slick-prev,
+.slick-next {
     display: none !important;
+}
+.Toastify__toast-body div {
+    font-size: 14px;
+    font-weight: 300;
 }
 /*# sourceMappingURL=../maps/style.css.map */

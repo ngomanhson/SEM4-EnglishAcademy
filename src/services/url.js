@@ -88,6 +88,10 @@ const url = {
         TOP_COURSE: "any/course-online/get-top",
         TOP_TUTOR: "any/tutor/get-top",
     },
+
+    ROOM_MEETING: {
+        CHECK_STUDENT: "lession-booking/detail/check",
+    },
 };
 
 export default url;

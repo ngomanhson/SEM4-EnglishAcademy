@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAxiosGet } from "../../../hooks";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import Layout from "../../layouts";
 import LoadingSpinner from "../../layouts/LoadingSpinner";
 import NotFound from "../Other/NotFound";
+import { format } from "date-fns";
 
 function BookingDetail() {
     const { lessonId } = useParams();
@@ -18,18 +19,18 @@ function BookingDetail() {
 
     const lessons = bookingData.response || {};
 
-    // const getLastSegment = (url) => {
-    //     try {
-    //         const pathSegments = url.split("/");
-    //         return pathSegments[pathSegments.length - 1];
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+    const getLastSegment = (url) => {
+        try {
+            const pathSegments = url.split("/");
+            return pathSegments[pathSegments.length - 1];
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    // const formatDateTime = (dateTime) => {
-    //     return dateTime ? format(new Date(dateTime), "HH:mm:ss dd-MM-yyyy") : "N/A";
-    // };
+    const formatDateTime = (dateTime) => {
+        return dateTime ? format(new Date(dateTime), "HH:mm:ss dd-MM-yyyy") : "N/A";
+    };
 
     return (
         <>
@@ -76,7 +77,7 @@ function BookingDetail() {
                                                     </div>
                                                 </div>
                                                 <h4 className="fz-15 fw-300 mt-5">Information about lessons:</h4>
-                                                {/* <table className="rbt-table table table-borderless ">
+                                                <table className="rbt-table table table-borderless ">
                                                     <thead>
                                                         <tr>
                                                             <th>No.</th>
@@ -106,7 +107,7 @@ function BookingDetail() {
                                                             </tr>
                                                         ))}
                                                     </tbody>
-                                                </table> */}
+                                                </table>
                                             </>
                                         )}
                                     </div>
