@@ -37,14 +37,16 @@ function BookingDetail() {
             {bookingData.errorStatus === 404 ? (
                 <NotFound />
             ) : (
-                <Layout title="Booking Detail">
+                <Layout title="Sessions Detail With Tutors">
                     <div className="py-5 my-5">
                         <div className="row ">
                             <div className="col-lg-9 mx-auto">
                                 <div className="rbt-dashboard-content bg-color-white rbt-shadow-box">
                                     <div className="content">
                                         <div className="section-title border-bottom mb-5">
-                                            <h4 className="fz-15">Booking Detail</h4>
+                                            <h4 className="fw-normal" style={{ fontSize: 20 }}>
+                                                Sessions Detail With Tutors
+                                            </h4>
                                         </div>
 
                                         {bookingData.loading ? (
@@ -81,7 +83,7 @@ function BookingDetail() {
                                                     <thead>
                                                         <tr>
                                                             <th>No.</th>
-                                                            <th>Room Meeting</th>
+                                                            <th>Room</th>
                                                             <th>Scheduled Start</th>
                                                             <th>Scheduled End</th>
                                                             <th>Actual Start Time</th>
@@ -94,9 +96,13 @@ function BookingDetail() {
                                                             <tr key={index}>
                                                                 <td>{index + 1}</td>
                                                                 <td>
-                                                                    <Link to={`${lesson.path === null ? "" : `/room/${lesson.path}`}`} className="text-primary">
-                                                                        {getLastSegment(lesson.path) || "N/A"}
-                                                                    </Link>
+                                                                    {lesson.path === null ? (
+                                                                        "N/A"
+                                                                    ) : (
+                                                                        <Link to={`${lesson.path === null ? "" : `/room/${lesson.path}`}`} className="text-primary" target="_blank">
+                                                                            {getLastSegment(lesson.path) || "N/A"}
+                                                                        </Link>
+                                                                    )}
                                                                 </td>
 
                                                                 <td>{formatDateTime(lesson.scheduledStartTime)}</td>
