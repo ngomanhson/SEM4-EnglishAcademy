@@ -91,9 +91,9 @@ function MarkReport() {
             <div className="rbt-single-product-area rbt-single-product rbt-section-gap">
                 <div className="container">
                     <div className="widget">
-                        <Select options={courseOptions} onChange={handleCourseChange} className="mb-5" placeholder="Please Choose Course" />
+                        <Select options={courseOptions} onChange={handleCourseChange} placeholder="Please Choose Course" />
 
-                        <h3>{selectedCourseName}</h3>
+                        {selectedCourseName && <h3 className="mt-5">{selectedCourseName}</h3>}
 
                         {loading ? (
                             <LoadingSpinner />
@@ -102,7 +102,7 @@ function MarkReport() {
                                 {selectedCourse && scores.length === 0 && <p>There are currently no scores for this subject.</p>}
                                 {scores.length > 0 && (
                                     <div className="rbt-dashboard-table table-responsive mobile-table-750">
-                                        <table className="rbt-table table table-borderless">
+                                        <table className="rbt-table table table-bordered table-cs">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>

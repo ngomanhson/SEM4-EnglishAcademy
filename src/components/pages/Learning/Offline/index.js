@@ -340,91 +340,91 @@ function SubjectLearning() {
     }, [listStar]);
 
     return (
-        <>
-            <Layout title="Learning">
-                <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3" style={{ minHeight: 280 }}>
-                    <div className="container">
-                        {item.itemType === 0 && (
-                            <>
-                                <div className="widget border-lft-prm-opacity">
-                                    <h5 className="font-system">Document</h5>
-                                    <hr />
+        <Layout title="Learning">
+            <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3" style={{ minHeight: 280 }}>
+                <div className="container">
+                    {item.itemType === 0 && (
+                        <>
+                            <div className="widget border-lft-prm-opacity">
+                                <h5 className="font-system">Document</h5>
+                                <hr />
+                                <div className="row">
+                                    <div className="col-lg-6">
+                                        <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                    </div>
+
+                                    <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    {item.itemType === 1 && (
+                        <>
+                            <div className="widget border-lft-prm-opacity">
+                                <h5 className="font-system">Lesson Content</h5>
+                                <hr />
+                                <div className="row">
+                                    <div className="col-lg-6">
+                                        <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                        <div className="mt-5">
+                                            <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
+                                                <span className="text-danger">*</span>Time remaining: {timeRemaining}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
+                                </div>
+                            </div>
+
+                            {timeRemaining === "Expired" ? (
+                                ""
+                            ) : (
+                                <div className="widget border-lft-prm-opacity mt-5">
                                     <div className="row">
                                         <div className="col-lg-6">
-                                            <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                            <h5 className="font-system">Your answer</h5>
+                                            <hr />
+                                            <ReactQuill
+                                                value={content}
+                                                onChange={handleEditorChange}
+                                                theme="snow"
+                                                modules={{
+                                                    toolbar: toolbarOptions,
+                                                }}
+                                                style={{
+                                                    height: "auto",
+                                                }}
+                                            />
+                                            {editorError && <p className="text-danger shake mt-3">{editorError}</p>}
                                         </div>
-
-                                        <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
-                                    </div>
-                                </div>
-                            </>
-                        )}
-
-                        {item.itemType === 1 && (
-                            <>
-                                <div className="widget border-lft-prm-opacity">
-                                    <h5 className="font-system">Content</h5>
-                                    <hr />
-                                    <div className="row">
                                         <div className="col-lg-6">
-                                            <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
-                                            <div className="mt-5">
-                                                <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
-                                                    <span className="text-danger">*</span>Time remaining: {timeRemaining}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
-                                    </div>
-                                </div>
-
-                                {timeRemaining === "Expired" ? (
-                                    ""
-                                ) : (
-                                    <div className="widget border-lft-prm-opacity mt-5">
-                                        <div className="row">
-                                            <div className="col-lg-6">
-                                                <h5 className="font-system">Your answer</h5>
-                                                <hr />
-                                                <ReactQuill
-                                                    value={content}
-                                                    onChange={handleEditorChange}
-                                                    theme="snow"
-                                                    modules={{
-                                                        toolbar: toolbarOptions,
-                                                    }}
-                                                    style={{
-                                                        height: "auto",
-                                                    }}
-                                                />
-                                                {editorError && <p className="text-danger shake mt-3">{editorError}</p>}
-                                            </div>
-                                            <div className="col-lg-6">
-                                                <h5 className="font-system">Preview</h5>
-                                                <hr />
-                                                {content && (
-                                                    <div className="wrapper-content">
-                                                        <div className="content p-0">
-                                                            <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: content }} />
-                                                        </div>
+                                            <h5 className="font-system">Preview</h5>
+                                            <hr />
+                                            {content && (
+                                                <div className="wrapper-content">
+                                                    <div className="content p-0">
+                                                        <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: content }} />
                                                     </div>
-                                                )}
-
-                                                <div className="text-end">
-                                                    {content.length > 3 ? (
-                                                        <button onClick={handleSubmit} className="rbt-btn btn-gradient btn-gradient-3 btn-not__hover mt-5" style={{ height: 42, lineHeight: "42px" }}>
-                                                            Submit answer
-                                                        </button>
-                                                    ) : (
-                                                        ""
-                                                    )}
                                                 </div>
+                                            )}
+
+                                            <div className="text-end">
+                                                {content.length > 3 ? (
+                                                    <button onClick={handleSubmit} className="rbt-btn btn-gradient btn-gradient-3 btn-not__hover mt-5" style={{ height: 42, lineHeight: "42px" }}>
+                                                        Submit answer
+                                                    </button>
+                                                ) : (
+                                                    ""
+                                                )}
                                             </div>
                                         </div>
                                     </div>
-                                )}
+                                </div>
+                            )}
 
+                            {answerStudents.length > 0 && (
                                 <div className="row mt-5">
                                     <div className="col-lg-12">
                                         <div className="widget border-lft-prm-opacity">
@@ -607,128 +607,128 @@ function SubjectLearning() {
                                         </div>
                                     </div> */}
                                 </div>
-                            </>
-                        )}
+                            )}
+                        </>
+                    )}
 
-                        {item.itemType === 2 && (
-                            <div className="widget mt-5">
-                                <h5 className="font-system">Content</h5>
-                                <hr />
-                                <div className="row">
-                                    <div className="col-lg-9">
-                                        <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
-                                        <div className="mt-5">
-                                            <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
-                                                <span className="text-danger">*</span>Time remaining: {timeRemaining}
-                                            </p>
+                    {item.itemType === 2 && (
+                        <div className="widget mt-5">
+                            <h5 className="font-system">Content</h5>
+                            <hr />
+                            <div className="row">
+                                <div className="col-lg-9">
+                                    <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                    <div className="mt-5">
+                                        <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
+                                            <span className="text-danger">*</span>Time remaining: {timeRemaining}
+                                        </p>
+                                    </div>
+                                    <div className="mt-5">
+                                        {answerPracticalTest.length === 0 && timeRemaining !== "Expired" ? (
+                                            <button
+                                                className="rbt-btn bg-secondary-opacity btn-not__hover"
+                                                style={{ height: 50, lineHeight: "50px" }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                            >
+                                                Submit test
+                                            </button>
+                                        ) : (
+                                            <div className="text-success">You have submitted the test.</div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {answerPracticalTest.length === 0 ? (
+                                ""
+                            ) : (
+                                <div className="row mt-5">
+                                    <div className="col-lg-4 col-12">
+                                        <div className="td-sidebar">
+                                            <div className="widget border-lft-darker">
+                                                <h5>Submission Status</h5>
+                                                {answerPracticalTest.length === 0 ? <p className="fz-16 text-danger"> Not submitted.</p> : <p className="fz-16 text-success">Submitted.</p>}
+                                            </div>
                                         </div>
-                                        <div className="mt-5">
-                                            {answerPracticalTest.length === 0 && timeRemaining !== "Expired" ? (
-                                                <button
-                                                    className="rbt-btn bg-secondary-opacity btn-not__hover"
-                                                    style={{ height: 50, lineHeight: "50px" }}
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal"
-                                                >
-                                                    Submit test
-                                                </button>
-                                            ) : (
-                                                <div className="text-success">You have submitted the test.</div>
-                                            )}
+                                    </div>
+                                    <div className="col-lg-4 col-12">
+                                        <div className="td-sidebar">
+                                            <div className="widget border-lft-darker">
+                                                <h5>Submission Time</h5>
+
+                                                {answerPracticalTest.length === 0 ? (
+                                                    <p className="fz-16">No data.</p>
+                                                ) : (
+                                                    <p className="fz-16">{format(new Date(answerPracticalTest[0].createdDate), "HH:ss:mm dd-mm-yyyy")}</p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-4 col-12">
+                                        <div className="td-sidebar">
+                                            <div className="widget border-lft-darker overflow-hidden">
+                                                <h5>Submission Link</h5>
+
+                                                {answerPracticalTest.length === 0 ? (
+                                                    <p>No data.</p>
+                                                ) : (
+                                                    <a href={answerPracticalTest[0].content} rel="noreferrer" target="_blank" className="text-primary">
+                                                        {answerPracticalTest[0].content}
+                                                    </a>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                {answerPracticalTest.length === 0 ? (
-                                    ""
-                                ) : (
-                                    <div className="row mt-5">
-                                        <div className="col-lg-4 col-12">
-                                            <div className="td-sidebar">
-                                                <div className="widget border-lft-darker">
-                                                    <h5>Submission Status</h5>
-                                                    {answerPracticalTest.length === 0 ? <p className="fz-16 text-danger"> Not submitted.</p> : <p className="fz-16 text-success">Submitted.</p>}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-12">
-                                            <div className="td-sidebar">
-                                                <div className="widget border-lft-darker">
-                                                    <h5>Submission Time</h5>
-
-                                                    {answerPracticalTest.length === 0 ? (
-                                                        <p className="fz-16">No data.</p>
-                                                    ) : (
-                                                        <p className="fz-16">{format(new Date(answerPracticalTest[0].createdDate), "HH:ss:mm dd-mm-yyyy")}</p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-12">
-                                            <div className="td-sidebar">
-                                                <div className="widget border-lft-darker overflow-hidden">
-                                                    <h5>Submission Link</h5>
-
-                                                    {answerPracticalTest.length === 0 ? (
-                                                        <p>No data.</p>
-                                                    ) : (
-                                                        <a href={answerPracticalTest[0].content} rel="noreferrer" target="_blank" className="text-primary">
-                                                            {answerPracticalTest[0].content}
-                                                        </a>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
+                            )}
+                        </div>
+                    )}
                 </div>
+            </div>
 
-                <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header p-5 pb-0" style={{ alignItems: "start", border: "none" }}>
-                                <div>
-                                    <h5 className="modal-title fw-500" id="exampleModalLabel">
-                                        Enter link:
-                                    </h5>
+            <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header p-5 pb-0" style={{ alignItems: "start", border: "none" }}>
+                            <div>
+                                <h5 className="modal-title fw-500" id="exampleModalLabel">
+                                    Enter link:
+                                </h5>
+                            </div>
+
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body p-5 pt-0">
+                            <form className="max-width-auto mt-3" onSubmit={handleSubmitTest}>
+                                <div className="rbt-form-group">
+                                    <input
+                                        type="text"
+                                        name="link"
+                                        className={`form-control ${formErrors.link ? "is-invalid" : ""}`}
+                                        value={formData.link}
+                                        onChange={(e) => {
+                                            const { name, value } = e.target;
+                                            setFormData({ ...formData, [name]: value });
+                                        }}
+                                    />
+                                    {formErrors.link && <div className="invalid-feedback">{formErrors.link}</div>}
                                 </div>
+                                <p className="fw-300 fz-14 mt-3 mb-0">
+                                    <span className="text-danger">*</span>Note: Submit your test using the link.
+                                </p>
 
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body p-5 pt-0">
-                                <form className="max-width-auto mt-3" onSubmit={handleSubmitTest}>
-                                    <div className="rbt-form-group">
-                                        <input
-                                            type="text"
-                                            name="link"
-                                            className={`form-control ${formErrors.link ? "is-invalid" : ""}`}
-                                            value={formData.link}
-                                            onChange={(e) => {
-                                                const { name, value } = e.target;
-                                                setFormData({ ...formData, [name]: value });
-                                            }}
-                                        />
-                                        {formErrors.link && <div className="invalid-feedback">{formErrors.link}</div>}
-                                    </div>
-                                    <p className="fw-300 fz-14 mt-3 mb-0">
-                                        <span className="text-danger">*</span>Note: Submit your test using the link.
-                                    </p>
-
-                                    <div className="rbt-form-group mt-3">
-                                        <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
-                                            Submit
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                                <div className="rbt-form-group mt-3">
+                                    <button type="submit" className="rbt-btn btn-md fw-normal btn-not__hover w-100" style={{ fontSize: 15 }}>
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </Layout>
-        </>
+            </div>
+        </Layout>
     );
 }
 
