@@ -16,7 +16,7 @@ function Meeting() {
     const checkStudentData = useAxiosGet({
         path: url.ROOM_MEETING.CHECK_STUDENT + `/${roomId}`,
         headers: {
-            Authorization: `Bearer ${getAccessToken()}}`,
+            Authorization: `Bearer ${getAccessToken()}`,
         },
     });
 
@@ -42,7 +42,7 @@ function Meeting() {
     }
 
     useEffect(() => {
-        if (checkStudentData.errorStatus && meetingContainerRef.current) {
+        if (!unauthorized && meetingContainerRef.current) {
             const initializeMeeting = async () => {
                 try {
                     const appID = zegoAppId;
@@ -62,12 +62,14 @@ function Meeting() {
                         ],
                     });
                 } catch (error) {
-                    console.log(error);
+                    console.log("Error in initializeMeeting:", error);
                 }
             };
             initializeMeeting();
+        } else {
+            console.log("Not initializing meeting. Unauthorized:", unauthorized, "meetingContainerRef.current:", meetingContainerRef.current);
         }
-    }, [checkStudentData.errorStatus, roomId, userIdFromToken, userNameFromToken, zegoAppId, serverSecretKey]);
+    }, [unauthorized, roomId, userIdFromToken, userNameFromToken, zegoAppId, serverSecretKey]);
 
     return (
         <>
