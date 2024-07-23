@@ -13,6 +13,7 @@ const routes = {
     checkout: "/checkout/:courseSlug",
     checkout_thank_you: "/checkout/:courseSlug/thank-you",
     checkout_fail: "/checkout/:courseSlug/failed",
+    thank_you: "/thank-you",
 
     // Course Offline routes
     subject_offline: "/subject-offline/:slug",

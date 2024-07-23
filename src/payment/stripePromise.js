@@ -7,6 +7,6 @@ export const stripePromise = (async () => {
         return await loadStripe(keyStr);
     } catch (err) {
         console.error(err);
-        window.location.reload();
+        // window.location.reload();
     }
 })();
