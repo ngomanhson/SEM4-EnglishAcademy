@@ -3,17 +3,17 @@ import { useAxiosGet } from "../../../hooks";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LoadingSpinner from "../../layouts/LoadingSpinner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Layout from "../../layouts/index";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Pagination from "../../layouts/Pagination";
 import { useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 function BookingList() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const bookingData = useAxiosGet({
         path: url.TUTOR.BOOKING,
@@ -22,33 +22,25 @@ function BookingList() {
         },
     });
 
-    const lessonBookingData = useAxiosGet({
-        path: url.LESSON_BOOKING.GET_ALL,
-        headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-        },
-    });
-
     const bookingDetail = bookingData.response || [];
-    const lessonBooking = lessonBookingData.response || [];
 
-    const formattedEvents = lessonBooking.map((event) => {
-        const formattedStartTime = event.scheduledStartTime.slice(0, 19);
-        const formattedEndTime = event.scheduledEndTime.slice(0, 19);
+    // const formattedEvents = lessonBooking.map((event) => {
+    //     const formattedStartTime = event.scheduledStartTime.slice(0, 19);
+    //     const formattedEndTime = event.scheduledEndTime.slice(0, 19);
 
-        const isNullEvent = event.path === null;
-        const eventTitle = isNullEvent ? "N/A" : event.path;
+    //     const isNullEvent = event.path === null;
+    //     const eventTitle = isNullEvent ? "N/A" : event.path;
 
-        return {
-            title: eventTitle,
-            start: formattedStartTime,
-            end: formattedEndTime,
-            backgroundColor: isNullEvent ? "#eff0f2" : "#ecfafb",
-            textColor: isNullEvent ? "#5b6b79" : "#2ca87f",
-            borderColor: isNullEvent ? "#5b6b79" : "#2ca87f",
-            isNullEvent: isNullEvent,
-        };
-    });
+    //     return {
+    //         title: eventTitle,
+    //         start: formattedStartTime,
+    //         end: formattedEndTime,
+    //         backgroundColor: isNullEvent ? "#eff0f2" : "#ecfafb",
+    //         textColor: isNullEvent ? "#5b6b79" : "#2ca87f",
+    //         borderColor: isNullEvent ? "#5b6b79" : "#2ca87f",
+    //         isNullEvent: isNullEvent,
+    //     };
+    // });
 
     const itemsPerPage = 3;
     const [currentPage, setCurrentPage] = useState(1);
@@ -98,73 +90,86 @@ function BookingList() {
                         ) : (
                             <div className="row g-5">
                                 <div className="col-lg-6 col-12">
-                                    {currentBooking.map((booking, bookingIndex) => (
-                                        <div className="widget mt-3 p-3" key={bookingIndex}>
-                                            <div className="accordion-collapse">
-                                                <Link to={`/booking/${booking.id}`}>
-                                                    <div className="d-flex align-items-center" key={booking.id}>
-                                                        <div className="flex-shrink-0">
-                                                            <div className="avatar-icon border">
-                                                                <i className="fas fa-graduation-cap fz-13"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex-grow-1 ms-3">
-                                                            <div className="row g-1">
-                                                                <div className="col-6">
-                                                                    <h6 className="mb-0">{booking.tutorName}</h6>
-                                                                    <p className="text-muted mb-0 fw-300">
-                                                                        <small className="fz-12">Status: {booking.status}</small>
-                                                                    </p>
-                                                                </div>
-                                                                <div className="col-6 text-end my-auto">
-                                                                    <i className="feather-more-vertical fz16"></i>
+                                    {currentBooking.length > 0 ? (
+                                        currentBooking.map((booking, bookingIndex) => (
+                                            <div className="widget mt-3 p-3" key={bookingIndex}>
+                                                <div className="accordion-collapse">
+                                                    <Link to={`/booking/${booking.id}`}>
+                                                        <div className="d-flex align-items-center" key={booking.id}>
+                                                            <div className="flex-shrink-0">
+                                                                <div className="avatar-icon border">
+                                                                    <i className="fas fa-graduation-cap fz-13"></i>
                                                                 </div>
                                                             </div>
+                                                            <div className="flex-grow-1 ms-3">
+                                                                <div className="row g-1">
+                                                                    <div className="col-6">
+                                                                        <h6 className="mb-0">{booking.tutorName}</h6>
+                                                                        <p className="text-muted mb-0 fw-300">
+                                                                            <small className="fz-12">Status: {booking.status}</small>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className="col-6 text-end my-auto">
+                                                                        <i className="feather-more-vertical fz16"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </Link>
+                                                    </Link>
+                                                </div>
+                                                <hr className="my-3" />
+                                                <div>
+                                                    <h6 className="m-0">Schedule</h6>
+                                                    {booking.lessonDays.map((lesson, lessonIndex) => (
+                                                        <p key={lessonIndex} className="my-3 fz-13 fw-300 px-3">
+                                                            Session {lessonIndex + 1}: {lesson.dayOfWeek} {lesson.startTime} - {lesson.endTime}
+                                                        </p>
+                                                    ))}
+                                                </div>
                                             </div>
-                                            <hr className="my-3" />
-                                            <div>
-                                                <h6 className="m-0">Schedule</h6>
-                                                {booking.lessonDays.map((lesson, lessonIndex) => (
-                                                    <p key={lessonIndex} className="my-3 fz-13 fw-300 px-3">
-                                                        Session {lessonIndex + 1}: {lesson.dayOfWeek} {lesson.startTime} - {lesson.endTime}
-                                                    </p>
-                                                ))}
-                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="fw-300 fz-15">
+                                            You don't have any class schedules with a tutor yet.{" "}
+                                            <Link className="text-primary" to={config.routes.tutor}>
+                                                Register to study with a tutor now!
+                                            </Link>
+                                        </p>
+                                    )}
+
+                                    {currentBooking.length > 0 && (
+                                        <div className="mt-5">
+                                            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
                                         </div>
-                                    ))}
+                                    )}
+                                </div>
 
-                                    <div className="mt-5">
-                                        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                                {currentBooking.length > 0 && (
+                                    <div className="col-lg-6 col-12">
+                                        <FullCalendar
+                                            initialView="dayGridMonth"
+                                            plugins={[dayGridPlugin, timeGridPlugin]}
+                                            headerToolbar={{
+                                                left: "prev,next today",
+                                                center: "title",
+                                                right: "dayGridMonth,timeGridWeek,timeGridDay",
+                                            }}
+                                            eventDisplay="block"
+                                            // events={formattedEvents}
+                                            // eventContent={(arg) => {
+                                            //     return { html: arg.event.title };
+                                            // }}
+                                            // eventClick={(info) => {
+                                            //     const eventId = info.event.title;
+                                            //     if (!info.event.extendedProps.isNullEvent) {
+                                            //         navigate(`/room/${eventId}`);
+                                            //     } else {
+                                            //         toast.error("Event not available.");
+                                            //     }
+                                            // }}
+                                        />
                                     </div>
-                                </div>
-
-                                <div className="col-lg-6 col-12">
-                                    <FullCalendar
-                                        initialView="dayGridMonth"
-                                        plugins={[dayGridPlugin, timeGridPlugin]}
-                                        headerToolbar={{
-                                            left: "prev,next today",
-                                            center: "title",
-                                            right: "dayGridMonth,timeGridWeek,timeGridDay",
-                                        }}
-                                        eventDisplay="block"
-                                        events={formattedEvents}
-                                        eventContent={(arg) => {
-                                            return { html: arg.event.title };
-                                        }}
-                                        eventClick={(info) => {
-                                            const eventId = info.event.title;
-                                            if (!info.event.extendedProps.isNullEvent) {
-                                                navigate(`/room/${eventId}`);
-                                            } else {
-                                                toast.error("Event not available.");
-                                            }
-                                        }}
-                                    />
-                                </div>
+                                )}
                             </div>
                         )}
                     </div>

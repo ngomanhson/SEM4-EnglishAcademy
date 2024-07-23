@@ -34,7 +34,7 @@ function SubjectLearning() {
 
     const item = response || {};
     const setItem = setResponse;
-    const answerStudents = item.answerStudentItemSlotResponseListList || [];
+    const answerStudents = item?.answerStudentItemSlotResponseListList || [];
 
     useEffect(() => {
         const socket = new SockJS(key.WEBSOCKET_URL, {
@@ -45,7 +45,7 @@ function SubjectLearning() {
         const stompClient = Stomp.over(socket);
 
         stompClient.connect({}, function (frame) {
-            // console.log("Connected: " + frame);
+            console.log("Connected: " + frame);
 
             stompClient.subscribe(`/topic/${slug}`, function (message) {
                 const data = JSON.parse(message.body);
@@ -139,7 +139,7 @@ function SubjectLearning() {
 
     const [timeRemaining, setTimeRemaining] = useState("");
 
-    const endDate = item.endDate;
+    const endDate = new Date(item.endDate);
 
     const calculateTimeRemaining = () => {
         const endTime = new Date(endDate).getTime();
@@ -223,12 +223,12 @@ function SubjectLearning() {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "colored",
                 });
             }
         } catch (error) {
             setActiveReactions({});
-            toast.error("Error!", {
+            const errorMessage = error.response.data.message;
+            toast.error(errorMessage, {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -236,7 +236,6 @@ function SubjectLearning() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored",
             });
         }
     };
@@ -295,7 +294,6 @@ function SubjectLearning() {
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        theme: "colored",
                     });
                 }
             } catch (error) {
@@ -309,14 +307,15 @@ function SubjectLearning() {
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        theme: "colored",
                     });
                 }
             }
         }
     };
 
-    const answerPracticalTest = item.answerStudentItemSlotResponseListList;
+    const answerPracticalTest = item.answerStudentItemSlotResponseListList || [];
+
+    console.log(answerPracticalTest);
 
     const [startCount, setStartCount] = useState({});
     const [notAnswered, setNotAnswered] = useState(null);
@@ -344,19 +343,17 @@ function SubjectLearning() {
             <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3" style={{ minHeight: 280 }}>
                 <div className="container">
                     {item.itemType === 0 && (
-                        <>
-                            <div className="widget border-lft-prm-opacity">
-                                <h5 className="font-system">Document</h5>
-                                <hr />
-                                <div className="row">
-                                    <div className="col-lg-6">
-                                        <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
-                                    </div>
-
-                                    <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
+                        <div className="widget border-lft-prm-opacity">
+                            <h5 className="font-system">Document</h5>
+                            <hr />
+                            <div className="row">
+                                <div className="col-lg-6">
+                                    <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
                                 </div>
+
+                                <div className="col-lg-6">{item.pathUrl && <ReactPlayer url={item.pathUrl} width={"100%"} />}</div>
                             </div>
-                        </>
+                        </div>
                     )}
 
                     {item.itemType === 1 && (
@@ -612,55 +609,54 @@ function SubjectLearning() {
                     )}
 
                     {item.itemType === 2 && (
-                        <div className="widget mt-5">
-                            <h5 className="font-system">Content</h5>
-                            <hr />
-                            <div className="row">
-                                <div className="col-lg-9">
-                                    <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
-                                    <div className="mt-5">
-                                        <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
-                                            <span className="text-danger">*</span>Time remaining: {timeRemaining}
-                                        </p>
-                                    </div>
-                                    <div className="mt-5">
-                                        {answerPracticalTest.length === 0 && timeRemaining !== "Expired" ? (
-                                            <button
-                                                className="rbt-btn bg-secondary-opacity btn-not__hover"
-                                                style={{ height: 50, lineHeight: "50px" }}
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal"
-                                            >
-                                                Submit test
-                                            </button>
-                                        ) : (
-                                            <div className="text-success">You have submitted the test.</div>
-                                        )}
+                        <>
+                            <div className="widget mt-5">
+                                <h5 className="font-system">Content</h5>
+                                <hr />
+                                <div className="row">
+                                    <div className="col-lg-9">
+                                        <div className="content pr--0">{item && item.content && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: item.content }} />}</div>
+                                        <div className="mt-5">
+                                            <p className="fw-300 fz-16" style={{ color: timeRemaining === "Expired" ? "red" : "inherit" }}>
+                                                <span className="text-danger">*</span>Time remaining: {timeRemaining}
+                                            </p>
+                                        </div>
+                                        <div className="mt-5">
+                                            {answerPracticalTest.length === 0 && timeRemaining !== "Expired" ? (
+                                                <button
+                                                    className="rbt-btn bg-secondary-opacity btn-not__hover"
+                                                    style={{ height: 50, lineHeight: "50px" }}
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal"
+                                                >
+                                                    Submit test
+                                                </button>
+                                            ) : (
+                                                <div className="text-success">You have submitted the test.</div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            {answerPracticalTest.length === 0 ? (
-                                ""
-                            ) : (
+                            {answerPracticalTest.length > 0 && (
                                 <div className="row mt-5">
                                     <div className="col-lg-4 col-12">
                                         <div className="td-sidebar">
                                             <div className="widget border-lft-darker">
-                                                <h5>Submission Status</h5>
-                                                {answerPracticalTest.length === 0 ? <p className="fz-16 text-danger"> Not submitted.</p> : <p className="fz-16 text-success">Submitted.</p>}
+                                                <h5 className="mb-3">Submission Status</h5>
+                                                {answerPracticalTest.length === 0 ? <p className="fz-16 fw-300 text-danger"> Not submitted.</p> : <p className="fz-16 text-success">Submitted.</p>}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-lg-4 col-12">
                                         <div className="td-sidebar">
                                             <div className="widget border-lft-darker">
-                                                <h5>Submission Time</h5>
+                                                <h5 className="mb-3">Submission Time</h5>
 
                                                 {answerPracticalTest.length === 0 ? (
-                                                    <p className="fz-16">No data.</p>
+                                                    <p className="fz-16 fw-300">No data.</p>
                                                 ) : (
-                                                    <p className="fz-16">{format(new Date(answerPracticalTest[0].createdDate), "HH:ss:mm dd-mm-yyyy")}</p>
+                                                    <p className="fz-16 fw-300">{format(new Date(answerPracticalTest[0].createdDate), "HH:ss:mm dd-mm-yyyy")}</p>
                                                 )}
                                             </div>
                                         </div>
@@ -668,12 +664,12 @@ function SubjectLearning() {
                                     <div className="col-lg-4 col-12">
                                         <div className="td-sidebar">
                                             <div className="widget border-lft-darker overflow-hidden">
-                                                <h5>Submission Link</h5>
+                                                <h5 className="mb-3">Submission Link</h5>
 
                                                 {answerPracticalTest.length === 0 ? (
                                                     <p>No data.</p>
                                                 ) : (
-                                                    <a href={answerPracticalTest[0].content} rel="noreferrer" target="_blank" className="text-primary">
+                                                    <a href={answerPracticalTest[0].content} rel="noreferrer" target="_blank" className="text-primary fw-300">
                                                         {answerPracticalTest[0].content}
                                                     </a>
                                                 )}
@@ -682,7 +678,7 @@ function SubjectLearning() {
                                     </div>
                                 </div>
                             )}
-                        </div>
+                        </>
                     )}
                 </div>
             </div>

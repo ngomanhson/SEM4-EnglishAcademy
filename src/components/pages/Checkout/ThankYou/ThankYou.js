@@ -1,10 +1,10 @@
 import Layout from "../../../layouts";
 import Lottie from "lottie-react";
 import Success from "../../../../lottie/Success.json";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import config from "../../../../config";
 
-function ThankYou() {
-    const { courseSlug } = useParams();
+function ThankYouTutor() {
     return (
         <Layout title="Thank You">
             <div className="rbt-elements-area bg-color-white rbt-section-gap">
@@ -17,12 +17,12 @@ function ThankYou() {
                                 </div>
                                 <div className="text-center mt-5">
                                     <h4 className="font-system fw-500" style={{ fontSize: 25 }}>
-                                        Thank you for enrolling in our course!
+                                        Thank you for registering to study with a tutor!
                                     </h4>
                                     <p className="font-system fw-300 fz-15">We're excited to have you on board! Start your learning journey now by exploring our course content.</p>
 
-                                    <Link to={`/learning-online/${courseSlug}`} className="rbt-moderbt-btn">
-                                        <span className="moderbt-btn-text">Learning Now</span>
+                                    <Link to={config.routes.booking} className="rbt-moderbt-btn">
+                                        <span className="moderbt-btn-text">View sessions with tutors</span>
                                         <i className="feather-arrow-right"></i>
                                     </Link>
                                 </div>
@@ -35,4 +35,4 @@ function ThankYou() {
     );
 }
 
-export default ThankYou;
+export default ThankYouTutor;

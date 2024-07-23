@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LayoutProfile from "../../Profile/LayoutProfile";
 import { useAxiosGet } from "../../../../hooks";
 import url from "../../../../services/url";
@@ -12,9 +12,11 @@ import api from "../../../../services/api";
 import { stripePromise } from "../../../../payment/stripePromise";
 import { statusColor } from "../../../../utils/statusColor";
 import Payment from "../../../../payment";
+import config from "../../../../config";
 
 function ByPackage() {
     const { bookingId } = useParams();
+    const navigate = useNavigate();
 
     const bookingData = useAxiosGet({
         path: url.TUTOR.BOOKING_DETAIL_PACKAGE + `/${bookingId}`,
@@ -33,7 +35,7 @@ function ByPackage() {
     };
 
     const createPayment = async () => {
-        const config = {
+        const configHeaders = {
             headers: {
                 Authorization: `Bearer ${getAccessToken()}`,
             },
@@ -47,14 +49,10 @@ function ByPackage() {
                 price: bookingDetail?.packagePrice,
             };
 
-            const paymentRequest = await api.post(url.TUTOR.PAYMENT, info, config);
+            const paymentRequest = await api.post(url.TUTOR.PAYMENT, info, configHeaders);
             if (paymentRequest.status === 200) {
                 setTogglePayment(false);
-                Swal.fire({
-                    title: "Successfully!",
-                    text: "Payment success!",
-                    icon: "success",
-                });
+                navigate(config.routes.thank_you);
             }
         } catch (error) {
             Swal.fire({
@@ -74,8 +72,6 @@ function ByPackage() {
     };
 
     const handlePaymentCancel = (data) => {
-        console.log("Payment canceled:", data);
-
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -170,18 +166,20 @@ function ByPackage() {
                                             </div>
                                         </div>
 
-                                        {togglePayment && (
-                                            <Payment
-                                                selectedPaymentMethod={selectedPaymentMethod}
-                                                onPaymentMethodChange={handlePaymentMethodChange}
-                                                handleEventStripe={handleStripePaymentSuccess}
-                                                handleEventPayPal={handlePaymentSuccess}
-                                                price={bookingDetail?.packagePrice}
-                                                handlePaymentCancel={handlePaymentCancel}
-                                                handlePaymentError={handlePaymentError}
-                                                stripePromise={stripePromise}
-                                            />
-                                        )}
+                                        <div className="col-lg-8 mx-auto">
+                                            {togglePayment && (
+                                                <Payment
+                                                    selectedPaymentMethod={selectedPaymentMethod}
+                                                    onPaymentMethodChange={handlePaymentMethodChange}
+                                                    handleEventStripe={handleStripePaymentSuccess}
+                                                    handleEventPayPal={handlePaymentSuccess}
+                                                    price={bookingDetail?.packagePrice}
+                                                    handlePaymentCancel={handlePaymentCancel}
+                                                    handlePaymentError={handlePaymentError}
+                                                    stripePromise={stripePromise}
+                                                />
+                                            )}
+                                        </div>
 
                                         {bookingDetail.status === "confirmed" && !togglePayment && bookingDetail.packagePrice > 0 && (
                                             <div className="rbt-profile-row row row--15 mt--15">

@@ -48,6 +48,7 @@ import BookingDetail from "../components/pages/Booking/BookingDetail";
 import MyCourse from "../components/pages/MyCourse/MyCourse";
 import CourseOfflineCertificate from "../components/pages/CourseOffline/Certificate";
 import MarkReport from "../components/pages/MarkReport";
+import ThankYouTutor from "../components/pages/Checkout/ThankYou/ThankYou";
 
 const publicRoutes = [
     // Home routes
@@ -87,6 +88,7 @@ const privateRoutes = [
     { path: config.routes.checkout, component: Checkout },
     { path: config.routes.checkout_thank_you, component: ThankYou },
     { path: config.routes.checkout_fail, component: PaymentFail },
+    { path: config.routes.thank_you, component: ThankYouTutor },
 
     // Course Offline routes
     { path: config.routes.subject_offline, component: SubjectOffline },
