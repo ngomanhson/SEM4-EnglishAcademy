@@ -7,7 +7,7 @@ const routes = {
     course_detail_online: "/course-online/:slug",
     learning_online: "/learning-online/:courseSlug",
     learning_test: "/learning-test/:courseSlug",
-    result_test: "/result-test/:testCode",
+    result_test: "/:courseSlug/result-test/:testCode",
 
     // Checkout routes
     checkout: "/checkout/:courseSlug",
