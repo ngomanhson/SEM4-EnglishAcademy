@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import api from "../../../../../services/api";
 import url from "../../../../../services/url";
 import Loading from "../../../../layouts/Loading";
@@ -17,6 +17,7 @@ import Confirm from "../../../../views/TestLesson/Confirm";
 function TestLessonOnline() {
     const location = useLocation();
     const testSlug = new URLSearchParams(location.search).get("test");
+    const { courseSlug } = useParams();
 
     const navigate = useNavigate();
 
@@ -94,12 +95,12 @@ function TestLessonOnline() {
             });
 
             if (response.status === 200) {
-                navigate(`/result-test/${response.data.data}`);
+                navigate(`/${courseSlug}/result-test/${response.data.data}`);
             }
         } catch (error) {
             console.log(error);
         }
-    }, [navigate, selectedAnswers, startTime, testSlug, testData]);
+    }, [navigate, selectedAnswers, startTime, testSlug, testData, courseSlug]);
 
     useEffect(() => {
         if (confirmed) {

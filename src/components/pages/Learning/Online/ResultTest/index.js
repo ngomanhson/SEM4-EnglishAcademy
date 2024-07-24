@@ -5,14 +5,13 @@ import Chart from "react-apexcharts";
 import url from "../../../../../services/url";
 import Loading from "../../../../layouts/Loading";
 import { format } from "date-fns";
-import config from "../../../../../config";
 import NotFound from "../../../Other/NotFound";
 import { formatHour } from "../../../../../utils/formatTime";
 import { useAxiosGet } from "../../../../../hooks";
 import { getAccessToken } from "../../../../../utils/auth";
 
 function ResultTestOnline() {
-    const { testCode } = useParams();
+    const { courseSlug, testCode } = useParams();
     const [chartData, setChartData] = useState([]);
     const { response, loading, status } = useAxiosGet({
         path: url.ONLINE_COURSE.RESULT_TEST + `/${testCode}`,
@@ -108,7 +107,7 @@ function ResultTestOnline() {
                                                         <tbody>
                                                             <tr>
                                                                 <th>Status</th>
-                                                                <td>{resultTest.status ? <span className="text-success">Pass</span> : <span className="text-danger">Not Pass</span>}</td>
+                                                                <td>{resultTest.status ? <span className="text-success">Passed</span> : <span className="text-danger">Not Pass</span>}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Score</th>
@@ -127,8 +126,8 @@ function ResultTestOnline() {
                                                     </table>
 
                                                     <div className="text-start mt-5">
-                                                        <Link to={config.routes.home} className="rbt-btn-link">
-                                                            <i className="feather-arrow-left"></i> Back to Home
+                                                        <Link to={`/learning-online/${courseSlug}`} className="rbt-btn-link">
+                                                            <i className="feather-arrow-left"></i> Continue studying
                                                         </Link>
                                                     </div>
                                                 </div>
