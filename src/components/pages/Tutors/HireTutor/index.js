@@ -10,6 +10,7 @@ import config from "../../../../config";
 import Loading from "../../../layouts/Loading";
 import PackageSlider from "../../../views/Tutor/PackageSlider";
 import Slider from "react-slick";
+import Image from "../../../commons/Image";
 
 function HireTutor() {
     const { tutorCode } = useParams();
@@ -147,7 +148,7 @@ function HireTutor() {
                                         <i className="feather-edit-3"></i> Hire a Tutor
                                     </h5>
                                     <div className="d-flex align-items-center">
-                                        <img src={tutor.avatar} alt={tutor.fullname} className="hire-avatar" />
+                                        <Image src={tutor.avatar} alt={tutor.fullname} className="hire-avatar" />
                                         <div className="content ml--20">
                                             <h5 className="d-flex align-items-center mb-2">
                                                 {tutor.fullname}

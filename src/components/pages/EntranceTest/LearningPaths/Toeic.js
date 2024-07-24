@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import NotFound from "../../Other/NotFound";
 import { useAxiosGet } from "../../../../hooks";
 import { getAccessToken } from "../../../../utils/auth";
+import Image from "../../../commons/Image";
 
 function LearningPathToeic() {
     const { testCode } = useParams();
@@ -281,7 +282,7 @@ function LearningPathToeic() {
                                             <div className="rbt-card variation-01 rbt-hover">
                                                 <div className="rbt-card-img">
                                                     <Link to={`/course-detail/${course.slug}`}>
-                                                        <img src={course.image} alt={course.name} className="course-proposal__img" />
+                                                        <Image src={course.image} alt={course.name} className="course-proposal__img" />
                                                     </Link>
                                                 </div>
                                                 <div className="rbt-card-body">

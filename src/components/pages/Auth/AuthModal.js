@@ -75,6 +75,9 @@ function AuthModal({ handleEvent }) {
             try {
                 const registerRequest = await api.post(url.AUTH.REGISTER, formData);
                 if (registerRequest.status === 200) {
+                    const token = registerRequest.data.data;
+                    setAccessToken(token);
+
                     const backdrop = document.querySelector(".modal-backdrop");
                     if (backdrop) {
                         backdrop.parentNode.removeChild(backdrop);
