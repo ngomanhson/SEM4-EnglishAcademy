@@ -3,6 +3,7 @@ import useAxiosGet from "../../../hooks/useAxiosGet";
 import url from "../../../services/url";
 import { Link } from "react-router-dom";
 import { formatLevelCourse } from "../../../utils/formatLevelCourse";
+import Image from "../../commons/Image";
 
 function TopTutor() {
     const tutorData = useAxiosGet({
@@ -40,7 +41,7 @@ function TopTutor() {
                                         <div className="rbt-team-thumbnail">
                                             <div className="thumb">
                                                 <Link to={`/tutor/${tutor.code}`}>
-                                                    <img src={tutor.avatar} alt={tutor.fullname} />
+                                                    <Image src={tutor.avatar} alt={tutor.fullname} />
                                                 </Link>
                                             </div>
                                         </div>
@@ -91,7 +92,7 @@ function TopTutor() {
                                     >
                                         <div className="rbt-team-thumbnail">
                                             <div className="thumb">
-                                                <img src={tutor.avatar} alt={tutor.fullname} />
+                                                <Image src={tutor.avatar} alt={tutor.fullname} className="object-fit-cover" />
                                             </div>
                                         </div>
                                     </button>

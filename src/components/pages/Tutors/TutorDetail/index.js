@@ -6,6 +6,7 @@ import Loading from "../../../layouts/Loading";
 import config from "../../../../config";
 import { isLoggedIn } from "../../../../utils/auth";
 import { formatLevelCourse } from "../../../../utils/formatLevelCourse";
+import Image from "../../../commons/Image";
 
 function TutorDetail() {
     const { tutorCode } = useParams();
@@ -35,7 +36,7 @@ function TutorDetail() {
                         <div className="row g-5 row--30 align-items-start">
                             <div className="col-lg-4">
                                 <div className="thumbnail">
-                                    <img className="w-100 radius-10" src={tutor.avatar} alt={tutor.fullname} />
+                                    <Image className="w-100 radius-10" src={tutor.avatar} alt={tutor.fullname} />
                                 </div>
                             </div>
                             <div className="col-lg-8">

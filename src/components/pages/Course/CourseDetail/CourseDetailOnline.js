@@ -13,6 +13,7 @@ import url from "../../../../services/url";
 import { useAxiosGet } from "../../../../hooks";
 import { formatLevelCourse } from "../../../../utils/formatLevelCourse";
 import { formatNumber } from "../../../../utils/formatNumber";
+import Image from "../../../commons/Image";
 
 function CourseDetailOnline() {
     const { slug } = useParams();
@@ -455,7 +456,7 @@ function CourseDetailOnline() {
                                         <div className="inner">
                                             <Link to="" className="video-popup-with-text  text-center popup-video sidebar-video-hidden mb--15">
                                                 <div className="video-content">
-                                                    <img className="w-100" src={course.image} alt="Card" />
+                                                    <Image className="w-100" src={course.image} alt="" />
                                                 </div>
                                             </Link>
 
