@@ -3,7 +3,7 @@ import Layout from "../../layouts";
 import url from "../../../services/url";
 import Loading from "../../layouts/Loading";
 import { useState } from "react";
-import { useAxiosGet } from "../../../hooks";
+import { useAxiosGet, useDebounce } from "../../../hooks";
 import Courses from "../../views/Course";
 import Pagination from "../../layouts/Pagination";
 import Lottie from "lottie-react";
@@ -18,12 +18,77 @@ function Course() {
     const courses = response || [];
 
     const [searchQuery, setSearchQuery] = useState("");
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedLevels, setSelectedLevels] = useState([]);
+    const [selectedRating, setSelectedRating] = useState(null);
+    const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
+    const [loadData, setLoadData] = useState(false);
 
     const itemsPerPage = 6;
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Filter courses
-    const filteredCourses = courses.filter((course) => course.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    const debounceTime = 1000;
+
+    // Apply debounce to the search query and filters
+    const debouncedSearchQuery = useDebounce(searchQuery, debounceTime);
+    const debouncedSelectedCategories = useDebounce(selectedCategories, debounceTime);
+    const debouncedSelectedLevels = useDebounce(selectedLevels, debounceTime);
+    const debouncedSelectedRating = useDebounce(selectedRating, debounceTime);
+    const debouncedPriceRange = useDebounce(priceRange, debounceTime);
+
+    // Event handlers for filters
+    const handleCategoryChange = (e) => {
+        const category = e.target.name;
+        setSelectedCategories((prev) => (e.target.checked ? [...prev, category] : prev.filter((c) => c !== category)));
+    };
+
+    const handleLevelChange = (e) => {
+        const level = Number(e.target.name);
+        setSelectedLevels((prevSelectedLevels) => {
+            if (e.target.checked) {
+                return [...prevSelectedLevels, level];
+            } else {
+                return prevSelectedLevels.filter((l) => l !== level);
+            }
+        });
+    };
+
+    const handleRatingChange = (e) => {
+        setSelectedRating(e.target.value);
+    };
+
+    const handlePriceChange = (e) => {
+        const { name, value } = e.target;
+        setPriceRange((prev) => ({
+            ...prev,
+            [name]: value ? Number(value) : name === "min" ? 0 : Infinity,
+        }));
+    };
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(1);
+
+        setLoadData(true);
+        setTimeout(() => {
+            setLoadData(false);
+        }, debounceTime);
+    };
+
+    const clearSearch = () => {
+        setSearchQuery("");
+    };
+
+    // Filter courses using debounce values
+    const filteredCourses = courses.filter((course) => {
+        const matchesSearchQuery = course.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase());
+        const matchesCategory = debouncedSelectedCategories.length === 0 || debouncedSelectedCategories.includes(course.categoryName);
+        const matchesLevel = debouncedSelectedLevels.length === 0 || debouncedSelectedLevels.includes(course.level);
+        const matchesRating = !debouncedSelectedRating || Math.round(course.star) === Number(debouncedSelectedRating);
+        const matchesPrice = course.price >= debouncedPriceRange.min && course.price <= debouncedPriceRange.max;
+
+        return matchesSearchQuery && matchesCategory && matchesLevel && matchesRating && matchesPrice;
+    });
 
     const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -39,14 +104,74 @@ function Course() {
         });
     };
 
-    const handleSearch = (e) => {
-        setSearchQuery(e.target.value);
-        setCurrentPage(1);
+    const levelData = [
+        {
+            title: "Basic",
+            value: 0,
+            handleEvent: handleLevelChange,
+        },
+        {
+            title: "Intermediate",
+            value: 1,
+            handleEvent: handleLevelChange,
+        },
+        {
+            title: "Advanced",
+            value: 2,
+            handleEvent: handleLevelChange,
+        },
+        {
+            title: "Expert",
+            value: 3,
+            handleEvent: handleLevelChange,
+        },
+    ];
+
+    // Get level counts
+    const levelCounts = courses.reduce((acc, course) => {
+        const { level } = course;
+        if (acc[level]) {
+            acc[level] += 1;
+        } else {
+            acc[level] = 1;
+        }
+        return acc;
+    }, {});
+
+    // Get unique categories and category counts
+    const categories = courses.map((course) => course.categoryName);
+    const categoryCounts = courses.reduce((acc, course) => {
+        const { categoryName } = course;
+        if (acc[categoryName]) {
+            acc[categoryName] += 1;
+        } else {
+            acc[categoryName] = 1;
+        }
+        return acc;
+    }, {});
+
+    const uniqueCategories = [...new Set(categories)];
+
+    const handleClearFilters = () => {
+        setSelectedCategories([]);
+        setSelectedLevels([]);
+        setSelectedRating(null);
+        setPriceRange({ min: 0, max: Infinity });
+
+        // Clear radio and checkbox states
+        const radios = document.querySelectorAll('input[type="radio"]');
+        radios.forEach((radio) => {
+            radio.checked = false;
+        });
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+        });
     };
 
-    const clearSearch = () => {
-        setSearchQuery("");
-    };
+    console.log(uniqueCategories);
+    console.log(levelCounts);
 
     return (
         <>
@@ -121,7 +246,9 @@ function Course() {
                                                     <div className="rbt-search-style me-0">
                                                         <input type="text" placeholder="Search Your Course.." value={searchQuery} onChange={handleSearch} />
                                                         <button type="button" className="rbt-search-btn rbt-round-btn" onClick={searchQuery.length > 0 ? () => clearSearch() : null}>
-                                                            {searchQuery.length > 0 ? <i className="feather-x"></i> : <i className="feather-search"></i>}
+                                                            {searchQuery.length > 0 && !loadData && <i className="feather-x"></i>}
+                                                            {searchQuery.length === 0 && !loadData && <i className="feather-search"></i>}
+                                                            {loadData && <i className="fas fa-spinner fa-pulse"></i>}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -138,165 +265,6 @@ function Course() {
                                     </div>
 
                                     <div className="default-exp-wrapper default-exp-expand" style={{ display: "none" }}>
-                                        {/* <div className="filter-inner">
-                                            <div className="filter-select-option">
-                                                <div className="filter-select rbt-modern-select">
-                                                    <span className="select-label d-block">Short By</span>
-                                                    <div className="dropdown bootstrap-select">
-                                                        <select className="">
-                                                            <option>Default</option>
-                                                            <option>Latest</option>
-                                                            <option>Popularity</option>
-                                                            <option>Trending</option>
-                                                            <option>Price: low to high</option>
-                                                            <option>Price: high to low</option>
-                                                        </select>
-
-                                                        <div className="dropdown-menu">
-                                                            <div className="inner show" role="listbox" id="bs-select-1" tabIndex="-1">
-                                                                <ul className="dropdown-menu inner show" role="presentation"></ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="filter-select-option">
-                                                <div className="filter-select rbt-modern-select">
-                                                    <span className="select-label d-block">Short By Author</span>
-                                                    <div className="dropdown bootstrap-select show-tick">
-                                                        <select
-                                                            data-live-search="true"
-                                                            title="Select Author"
-                                                            multiple=""
-                                                            data-size="7"
-                                                            data-actions-box="true"
-                                                            data-selected-text-format="count > 2"
-                                                            className=""
-                                                        >
-                                                            <option data-subtext="Experts">Janin Afsana</option>
-                                                            <option data-subtext="Experts">Joe Biden</option>
-                                                            <option data-subtext="Experts">Fatima Asrafy</option>
-                                                            <option data-subtext="Experts">Aysha Baby</option>
-                                                            <option data-subtext="Experts">Mohamad Ali</option>
-                                                            <option data-subtext="Experts">Jone Li</option>
-                                                            <option data-subtext="Experts">Alberd Roce</option>
-                                                            <option data-subtext="Experts">Zeliski Noor</option>
-                                                        </select>
-
-                                                        <div className="dropdown-menu">
-                                                            <div className="bs-searchbox">
-                                                                <input
-                                                                    type="search"
-                                                                    className="form-control" // Added aria-controls
-                                                                    autoComplete="off"
-                                                                    role="combobox"
-                                                                    aria-label="Search"
-                                                                    aria-controls="bs-select-2"
-                                                                    aria-autocomplete="list"
-                                                                    aria-expanded="false" // Added aria-expanded
-                                                                />
-                                                            </div>
-                                                            <div className="bs-actionsbox">
-                                                                <div className="btn-group btn-group-sm">
-                                                                    <button type="button" className="actions-btn bs-select-all btn btn-light">
-                                                                        Select All
-                                                                    </button>
-                                                                    <button type="button" className="actions-btn bs-deselect-all btn btn-light">
-                                                                        Deselect All
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div className="inner show" role="listbox" id="bs-select-2" tabIndex="-1" aria-multiselectable="true">
-                                                                <ul className="dropdown-menu inner show" role="presentation"></ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="filter-select-option">
-                                                <div className="filter-select rbt-modern-select">
-                                                    <span className="select-label d-block">Short By Offer</span>
-                                                    <div className="dropdown bootstrap-select">
-                                                        <select>
-                                                            <option>Free</option>
-                                                            <option>Paid</option>
-                                                            <option>Premium</option>
-                                                        </select>
-
-                                                        <div className="dropdown-menu">
-                                                            <div className="inner show" role="listbox" id="bs-select-3" tabIndex="-1">
-                                                                <ul className="dropdown-menu inner show" role="presentation"></ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="filter-select-option">
-                                                <div className="filter-select rbt-modern-select">
-                                                    <span className="select-label d-block">Short By Category</span>
-                                                    <div className="dropdown bootstrap-select">
-                                                        <select data-live-search="true" className="">
-                                                            <option>Web Design</option>
-                                                            <option>Graphic</option>
-                                                            <option>App Development</option>
-                                                            <option>Figma Design</option>
-                                                        </select>
-
-                                                        <div className="dropdown-menu">
-                                                            <div className="bs-searchbox">
-                                                                <input
-                                                                    type="search"
-                                                                    className="form-control"
-                                                                    autoComplete="off"
-                                                                    role="combobox"
-                                                                    aria-expanded="false" // Added aria-expanded
-                                                                    aria-label="Search"
-                                                                    aria-controls="bs-select-4" // Added aria-controls
-                                                                    aria-autocomplete="list"
-                                                                />
-                                                            </div>
-                                                            <div className="inner show" role="listbox" id="bs-select-4" tabIndex="-1">
-                                                                <ul className="dropdown-menu inner show" role="presentation"></ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="filter-select-option">
-                                                <div className="filter-select">
-                                                    <span className="select-label d-block">Price Range</span>
-
-                                                    <div className="price_filter s-filter clear">
-                                                        <form action="#" method="GET">
-                                                            <div id="slider-range" className="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                                <div className="ui-slider-range ui-widget-header ui-corner-all" style={{ left: "18.3673%", width: "40.8163%" }}></div>
-                                                                <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{ left: "18.3673%" }}></span>
-                                                                <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{ left: "59.1837%" }}></span>
-                                                            </div>
-                                                            <div className="slider__range--output">
-                                                                <div className="price__output--wrap">
-                                                                    <div className="price--output">
-                                                                        <span>Price :</span>
-                                                                        <input type="text" id="amount" />
-                                                                    </div>
-                                                                    <div className="price--filter">
-                                                                        <a className="rbt-btn btn-gradient btn-sm" href="#!">
-                                                                            Filter
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="filter-inner"></div> */}
-
                                         <div className="col-lg-12">
                                             <div className="rbt-sidebar-widget-wrapper filter-top-2 mt--60">
                                                 <div className="row g-5">
@@ -305,30 +273,14 @@ function Course() {
                                                             <div className="inner">
                                                                 <h4 className="rbt-widget-title-2">Categories</h4>
                                                                 <ul className="rbt-sidebar-list-wrapper categories-list-check has-show-more-inner-content">
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="cat-list-1" type="checkbox" name="cat-list-1" />
-                                                                        <label htmlFor="cat-list-1">
-                                                                            Art &amp; Humanities <span className="rbt-lable count">15</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="cat-list-2" type="checkbox" name="cat-list-2" />
-                                                                        <label htmlFor="cat-list-2">
-                                                                            Web Design <span className="rbt-lable count">20</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="cat-list-3" type="checkbox" name="cat-list-3" />
-                                                                        <label htmlFor="cat-list-3">
-                                                                            Graphic Design <span className="rbt-lable count">10</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="cat-list-4" type="checkbox" name="cat-list-4" />
-                                                                        <label htmlFor="cat-list-4">
-                                                                            Art &amp; Humanities <span className="rbt-lable count">15</span>
-                                                                        </label>
-                                                                    </li>
+                                                                    {uniqueCategories.map((category, index) => (
+                                                                        <li className="rbt-check-group" key={category}>
+                                                                            <input id={`cat-list-${index}`} type="checkbox" name={category} onChange={handleCategoryChange} />
+                                                                            <label htmlFor={`cat-list-${index}`}>
+                                                                                {category} <span className="rbt-lable count">{categoryCounts[category]}</span>
+                                                                            </label>
+                                                                        </li>
+                                                                    ))}
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -339,58 +291,14 @@ function Course() {
                                                             <div className="inner">
                                                                 <h4 className="rbt-widget-title-2">Levels</h4>
                                                                 <ul className="rbt-sidebar-list-wrapper instructor-list-check">
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="ins-list-1" type="checkbox" name="ins-list-1" />
-                                                                        <label htmlFor="ins-list-1">
-                                                                            Slaughter <span className="rbt-lable count">15</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="ins-list-2" type="checkbox" name="ins-list-2" />
-                                                                        <label htmlFor="ins-list-2">
-                                                                            Patrick <span className="rbt-lable count">20</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="ins-list-3" type="checkbox" name="ins-list-3" />
-                                                                        <label htmlFor="ins-list-3">
-                                                                            Angela <span className="rbt-lable count">10</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="ins-list-4" type="checkbox" name="ins-list-4" />
-                                                                        <label htmlFor="ins-list-4">
-                                                                            Fatima Asrafy <span className="rbt-lable count">15</span>
-                                                                        </label>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="col-lg-3 col-md-6 col-sm-6 col-12">
-                                                        <div className="rbt-single-widget rbt-widget-prices">
-                                                            <div className="inner">
-                                                                <h4 className="rbt-widget-title-2">Prices</h4>
-                                                                <ul className="rbt-sidebar-list-wrapper prices-list-check">
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="prices-list-1" type="checkbox" name="prices-list-1" />
-                                                                        <label htmlFor="prices-list-1">
-                                                                            All <span className="rbt-lable count">15</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="prices-list-2" type="checkbox" name="prices-list-2" />
-                                                                        <label htmlFor="prices-list-2">
-                                                                            Free <span className="rbt-lable count">0</span>
-                                                                        </label>
-                                                                    </li>
-                                                                    <li className="rbt-check-group">
-                                                                        <input id="prices-list-3" type="checkbox" name="prices-list-3" />
-                                                                        <label htmlFor="prices-list-3">
-                                                                            Paid <span className="rbt-lable count">10</span>
-                                                                        </label>
-                                                                    </li>
+                                                                    {levelData.map((level, levelIndex) => (
+                                                                        <li className="rbt-check-group" key={levelIndex}>
+                                                                            <input id={`lv-${levelIndex}`} type="checkbox" name={level.value} onChange={handleLevelChange} />
+                                                                            <label htmlFor={`lv-${levelIndex}`}>
+                                                                                {level.title} <span className="rbt-lable count">{levelCounts[level.value]}</span>
+                                                                            </label>
+                                                                        </li>
+                                                                    ))}
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -402,7 +310,7 @@ function Course() {
                                                                 <h4 className="rbt-widget-title-2">Ratings</h4>
                                                                 <ul className="rbt-sidebar-list-wrapper rating-list-check">
                                                                     <li className="rbt-check-group">
-                                                                        <input id="cat-radio-1" type="radio" name="rbt-radio" />
+                                                                        <input id="cat-radio-1" type="radio" name="rating" value="5" onChange={handleRatingChange} />
                                                                         <label htmlFor="cat-radio-1">
                                                                             <span className="rating">
                                                                                 <i className="fas fa-star"></i>
@@ -411,11 +319,11 @@ function Course() {
                                                                                 <i className="fas fa-star"></i>
                                                                                 <i className="fas fa-star"></i>
                                                                             </span>
-                                                                            <span className="rbt-lable count">5</span>
+                                                                            <span className="fz-13">(5) star</span>
                                                                         </label>
                                                                     </li>
                                                                     <li className="rbt-check-group">
-                                                                        <input id="cat-radio-2" type="radio" name="rbt-radio" />
+                                                                        <input id="cat-radio-2" type="radio" name="rating" value="4" onChange={handleRatingChange} />
                                                                         <label htmlFor="cat-radio-2">
                                                                             <span className="rating">
                                                                                 <i className="fas fa-star"></i>
@@ -424,11 +332,11 @@ function Course() {
                                                                                 <i className="fas fa-star"></i>
                                                                                 <i className="off fas fa-star"></i>
                                                                             </span>
-                                                                            <span className="rbt-lable count">4</span>
+                                                                            <span className="fz-13">(4) star</span>
                                                                         </label>
                                                                     </li>
                                                                     <li className="rbt-check-group">
-                                                                        <input id="cat-radio-3" type="radio" name="rbt-radio" />
+                                                                        <input id="cat-radio-3" type="radio" name="rating" value="3" onChange={handleRatingChange} />
                                                                         <label htmlFor="cat-radio-3">
                                                                             <span className="rating">
                                                                                 <i className="fas fa-star"></i>
@@ -437,11 +345,11 @@ function Course() {
                                                                                 <i className="off fas fa-star"></i>
                                                                                 <i className="off fas fa-star"></i>
                                                                             </span>
-                                                                            <span className="rbt-lable count">3</span>
+                                                                            <span className="fz-13">(3) star</span>
                                                                         </label>
                                                                     </li>
                                                                     <li className="rbt-check-group">
-                                                                        <input id="cat-radio-4" type="radio" name="rbt-radio" />
+                                                                        <input id="cat-radio-4" type="radio" name="rating" value="2" onChange={handleRatingChange} />
                                                                         <label htmlFor="cat-radio-4">
                                                                             <span className="rating">
                                                                                 <i className="fas fa-star"></i>
@@ -450,12 +358,12 @@ function Course() {
                                                                                 <i className="off fas fa-star"></i>
                                                                                 <i className="off fas fa-star"></i>
                                                                             </span>
-                                                                            <span className="rbt-lable count">2</span>
+                                                                            <span className="fz-13">(2) star</span>
                                                                         </label>
                                                                     </li>
 
                                                                     <li className="rbt-check-group">
-                                                                        <input id="cat-radio-5" type="radio" name="rbt-radio" />
+                                                                        <input id="cat-radio-5" type="radio" name="rating" value="1" onChange={handleRatingChange} />
                                                                         <label htmlFor="cat-radio-5">
                                                                             <span className="rating">
                                                                                 <i className="fas fa-star"></i>
@@ -464,11 +372,34 @@ function Course() {
                                                                                 <i className="off fas fa-star"></i>
                                                                                 <i className="off fas fa-star"></i>
                                                                             </span>
-                                                                            <span className="rbt-lable count">1</span>
+                                                                            <span className="fz-13">(1) star</span>
                                                                         </label>
                                                                     </li>
                                                                 </ul>
                                                             </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-lg-3 col-md-6 col-sm-6 col-12">
+                                                        <div className="rbt-single-widget rbt-widget-prices">
+                                                            <div className="inner">
+                                                                <h4 className="rbt-widget-title-2">Prices</h4>
+                                                                <ul className="rbt-sidebar-list-wrapper prices-list-check row">
+                                                                    <li className="rbt-check-group m-0 pl--0 col-6">
+                                                                        <label htmlFor="prices-list-1">Min</label>
+                                                                        <input type="number" name="min" min="0" placeholder="0" onChange={handlePriceChange} />
+                                                                    </li>
+                                                                    <li className="rbt-check-group m-0 pr--0 col-6">
+                                                                        <label htmlFor="prices-list-2">Max</label>
+                                                                        <input type="number" name="max" min="0" placeholder="0" onChange={handlePriceChange} />
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text-center mt-5">
+                                                            <button className="rbt-btn btn-gradient btn-sm btn-not__hover fw-300 w-100" onClick={handleClearFilters}>
+                                                                <i className="feather feather-filter"></i> Clear All Filters
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
