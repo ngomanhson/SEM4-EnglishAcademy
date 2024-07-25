@@ -86,6 +86,16 @@ function ResultTestOnline() {
         }
     }, [resultTest]);
 
+    const processColor = (value) => {
+        if (value >= 90) {
+            return "#41E5A1";
+        } else if (value >= 50) {
+            return "#ff9d4d";
+        } else {
+            return "#ff4d4d";
+        }
+    };
+
     return (
         <>
             {loading && <Loading />}
@@ -110,8 +120,29 @@ function ResultTestOnline() {
                                                                 <td>{resultTest.status ? <span className="text-success">Passed</span> : <span className="text-danger">Not Pass</span>}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>Score</th>
-                                                                <td>{resultTest.score}</td>
+                                                                <th className="align-middle">Score</th>
+                                                                <td>
+                                                                    <div className="progress-circle">
+                                                                        <svg className="progress-ring" width="50" height="50">
+                                                                            <circle className="progress-ring-circle" stroke="#f1f1f1" strokeWidth="4" fill="transparent" r="20" cx="25" cy="25" />
+                                                                            <circle
+                                                                                className="progress-ring-circle progress-ring-indicator"
+                                                                                stroke={processColor(resultTest.score)}
+                                                                                strokeWidth="4"
+                                                                                fill="transparent"
+                                                                                r="20"
+                                                                                cx="25"
+                                                                                cy="25"
+                                                                                style={{ strokeDashoffset: `${((100 - resultTest.score) * 125) / 100}px` }}
+                                                                            />
+                                                                            <text x="50%" y="50%" dy="4px" textAnchor="middle">
+                                                                                <tspan className="progress-text" fill={processColor(resultTest.score)}>
+                                                                                    {resultTest.score}
+                                                                                </tspan>
+                                                                            </text>
+                                                                        </svg>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>The test duration </th>

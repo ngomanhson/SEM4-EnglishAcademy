@@ -170,9 +170,6 @@ function Course() {
         });
     };
 
-    console.log(uniqueCategories);
-    console.log(levelCounts);
-
     return (
         <>
             {loading ? (

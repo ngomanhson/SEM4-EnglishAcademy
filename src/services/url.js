@@ -49,6 +49,7 @@ const url = {
 
     AUTH: {
         REGISTER: "auth/student/signup",
+        NEW_REGISTER: "auth/student/new/signup",
         LOGIN: "auth/student/signip",
         CHANGE_PASSWORD: "student/change-password",
         FORGOT_PASSWORD: "auth/student/forgot-password",

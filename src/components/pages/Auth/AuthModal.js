@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { setAccessToken } from "../../../utils/auth";
 
 function AuthModal({ handleEvent }) {
-    const [formType, setFormType] = useState("login");
+    const [formType, setFormType] = useState("register");
     const [formData, setFormData] = useState({
         fullname: "",
         phone: "",
@@ -54,16 +54,17 @@ function AuthModal({ handleEvent }) {
             newErrors.email = "Please enter a valid email address.";
             valid = false;
         }
-
-        if (!formData.password) {
-            newErrors.password = "Please enter your password.";
-            valid = false;
-        } else if (formData.password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters.";
-            valid = false;
-        } else if (formData.password.length > 50) {
-            newErrors.password = "Password must be less than 50 characters.";
-            valid = false;
+        if (formType === "login") {
+            if (!formData.password) {
+                newErrors.password = "Please enter your password.";
+                valid = false;
+            } else if (formData.password.length < 6) {
+                newErrors.password = "Password must be at least 6 characters.";
+                valid = false;
+            } else if (formData.password.length > 50) {
+                newErrors.password = "Password must be less than 50 characters.";
+                valid = false;
+            }
         }
 
         setFormErrors(newErrors);
@@ -73,7 +74,11 @@ function AuthModal({ handleEvent }) {
     const handleCreateAccount = async () => {
         if (validateForm()) {
             try {
-                const registerRequest = await api.post(url.AUTH.REGISTER, formData);
+                const registerRequest = await api.post(url.AUTH.NEW_REGISTER, {
+                    fullname: formData.fullname,
+                    phone: formData.phone,
+                    email: formData.email,
+                });
                 if (registerRequest.status === 200) {
                     const token = registerRequest.data.data;
                     setAccessToken(token);
@@ -85,8 +90,6 @@ function AuthModal({ handleEvent }) {
                     setFormData({
                         fullname: "",
                         phone: "",
-                        email: "",
-                        password: "",
                     });
                     await handleEvent();
                 }
@@ -170,11 +173,11 @@ function AuthModal({ handleEvent }) {
     return (
         <div className="modal fade" id="login-modal" tabIndex="-1" aria-labelledby="modal-label" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content border-0">
+                <div className="modal-content border-0" style={{ borderRadius: 15 }}>
                     <div className="modal-header p-5 pb-2" style={{ alignItems: "start", border: "none" }}>
                         <div>
                             <h5 className="modal-title fw-500" id="modal-label">
-                                {formType === "login" ? "Login to your account" : "Create an account to save results"}
+                                {formType === "login" ? "Login to your account" : "Enter your information to save the result."}
                             </h5>
                             <p className="fz-12 fw-300">
                                 {formType === "login"
@@ -282,29 +285,6 @@ function AuthModal({ handleEvent }) {
                                     {formErrors.phone && <div className="invalid-feedback fz-12">{formErrors.phone}</div>}
                                 </div>
 
-                                <div className="rbt-form-group mt-3">
-                                    <label htmlFor="password" className="fz-14 text-dark mb-2">
-                                        Password <span className="text-danger">*</span>
-                                    </label>
-                                    <div className="form-group__custom mb-3">
-                                        <input
-                                            type={`${showPassword ? "text" : "password"}`}
-                                            name="password"
-                                            id="password"
-                                            className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
-                                            value={formData.password}
-                                            onChange={handleChange}
-                                            placeholder="********"
-                                        />
-                                        {formErrors.password && <div className="invalid-feedback fz-12">{formErrors.password}</div>}
-                                        {!formErrors.password && (
-                                            <span className="view-password" onClick={handleTogglePassword}>
-                                                {!showPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-
                                 <div className="rbt-form-group mt-5">
                                     <button className="rbt-btn btn-violet hover-icon-reverse btn-not__hover w-100 fz-15" onClick={handleCreateAccount}>
                                         <span className="icon-reverse-wrapper">
@@ -321,8 +301,8 @@ function AuthModal({ handleEvent }) {
                             </div>
                         )}
                         <div className="text-center mt-3">
-                            <button className="btn btn-link" onClick={handleChangeForm}>
-                                {formType === "login" ? "Create an account" : "Already have an account? Login"}
+                            <button className="btn mt-3 btn-link bg-transparent text-primary fw-300 fz-13 btn-not__hover" onClick={handleChangeForm}>
+                                {formType === "login" ? "Enter your information" : "Already have an account? Login"}
                             </button>
                         </div>
                     </div>

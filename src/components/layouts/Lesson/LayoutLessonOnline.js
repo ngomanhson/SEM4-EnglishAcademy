@@ -9,7 +9,7 @@ import { getAccessToken } from "../../../utils/auth";
 import { formatMinute } from "../../../utils/formatTime";
 import config from "../../../config";
 
-function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
+function LayoutLessonOnline({ children, title, nextLesson = true }) {
     const { courseSlug } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -427,10 +427,6 @@ function LayoutLessonOnline({ children, title, nextLesson, currentTime }) {
         </>
     );
 }
-
-LayoutLessonOnline.defaultProps = {
-    nextLesson: true,
-};
 
 LayoutLessonOnline.proTypes = {
     children: PropTypes.node.isRequired,
