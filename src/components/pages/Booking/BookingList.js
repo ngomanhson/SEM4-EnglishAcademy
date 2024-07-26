@@ -3,17 +3,17 @@ import { useAxiosGet } from "../../../hooks";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LoadingSpinner from "../../layouts/LoadingSpinner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../layouts/index";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Pagination from "../../layouts/Pagination";
 import { useState } from "react";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function BookingList() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const bookingData = useAxiosGet({
         path: url.TUTOR.BOOKING,
@@ -22,25 +22,43 @@ function BookingList() {
         },
     });
 
+    const lessonBookingData = useAxiosGet({
+        path: url.LESSON_BOOKING.GET_BY_STUDENT,
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
+    });
+
     const bookingDetail = bookingData.response || [];
+    const lessonBooking = lessonBookingData.response || [];
 
-    // const formattedEvents = lessonBooking.map((event) => {
-    //     const formattedStartTime = event.scheduledStartTime.slice(0, 19);
-    //     const formattedEndTime = event.scheduledEndTime.slice(0, 19);
+    const addHours = (date, hours) => {
+        date.setHours(date.getHours() + hours);
+        return date;
+    };
 
-    //     const isNullEvent = event.path === null;
-    //     const eventTitle = isNullEvent ? "N/A" : event.path;
+    const formattedEvents = lessonBooking.map((event) => {
+        const formattedStartTime = event.scheduledStartTime.slice(0, 19);
+        const formattedEndTime = event.scheduledEndTime.slice(0, 19);
 
-    //     return {
-    //         title: eventTitle,
-    //         start: formattedStartTime,
-    //         end: formattedEndTime,
-    //         backgroundColor: isNullEvent ? "#eff0f2" : "#ecfafb",
-    //         textColor: isNullEvent ? "#5b6b79" : "#2ca87f",
-    //         borderColor: isNullEvent ? "#5b6b79" : "#2ca87f",
-    //         isNullEvent: isNullEvent,
-    //     };
-    // });
+        const isNullEvent = event.path === null;
+        const eventTitle = isNullEvent ? "N/A" : event.path;
+
+        const now = addHours(new Date(), 7).toISOString().slice(0, 19);
+
+        const isPastEvent = formattedEndTime < now;
+
+        return {
+            title: eventTitle,
+            start: formattedStartTime,
+            end: formattedEndTime,
+            backgroundColor: isPastEvent ? "#d3d3d3" : isNullEvent ? "#eff0f2" : "#ecfafb",
+            textColor: isPastEvent ? "#a9a9a9" : isNullEvent ? "#5b6b79" : "#2ca87f",
+            borderColor: isPastEvent ? "#a9a9a9" : isNullEvent ? "#5b6b79" : "#2ca87f",
+            isNullEvent: isNullEvent,
+            isPastEvent: isPastEvent,
+        };
+    });
 
     const itemsPerPage = 3;
     const [currentPage, setCurrentPage] = useState(1);
@@ -155,18 +173,20 @@ function BookingList() {
                                                 right: "dayGridMonth,timeGridWeek,timeGridDay",
                                             }}
                                             eventDisplay="block"
-                                            // events={formattedEvents}
-                                            // eventContent={(arg) => {
-                                            //     return { html: arg.event.title };
-                                            // }}
-                                            // eventClick={(info) => {
-                                            //     const eventId = info.event.title;
-                                            //     if (!info.event.extendedProps.isNullEvent) {
-                                            //         navigate(`/room/${eventId}`);
-                                            //     } else {
-                                            //         toast.error("Event not available.");
-                                            //     }
-                                            // }}
+                                            events={formattedEvents}
+                                            eventContent={(arg) => {
+                                                return { html: arg.event.title };
+                                            }}
+                                            eventClick={(info) => {
+                                                const eventId = info.event.title;
+                                                if (info.event.extendedProps.isPastEvent) {
+                                                    toast.error("This event is in the past and cannot be accessed.");
+                                                } else if (!info.event.extendedProps.isNullEvent) {
+                                                    navigate(`/room/${eventId}`);
+                                                } else {
+                                                    toast.error("Event not available.");
+                                                }
+                                            }}
                                         />
                                     </div>
                                 )}
