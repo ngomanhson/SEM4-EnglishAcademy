@@ -96,6 +96,7 @@ const url = {
 
     LESSON_BOOKING: {
         GET_ALL: "lession-booking",
+        GET_BY_STUDENT: "lession-booking/student",
     },
 
     SUBJECT: {
