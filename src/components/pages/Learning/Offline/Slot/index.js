@@ -158,74 +158,64 @@ function SlotOffline() {
                                             ) : (
                                                 <div className="rbt-accordion-style rbt-accordion-02 accordion">
                                                     <div className="accordion" id="accordionExampleb2">
-                                                        {finalTest.map((slot, index) => {
-                                                            const accordionId = `accordion-${slot.id}-${index}`;
-                                                            const collapseId = `collapse-${slot.id}-${index}`;
-                                                            return (
-                                                                <div className="accordion-item card" key={index}>
-                                                                    <h2 className="accordion-header card-header" style={{ fontSize: 18 }} id={`heading-${accordionId}`}>
-                                                                        <button
-                                                                            className="accordion-button collapsed font-system"
-                                                                            type="button"
-                                                                            data-bs-toggle="collapse"
-                                                                            data-bs-target={`#${collapseId}`}
-                                                                            aria-expanded="false"
-                                                                            aria-controls={collapseId}
-                                                                        >
-                                                                            Final exam
-                                                                        </button>
-                                                                        <span
-                                                                            className="fz-12 fw-300 cursor-pointer"
-                                                                            data-bs-toggle="collapse"
-                                                                            data-bs-target={`#${collapseId}`}
-                                                                            aria-expanded="false"
-                                                                            aria-controls={collapseId}
-                                                                        >
-                                                                            Start Date: {slot && format(new Date(slot.startDate), "HH:mm:ss dd-MM-yyyy")}
-                                                                        </span>
-                                                                    </h2>
-                                                                    <div
-                                                                        id={collapseId}
-                                                                        className="accordion-collapse collapse"
-                                                                        aria-labelledby={`heading-${accordionId}`}
-                                                                        data-bs-parent="#accordionExampleb2"
+                                                        {finalTest?.[0] && (
+                                                            <div className="accordion-item card" key={0}>
+                                                                <h2 className="accordion-header card-header" style={{ fontSize: 18 }} id={`heading-accordion-${finalTest[0].id}-0`}>
+                                                                    <button
+                                                                        className="accordion-button collapsed font-system"
+                                                                        type="button"
+                                                                        data-bs-toggle="collapse"
+                                                                        data-bs-target={`#collapse-${finalTest[0].id}-0`}
+                                                                        aria-expanded="false"
+                                                                        aria-controls={`collapse-${finalTest[0].id}-0`}
                                                                     >
-                                                                        <div className="accordion-body card-body pr--0 p-0">
-                                                                            <ul className="rbt-course-main-content liststyle">
-                                                                                {finalTest ? (
-                                                                                    finalTest.length === 0 ? (
-                                                                                        <p className="fw-300" style={{ padding: "20px 5px" }}>
-                                                                                            This slot has no content.
-                                                                                        </p>
-                                                                                    ) : (
-                                                                                        finalTest.map((slotItem) => (
-                                                                                            <li className="item-subject" key={slotItem.id}>
-                                                                                                <Link to={`/subject-test/${slotItem.slug}`}>
-                                                                                                    <div className="wrap" style={{ flex: 1 }}>
-                                                                                                        <div className="course-content-left">
-                                                                                                            <div className="d-flex align-content-center" style={{ flex: 1 }}>
-                                                                                                                <i className="fas fa-file-signature"></i>
-                                                                                                                <div className="d-flex flex-column">
-                                                                                                                    <span className="text">{slotItem.title}</span>
-                                                                                                                </div>
-                                                                                                            </div>
+                                                                        Final exam
+                                                                    </button>
+                                                                    <span
+                                                                        className="fz-12 fw-300 cursor-pointer"
+                                                                        data-bs-toggle="collapse"
+                                                                        data-bs-target={`#collapse-${finalTest[0].id}-0`}
+                                                                        aria-expanded="false"
+                                                                        aria-controls={`collapse-${finalTest[0].id}-0`}
+                                                                    >
+                                                                        Start Date: {format(new Date(finalTest[0].startDate), "HH:mm:ss dd-MM-yyyy")}
+                                                                    </span>
+                                                                </h2>
+                                                                <div
+                                                                    id={`collapse-${finalTest[0].id}-0`}
+                                                                    className="accordion-collapse collapse"
+                                                                    aria-labelledby={`heading-accordion-${finalTest[0].id}-0`}
+                                                                    data-bs-parent="#accordionExampleb2"
+                                                                >
+                                                                    <div className="accordion-body card-body pr--0 p-0">
+                                                                        <ul className="rbt-course-main-content liststyle">
+                                                                            {finalTest.length === 0 ? (
+                                                                                <p className="fw-300" style={{ padding: "20px 5px" }}>
+                                                                                    This slot has no content.
+                                                                                </p>
+                                                                            ) : (
+                                                                                finalTest?.[0] && (
+                                                                                    <li className="item-subject" key={finalTest[0].id}>
+                                                                                        <Link to={`/subject-test/${finalTest[0].slug}`}>
+                                                                                            <div className="wrap" style={{ flex: 1 }}>
+                                                                                                <div className="course-content-left">
+                                                                                                    <div className="d-flex align-content-center" style={{ flex: 1 }}>
+                                                                                                        <i className="fas fa-file-signature"></i>
+                                                                                                        <div className="d-flex flex-column">
+                                                                                                            <span className="text">{finalTest[0].title}</span>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </Link>
-                                                                                            </li>
-                                                                                        ))
-                                                                                    )
-                                                                                ) : (
-                                                                                    <p className="fw-300" style={{ padding: "20px 5px" }}>
-                                                                                        This slot has no content.
-                                                                                    </p>
-                                                                                )}
-                                                                            </ul>
-                                                                        </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </Link>
+                                                                                    </li>
+                                                                                )
+                                                                            )}
+                                                                        </ul>
                                                                     </div>
                                                                 </div>
-                                                            );
-                                                        })}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             )}
