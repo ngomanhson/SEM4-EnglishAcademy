@@ -8,6 +8,7 @@ const Questions = ({ question, questionIndex, selectedAnswers, handleAnswerSelec
             <h5 className="exam__inner-desc fw-500">
                 Question {questionIndex + 1}: {question.title}
             </h5>
+            {question.paragraph && <p className="fw-300">{question.paragraph}</p>}
             {question.image && <img src={question.image} className="w-100 mb-5" alt="" />}
             {question.audiomp3 && <AudioPlayer src={question.audiomp3} autoPlay={false} controls className="mb-5 w-100" />}
 

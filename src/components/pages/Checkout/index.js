@@ -164,7 +164,7 @@ function Checkout() {
                                             </div>
                                         </div>
 
-                                        <hr className="mt-5" />
+                                        {/* <hr className="mt-5" />
 
                                         <div className="rbt-form-group">
                                             <h5 className="font-system fw-500 mb-2" id="paymentModalLabel">
@@ -180,7 +180,7 @@ function Checkout() {
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <hr className="mt-5" />
 
