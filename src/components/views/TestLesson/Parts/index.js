@@ -11,7 +11,7 @@ function Parts({ session, currentSessionIndex, sessionIndex, selectedAnswers, ha
                         </h4>
                         <p className="fw-300">The total number of questions: {session.totalQuestion}</p>
                     </div>
-                    <div className="d-flex justify-content-end align-items-center">
+                    {/* <div className="d-flex justify-content-end align-items-center">
                         <button type="button" className="btn-circle" onClick={handlePrevSession} disabled={currentSessionIndex === 0}>
                             <i className="feather-chevron-left"></i>
                         </button>
@@ -19,11 +19,43 @@ function Parts({ session, currentSessionIndex, sessionIndex, selectedAnswers, ha
                         <button type="button" className="btn-circle ml-2" onClick={handleNextSession} disabled={currentSessionIndex === testData.testOnlineSessionDetails?.length - 1}>
                             <i className="feather-chevron-right"></i>
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 {session.questionTestOnlineDTOS?.map((question, questionIndex) => (
                     <Questions key={question.id} question={question} questionIndex={questionIndex} selectedAnswers={selectedAnswers} handleAnswerSelect={handleAnswerSelect} />
                 ))}
+
+                <div className="d-flex justify-content-end align-items-center">
+                    <button
+                        type="button"
+                        className="btn-circle"
+                        onClick={() => {
+                            handlePrevSession();
+                            window.scrollTo({
+                                top: 0,
+                                behavior: "smooth",
+                            });
+                        }}
+                        disabled={currentSessionIndex === 0}
+                    >
+                        <i className="feather-chevron-left"></i>
+                    </button>
+
+                    <button
+                        type="button"
+                        className="btn-circle ml-2"
+                        onClick={() => {
+                            handleNextSession();
+                            window.scrollTo({
+                                top: 0,
+                                behavior: "smooth",
+                            });
+                        }}
+                        disabled={currentSessionIndex === testData.testOnlineSessionDetails?.length - 1}
+                    >
+                        <i className="feather-chevron-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     );

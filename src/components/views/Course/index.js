@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { formatNumber } from "../../../utils/formatNumber";
 import Image from "../../commons/Image";
 
-function Courses({ course, stars }) {
+function Courses({ course, stars, lineClamp = false }) {
     return (
         <div className="course-grid-3">
             <div className="rbt-card variation-01 rbt-hover">
@@ -34,7 +34,7 @@ function Courses({ course, stars }) {
                     </div>
 
                     <h4 className="rbt-card-title">
-                        <Link to={`/course-online/${course.slug}`} className="font-system">
+                        <Link to={`/course-online/${course.slug}`} className={`font-system ${lineClamp && "line-clamp-1"}`}>
                             {course.name}
                         </Link>
                     </h4>
