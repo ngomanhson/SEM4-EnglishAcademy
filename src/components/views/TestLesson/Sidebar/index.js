@@ -9,7 +9,16 @@ function Sidebar({ timeRemaining, testData, setCurrentSessionIndex, selectedAnsw
 
                     {testData.testOnlineSessionDetails?.map((session, index) => (
                         <div key={session.id}>
-                            <p className="m-0 fz-16 label-session" onClick={() => setCurrentSessionIndex(index)}>
+                            <p
+                                className="m-0 fz-16 label-session"
+                                onClick={() => {
+                                    setCurrentSessionIndex(index);
+                                    window.scrollTo({
+                                        top: 0,
+                                        behavior: "smooth",
+                                    });
+                                }}
+                            >
                                 Part {index + 1}: {session.sessionName}
                             </p>
                             <div className="mt-3 choice-wrapper mb-3">

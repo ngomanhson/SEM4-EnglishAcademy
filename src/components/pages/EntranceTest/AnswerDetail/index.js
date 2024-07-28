@@ -64,8 +64,11 @@ function AnswerDetail() {
                                                     <h5 className="exam__inner-desc fw-500">
                                                         Question {index + 1}: {result.title}
                                                     </h5>
-                                                    {result.image && <img src={result.image} className="w-100 mb-5" alt="" />}
-                                                    {result.audiomp3 && <AudioPlayer src={result.audiomp3} autoPlay={false} controls className="mb-5 w-100" />}
+                                                    {result.image && result.image.trim() !== "" && <img src={result.image} alt="" className="mb-5 w-100" />}
+
+                                                    {result.audiomp3 && result.audiomp3 !== null && result.audiomp3.trim() !== "" && (
+                                                        <AudioPlayer src={result.audiomp3} autoPlay={false} controls className="mb-5 w-100" />
+                                                    )}
 
                                                     {["option1", "option2", "option3", "option4"].map((option, optionIndex) => (
                                                         <div className="answer-group" key={optionIndex}>

@@ -28,7 +28,7 @@ function LearnVideos({ lesson, handleCurrentTimeChange, formattedDate, formatTim
                     </div>
                 </div>
 
-                <div className="text-center">
+                <div className="text-center mt-5">
                     <div className="d-flex align-content-center justify-content-center gap-3">
                         <button className="btn btn-primary__custom">
                             <span>

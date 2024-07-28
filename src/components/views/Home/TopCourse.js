@@ -57,7 +57,7 @@ function TopCourse() {
                     <Slider {...settings} className="custom-slick-slider">
                         {topCourse.map((course) => (
                             <div className="course-slide" key={course.id}>
-                                <Courses course={course} />
+                                <Courses course={course} lineClamp={true} />
                             </div>
                         ))}
                     </Slider>
