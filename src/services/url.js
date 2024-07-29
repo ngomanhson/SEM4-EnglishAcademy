@@ -17,6 +17,7 @@ const url = {
         BUY_COURSE: "course-online-student",
         CHECK_REGISTER: "course-online-student/check",
         REVIEW: "/review",
+        RELATED: "any/course-online/related",
     },
 
     ENTRANCE_TEST: {

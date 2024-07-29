@@ -90,7 +90,9 @@ function TutorDetail() {
 
                                 <div className="edu mt-5">
                                     <h4 className="mb-4">Certificate</h4>
-                                    <div className="content pr--0">{tutor && tutor.cetificate && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: tutor.cetificate }} />}</div>
+                                    <div className="content pr--0 tutor-certificate">
+                                        {tutor && tutor.cetificate && <div className="data-texteditor" dangerouslySetInnerHTML={{ __html: tutor.cetificate }} />}
+                                    </div>
                                 </div>
 
                                 <div className="rbt-separator-mid mt-5">

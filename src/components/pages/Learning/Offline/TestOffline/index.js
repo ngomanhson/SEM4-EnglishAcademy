@@ -335,7 +335,7 @@ function TestOffline() {
                                                                     handleAnswerSelect={handleAnswerSelect}
                                                                 />
 
-                                                                {question.type === 1 && (
+                                                                {question.type === 2 && (
                                                                     <Speaking
                                                                         question={question}
                                                                         audioRefs={audioRefs}
