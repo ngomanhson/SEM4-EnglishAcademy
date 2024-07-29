@@ -30,7 +30,7 @@ function TestLessonOnline() {
     const [timeRemaining, setTimeRemaining] = useState(1800);
     const [startTime, setStartTime] = useState(null);
 
-    const { response, loading, status } = useAxiosGet({
+    const { response, loading, errorStatus } = useAxiosGet({
         path: url.ONLINE_COURSE.TEST + `/${testSlug}`,
         headers: {
             "Content-Type": "application/json",
@@ -48,12 +48,12 @@ function TestLessonOnline() {
     }, [response]);
 
     useEffect(() => {
-        if (status === 404) {
+        if (errorStatus === 404) {
             setDataNotFound(true);
         } else {
             setDataNotFound(false);
         }
-    }, [status]);
+    }, [errorStatus]);
 
     const handleConfirm = () => {
         setConfirmed(true);

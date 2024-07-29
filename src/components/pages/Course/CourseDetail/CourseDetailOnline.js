@@ -350,52 +350,64 @@ function CourseDetailOnline() {
                                             </div>
                                         </div>
                                         <div className="row g-5">
-                                            {relatedCourse.map((course, courseIndex) => (
-                                                <div className="col-lg-6 col-md-6 col-sm-6 col-12" key={courseIndex}>
-                                                    <div className="rbt-card variation-01 rbt-hover">
-                                                        <div className="rbt-card-img">
-                                                            <Link to={`/course-online/${course.slug}`}>
-                                                                <img src={course.image} alt={course.name} />
-                                                            </Link>
-                                                        </div>
-                                                        <div className="rbt-card-body">
-                                                            <div className="rbt-card-top">
-                                                                <div className="rbt-review">
-                                                                    <div className="rating">
-                                                                        <i className="fas fa-star"></i>
-                                                                        <i className="fas fa-star"></i>
-                                                                        <i className="fas fa-star"></i>
-                                                                        <i className="fas fa-star"></i>
-                                                                        <i className="fas fa-star"></i>
-                                                                    </div>
-                                                                    <span className="rating-count"> (15 Reviews)</span>
-                                                                </div>
-                                                                <div className="rbt-bookmark-btn">
-                                                                    <a className="rbt-round-btn" title="Bookmark" href="#!">
-                                                                        <i className="feather-bookmark"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <h4 className="rbt-card-title">
-                                                                <a href="course-details.html" className="font-system">
-                                                                    {course.name}
-                                                                </a>
-                                                            </h4>
+                                            {relatedCourse.map((course, courseIndex) => {
+                                                const stars = [];
+                                                const roundedScore = Math.round(course.star * 2) / 2;
+                                                const fullStars = Math.floor(roundedScore);
+                                                const halfStar = roundedScore - fullStars === 0.5;
+                                                const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
-                                                            <p className="rbt-card-text">{}</p>
+                                                for (let i = 0; i < fullStars; i++) {
+                                                    stars.push(<i key={i} className="fa fa-star"></i>);
+                                                }
+                                                if (halfStar) {
+                                                    stars.push(<i key="half" className="fas fa-star-half-alt"></i>);
+                                                }
+                                                for (let i = 0; i < emptyStars; i++) {
+                                                    stars.push(<i key={`empty-${i}`} className="far fa-star"></i>);
+                                                }
 
-                                                            <div className="rbt-card-bottom">
-                                                                <div className="rbt-price">
-                                                                    <span className="current-price">${course.price.toFixed(2)}</span>
-                                                                </div>
-                                                                <Link to={`/course-online/${course.slug}`} className="rbt-btn-link left-icon">
-                                                                    <i className="feather-shopping-cart"></i> View more
+                                                return (
+                                                    <div className="col-lg-6 col-md-6 col-sm-6 col-12" key={courseIndex}>
+                                                        <div className="rbt-card variation-01 rbt-hover">
+                                                            <div className="rbt-card-img">
+                                                                <Link to={`/course-online/${course.slug}`}>
+                                                                    <img src={course.image} alt={course.name} />
                                                                 </Link>
+                                                            </div>
+                                                            <div className="rbt-card-body">
+                                                                <div className="rbt-card-top">
+                                                                    <div className="rbt-review">
+                                                                        <div className="rating">{stars}</div>
+                                                                        <span className="rating-count"> ({formatNumber(course.totalReview)} Reviews)</span>
+                                                                    </div>
+                                                                    <div className="rbt-bookmark-btn">
+                                                                        <Link to="" className="rbt-round-btn" title="Bookmark">
+                                                                            <i className="feather-bookmark"></i>
+                                                                        </Link>
+                                                                    </div>
+                                                                </div>
+                                                                <h4 className="rbt-card-title">
+                                                                    <a href="course-details.html" className="font-system">
+                                                                        {course.name}
+                                                                    </a>
+                                                                </h4>
+
+                                                                <p className="rbt-card-text line-clamp">{course.description}</p>
+
+                                                                <div className="rbt-card-bottom">
+                                                                    <div className="rbt-price">
+                                                                        <span className="current-price">${course.price.toFixed(2)}</span>
+                                                                    </div>
+                                                                    <Link to={`/course-online/${course.slug}`} className="rbt-btn-link left-icon">
+                                                                        View more <i className="feather-arrow-right"></i>
+                                                                    </Link>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 </div>
