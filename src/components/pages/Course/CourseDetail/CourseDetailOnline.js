@@ -97,6 +97,24 @@ function CourseDetailOnline() {
         }
     }, [checkByCourse.response, navigate, slug]);
 
+    const [relatedCourse, setRelatedCourse] = useState([]);
+
+    const loadRelatedCourse = useCallback(async () => {
+        try {
+            const courseResponse = await api.get(url.ONLINE_COURSE.RELATED + `/${slug}`);
+
+            setRelatedCourse(courseResponse.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [slug]);
+
+    useEffect(() => {
+        loadRelatedCourse();
+    }, [loadRelatedCourse]);
+
+    console.log(relatedCourse);
+
     return (
         <>
             {loading && <Loading />}
@@ -299,8 +317,6 @@ function CourseDetailOnline() {
                                             </div>
                                         </div>
 
-                                        {/* <Rating /> */}
-
                                         {reviews.length === 0 || (
                                             <div className="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
                                                 <div className="section-title">
@@ -334,119 +350,52 @@ function CourseDetailOnline() {
                                             </div>
                                         </div>
                                         <div className="row g-5">
-                                            <div className="col-lg-6 col-md-6 col-sm-6 col-12" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                <div className="rbt-card variation-01 rbt-hover">
-                                                    <div className="rbt-card-img">
-                                                        <a href="course-details.html">
-                                                            <img src="assets/images/course/course-online-01.jpg" alt="Card" />
-                                                            <div className="rbt-badge-3 bg-white">
-                                                                <span>-40%</span>
-                                                                <span>Off</span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div className="rbt-card-body">
-                                                        <div className="rbt-card-top">
-                                                            <div className="rbt-review">
-                                                                <div className="rating">
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                </div>
-                                                                <span className="rating-count"> (15 Reviews)</span>
-                                                            </div>
-                                                            <div className="rbt-bookmark-btn">
-                                                                <a className="rbt-round-btn" title="Bookmark" href="#!">
-                                                                    <i className="feather-bookmark"></i>
-                                                                </a>
-                                                            </div>
+                                            {relatedCourse.map((course, courseIndex) => (
+                                                <div className="col-lg-6 col-md-6 col-sm-6 col-12" key={courseIndex}>
+                                                    <div className="rbt-card variation-01 rbt-hover">
+                                                        <div className="rbt-card-img">
+                                                            <Link to={`/course-online/${course.slug}`}>
+                                                                <img src={course.image} alt={course.name} />
+                                                            </Link>
                                                         </div>
-
-                                                        <h4 className="rbt-card-title">
-                                                            <a href="course-details.html" className="font-system">
-                                                                React Front To Back
-                                                            </a>
-                                                        </h4>
-
-                                                        <ul className="rbt-meta">
-                                                            <li>
-                                                                <i className="feather-book"></i>12 Lessons
-                                                            </li>
-                                                            <li>
-                                                                <i className="feather-users"></i>50 Students
-                                                            </li>
-                                                        </ul>
-
-                                                        <p className="rbt-card-text">It is a long established fact that a reader will be distracted.</p>
-
-                                                        <div className="rbt-card-bottom">
-                                                            <div className="rbt-price">
-                                                                <span className="current-price">$60</span>
-                                                                <span className="off-price">$120</span>
+                                                        <div className="rbt-card-body">
+                                                            <div className="rbt-card-top">
+                                                                <div className="rbt-review">
+                                                                    <div className="rating">
+                                                                        <i className="fas fa-star"></i>
+                                                                        <i className="fas fa-star"></i>
+                                                                        <i className="fas fa-star"></i>
+                                                                        <i className="fas fa-star"></i>
+                                                                        <i className="fas fa-star"></i>
+                                                                    </div>
+                                                                    <span className="rating-count"> (15 Reviews)</span>
+                                                                </div>
+                                                                <div className="rbt-bookmark-btn">
+                                                                    <a className="rbt-round-btn" title="Bookmark" href="#!">
+                                                                        <i className="feather-bookmark"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                            <a className="rbt-btn-link" href="course-details.html">
-                                                                Learn More<i className="feather-arrow-right"></i>
-                                                            </a>
+                                                            <h4 className="rbt-card-title">
+                                                                <a href="course-details.html" className="font-system">
+                                                                    {course.name}
+                                                                </a>
+                                                            </h4>
+
+                                                            <p className="rbt-card-text">{}</p>
+
+                                                            <div className="rbt-card-bottom">
+                                                                <div className="rbt-price">
+                                                                    <span className="current-price">${course.price.toFixed(2)}</span>
+                                                                </div>
+                                                                <Link to={`/course-online/${course.slug}`} className="rbt-btn-link left-icon">
+                                                                    <i className="feather-shopping-cart"></i> View more
+                                                                </Link>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6 col-sm-6 col-12" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                <div className="rbt-card variation-01 rbt-hover">
-                                                    <div className="rbt-card-img">
-                                                        <a href="course-details.html">
-                                                            <img src="assets/images/course/course-online-02.jpg" alt="Card" />
-                                                        </a>
-                                                    </div>
-                                                    <div className="rbt-card-body">
-                                                        <div className="rbt-card-top">
-                                                            <div className="rbt-review">
-                                                                <div className="rating">
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                </div>
-                                                                <span className="rating-count"> (15 Reviews)</span>
-                                                            </div>
-                                                            <div className="rbt-bookmark-btn">
-                                                                <a className="rbt-round-btn" title="Bookmark" href="#!">
-                                                                    <i className="feather-bookmark"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <h4 className="rbt-card-title">
-                                                            <a href="course-details.html" className="font-system">
-                                                                PHP Beginner Advanced
-                                                            </a>
-                                                        </h4>
-                                                        <ul className="rbt-meta">
-                                                            <li>
-                                                                <i className="feather-book"></i>12 Lessons
-                                                            </li>
-                                                            <li>
-                                                                <i className="feather-users"></i>50 Students
-                                                            </li>
-                                                        </ul>
-
-                                                        <p className="rbt-card-text">It is a long established fact that a reader will be distracted.</p>
-
-                                                        <div className="rbt-card-bottom">
-                                                            <div className="rbt-price">
-                                                                <span className="current-price">$60</span>
-                                                                <span className="off-price">$120</span>
-                                                            </div>
-                                                            <a className="rbt-btn-link left-icon" href="course-details.html">
-                                                                <i className="feather-shopping-cart"></i> Add To Cart
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

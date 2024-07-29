@@ -32719,4 +32719,31 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.content.tutor-certificate ul li {
+    list-style-type: none;
+    color: #45494f;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-top: 5px;
+    margin-bottom: 0;
+    align-items: center;
+    display: flex;
+}
+
+
+.content.tutor-certificate ul li::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-image: url('/assets/images/icons/card-icon-1.png'); 
+    background-size: contain;
+    background-repeat: no-repeat; 
+    margin-right: 5px;
+}
+
+.content.tutor-certificate a {
+    color: #04a0ff;
+    text-decoration: underline;
+}
 /*# sourceMappingURL=../maps/style.css.map */
