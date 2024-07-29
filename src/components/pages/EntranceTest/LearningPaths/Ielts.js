@@ -281,13 +281,13 @@ function LearningPathIelts() {
                                         <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={course.id}>
                                             <div className="rbt-card variation-01 rbt-hover">
                                                 <div className="rbt-card-img">
-                                                    <Link to={`/course-detail/${course.slug}`}>
+                                                    <Link to={`/course-online/${course.slug}`}>
                                                         <Image src={course.image} alt={course.name} className="course-proposal__img" />
                                                     </Link>
                                                 </div>
                                                 <div className="rbt-card-body">
                                                     <h5 className="rbt-card-title">
-                                                        <Link to={`/course-detail/${course.slug}`} className="font-system" style={{ fontSize: 18 }}>
+                                                        <Link to={`/course-online/${course.slug}`} className="font-system" style={{ fontSize: 18 }}>
                                                             {course.name}
                                                         </Link>
                                                     </h5>
@@ -299,7 +299,7 @@ function LearningPathIelts() {
                                                         <div className="rbt-price">
                                                             <span className="current-price">${course.price && course.price.toFixed(2)}</span>
                                                         </div>
-                                                        <Link to={`/course-detail/${course.slug}`} className="rbt-btn-link">
+                                                        <Link to={`/course-online/${course.slug}`} className="rbt-btn-link">
                                                             Learn More<i className="feather-arrow-right"></i>
                                                         </Link>
                                                     </div>
